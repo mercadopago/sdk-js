@@ -71,7 +71,7 @@ It is the public key for your account.
 |Option name|Default|Type|Description||
 |-|-|-|-|-|
 |`locale` | Browser default locale | *string* | Set the locale | **OPTIONAL** |
-|`processingMode` | `gateway` | *string* | Set the locale | **OPTIONAL**|
+|`processingMode` | `gateway` | *string* | Set the processing mode | **OPTIONAL**|
 
 <br />
 
