@@ -71,7 +71,6 @@ It is the public key for your account.
 |Option name|Default|Type|Description||
 |-|-|-|-|-|
 |`locale` | Browser default locale | *string* | Set the locale | **OPTIONAL** |
-|`processingMode` | `gateway` | *string* | Set the processing mode | **OPTIONAL**|
 
 <br />
 
@@ -80,7 +79,6 @@ It is the public key for your account.
 ```javascript
 var mercadopago = new MercadoPago('TEST_PUBLIC_KEY', {
   locale: 'pt-BR',
-  processingMode: 'gateway'
 })
 ```
 <br />
@@ -341,7 +339,7 @@ var cardToken = await mp.createCardToken({
 
 <br />
 
-## `mp instance`.cardForm({`amount`[`, autoMount`]`, form, callbacks`})
+## `mp instance`.cardForm({`amount`[`, autoMount`, `processingMode`]`, form, callbacks`})
 CardForm instantiation method.
 
 <br />
@@ -362,6 +360,16 @@ Payment total amount
 Mount the `Cardform Instance` when it is instantiated
 
 **default value**: `true`
+
+---
+
+`processingMode` | _string_, **OPTIONAL**
+
+Set the processing mode
+
+**valid values**: `"gateway"` | `"aggregator"`
+
+**default value**: `aggregator`
 
 ---
 
@@ -609,12 +617,12 @@ Returns all the necessary data to make a payment
 
 var mp = new MercadoPago('PUBLIC_KEY, {
         locale: 'pt-BR',
-        processingMode: 'aggregator'
     });
 
     var cardForm = mp.cardForm({
         amount: 1000,
         autoMount: true,
+        processingMode: 'aggregator'
         form: {
             id: 'form-checkout',
             cardholderName: {
