@@ -663,28 +663,28 @@ Returns all the necessary data to make a payment
              }
          },
          callbacks: {
-             onFormMounted: function(error) {
-                 if (error) console.log(`Handle error ${error}`)
-             },
-             onFormUnmounted: function(error) {
-                 if (error) console.log(`Handle error ${error}`)
-             },
-             onIdentificationTypesReceived: function(error, identificationTypes) {
-                 if (error) console.log(`Handle error ${error}`)
-             },
-             onPaymentMethodsReceived: function(error, paymentMethods) {
-                 if (error) console.log(`Handle error ${error}`)
-             },
-             onIssuersReceived: function(error, token) {
-                 if (error) console.log(`Handle error ${error}`)
-             },
-             onInstallmentsReceived: function(error, installments) {
-                 if (error) console.log(`Handle error ${error}`)
-             },
-             onCardTokenReceived: function(error, token) {
-                 if (error) console.log(`Handle error ${error}`)
-             },
-         }
+            onFormMounted: function(error) {
+                if (error) console.log('Callback handling error ', errror)
+            },
+            onFormUnmounted: function(error) {
+                if (error) console.log('Callback handling error ', error)
+            },
+            onIdentificationTypesReceived: function(error, identificationTypes) {
+                if (error) console.log('Callback handling error ', error)
+            },
+            onPaymentMethodsReceived: function(error, paymentMethods) {
+                if (error) console.log('Callback handling error ', error)
+            },
+            onIssuersReceived: function(error, token) {
+                if (error) console.log('Callback handling error ', error)
+            },
+            onInstallmentsReceived: function(error, installments) {
+                if (error) console.log('Callback handling error ', error)
+            },
+            onCardTokenReceived: function(error, token) {
+                if (error) console.log('Callback handling error ', error)
+            },
+        }
      })
 
      document.getElementById('form-checkout').addEventListener('submit', function(e) {
@@ -692,6 +692,7 @@ Returns all the necessary data to make a payment
          cardForm.createCardToken().then(function(token) {
              cardForm.getCardFormData().then(function(data) {
                  console.log('form Data: ', data)
+                // fetch data to your backend
              })
          })
      })
