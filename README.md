@@ -146,7 +146,7 @@ Returns a issuers list
 ### Example:
 
 ```javascript
-var identificationTypes = await mp.getIssuers({ payment_method_id: 'visa' })
+var issuers = await mp.getIssuers({ payment_method_id: 'visa' })
 ```
 
 ### Return: `PROMISE`
@@ -157,7 +157,7 @@ var identificationTypes = await mp.getIssuers({ payment_method_id: 'visa' })
   secure_thumbnail: string,
   thumbnail: string,
   processing_mode: string,
-  merchant_account_id?: unknown,
+  merchant_account_id?: string,
 }]
 ```
 
@@ -270,6 +270,7 @@ const installments = await mp.getInstallments({
 ```javascript
 [{
   ...
+  merchant_account_id?: string,
   payer_costs: [{
     installments: number;
     installment_rate: number;
@@ -461,6 +462,7 @@ The `callback` object contains callbaks functions to handle different stages of 
     name: string,
     site_id: string,
     processing_mode: string,
+    merchant_account_id?: string,
     additional_info_needed: string[],
     status: string,
     settings: [{
@@ -502,38 +504,26 @@ The `callback` object contains callbaks functions to handle different stages of 
 ---
 `installmentsResponse`
 ```javascript
-[{
-    installments: string,
-    installment_rate: number,
-    discount_rate: number,
-    min_allowed_amount: number,
-    max_allowed_amount: number,
-    recommended_message: string,
-    installment_amount: number,
-    total_amount: number,
-    payment_method_option_id: string,
-}]
+{
+    merchant_account_id?: string,
+    payer_costs: [{
+        installments: string,
+        installment_rate: number,
+        discount_rate: number,
+        min_allowed_amount: number,
+        max_allowed_amount: number,
+        recommended_message: string,
+        installment_amount: number,
+        total_amount: number,
+        payment_method_option_id: string,
+    }]
+}
 ```
 ---
 `cardTokenResponse`
 ```javascript
 {
     token: string
-}
-```
-
----
-
-`cardFormDataResponse`
-```javascript
-{
-    transaction_amount: string,
-    token: string,
-    installments: string,
-    payment_method_id: string,
-    issuer_id: string,
-    identificationType: string,
-    identificationNumber: string
 }
 ```
 
@@ -579,14 +569,25 @@ Trigger `onCardTokenReceived` callback
 Returns all the necessary data to make a payment
 
 ### Return:
-Trigger `onCardFormDataReceived` callback
+`cardFormDataResponse`
+```javascript
+{
+    token: string,
+    installments: string,
+    paymentMethodId: string,
+    issuerId: string,
+    identificationType: string,
+    identificationNumber: string,
+    processingMode: string,
+    merchantAccountId?: string
+}
+```
 
 ---
 
 <br />
 
-## Examples
-Given the HTML:
+## Example
 
 ```HTML
 <script src="https://sdk.mercadopago.com/js/v2"></script>
@@ -597,10 +598,10 @@ Given the HTML:
   <input name="expirationMonth" id="form-checkout__expirationMonth" />
   <input name="expirationYear" id="form-checkout__expirationYear" />
   <input name="cardholderName" id="form-checkout__cardholderName"/>
-  <select name="docType" id="form-checkout__issuer"></select>
+  <select name="issuer" id="form-checkout__issuer"></select>
   <select name="docType" id="form-checkout__docType"></select>
   <input name="docValue" id="form-checkout__docValue"/>
-  <select name="docType" id="form-checkout__installments"></select>
+  <select name="installments" id="form-checkout__installments"></select>
   <button type="submit" id="form-checkout__submit">Pagar</button>
 </form>
 
@@ -608,7 +609,7 @@ Given the HTML:
 
 var mp = new MercadoPago('PUBLIC_KEY, {
         locale: 'pt-BR',
-        processingMode: 'gateway'
+        processingMode: 'aggregator'
     });
 
     var cardForm = mp.cardForm({
@@ -675,17 +676,23 @@ var mp = new MercadoPago('PUBLIC_KEY, {
             onCardTokenReceived: function(error, token) {
                 if (error) console.log(`Handle error ${error}`)
             },
-            onCardFormDataReady: function(error, cardFormData) {
-                if (error) console.log(`Handle error ${error}`)
-                console.log(cardFormData);
-            }
         }
     })
 
     document.getElementById('form-checkout').addEventListener('submit', function(e) {
         e.preventDefault();
-        cardForm.createCardToken().then(cardForm.getCardFormData)
-        
+        cardForm.createCardToken().then(function(token) {
+            cardForm.getCardFormData().then(function(data) {
+                console.log('form Data: ', data)
+            })
+        })
     })
 </script>
 ```
+
+## Notes
+
+When requesting our SDK (https://sdk.mercadopago.com/js/v2), we may ship different script based on the browser's User Agent so we can optmize the bundle size according to the needs.
+For IE 11 we ship polyfills so you can get a better experience when integrating with our SDK:
+
+- Fetch: [whatwg-fetch](https://www.npmjs.com/package/whatwg-fetch)
