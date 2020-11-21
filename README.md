@@ -409,13 +409,13 @@ The `callback` object contains callbaks functions to handle different stages of 
 
 | callback | params | Description | |
 |-|-|-|-|
-|`onFormMounted`(`error`)`|`error`?: ERROR|Callback triggered when CardForm is mounted|**REQUIRED**|
-|`onFormUnmounted`(`error`)`|`error`?: ERROR|Callback triggered when CardForm is unmounted|**OPTIONAL**|
-|`onIdentificationTypesReceived`(`error`, `data`)`|`error`?: ERROR  <br/>`data`?: `identificationTypesResponse`|Callback triggered when `getIdentificationTypes()` response returns|**OPTIONAL**|
-|`onPaymentMethodsReceived`(`error`, `data`)`|`error`?: ERROR  <br/>`data`?: `paymentMethodsResponse`|Callback triggered when `getPaymentMethods()` response returns|**OPTIONAL**|
-|`onIssuersReceived`(`error`, `data`)`|`error`?: ERROR  <br/>`data`?: `issuersResponse`|Callback triggered when `getIssuers()` response returns|**OPTIONAL**|
-|`onInstallmentsReceived`(`error`, `data`)`|`error`?: ERROR  <br/>`data`?: `installmentsResponse`|Callback triggered when `getInstallments()` response returns|**OPTIONAL**|
-|`onCardTokenReceived`(`error`, `data`)`|`error`?: ERROR  <br/>`data`?: `cardTokenResponse`|Callback triggered when `createCardToken()` response returns|**OPTIONAL**|
+|onFormMounted(`error`)|`error`?: ERROR|Callback triggered when CardForm is mounted|**REQUIRED**|
+|onFormUnmounted(`error`)|`error`?: ERROR|Callback triggered when CardForm is unmounted|**OPTIONAL**|
+|onIdentificationTypesReceived(`error`, `data`)|`error`?: ERROR  <br/>`data`?: `identificationTypesResponse`|Callback triggered when `getIdentificationTypes()` response returns|**OPTIONAL**|
+|onPaymentMethodsReceived(`error`, `data`)|`error`?: ERROR  <br/>`data`?: `paymentMethodsResponse`|Callback triggered when `getPaymentMethods()` response returns|**OPTIONAL**|
+|onIssuersReceived(`error`, `data`)|`error`?: ERROR  <br/>`data`?: `issuersResponse`|Callback triggered when `getIssuers()` response returns|**OPTIONAL**|
+|onInstallmentsReceived(`error`, `data`)|`error`?: ERROR  <br/>`data`?: `installmentsResponse`|Callback triggered when `getInstallments()` response returns|**OPTIONAL**|
+|onCardTokenReceived(`error`, `data`)|`error`?: ERROR  <br/>`data`?: `cardTokenResponse`|Callback triggered when `createCardToken()` response returns|**OPTIONAL**|
 
 <br />
 
