@@ -44,7 +44,7 @@ To install the SDK, you must include script in your application's HTML:
 
 
 ```html
-<script src="https://beta-sdk.mercadopago.com/js/v2"></script>
+<script src="https://sdk.mercadopago.com/js/v2"></script>
 ```
 
 <br />
@@ -409,15 +409,13 @@ The `callback` object contains callbaks functions to handle different stages of 
 
 | callback | params | Description | |
 |-|-|-|-|
-|`onFormMounted(`error`)`|`error`?: ERROR|Callback triggered when CardForm is mounted|**REQUIRED**|
-|`onFormUnmounted(`error`)`|`error`?: ERROR|Callback triggered when CardForm is unmounted|**OPTIONAL**|
-|`onIdentificationTypesReceived(`error`, `data`)`|`error`?: ERROR  <br/>`data`?: `identificationTypesResponse`|Callback triggered when `getIdentificationTypes()` response returns|**OPTIONAL**|
-|`onPaymentMethodsReceived(`error`, `data`)`|`error`?: ERROR  <br/>`data`?: `paymentMethodsResponse`|Callback triggered when `getPaymentMethods()` response returns|**OPTIONAL**|
-|`onPaymentMethodsReceived(`error`, `data`)`|`error`?: ERROR  <br/>`data`?: `paymentMethodsResponse`|Callback triggered when `getPaymentMethods()` response returns|**OPTIONAL**|
-|`onIssuersReceived(`error`, `data`)`|`error`?: ERROR  <br/>`data`?: `issuersResponse`|Callback triggered when `getIssuers()` response returns|**OPTIONAL**|
-|`onInstallmentsReceived(`error`, `data`)`|`error`?: ERROR  <br/>`data`?: `installmentsResponse`|Callback triggered when `getInstallments()` response returns|**OPTIONAL**|
-|`onCardTokenReceived(`error`, `data`)`|`error`?: ERROR  <br/>`data`?: `cardTokenResponse`|Callback triggered when `createCardToken()` response returns|**OPTIONAL**|
-|`onCardFormDataReceived(`error`, `data`)`|`error`?: ERROR  <br/>`data`?: `cardFormDataResponse`|Callback triggered when `getCardFormData()` response returns|**OPTIONAL**|
+|`onFormMounted`(`error`)`|`error`?: ERROR|Callback triggered when CardForm is mounted|**REQUIRED**|
+|`onFormUnmounted`(`error`)`|`error`?: ERROR|Callback triggered when CardForm is unmounted|**OPTIONAL**|
+|`onIdentificationTypesReceived`(`error`, `data`)`|`error`?: ERROR  <br/>`data`?: `identificationTypesResponse`|Callback triggered when `getIdentificationTypes()` response returns|**OPTIONAL**|
+|`onPaymentMethodsReceived`(`error`, `data`)`|`error`?: ERROR  <br/>`data`?: `paymentMethodsResponse`|Callback triggered when `getPaymentMethods()` response returns|**OPTIONAL**|
+|`onIssuersReceived`(`error`, `data`)`|`error`?: ERROR  <br/>`data`?: `issuersResponse`|Callback triggered when `getIssuers()` response returns|**OPTIONAL**|
+|`onInstallmentsReceived`(`error`, `data`)`|`error`?: ERROR  <br/>`data`?: `installmentsResponse`|Callback triggered when `getInstallments()` response returns|**OPTIONAL**|
+|`onCardTokenReceived`(`error`, `data`)`|`error`?: ERROR  <br/>`data`?: `cardTokenResponse`|Callback triggered when `createCardToken()` response returns|**OPTIONAL**|
 
 <br />
 
