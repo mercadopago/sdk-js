@@ -598,104 +598,105 @@ Returns all the necessary data to make a payment
 ## Example
 
 ```HTML
-<script src="https://sdk.mercadopago.com/js/v2"></script>
 
-<form id="form-checkout" >
-  <input name="cardNumber" id="form-checkout__cardNumber" />
-  <input name="CVV" id="form-checkout__CVV" />
-  <input name="expirationMonth" id="form-checkout__expirationMonth" />
-  <input name="expirationYear" id="form-checkout__expirationYear" />
-  <input name="cardholderName" id="form-checkout__cardholderName"/>
-  <select name="issuer" id="form-checkout__issuer"></select>
-  <select name="docType" id="form-checkout__docType"></select>
-  <input name="docValue" id="form-checkout__docValue"/>
-  <select name="installments" id="form-checkout__installments"></select>
-  <button type="submit" id="form-checkout__submit">Pagar</button>
-</form>
+<body>
+ <form id="form-checkout" >
+   <input name="cardNumber" id="form-checkout__cardNumber" />
+   <input name="CVV" id="form-checkout__CVV" />
+   <input name="expirationMonth" id="form-checkout__expirationMonth" />
+   <input name="expirationYear" id="form-checkout__expirationYear" />
+   <input name="cardholderName" id="form-checkout__cardholderName"/>
+   <select name="issuer" id="form-checkout__issuer"></select>
+   <select name="docType" id="form-checkout__docType"></select>
+   <input name="docValue" id="form-checkout__docValue"/>
+   <select name="installments" id="form-checkout__installments"></select>
+   <button type="submit" id="form-checkout__submit">Pagar</button>
+ </form>
 
-<script>
+ <script src="https://sdk.mercadopago.com/js/v2"></script>
+ <script>
+ var mp = new MercadoPago('PUBLIC_KEY, {
+         locale: 'pt-BR',
+     });
 
-var mp = new MercadoPago('PUBLIC_KEY, {
-        locale: 'pt-BR',
-    });
+     var cardForm = mp.cardForm({
+         amount: 1000,
+         autoMount: true,
+         processingMode: 'aggregator'
+         form: {
+             id: 'form-checkout',
+             cardholderName: {
+                 id: 'form-checkout__cardholderName',
+                 placeholder: 'Full name',
+             },
+             cardNumber: {
+                 id: 'form-checkout__cardNumber',
+                 placeholder: 'Card number',
+             },
+             CVV: {
+                 id: 'form-checkout__CVV',
+                 placeholder: 'CVV',
+             },
+             installments: {
+                 id: 'form-checkout__installments',
+                 placeholder: 'Total installments'
+             },
+             expirationMonth: {
+                 id: 'form-checkout__expirationMonth',
+                 placeholder: 'MM'
+             },
+             expirationYear: {
+                 id: 'form-checkout__expirationYear',
+                 placeholder: 'YYYY'
+             },
+             docType: {
+                 id: 'form-checkout__docType',
+                 placeholder: 'Document type'
+             },
+             docValue: {
+                 id: 'form-checkout__docValue',
+                 placeholder: 'Document number'
+             },
+             issuer: {
+                 id: 'form-checkout__issuer',
+                 placeholder: 'Issuer'
+             }
+         },
+         callbacks: {
+             onFormMounted: function(error) {
+                 if (error) console.log(`Handle error ${error}`)
+             },
+             onFormUnmounted: function(error) {
+                 if (error) console.log(`Handle error ${error}`)
+             },
+             onIdentificationTypesReceived: function(error, identificationTypes) {
+                 if (error) console.log(`Handle error ${error}`)
+             },
+             onPaymentMethodsReceived: function(error, paymentMethods) {
+                 if (error) console.log(`Handle error ${error}`)
+             },
+             onIssuersReceived: function(error, token) {
+                 if (error) console.log(`Handle error ${error}`)
+             },
+             onInstallmentsReceived: function(error, installments) {
+                 if (error) console.log(`Handle error ${error}`)
+             },
+             onCardTokenReceived: function(error, token) {
+                 if (error) console.log(`Handle error ${error}`)
+             },
+         }
+     })
 
-    var cardForm = mp.cardForm({
-        amount: 1000,
-        autoMount: true,
-        processingMode: 'aggregator'
-        form: {
-            id: 'form-checkout',
-            cardholderName: {
-                id: 'form-checkout__cardholderName',
-                placeholder: 'Full name',
-            },
-            cardNumber: {
-                id: 'form-checkout__cardNumber',
-                placeholder: 'Card number',
-            },
-            CVV: {
-                id: 'form-checkout__CVV',
-                placeholder: 'CVV',
-            },
-            installments: {
-                id: 'form-checkout__installments',
-                placeholder: 'Total installments'
-            },
-            expirationMonth: {
-                id: 'form-checkout__expirationMonth',
-                placeholder: 'MM'
-            },
-            expirationYear: {
-                id: 'form-checkout__expirationYear',
-                placeholder: 'YYYY'
-            },
-            docType: {
-                id: 'form-checkout__docType',
-                placeholder: 'Document type'
-            },
-            docValue: {
-                id: 'form-checkout__docValue',
-                placeholder: 'Document number'
-            },
-            issuer: {
-                id: 'form-checkout__issuer',
-                placeholder: 'Issuer'
-            }
-        },
-        callbacks: {
-            onFormMounted: function(error) {
-                if (error) console.log(`Handle error ${error}`)
-            },
-            onFormUnmounted: function(error) {
-                if (error) console.log(`Handle error ${error}`)
-            },
-            onIdentificationTypesReceived: function(error, identificationTypes) {
-                if (error) console.log(`Handle error ${error}`)
-            },
-            onPaymentMethodsReceived: function(error, paymentMethods) {
-                if (error) console.log(`Handle error ${error}`)
-            },
-            onIssuersReceived: function(error, token) {
-                if (error) console.log(`Handle error ${error}`)
-            },
-            onInstallmentsReceived: function(error, installments) {
-                if (error) console.log(`Handle error ${error}`)
-            },
-            onCardTokenReceived: function(error, token) {
-                if (error) console.log(`Handle error ${error}`)
-            },
-        }
-    })
-
-    document.getElementById('form-checkout').addEventListener('submit', function(e) {
-        e.preventDefault();
-        cardForm.createCardToken().then(function(token) {
-            cardForm.getCardFormData().then(function(data) {
-                console.log('form Data: ', data)
-            })
-        })
-    })
-</script>
+     document.getElementById('form-checkout').addEventListener('submit', function(e) {
+         e.preventDefault();
+         cardForm.createCardToken().then(function(token) {
+             cardForm.getCardFormData().then(function(data) {
+                 console.log('form Data: ', data)
+             })
+         })
+     })
+ </script>
+</body>
 ```
 
 ## Notes
