@@ -1,4 +1,6 @@
-# SDK JS
+ATTENTION: THIS IS A DRAFT! WORKING IN PROCESS, **DO NOT USE IN PROD**
+
+# SDK JS V2
 Mercado Pago's Official JS SDK
 
 <br />
@@ -44,7 +46,7 @@ To install the SDK, you must include script in your application's HTML:
 
 
 ```html
-<script src="https://sdk.mercadopago.com/js/v2"></script>
+<script src="https://beta-sdk.mercadopago.com/js/v2"></script>
 ```
 
 <br />
@@ -77,7 +79,7 @@ It is the public key for your account.
 ### Example:
 
 ```javascript
-var mercadopago = new MercadoPago('TEST_PUBLIC_KEY', {
+var mercadopago = new MercadoPago('PUBLIC_KEY', {
   locale: 'pt-BR',
 })
 ```
