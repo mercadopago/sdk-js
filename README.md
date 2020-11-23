@@ -177,6 +177,7 @@ Returns a payment methods list
 | Option Key | Type | Description | |
 |-|-|-|-|
 | `bin` | `STRING` | Card number first 6 digits | **REQUIRED** |
+| `processingMode` | `"aggregator"` \| `"gateway"` | Process mode | **OPTIONAL** |
 
 <br />
 
@@ -253,6 +254,7 @@ Returns all installments available
 | `amount` | `STRING` | Payment total amount | **REQUIRED** |
 | `bin` | `STRING` | Card number first 6 digits | **REQUIRED** |
 | `locale` | `STRING` | Set the response message language | **REQUIRED** |
+| `processingMode` | `"aggregator"` \| `"gateway"` | Process mode | **REQUIRED** |
 
 <br />
 
