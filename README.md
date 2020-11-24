@@ -617,16 +617,16 @@ Returns all the necessary data to make a payment
    <button type="submit" id="form-checkout__submit">Pagar</button>
  </form>
 
- <script src="https://sdk.mercadopago.com/js/v2"></script>
+ <script src="https://beta-sdk.mercadopago.com/js/v2"></script>
  <script>
- var mp = new MercadoPago('PUBLIC_KEY, {
+ var mp = new MercadoPago('PUBLIC_KEY', {
          locale: 'pt-BR',
      });
 
      var cardForm = mp.cardForm({
          amount: 1000,
          autoMount: true,
-         processingMode: 'aggregator'
+         processingMode: 'aggregator',
          form: {
              id: 'form-checkout',
              cardholderName: {
@@ -668,7 +668,7 @@ Returns all the necessary data to make a payment
          },
          callbacks: {
             onFormMounted: function(error) {
-                if (error) console.log('Callback handling error ', errror)
+                if (error) console.log('Callback handling error ', error)
             },
             onFormUnmounted: function(error) {
                 if (error) console.log('Callback handling error ', error)
