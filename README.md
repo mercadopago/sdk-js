@@ -619,11 +619,11 @@ Returns all the necessary data to make a payment
 
  <script src="https://beta-sdk.mercadopago.com/js/v2"></script>
  <script>
- var mp = new MercadoPago('PUBLIC_KEY', {
+ var mercadopago = new MercadoPago('PUBLIC_KEY', {
          locale: 'pt-BR',
      });
 
-     var cardForm = mp.cardForm({
+     var cardForm = mercadopago.cardForm({
          amount: 1000,
          autoMount: true,
          processingMode: 'aggregator',
