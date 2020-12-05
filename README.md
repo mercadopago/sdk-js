@@ -5,6 +5,20 @@ Mercado Pago's Official JS SDK
 
 <br />
 
+# Table of Contents
+1. [About](#about)
+2. [Support](#support)
+    1. [Desktop web](#desktop-web)
+    2. [Mobile web](#mobile-web)
+3. [Features](#features)
+4. [Installation](#installation)
+5. [Initializing](#initializing)
+6. [API](#api)
+7. [Full example](#full-example)
+8. [Notes](#notes)
+
+<br />
+
 ## About 
 It is a **clientside SDK** whose main objective is to **generate a token from the buyer's card**, thus allowing a secure flow and within the security standards of sensitive data transfer.
 
@@ -17,11 +31,11 @@ It is a **clientside SDK** whose main objective is to **generate a token from th
 
 | Navegador | Suporte |
 |---------- | ----------|
-| Chrome    | Last 4 versions
-| Firefox    | Last 4 versions
-| Safari    | Last 4 versions
-| Edge | Last 4 versions
-| Opera | Last 4 versions 
+| Chrome    | Complete
+| Firefox    | Complete
+| Safari    | Complete
+| Edge | Complete
+| Opera | Complete
 | Internet Explorer    | 11
 
 <br />
@@ -29,10 +43,10 @@ It is a **clientside SDK** whose main objective is to **generate a token from th
 ### Mobile web
 | Navegador | Suporte |
 |---------- | ----------|
-| Chrome    | Last 4 versions
-| Firefox    | Last 4 versions
-| Safari    | Last 4 versions
-| Android Browser    | Last 4 versions
+| Chrome    | Complete
+| Firefox    | Complete
+| Safari    | Complete
+| Android Browser    | Complete
 
 <br />
 
@@ -54,13 +68,23 @@ To install the SDK, you must include script in your application's HTML:
 ## Initializing
 To start the SDK, you need to assign your `public_key` along with some `options`.
 
+### Example:
+
+```javascript
+var mercadopago = new MercadoPago('PUBLIC_KEY', {
+  locale: 'pt-BR',
+})
+```
+
 <br/>
 
-## MercadoPago(`public_key`[`, options`])
+## API
+
+### MercadoPago(`public_key`[`, options`])
 
 SDK instantiation method.
 
-### Params:
+#### Params:
 `public_key` | *string*, **REQUIRED** 
 
 It is the public key for your account.
@@ -76,7 +100,7 @@ It is the public key for your account.
 
 <br />
 
-### Example:
+#### Example:
 
 ```javascript
 var mercadopago = new MercadoPago('PUBLIC_KEY', {
@@ -85,7 +109,7 @@ var mercadopago = new MercadoPago('PUBLIC_KEY', {
 ```
 <br />
 
-### Return: `mp instance`
+#### Return: `mp instance`
 
 |||
 |-|-|
@@ -103,17 +127,17 @@ var mercadopago = new MercadoPago('PUBLIC_KEY', {
 <br />
 
 
-## `mp instance`.getIdentificationTypes()
+### `mp instance`.getIdentificationTypes()
 Return all the document types based on the `public_key`
 
-### Example:
+#### Example:
 
 ```javascript
 var identificationTypes = await mp.getIdentificationTypes()
 ```
  
 
-### Return: `PROMISE`
+#### Return: `PROMISE`
 ```javascript
 [{
   id: string,
@@ -129,12 +153,12 @@ var identificationTypes = await mp.getIdentificationTypes()
 
 <br />
 
-## `mp instance`.getIssuers(`issuersParams`)
+### `mp instance`.getIssuers(`issuersParams`)
 Returns a issuers list
 
 <br />
 
-### Params:
+#### Params:
 `issuersParams` | _object_, **REQUIRED**
 | Option Key | Type | Description | |
 |-|-|-|-|
@@ -143,13 +167,13 @@ Returns a issuers list
 
 <br />
 
-### Example:
+#### Example:
 
 ```javascript
 var issuers = await mp.getIssuers({ payment_method_id: 'visa' })
 ```
 
-### Return: `PROMISE`
+#### Return: `PROMISE`
 ```javascript
 [{
   id: string,
@@ -167,12 +191,12 @@ var issuers = await mp.getIssuers({ payment_method_id: 'visa' })
 
 <br />
 
-## `mp instance`.getPaymentMethods(`paymentMethodsParams`)
+### `mp instance`.getPaymentMethods(`paymentMethodsParams`)
 Returns a payment methods list
 
 <br />
 
-### Params:
+#### Params:
 `paymentMethodsParams` | _object_, **REQUIRED**
 | Option Key | Type | Description | |
 |-|-|-|-|
@@ -181,13 +205,13 @@ Returns a payment methods list
 
 <br />
 
-### Example:
+#### Example:
 
 ```javascript
 var paymentMethods = await mp.getPaymentMethods({ payment_method_id: 'visa' })
 ```
 
-### Return: `PROMISE` (showing most common used results.)
+#### Return: `PROMISE` (showing most common used results.)
 
 ```javascript
 [{
@@ -242,12 +266,12 @@ var paymentMethods = await mp.getPaymentMethods({ payment_method_id: 'visa' })
 
 <br />
 
-## `mp instance`.getInstallments(`installmentsParams`)
+### `mp instance`.getInstallments(`installmentsParams`)
 Returns all installments available
 
 <br />
 
-### Params:
+#### Params:
 `installmentsParams` | _object_, **REQUIRED**
 | Option Key | Type | Description | |
 |-|-|-|-|
@@ -258,7 +282,7 @@ Returns all installments available
 
 <br />
 
-### Example:
+#### Example:
 ```javascript
 const installments = await mp.getInstallments({
   amount: '1000',
@@ -267,7 +291,7 @@ const installments = await mp.getInstallments({
 })
 ```
 
-### Return: `PROMISE`
+#### Return: `PROMISE`
 
 ```javascript
 [{
@@ -295,10 +319,10 @@ const installments = await mp.getInstallments({
 
 <br />
 
-## `mp instance`.createCardToken(`cardTokenParams`)
+### `mp instance`.createCardToken(`cardTokenParams`)
 Return a token card
 
-### Params:
+#### Params:
 `cardTokenParams` | _object_, **REQUIRED**
 | Option Key | Type | Description | |
 |-|-|-|-|
@@ -312,7 +336,7 @@ Return a token card
 
 <br />
 
-### Example:
+#### Example:
 
 ```javascript
 var cardToken = await mp.createCardToken({
@@ -328,7 +352,7 @@ var cardToken = await mp.createCardToken({
 
 <br />
 
-### Return: `PROMISE`
+#### Return: `PROMISE`
 
 ```javascript
 {
@@ -343,16 +367,16 @@ var cardToken = await mp.createCardToken({
 
 <br />
 
-## `mp instance`.cardForm({`amount`[`, autoMount`, `processingMode`]`, form, callbacks`})
+### `mp instance`.cardForm({`amount`[`, autoMount`, `processingMode`]`, form, callbacks`})
 CardForm instantiation method.
 
 <br />
 
-### Returns: `CARDFORM INSTANCE`
+#### Returns: `CARDFORM INSTANCE`
 
 <br />
 
-### Params:
+#### Params:
 `amount` | _string_, **REQUIRED**
 
 Payment total amount
@@ -402,7 +426,7 @@ Form Options:
 
 <br />
 
-### The CardformMap type
+#### The CardformMap type
 |||||
 |-|-|-|-|
 |`id`|`string`|Field ID|**REQUIRED**|
@@ -432,7 +456,7 @@ The `callback` object contains callbaks functions to handle different stages of 
 
 <br />
 
-### The responses types:
+#### The responses types:
 
 
 `identificationTypesResponse`
@@ -545,42 +569,40 @@ The `callback` object contains callbaks functions to handle different stages of 
 
 <br />
 
-### CARDFORM HELPERS
-
-
+## CARDFORM HELPERS
 
 Once CardForm is instantiated, `CARDFORM HELPERS` is returned, and contains methods (HELPER FUNCTION) that help working with CARDFORM INSTANCE
 
 <br />
 
-## `cardform instance`.mount()
+### `cardform instance`.mount()
 Mount cardForm
 
-### Return:
+#### Return:
 Trigger `onFormMounted` callback
 
 ---
 
-## `cardform instance`.unmount()
+### `cardform instance`.unmount()
 Unmount cardForm
 
-### Return:
+#### Return:
 Trigger `onFormUnmounted` callback
 
 ---
 
-## `cardform instance`.createCardToken()
+### `cardform instance`.createCardToken()
 Create a card token
 
-### Return:
+#### Return:
 Trigger `onCardTokenReceived` callback
 
 ---
 
-## `cardform instance`.getCardFormData()
+### `cardform instance`.getCardFormData()
 Returns all the necessary data to make a payment
 
-### Return:
+#### Return:
 `cardFormDataResponse`
 ```javascript
 {
@@ -599,7 +621,7 @@ Returns all the necessary data to make a payment
 
 <br />
 
-## Example
+## Full example
 
 ```HTML
 
@@ -686,19 +708,19 @@ Returns all the necessary data to make a payment
                 if (error) console.log('Callback handling error ', error)
             },
             onCardTokenReceived: function(error, token) {
-                if (error) console.log('Callback handling error ', error)
+                if (error) return console.log('Callback handling error ', error)
+  
+                cardForm.getCardFormData().then(function(data) {
+                   console.log('form Data: ', data)
+                  // post data to your backend
+                })
             },
         }
      })
 
      document.getElementById('form-checkout').addEventListener('submit', function(e) {
          e.preventDefault();
-         cardForm.createCardToken().then(function(token) {
-             cardForm.getCardFormData().then(function(data) {
-                 console.log('form Data: ', data)
-                // fetch data to your backend
-             })
-         })
+         cardForm.createCardToken()
      })
  </script>
 </body>
@@ -707,6 +729,4 @@ Returns all the necessary data to make a payment
 ## Notes
 
 When requesting our SDK (https://sdk.mercadopago.com/js/v2), we may ship different script based on the browser's User Agent so we can optmize the bundle size according to the needs.
-For IE 11 we ship polyfills so you can get a better experience when integrating with our SDK:
-
-- Fetch: [whatwg-fetch](https://www.npmjs.com/package/whatwg-fetch)
+For IE 11 we ship polyfills so you can get a better experience when integrating with our SDK
