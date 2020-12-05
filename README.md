@@ -690,29 +690,37 @@ Returns all the necessary data to make a payment
          },
          callbacks: {
             onFormMounted: function(error) {
-                if (error) console.log('Callback handling error ', error)
+                if (error) return console.log('Form Mounted handling error ', error)
+                console.log('Form mounted')
             },
             onFormUnmounted: function(error) {
-                if (error) console.log('Callback handling error ', error)
+                if (error) return console.log('Form Unmounted handling error ', error)
+                console.log('Form unmounted')
             },
             onIdentificationTypesReceived: function(error, identificationTypes) {
-                if (error) console.log('Callback handling error ', error)
+                if (error) return console.log('identificationTypes handling error ', error)
+                console.log('Identification types available: ', identificationTypes)
             },
             onPaymentMethodsReceived: function(error, paymentMethods) {
-                if (error) console.log('Callback handling error ', error)
+                if (error) return console.log('paymentMethods handling error ', error)
+                console.log('Payment Methods available: ', paymentMethods)
             },
-            onIssuersReceived: function(error, token) {
-                if (error) console.log('Callback handling error ', error)
+            onIssuersReceived: function(error, issuers) {
+                if (error) return console.log('issuers handling error ', error)
+                console.log('Issuers available: ', issuers)
             },
             onInstallmentsReceived: function(error, installments) {
-                if (error) console.log('Callback handling error ', error)
+                if (error) return console.log('installments handling error ', error)
+                console.log('Installments available: ', installments)
             },
             onCardTokenReceived: function(error, token) {
-                if (error) return console.log('Callback handling error ', error)
+                if (error) return console.log('Token handling error ', error)
   
                 cardForm.getCardFormData().then(function(data) {
                    console.log('form Data: ', data)
                   // post data to your backend
+                }).catch(function(e){
+                    console.log('Error getting cardForm data ', e
                 })
             },
         }
