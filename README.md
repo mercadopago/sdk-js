@@ -715,7 +715,7 @@ Returns all the necessary data to make a payment
                 if (error) return console.log('Token handling error ', error)
   
                 const formData = cardForm.getCardFormData()
-                console.log('form Data: ', data)
+                console.log('form Data: ', formData)
                 // post data to your backend
      
             },
