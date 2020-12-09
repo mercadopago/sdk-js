@@ -1,5 +1,3 @@
-ATTENTION: THIS IS A DRAFT! WORKING IN PROCESS, **DO NOT USE IN PROD**
-
 # SDK JS V2
 Mercado Pago's Official JS SDK
 
@@ -716,12 +714,10 @@ Returns all the necessary data to make a payment
             onCardTokenReceived: function(error, token) {
                 if (error) return console.log('Token handling error ', error)
   
-                cardForm.getCardFormData().then(function(data) {
-                   console.log('form Data: ', data)
-                  // post data to your backend
-                }).catch(function(e){
-                    console.log('Error getting cardForm data ', e
-                })
+                const formData = cardForm.getCardFormData()
+                console.log('form Data: ', data)
+                // post data to your backend
+     
             },
         }
      })
