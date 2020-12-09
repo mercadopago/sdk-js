@@ -1,4 +1,4 @@
-# SDK JS V2
+# SDK MercadoPago.js V2 - BETA
 Mercado Pago's Official JS SDK
 
 <br />
