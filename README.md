@@ -407,18 +407,18 @@ The `form` object contains `cardFormMap` whose purpose is to map the HTML fields
 
 Form Options:
 
-| Option Key | Type | Description | |
-|-|-|-|-|
-|`id`|`string`|Form ID|**REQUIRED**|
-|`cardholderName`|`cardFormMap`|Cardholder name HTML options|**REQUIRED**|
-|`cardNumber`|`cardFormMap`|Card number HTML options|**REQUIRED**|
-|`CVV`|`cardFormMap`|CVV HTML options|**REQUIRED**|
-|`installments`|`cardFormMap`|Installments HTML options|**REQUIRED**|
-|`cardExpirationMonth`|`cardFormMap`|Card expiration month HTML options|**REQUIRED**|
-|`cardExpirationYear`|`cardFormMap`|Card expiration year HTML options|**REQUIRED**|
-|`docType`|`cardFormMap`|Documentation type HTML options|**REQUIRED**|
-|`docValue`|`cardFormMap`|Documentation value HTML options|**REQUIRED**|
-|`issuer`|`cardFormMap`|Issuer value HTML options|**REQUIRED**|
+| Option Key | Type | HTML Element | Description | |
+|-|-|-|-|-|
+|`id`|`string`|`<form>`|Form ID|**REQUIRED**|
+|`cardholderName`|`cardFormMap`|`<input>`|Cardholder name HTML options|**REQUIRED**|
+|`cardNumber`|`cardFormMap`|`<input>`|Card number HTML options|**REQUIRED**|
+|`CVV`|`cardFormMap`|`<input>`|CVV HTML options|**REQUIRED**|
+|`installments`|`cardFormMap`|`<select>`|Installments HTML options|**REQUIRED**|
+|`cardExpirationMonth`|`cardFormMap`|`<input>` \| `<select>`|Card expiration month HTML options|**REQUIRED**|
+|`cardExpirationYear`|`cardFormMap`|`<input>` \| `<select>`|Card expiration year HTML options|**REQUIRED**|
+|`docType`|`cardFormMap`|`<select>`|Documentation type HTML options|**REQUIRED**|
+|`docValue`|`cardFormMap`|`<input>`|Documentation value HTML options|**REQUIRED**|
+|`issuer`|`cardFormMap`|`<select>`|Issuer value HTML options|**REQUIRED**|
 
 <br />
 
