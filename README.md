@@ -9,6 +9,8 @@ Mercado Pago's Official JS SDK
     1. [Desktop web](#desktop-web)
     2. [Mobile web](#mobile-web)
 3. [Features](#features)
+    1. [Core Methods](#mp-instancegetidentificationtypes)
+    2. [CardForm](#mp-instancecardformamount-automount-processingmode-form-callbacks)
 4. [Installation](#installation)
 5. [Initializing](#initializing)
 6. [API](#api)
