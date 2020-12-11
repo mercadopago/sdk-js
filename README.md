@@ -60,7 +60,7 @@ To install the SDK, you must include script in your application's HTML:
 
 
 ```html
-<script src="https://beta-sdk.mercadopago.com/js/v2"></script>
+<script src="https://sdk.mercadopago.com/js/v2"></script>
 ```
 
 <br />
@@ -639,7 +639,7 @@ Returns all the necessary data to make a payment
    <button type="submit" id="form-checkout__submit">Pagar</button>
  </form>
 
- <script src="https://beta-sdk.mercadopago.com/js/v2"></script>
+ <script src="https://sdk.mercadopago.com/js/v2"></script>
  <script>
 const mercadopago = new MercadoPago('PUBLIC_KEY', {
          locale: 'pt-BR',
