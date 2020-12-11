@@ -71,7 +71,7 @@ To start the SDK, you need to assign your `public_key` along with some `options`
 ### Example:
 
 ```javascript
-var mercadopago = new MercadoPago('PUBLIC_KEY', {
+const mercadopago = new MercadoPago('PUBLIC_KEY', {
   locale: 'pt-BR',
 })
 ```
@@ -103,7 +103,7 @@ It is the public key for your account.
 #### Example:
 
 ```javascript
-var mercadopago = new MercadoPago('PUBLIC_KEY', {
+const mercadopago = new MercadoPago('PUBLIC_KEY', {
   locale: 'pt-BR',
 })
 ```
@@ -133,7 +133,7 @@ Return all the document types based on the `public_key`
 #### Example:
 
 ```javascript
-var identificationTypes = await mp.getIdentificationTypes()
+const identificationTypes = await mp.getIdentificationTypes()
 ```
  
 
@@ -170,7 +170,7 @@ Returns a issuers list
 #### Example:
 
 ```javascript
-var issuers = await mp.getIssuers({ payment_method_id: 'visa' })
+const issuers = await mp.getIssuers({ payment_method_id: 'visa' })
 ```
 
 #### Return: `PROMISE`
@@ -208,7 +208,7 @@ Returns a payment methods list
 #### Example:
 
 ```javascript
-var paymentMethods = await mp.getPaymentMethods({ payment_method_id: 'visa' })
+const paymentMethods = await mp.getPaymentMethods({ payment_method_id: 'visa' })
 ```
 
 #### Return: `PROMISE` (showing most common used results.)
@@ -298,17 +298,17 @@ const installments = await mp.getInstallments({
   ...
   merchant_account_id?: string,
   payer_costs: [{
-    installments: number;
-    installment_rate: number;
-    discount_rate: number;
-    labels: string[];
-    installment_rate_collector: string[];
-    min_allowed_amount: number;
-    max_allowed_amount: number;
-    recommended_message: string;
-    installment_amount: number;
-    total_amount: number;
-    payment_method_option_id: string;
+    installments: number,
+    installment_rate: number,
+    discount_rate: number,
+    labels: string[],
+    installment_rate_collector: string[],
+    min_allowed_amount: number,
+    max_allowed_amount: number,
+    recommended_message: string,
+    installment_amount: number,
+    total_amount: number,
+    payment_method_option_id: string
   }]
 }]
 ```
@@ -339,7 +339,7 @@ Return a token card
 #### Example:
 
 ```javascript
-var cardToken = await mp.createCardToken({
+const cardToken = await mp.createCardToken({
     cardNumber: '5031433215406351' ,
     cardholderName: 'APRO',
     cardholderIdentificationType: 'CPF',
@@ -641,11 +641,11 @@ Returns all the necessary data to make a payment
 
  <script src="https://beta-sdk.mercadopago.com/js/v2"></script>
  <script>
- var mercadopago = new MercadoPago('PUBLIC_KEY', {
+const mercadopago = new MercadoPago('PUBLIC_KEY', {
          locale: 'pt-BR',
      });
 
-     var cardForm = mercadopago.cardForm({
+     const cardForm = mercadopago.cardForm({
          amount: 1000,
          autoMount: true,
          processingMode: 'aggregator',
