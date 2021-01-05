@@ -114,8 +114,8 @@ const mercadopago = new MercadoPago('PUBLIC_KEY', {
 |||
 |-|-|
 |getIdentificationTypes | **METHOD** |
-|getIssuers | **METHOD** |
 |getPaymentMethods | **METHOD** |
+|getIssuers | **METHOD** |
 |getInstallments | **METHOD** |
 |createCardToken | **METHOD** |
 |cardForm | **CARDFORM** |
@@ -147,44 +147,6 @@ const identificationTypes = await mp.getIdentificationTypes()
   max_length: number
 }]
 ```
-<br />
-
----
-
-<br />
-
-### `mp instance`.getIssuers(`issuersParams`)
-Returns a issuers list
-
-<br />
-
-#### Params:
-`issuersParams` | _object_, **REQUIRED**
-| Option Key | Type | Description | |
-|-|-|-|-|
-| `payment_method_id` | `STRING` | Payment method ID | **REQUIRED** |
-| `bin` | `STRING` | Card number first 6 digits | **REQUIRED** |
-
-<br />
-
-#### Example:
-
-```javascript
-const issuers = await mp.getIssuers({ payment_method_id: 'visa' })
-```
-
-#### Return: `PROMISE`
-```javascript
-[{
-  id: string,
-  name: string,
-  secure_thumbnail: string,
-  thumbnail: string,
-  processing_mode: string,
-  merchant_account_id?: string,
-}]
-```
-
 <br />
 
 ---
@@ -257,6 +219,44 @@ const paymentMethods = await mp.getPaymentMethods({ payment_method_id: 'visa' })
         name: string,
         id: number
     },
+}]
+```
+
+<br />
+
+---
+
+<br />
+
+### `mp instance`.getIssuers(`issuersParams`)
+Returns a issuers list
+
+<br />
+
+#### Params:
+`issuersParams` | _object_, **REQUIRED**
+| Option Key | Type | Description | |
+|-|-|-|-|
+| `payment_method_id` | `STRING` | Payment method ID | **REQUIRED** |
+| `bin` | `STRING` | Card number first 6 digits | **REQUIRED** |
+
+<br />
+
+#### Example:
+
+```javascript
+const issuers = await mp.getIssuers({ payment_method_id: 'visa' })
+```
+
+#### Return: `PROMISE`
+```javascript
+[{
+  id: string,
+  name: string,
+  secure_thumbnail: string,
+  thumbnail: string,
+  processing_mode: string,
+  merchant_account_id?: string,
 }]
 ```
 
