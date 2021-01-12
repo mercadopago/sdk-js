@@ -1,3 +1,6 @@
+# THIS IS A DRAFT!
+# DO NOT USE IN PRODUCTION. 
+
 # SDK MercadoPago.js V2 - BETA
 Mercado Pago's Official JS SDK
 
