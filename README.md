@@ -16,8 +16,8 @@ Mercado Pago's Official JS SDK
     2. [CardForm](#mp-instancecardformamount-automount-processingmode-form-callbacks)
 4. [Installation](#installation)
 5. [Initializing](#initializing)
-6. [API](#api)
-7. [Full example](#full-example)
+6. [Full example](#full-example)
+7. [API](#api)
 8. [Notes](#notes)
 
 <br />
@@ -80,6 +80,119 @@ const mercadopago = new MercadoPago('PUBLIC_KEY', {
 ```
 
 <br/>
+
+## Full example
+
+```HTML
+
+<body>
+ <form id="form-checkout" >
+   <input name="cardNumber" id="form-checkout__cardNumber" />
+   <input name="CVV" id="form-checkout__CVV" />
+   <input name="expirationMonth" id="form-checkout__expirationMonth" />
+   <input name="expirationYear" id="form-checkout__expirationYear" />
+   <input name="cardholderName" id="form-checkout__cardholderName"/>
+   <select name="issuer" id="form-checkout__issuer"></select>
+   <select name="docType" id="form-checkout__docType"></select>
+   <input name="docValue" id="form-checkout__docValue"/>
+   <select name="installments" id="form-checkout__installments"></select>
+   <button type="submit" id="form-checkout__submit">Pagar</button>
+ </form>
+
+ <script src="https://sdk.mercadopago.com/js/v2"></script>
+ <script>
+const mercadopago = new MercadoPago('PUBLIC_KEY', {
+         locale: 'pt-BR',
+     });
+
+     const cardForm = mercadopago.cardForm({
+         amount: 1000,
+         autoMount: true,
+         processingMode: 'aggregator',
+         form: {
+             id: 'form-checkout',
+             cardholderName: {
+                 id: 'form-checkout__cardholderName',
+                 placeholder: 'Full name',
+             },
+             cardNumber: {
+                 id: 'form-checkout__cardNumber',
+                 placeholder: 'Card number',
+             },
+             CVV: {
+                 id: 'form-checkout__CVV',
+                 placeholder: 'CVV',
+             },
+             installments: {
+                 id: 'form-checkout__installments',
+                 placeholder: 'Total installments'
+             },
+             expirationMonth: {
+                 id: 'form-checkout__expirationMonth',
+                 placeholder: 'MM'
+             },
+             expirationYear: {
+                 id: 'form-checkout__expirationYear',
+                 placeholder: 'YYYY'
+             },
+             docType: {
+                 id: 'form-checkout__docType',
+                 placeholder: 'Document type'
+             },
+             docValue: {
+                 id: 'form-checkout__docValue',
+                 placeholder: 'Document number'
+             },
+             issuer: {
+                 id: 'form-checkout__issuer',
+                 placeholder: 'Issuer'
+             }
+         },
+         callbacks: {
+            onFormMounted: function(error) {
+                if (error) return console.log('Form Mounted handling error ', error)
+                console.log('Form mounted')
+            },
+            onFormUnmounted: function(error) {
+                if (error) return console.log('Form Unmounted handling error ', error)
+                console.log('Form unmounted')
+            },
+            onIdentificationTypesReceived: function(error, identificationTypes) {
+                if (error) return console.log('identificationTypes handling error ', error)
+                console.log('Identification types available: ', identificationTypes)
+            },
+            onPaymentMethodsReceived: function(error, paymentMethods) {
+                if (error) return console.log('paymentMethods handling error ', error)
+                console.log('Payment Methods available: ', paymentMethods)
+            },
+            onIssuersReceived: function(error, issuers) {
+                if (error) return console.log('issuers handling error ', error)
+                console.log('Issuers available: ', issuers)
+            },
+            onInstallmentsReceived: function(error, installments) {
+                if (error) return console.log('installments handling error ', error)
+                console.log('Installments available: ', installments)
+            },
+            onCardTokenReceived: function(error, token) {
+                if (error) return console.log('Token handling error ', error)
+  
+                const formData = cardForm.getCardFormData()
+                console.log('form Data: ', formData)
+                // post data to your backend
+     
+            },
+        }
+     })
+
+     document.getElementById('form-checkout').addEventListener('submit', function(e) {
+         e.preventDefault();
+         cardForm.createCardToken()
+     })
+ </script>
+</body>
+```
+
+<br>
 
 ## API
 
@@ -623,117 +736,6 @@ Returns all the necessary data to make a payment
 ---
 
 <br />
-
-## Full example
-
-```HTML
-
-<body>
- <form id="form-checkout" >
-   <input name="cardNumber" id="form-checkout__cardNumber" />
-   <input name="CVV" id="form-checkout__CVV" />
-   <input name="expirationMonth" id="form-checkout__expirationMonth" />
-   <input name="expirationYear" id="form-checkout__expirationYear" />
-   <input name="cardholderName" id="form-checkout__cardholderName"/>
-   <select name="issuer" id="form-checkout__issuer"></select>
-   <select name="docType" id="form-checkout__docType"></select>
-   <input name="docValue" id="form-checkout__docValue"/>
-   <select name="installments" id="form-checkout__installments"></select>
-   <button type="submit" id="form-checkout__submit">Pagar</button>
- </form>
-
- <script src="https://sdk.mercadopago.com/js/v2"></script>
- <script>
-const mercadopago = new MercadoPago('PUBLIC_KEY', {
-         locale: 'pt-BR',
-     });
-
-     const cardForm = mercadopago.cardForm({
-         amount: 1000,
-         autoMount: true,
-         processingMode: 'aggregator',
-         form: {
-             id: 'form-checkout',
-             cardholderName: {
-                 id: 'form-checkout__cardholderName',
-                 placeholder: 'Full name',
-             },
-             cardNumber: {
-                 id: 'form-checkout__cardNumber',
-                 placeholder: 'Card number',
-             },
-             CVV: {
-                 id: 'form-checkout__CVV',
-                 placeholder: 'CVV',
-             },
-             installments: {
-                 id: 'form-checkout__installments',
-                 placeholder: 'Total installments'
-             },
-             expirationMonth: {
-                 id: 'form-checkout__expirationMonth',
-                 placeholder: 'MM'
-             },
-             expirationYear: {
-                 id: 'form-checkout__expirationYear',
-                 placeholder: 'YYYY'
-             },
-             docType: {
-                 id: 'form-checkout__docType',
-                 placeholder: 'Document type'
-             },
-             docValue: {
-                 id: 'form-checkout__docValue',
-                 placeholder: 'Document number'
-             },
-             issuer: {
-                 id: 'form-checkout__issuer',
-                 placeholder: 'Issuer'
-             }
-         },
-         callbacks: {
-            onFormMounted: function(error) {
-                if (error) return console.log('Form Mounted handling error ', error)
-                console.log('Form mounted')
-            },
-            onFormUnmounted: function(error) {
-                if (error) return console.log('Form Unmounted handling error ', error)
-                console.log('Form unmounted')
-            },
-            onIdentificationTypesReceived: function(error, identificationTypes) {
-                if (error) return console.log('identificationTypes handling error ', error)
-                console.log('Identification types available: ', identificationTypes)
-            },
-            onPaymentMethodsReceived: function(error, paymentMethods) {
-                if (error) return console.log('paymentMethods handling error ', error)
-                console.log('Payment Methods available: ', paymentMethods)
-            },
-            onIssuersReceived: function(error, issuers) {
-                if (error) return console.log('issuers handling error ', error)
-                console.log('Issuers available: ', issuers)
-            },
-            onInstallmentsReceived: function(error, installments) {
-                if (error) return console.log('installments handling error ', error)
-                console.log('Installments available: ', installments)
-            },
-            onCardTokenReceived: function(error, token) {
-                if (error) return console.log('Token handling error ', error)
-  
-                const formData = cardForm.getCardFormData()
-                console.log('form Data: ', formData)
-                // post data to your backend
-     
-            },
-        }
-     })
-
-     document.getElementById('form-checkout').addEventListener('submit', function(e) {
-         e.preventDefault();
-         cardForm.createCardToken()
-     })
- </script>
-</body>
-```
 
 ## Notes
 
