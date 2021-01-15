@@ -741,7 +741,7 @@ Returns all the necessary data to make a payment
 ## Checkout Off Web 
 
 #### Initializing the Checkout
-To initialize the checkout you need to call the `.checkout` function from the SDK along with some options 
+To initialize the checkout you need to call the `.checkout` function from the SDK along with some options.
 
 ##### Checkout
 
@@ -777,15 +777,16 @@ mercadopago.checkout(tokenizerParams)
 ##### Additional configurations 
 Regardless of the product you are trying to render, you can pass some other configurations as params to the `.checkout()` function: 
 
-`theme` | *object* | **OPTIONAL** : Visual customization data 
+`theme` | *object* | **OPTIONAL** : Visual customization data.
 
 |Option name|Type|Description|
 |-|-|-|
 |`elementsColor` | *string* | Checkout elements color (e.g., buttons, labels)|
 |`headerColor` | *string* | Color for the checkout header|
 
-`internalConfigurations` | *string* | **OPTIONAL** : Additional payment configurations
-`autoOpen` | *boolean* | **OPTIONAL** : If the value is set to `true`, it will trigger the checkout to automatically open as soon as the page loads
+`internalConfigurations` | *string* | **OPTIONAL** : Additional payment configurations.
+
+`autoOpen` | *boolean* | **OPTIONAL** : If the value is set to `true`, it will trigger the checkout to automatically open as soon as the page loads.
 
 `render` | *object* | **OPTIONAL** : Set the render options right away without needing to call the rendering functions later.
 |Option name|Type|Description|
@@ -798,7 +799,7 @@ Regardless of the product you are trying to render, you can pass some other conf
 #### Rendering the Checkout 
 
 ##### mercadopago.checkout.`render()`
-Renders the Payment Button on a given container. This button has the trigger to open the checkout
+Renders the Payment Button on a given container. This button has the trigger to open the checkout.
 
 **Params**
 |Option name|Type|Description||
