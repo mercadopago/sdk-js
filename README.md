@@ -403,7 +403,8 @@ Returns all installments available
 const installments = await mp.getInstallments({
   amount: '1000',
   locale: 'pt-BR',
-  bin: '411111'
+  bin: '411111',
+  processingMode: 'aggregator'
 })
 ```
 
