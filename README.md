@@ -493,7 +493,7 @@ CardForm instantiation method.
 <br />
 
 #### Params:
-`amount` | _string_, **REQUIRED**
+`amount` | _number_, **REQUIRED**
 
 Payment total amount
 
