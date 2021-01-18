@@ -81,7 +81,7 @@ const mercadopago = new MercadoPago('PUBLIC_KEY', {
 
 <br/>
 
-## Full example
+## Full example (using cardForm)
 
 ```HTML
 
@@ -286,7 +286,7 @@ Returns a payment methods list
 #### Example:
 
 ```javascript
-const paymentMethods = await mp.getPaymentMethods({ paymentMethodId: 'visa' })
+const paymentMethods = await mp.getPaymentMethods({ bin: '411111' })
 ```
 
 #### Return: `PROMISE` (showing most common used results.)
@@ -361,7 +361,7 @@ Returns a issuers list
 #### Example:
 
 ```javascript
-const issuers = await mp.getIssuers({ paymentMethodId: 'visa' })
+const issuers = await mp.getIssuers({ paymentMethodId: 'visa', bin: '4111111' })
 ```
 
 #### Return: `PROMISE`
@@ -393,8 +393,8 @@ Returns all installments available
 |-|-|-|-|
 | `amount` | `STRING` | Payment total amount | **REQUIRED** |
 | `bin` | `STRING` | Card number first 6 digits | **REQUIRED** |
-| `locale` | `STRING` | Set the response message language | **REQUIRED** |
-| `processingMode` | `"aggregator"` \| `"gateway"` | Process mode | **REQUIRED** |
+| `locale` | `STRING` | Set the response message language | **OPTIONAL** |
+| `processingMode` | `"aggregator"` \| `"gateway"` | Process mode | **OPTIONAL** |
 
 <br />
 
