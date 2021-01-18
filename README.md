@@ -286,7 +286,7 @@ Returns a payment methods list
 #### Example:
 
 ```javascript
-const paymentMethods = await mp.getPaymentMethods({ payment_method_id: 'visa' })
+const paymentMethods = await mp.getPaymentMethods({ paymentMethodId: 'visa' })
 ```
 
 #### Return: `PROMISE` (showing most common used results.)
@@ -353,7 +353,7 @@ Returns a issuers list
 `issuersParams` | _object_, **REQUIRED**
 | Option Key | Type | Description | |
 |-|-|-|-|
-| `payment_method_id` | `STRING` | Payment method ID | **REQUIRED** |
+| `paymentMethodId` | `STRING` | Payment method ID | **REQUIRED** |
 | `bin` | `STRING` | Card number first 6 digits | **REQUIRED** |
 
 <br />
@@ -361,7 +361,7 @@ Returns a issuers list
 #### Example:
 
 ```javascript
-const issuers = await mp.getIssuers({ payment_method_id: 'visa' })
+const issuers = await mp.getIssuers({ paymentMethodId: 'visa' })
 ```
 
 #### Return: `PROMISE`
