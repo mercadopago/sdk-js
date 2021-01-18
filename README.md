@@ -120,7 +120,7 @@ const mercadopago = new MercadoPago('PUBLIC_KEY', {
                  id: 'form-checkout__cardNumber',
                  placeholder: 'Card number',
              },
-             CVV: {
+             securityCode: {
                  id: 'form-checkout__CVV',
                  placeholder: 'CVV',
              },
@@ -128,19 +128,19 @@ const mercadopago = new MercadoPago('PUBLIC_KEY', {
                  id: 'form-checkout__installments',
                  placeholder: 'Total installments'
              },
-             expirationMonth: {
+             cardExpirationMonth: {
                  id: 'form-checkout__expirationMonth',
                  placeholder: 'MM'
              },
-             expirationYear: {
+             cardExpirationYear: {
                  id: 'form-checkout__expirationYear',
                  placeholder: 'YYYY'
              },
-             docType: {
+             identificationType: {
                  id: 'form-checkout__docType',
                  placeholder: 'Document type'
              },
-             docValue: {
+             identificationNumber: {
                  id: 'form-checkout__docValue',
                  placeholder: 'Document number'
              },
@@ -446,11 +446,11 @@ Return a token card
 |-|-|-|-|
 | `cardNumber` | `STRING` | Card number | **REQUIRED** |
 | `cardholderName` | `STRING` | Cardholder name | **REQUIRED** |
-| `cardholderIdentificationType` | `STRING` | Type of document | **REQUIRED** |
-| `cardholderIdentificationNumber` | `STRING` | Value of document | **REQUIRED** |
-| `securityCode` | `STRING` | Security code | **REQUIRED** |
 | `cardExpirationMonth` | `STRING` | Expiration month | **REQUIRED** |
 | `cardExpirationYear` | `STRING` | Expiration year | **REQUIRED** |
+| `securityCode` | `STRING` | Security code | **REQUIRED** |
+| `identificationType` | `STRING` | Type of document | **REQUIRED** |
+| `identificationNumber` | `STRING` | Value of document | **REQUIRED** |
 
 <br />
 
@@ -460,11 +460,11 @@ Return a token card
 const cardToken = await mp.createCardToken({
     cardNumber: '5031433215406351' ,
     cardholderName: 'APRO',
-    cardholderIdentificationType: 'CPF',
-    cardholderIdentificationNumber: '12345678912',
-    securityCode: '123',
     cardExpirationMonth: '11',
     cardExpirationYear: '2025',
+    securityCode: '123',
+    identificationType: 'CPF',
+    identificationNumber: '12345678912',
 })
 ```
 
@@ -532,12 +532,12 @@ Form Options:
 |`id`|`string`|`<form>`|Form ID|**REQUIRED**|
 |`cardholderName`|`cardFormMap`|`<input>`|Cardholder name HTML options|**REQUIRED**|
 |`cardNumber`|`cardFormMap`|`<input>`|Card number HTML options|**REQUIRED**|
-|`CVV`|`cardFormMap`|`<input>`|CVV HTML options|**REQUIRED**|
-|`installments`|`cardFormMap`|`<select>`|Installments HTML options|**REQUIRED**|
 |`cardExpirationMonth`|`cardFormMap`|`<input>` \| `<select>`|Card expiration month HTML options|**REQUIRED**|
 |`cardExpirationYear`|`cardFormMap`|`<input>` \| `<select>`|Card expiration year HTML options|**REQUIRED**|
-|`docType`|`cardFormMap`|`<select>`|Documentation type HTML options|**REQUIRED**|
-|`docValue`|`cardFormMap`|`<input>`|Documentation value HTML options|**REQUIRED**|
+|`securityCode`|`cardFormMap`|`<input>`|CVV HTML options|**REQUIRED**|
+|`installments`|`cardFormMap`|`<select>`|Installments HTML options|**REQUIRED**|
+|`identificationType`|`cardFormMap`|`<select>`|Documentation type HTML options|**REQUIRED**|
+|`identificationNumber`|`cardFormMap`|`<input>`|Documentation value HTML options|**REQUIRED**|
 |`issuer`|`cardFormMap`|`<select>`|Issuer value HTML options|**REQUIRED**|
 
 <br />
