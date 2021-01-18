@@ -106,7 +106,7 @@ const mercadopago = new MercadoPago('PUBLIC_KEY', {
      });
 
      const cardForm = mercadopago.cardForm({
-         amount: 1000,
+         amount: '100.5',
          autoMount: true,
          processingMode: 'aggregator',
          form: {
@@ -494,7 +494,7 @@ CardForm instantiation method.
 <br />
 
 #### Params:
-`amount` | _number_, **REQUIRED**
+`amount` | _string_, **REQUIRED**
 
 Payment total amount
 
