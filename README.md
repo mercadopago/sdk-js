@@ -101,7 +101,7 @@ See the API for [Checkout API CardForm](#mp-instancecardformamount-automount-pro
    <select name="installments" id="form-checkout__installments"></select>
    <button type="submit" id="form-checkout__submit">Pay</button>
 
-   <progress class="progress-bar">loading...</progress>
+   <progress value="0" class="progress-bar">loading...</progress>
  </form>
 
  <script src="https://sdk.mercadopago.com/js/v2"></script>
@@ -129,11 +129,11 @@ See the API for [Checkout API CardForm](#mp-instancecardformamount-automount-pro
                  placeholder: 'Card number',
              },
               cardExpirationMonth: {
-                 id: 'form-checkout__expirationMonth',
+                 id: 'form-checkout__cardExpirationMonth',
                  placeholder: 'MM'
              },
              cardExpirationYear: {
-                 id: 'form-checkout__expirationYear',
+                 id: 'form-checkout__cardExpirationYear',
                  placeholder: 'YYYY'
              },
              securityCode: {
@@ -159,40 +159,37 @@ See the API for [Checkout API CardForm](#mp-instancecardformamount-automount-pro
          },
          callbacks: {
             onFormMounted: error => {
-                if (error) return console.error(`Form Mounted handling error: ${error}`)
+                if (error) return console.warn('Form Mounted handling error: ', error)
                 console.log('Form mounted')
             },
             onFormUnmounted: error => {
-                if (error) return console.error(`Form Unmounted handling error: ${error}`)
+                if (error) return console.warn('Form Unmounted handling error: ', error)
                 console.log('Form unmounted')
             },
-            onIdentificationTypesReceived: (error, identificationTypes) => {
-                if (error) return console.error(`identificationTypes handling error: ${error}`)
-                console.log(`Identification types available: ${identificationTypes}`)
-            },
+
             onPaymentMethodsReceived: (error, paymentMethods) => {
-                if (error) return console.error(`paymentMethods handling error: ${error}`)
-                console.log(`Payment Methods available: ${paymentMethods}`)
+                if (error) return console.warn('paymentMethods handling error: ', error)
+                console.log('Payment Methods available: ', paymentMethods)
             },
             onIssuersReceived: (error, issuers) => {
-                if (error) return console.error(`issuers handling error: ${error}`)
-                console.log(`Issuers available: ${issuers}`)
+                if (error) return console.warn('issuers handling error: ', error)
+                console.log('Issuers available: ', issuers)
             },
             onInstallmentsReceived: (error, installments) => {
-                if (error) return console.error(`installments handling error: ${error}`)
-                console.log(`Installments available: ${installments}`)
+                if (error) return console.warn('installments handling error: ', error)
+                console.log('Installments available: ', installments)
             },
             onCardTokenReceived: (error, token) => {
-                if (error) return console.error(`Token handling error: ${error}`)
-                console.log(`Token available: ${token}`)
+                if (error) return console.warn('Token handling error: ', error)
+                console.log('Token available: ', token)
             },
             onSubmit: (event) => {
                 event.preventDefault();
                 const cardData = cardForm.getCardFormData();
-                console.log(`CardForm data available: ${cardData}`)
+                console.log('CardForm data available: ', cardData)
             },
             onFetching:(resource) => {
-                console.log(`Fetching resource: ${resource}`)
+                console.log('Fetching resource: ', resource)
 
                 // Animate progress bar
                 const progressBar = document.querySelector('.progress-bar')
