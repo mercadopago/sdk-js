@@ -118,11 +118,11 @@ See the API for [Checkout API CardForm](#mp-instancecardformamount-automount-pro
              id: 'form-checkout',
              cardholderName: {
                  id: 'form-checkout__cardholderName',
-                 placeholder: 'Full name',
+                 placeholder: 'Cardholder name',
              },
              cardholderEmail: {
                  id: 'form-checkout__cardholderEmail',
-                 placeholder: 'Full name',
+                 placeholder: 'Email',
              },
              cardNumber: {
                  id: 'form-checkout__cardNumber',
