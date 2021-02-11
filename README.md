@@ -166,7 +166,10 @@ See the API for [Checkout API CardForm](#mp-instancecardformamount-automount-pro
                 if (error) return console.warn('Form Unmounted handling error: ', error)
                 console.log('Form unmounted')
             },
-
+            onIdentificationTypesReceived: (error, identificationTypes) => {
+                if (error) return console.warn('identificationTypes handling error: ', error)
+                console.log('Identification types available: ', identificationTypes)
+            },
             onPaymentMethodsReceived: (error, paymentMethods) => {
                 if (error) return console.warn('paymentMethods handling error: ', error)
                 console.log('Payment Methods available: ', paymentMethods)
