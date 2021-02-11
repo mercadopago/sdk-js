@@ -11,20 +11,18 @@ Mercado Pago's Official JS SDK
 2. [Support](#support)
     1. [Desktop web](#desktop-web)
     2. [Mobile web](#mobile-web)
-3. [Features](#features)
-    1. [Core Methods](#mp-instancegetidentificationtypes)
-    2. [CardForm](#mp-instancecardformamount-automount-processingmode-form-callbacks)
-4. [Installation](#installation)
-5. [Initializing](#initializing)
-6. [Full example](#full-example)
-7. [API](#api)
-8. [Checkout Off Web](#checkout-off-web)
+3. [Installation](#installation)
+4. [Initializing](#initializing)
+5. [Checkout Transparent](#checkout-api)
+6. [Checkout PRO](#checkout-pro)
+7. [Checkout Tokenizer](#checkout-tokenize)
+8. [API](#api)
 9. [Notes](#notes)
 
 <br />
 
 ## About 
-It is a **clientside SDK** whose main objective is to **generate a token from the buyer's card**, thus allowing a secure flow and within the security standards of sensitive data transfer.
+It is a **clientside SDK** whose main objective is to **facilitate the integration of Mercado Pago payment solutions on your website**, thus allowing a secure flow and within the security standards of sensitive data transfer.
 
 <br />
 
@@ -54,11 +52,6 @@ It is a **clientside SDK** whose main objective is to **generate a token from th
 
 <br />
 
-## Features
-The new version maintains the **basic functionalities of V1** (with slightly API modifications) and adds a new functionality - **cardForm** - which aims to **optimize the integration** by abstracting most of the logic that was previously in the hands of the integrator, but still maintaining the **flexibility** that the checkout transparent should deliver.
-
-<br />
-
 ## Installation
 To install the SDK, you must include script in your application's HTML:
 
@@ -75,38 +68,49 @@ To start the SDK, you need to assign your `public_key` along with some `options`
 ### Example:
 
 ```javascript
-const mercadopago = new MercadoPago('PUBLIC_KEY', {
-  locale: 'pt-BR',
+const mp = new MercadoPago('PUBLIC_KEY', {
+  locale: 'en-US',
 })
 ```
 
 <br/>
 
-## Full example (using cardForm)
+## Checkout API
+Use our APIs to build your own payment experience on your website or mobile application. From basic to advanced settings, control the entire experience.
+
+See the API for [Checkout API CardForm](#mp-instancecardformamount-automount-processingmode-form-callbacks) or [Checkout API Core Methods](#mp-instancegetidentificationtypes)
+
+<br />
+
+### Full example (using cardForm)
 
 ```HTML
-
+<!DOCTYPE html>
+<html>
 <body>
  <form id="form-checkout" >
    <input name="cardNumber" id="form-checkout__cardNumber" />
-   <input name="CVV" id="form-checkout__CVV" />
-   <input name="expirationMonth" id="form-checkout__expirationMonth" />
-   <input name="expirationYear" id="form-checkout__expirationYear" />
+   <input name="cardExpirationMonth" id="form-checkout__cardExpirationMonth" />
+   <input name="cardExpirationYear" id="form-checkout__cardExpirationYear" />
    <input name="cardholderName" id="form-checkout__cardholderName"/>
+   <input name="cardholderEmail" id="form-checkout__cardholderEmail"/>
+   <input name="securityCode" id="form-checkout__securityCode" />
    <select name="issuer" id="form-checkout__issuer"></select>
-   <select name="docType" id="form-checkout__docType"></select>
-   <input name="docValue" id="form-checkout__docValue"/>
+   <select name="identificationType" id="form-checkout__identificationType"></select>
+   <input name="identificationNumber" id="form-checkout__identificationNumber"/>
    <select name="installments" id="form-checkout__installments"></select>
-   <button type="submit" id="form-checkout__submit">Pagar</button>
+   <button type="submit" id="form-checkout__submit">Pay</button>
+
+   <progress class="progress-bar">loading...</progress>
  </form>
 
  <script src="https://sdk.mercadopago.com/js/v2"></script>
  <script>
-const mercadopago = new MercadoPago('PUBLIC_KEY', {
-         locale: 'pt-BR',
-     });
+    const mp = new MercadoPago('PUBLIC_KEY', {
+        locale: 'en-US'
+    })
 
-     const cardForm = mercadopago.cardForm({
+     const cardForm = mp.cardForm({
          amount: '100.5',
          autoMount: true,
          processingMode: 'aggregator',
@@ -116,19 +120,15 @@ const mercadopago = new MercadoPago('PUBLIC_KEY', {
                  id: 'form-checkout__cardholderName',
                  placeholder: 'Full name',
              },
+             cardholderEmail: {
+                 id: 'form-checkout__cardholderEmail',
+                 placeholder: 'Full name',
+             },
              cardNumber: {
                  id: 'form-checkout__cardNumber',
                  placeholder: 'Card number',
              },
-             securityCode: {
-                 id: 'form-checkout__CVV',
-                 placeholder: 'CVV',
-             },
-             installments: {
-                 id: 'form-checkout__installments',
-                 placeholder: 'Total installments'
-             },
-             cardExpirationMonth: {
+              cardExpirationMonth: {
                  id: 'form-checkout__expirationMonth',
                  placeholder: 'MM'
              },
@@ -136,12 +136,20 @@ const mercadopago = new MercadoPago('PUBLIC_KEY', {
                  id: 'form-checkout__expirationYear',
                  placeholder: 'YYYY'
              },
+             securityCode: {
+                 id: 'form-checkout__securityCode',
+                 placeholder: 'CVV',
+             },
+             installments: {
+                 id: 'form-checkout__installments',
+                 placeholder: 'Total installments'
+             },
              identificationType: {
-                 id: 'form-checkout__docType',
+                 id: 'form-checkout__identificationType',
                  placeholder: 'Document type'
              },
              identificationNumber: {
-                 id: 'form-checkout__docValue',
+                 id: 'form-checkout__identificationNumber',
                  placeholder: 'Document number'
              },
              issuer: {
@@ -150,50 +158,156 @@ const mercadopago = new MercadoPago('PUBLIC_KEY', {
              }
          },
          callbacks: {
-            onFormMounted: function(error) {
-                if (error) return console.log('Form Mounted handling error ', error)
+            onFormMounted: error => {
+                if (error) return console.error(`Form Mounted handling error: ${error}`)
                 console.log('Form mounted')
             },
-            onFormUnmounted: function(error) {
-                if (error) return console.log('Form Unmounted handling error ', error)
+            onFormUnmounted: error => {
+                if (error) return console.error(`Form Unmounted handling error: ${error}`)
                 console.log('Form unmounted')
             },
-            onIdentificationTypesReceived: function(error, identificationTypes) {
-                if (error) return console.log('identificationTypes handling error ', error)
-                console.log('Identification types available: ', identificationTypes)
+            onIdentificationTypesReceived: (error, identificationTypes) => {
+                if (error) return console.error(`identificationTypes handling error: ${error}`)
+                console.log(`Identification types available: ${identificationTypes}`)
             },
-            onPaymentMethodsReceived: function(error, paymentMethods) {
-                if (error) return console.log('paymentMethods handling error ', error)
-                console.log('Payment Methods available: ', paymentMethods)
+            onPaymentMethodsReceived: (error, paymentMethods) => {
+                if (error) return console.error(`paymentMethods handling error: ${error}`)
+                console.log(`Payment Methods available: ${paymentMethods}`)
             },
-            onIssuersReceived: function(error, issuers) {
-                if (error) return console.log('issuers handling error ', error)
-                console.log('Issuers available: ', issuers)
+            onIssuersReceived: (error, issuers) => {
+                if (error) return console.error(`issuers handling error: ${error}`)
+                console.log(`Issuers available: ${issuers}`)
             },
-            onInstallmentsReceived: function(error, installments) {
-                if (error) return console.log('installments handling error ', error)
-                console.log('Installments available: ', installments)
+            onInstallmentsReceived: (error, installments) => {
+                if (error) return console.error(`installments handling error: ${error}`)
+                console.log(`Installments available: ${installments}`)
             },
-            onCardTokenReceived: function(error, token) {
-                if (error) return console.log('Token handling error ', error)
-  
-                const formData = cardForm.getCardFormData()
-                console.log('form Data: ', formData)
-                // post data to your backend
-     
+            onCardTokenReceived: (error, token) => {
+                if (error) return console.error(`Token handling error: ${error}`)
+                console.log(`Token available: ${token}`)
+            },
+            onSubmit: (event) => {
+                event.preventDefault();
+                const cardData = cardForm.getCardFormData();
+                console.log(`CardForm data available: ${cardData}`)
+            },
+            onFetching:(resource) => {
+                console.log(`Fetching resource: ${resource}`)
+
+                // Animate progress bar
+                const progressBar = document.querySelector('.progress-bar')
+                progressBar.removeAttribute('value')
+
+                return () => {
+                    progressBar.setAttribute('value', '0')
+                }
             },
         }
      })
-
-     document.getElementById('form-checkout').addEventListener('submit', function(e) {
-         e.preventDefault();
-         cardForm.createCardToken()
-     })
  </script>
 </body>
+</html>
 ```
 
 <br>
+
+## Checkout PRO
+Checkout Pro is the integration that allows you to charge through our web form from any device in a simple, fast and secure way.
+
+See the API for [Checkout PRO](#)
+
+<br />
+
+### Full example
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+    <div class="cho-container"></div>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <script>
+        const mp = new MercadoPago('PUBLIC_KEY', {
+            locale: 'en-US'
+        })
+        const checkout = mp.checkout({
+            preference: {
+                id: 'YOUR_PREFERENCE_ID'
+            }
+        });
+        checkout.render({
+            container: '.cho-container',
+            label: 'Pay'
+        });
+    </script>
+</body>
+</html>
+```
+
+<br>
+
+## Checkout Tokenize
+With the Web Tokenize Checkout from Mercado Pago forget the complexity to structure a form for tokenization and payment. This simple integration will provide you with a form with a design and ready front end.
+
+See the API for [Checkout Tokenize](#)
+
+<br />
+
+### Full example
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+    <div class="tokenizer-container"></div>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <script>
+        const tokenizer = mp.checkout({
+            tokenizer: {
+                totalAmount: 4000,
+                summary: {
+                    arrears: 18,
+                    taxes: 20,
+                    charge: 30,
+                    discountLabel: 'discount label',
+                    discount: 5,
+                    productLabel: 'product label',
+                    product: 400,
+                    shipping: 10,
+                    title: 'summary title',
+                    totalLabel: 'total label',
+                },
+                buttonConfirmLabel: 'Confirmate',
+                savedCards: {
+                    cardIds: 'CARD_ID',
+                    customerId: 'CUSTOMER_ID'
+                },
+                exclusions: {
+                    paymentMethods: 'master',
+                    paymentType: 'debit',
+                },
+                installments: {
+                    minInstallments: 2,
+                    maxInstallments: 9,
+                },
+                backUrl: 'http://YOUR_URL/process'
+            },
+            theme: {
+                elementsColor: '#2ddc52',
+                headerColor: '#2ddc52'
+            }
+        });
+        
+        tokenizer.render({
+            container: '.tokenizer-container',
+            label: 'Pagar'
+        });
+    </script>
+</body>
+</html>
+```
+
+<br />
 
 ## API
 
@@ -211,17 +325,17 @@ It is the public key for your account.
 `options` | *object*, **OPTIONAL**
 
 
-|Option name|Default|Type|Description||
-|-|-|-|-|-|
-|`locale` | Browser default locale | *string* | Set the locale | **OPTIONAL** |
+|Option name|Values|Default|Type|Description||
+|-|-|-|-|-|-|
+|`locale` |`es-AR`<br>`es-CL`<br>`es-CO`<br>`es-MX`<br>`es-VE`<br>`es-UY`<br>`es-PE`<br>`pt-BR`<br>`en-US`|Browser default locale | *string* | Set the locale | **OPTIONAL** |
 
 <br />
 
 #### Example:
 
 ```javascript
-const mercadopago = new MercadoPago('PUBLIC_KEY', {
-  locale: 'pt-BR',
+const mp = new MercadoPago('PUBLIC_KEY', {
+  locale: 'en-US',
 })
 ```
 <br />
@@ -293,7 +407,7 @@ const paymentMethods = await mp.getPaymentMethods({ bin: '411111' })
 #### Return: `PROMISE` (showing most common used results.)
 
 ```javascript
-[{
+{
   paging: {
     total: number,
       limit: number,
@@ -336,7 +450,7 @@ const paymentMethods = await mp.getPaymentMethods({ bin: '411111' })
         name: string,
         id: number
     },
-}]
+}
 ```
 
 <br />
@@ -531,6 +645,7 @@ Form Options:
 |-|-|-|-|-|
 |`id`|`string`|`<form>`|Form ID|**REQUIRED**|
 |`cardholderName`|`cardFormMap`|`<input>`|Cardholder name HTML options|**REQUIRED**|
+|`cardholderEmail`|`cardFormMap`|`<input>`|Cardholder Email HTML options|**OPTIONAL**|
 |`cardNumber`|`cardFormMap`|`<input>`|Card number HTML options|**REQUIRED**|
 |`cardExpirationMonth`|`cardFormMap`|`<input>` \| `<select>`|Card expiration month HTML options|**REQUIRED**|
 |`cardExpirationYear`|`cardFormMap`|`<input>` \| `<select>`|Card expiration year HTML options|**REQUIRED**|
@@ -544,7 +659,7 @@ Form Options:
 
 <br />
 
-#### The CardformMap type
+#### The `CardformMap` type
 |||||
 |-|-|-|-|
 |`id`|`string`|Field ID|**REQUIRED**|
@@ -564,13 +679,15 @@ The `callback` object contains callbaks functions to handle different stages of 
 
 | callback | params | Description | |
 |-|-|-|-|
-|onFormMounted(`error`)|`error`?: ERROR|Callback triggered when CardForm is mounted|**REQUIRED**|
-|onFormUnmounted(`error`)|`error`?: ERROR|Callback triggered when CardForm is unmounted|**OPTIONAL**|
-|onIdentificationTypesReceived(`error`, `data`)|`error`?: ERROR  <br/>`data`?: `identificationTypesResponse`|Callback triggered when `getIdentificationTypes()` response returns|**OPTIONAL**|
-|onPaymentMethodsReceived(`error`, `data`)|`error`?: ERROR  <br/>`data`?: `paymentMethodsResponse`|Callback triggered when `getPaymentMethods()` response returns|**OPTIONAL**|
-|onIssuersReceived(`error`, `data`)|`error`?: ERROR  <br/>`data`?: `issuersResponse`|Callback triggered when `getIssuers()` response returns|**OPTIONAL**|
-|onInstallmentsReceived(`error`, `data`)|`error`?: ERROR  <br/>`data`?: `installmentsResponse`|Callback triggered when `getInstallments()` response returns|**OPTIONAL**|
-|onCardTokenReceived(`error`, `data`)|`error`?: ERROR  <br/>`data`?: `cardTokenResponse`|Callback triggered when `createCardToken()` response returns|**OPTIONAL**|
+|onFormMounted|`error`?: ERROR|Callback triggered when CardForm is mounted|**REQUIRED**|
+|onFormUnmounted|`error`?: ERROR|Callback triggered when CardForm is unmounted|**OPTIONAL**|
+|onIdentificationTypesReceived|`error`?: ERROR  <br/>`data`?: `identificationTypesResponse`|Callback triggered when `getIdentificationTypes()` response returns|**OPTIONAL**|
+|onPaymentMethodsReceived|`error`?: ERROR  <br/>`data`?: `paymentMethodsResponse`|Callback triggered when `getPaymentMethods()` response returns|**OPTIONAL**|
+|onIssuersReceived|`error`?: ERROR  <br/>`data`?: `issuersResponse`|Callback triggered when `getIssuers()` response returns|**OPTIONAL**|
+|onInstallmentsReceived|`error`?: ERROR  <br/>`data`?: `installmentsResponse`|Callback triggered when `getInstallments()` response returns|**OPTIONAL**|
+|onCardTokenReceived|`error`?: ERROR  <br/>`data`?: `cardTokenResponse`|Callback triggered when `createCardToken()` response returns|**OPTIONAL**|
+|onFetching|`resource`?: String|Callback triggered whenever the SDK is asynchronously fetching an external resource. **Its possible to return a function from this callback, which is executed after the fetching is done**|**OPTIONAL**|
+|onSubmit|`event`?: Event|Callback triggered before the form is submitted|**OPTIONAL**|
 
 <br />
 
@@ -596,7 +713,7 @@ The `callback` object contains callbaks functions to handle different stages of 
 
 `paymentMethodsResponse`
 ```javascript
-[{
+{
   paging: {
     total: number,
       limit: number,
@@ -640,7 +757,7 @@ The `callback` object contains callbaks functions to handle different stages of 
         name: string,
         id: number
     },
-}]
+}
 ```
 
 ---
@@ -718,7 +835,7 @@ Trigger `onCardTokenReceived` callback
 ---
 
 ### `cardform instance`.getCardFormData()
-Returns all the necessary data to make a payment
+Returns all the available data from your `cardForm instance`
 
 #### Return:
 `cardFormDataResponse`
@@ -737,20 +854,28 @@ Returns all the necessary data to make a payment
 
 ---
 
+### `cardform instance`.submit()
+Invoke a `HTMLFormElement.requestSubmit()` on your `cardForm` form element
+
+#### Return:
+Trigger `onSubmit` callback
+
+---
+
 <br />
 
-## Checkout Off Web 
+## Checkout PRO
 
-#### Initializing the Checkout
+### Initializing the Checkout
 To initialize the checkout you need to call the `.checkout` function from the SDK along with some options.
 
-##### Checkout
+#### Checkout
 
 ```javascript
 mercadopago.checkout(checkoutParams)
 ```
 
-###### Params
+##### Params
 
 |Option name|Type|Attributes|Description||
 |-|-|-|-|-|
