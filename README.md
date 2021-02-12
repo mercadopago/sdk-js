@@ -89,15 +89,15 @@ See the API for [Checkout API CardForm](#mp-instancecardformamount-automount-pro
 <html>
 <body>
  <form id="form-checkout" >
-   <input name="cardNumber" id="form-checkout__cardNumber" />
-   <input name="cardExpirationMonth" id="form-checkout__cardExpirationMonth" />
-   <input name="cardExpirationYear" id="form-checkout__cardExpirationYear" />
-   <input name="cardholderName" id="form-checkout__cardholderName"/>
-   <input name="cardholderEmail" id="form-checkout__cardholderEmail"/>
-   <input name="securityCode" id="form-checkout__securityCode" />
+   <input type="text" name="cardNumber" id="form-checkout__cardNumber" />
+   <input type="text" name="cardExpirationMonth" id="form-checkout__cardExpirationMonth" />
+   <input type="text" name="cardExpirationYear" id="form-checkout__cardExpirationYear" />
+   <input type="text" name="cardholderName" id="form-checkout__cardholderName"/>
+   <input type="email" name="cardholderEmail" id="form-checkout__cardholderEmail"/>
+   <input type="text" name="securityCode" id="form-checkout__securityCode" />
    <select name="issuer" id="form-checkout__issuer"></select>
    <select name="identificationType" id="form-checkout__identificationType"></select>
-   <input name="identificationNumber" id="form-checkout__identificationNumber"/>
+   <input type="text" name="identificationNumber" id="form-checkout__identificationNumber"/>
    <select name="installments" id="form-checkout__installments"></select>
    <button type="submit" id="form-checkout__submit">Pay</button>
 
