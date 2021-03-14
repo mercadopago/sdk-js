@@ -1,7 +1,4 @@
-# THIS IS A DRAFT!
-# DO NOT USE IN PRODUCTION. 
-
-# SDK MercadoPago.js V2 - BETA
+# SDK MercadoPago.js V2
 Mercado Pago's Official JS SDK
 
 <br />
@@ -13,7 +10,7 @@ Mercado Pago's Official JS SDK
     2. [Mobile web](#mobile-web)
 3. [Installation](#installation)
 4. [Initializing](#initializing)
-5. [Checkout Transparent](#checkout-api)
+5. [Checkout API](#checkout-api)
 6. [Checkout PRO](#checkout-pro)
 7. [Checkout Tokenizer](#checkout-tokenize)
 8. [API](#api)
