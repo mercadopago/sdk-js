@@ -65,7 +65,7 @@ To start the SDK, you need to assign your `public_key` along with some `options`
 ### Example:
 
 ```javascript
-const mp = new MercadoPago('PUBLIC_KEY', {
+const mp = new MercadoPago('YOUR_PUBLIC_KEY', {
   locale: 'en-US',
 })
 ```
