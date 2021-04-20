@@ -273,7 +273,6 @@ See the API for [Checkout Tokenize](#)
                     shipping: 10,
                     title: 'summary title',
                 },
-                buttonConfirmLabel: 'Confirmate',
                 savedCards: {
                     cardIds: 'CARD_ID',
                     customerId: 'CUSTOMER_ID'
