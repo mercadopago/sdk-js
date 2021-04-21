@@ -272,16 +272,10 @@ See the API for [Checkout Tokenize](#)
                     product: 400,
                     shipping: 10,
                     title: 'summary title',
-                    totalLabel: 'total label',
                 },
-                buttonConfirmLabel: 'Confirmate',
                 savedCards: {
                     cardIds: 'CARD_ID',
                     customerId: 'CUSTOMER_ID'
-                },
-                exclusions: {
-                    paymentMethods: 'master',
-                    paymentType: 'debit',
                 },
                 installments: {
                     minInstallments: 2,
@@ -890,11 +884,9 @@ mercadopago.checkout(tokenizerParams)
 |Option name|Type|Attributes|Description||
 |-|-|-|-|-|
 |`totalAmount` | *number* || Payment amount | **REQUIRED** |
-|`buttonConfirmLabel` | *string* || Label to display in the payment button | **REQUIRED** |
-|`summary` | *object* |`title`: *string* <br>`taxes`: *number* <br>`arrears`: *number* <br>`charge`: *number* <br>`discount`: *number* <br>`product`: *number* <br>`shipping`: *number* <br>`discountLabel`: *string* <br>`productLabel`: *string* <br>`totalLabel`: *string* <br>| Additional taxes and customization for the summary | **OPTIONAL** |
+|`summary` | *object* |`title`: *string* <br>`taxes`: *number* <br>`arrears`: *number* <br>`charge`: *number* <br>`discount`: *number* <br>`product`: *number* <br>`shipping`: *number* <br>`discountLabel`: *string* <br>`productLabel`: *string* <br>| Additional taxes and customization for the summary | **OPTIONAL** |
 |`backUrl` | *string* || Return URL | **OPTIONAL** |
 |`installments` | *object* |`minInstallments`: *number* <br> `maxInstallments`: *number*| Set minimum and maximum number of installments available | **OPTIONAL** |
-|`exclusions` | *object* |`paymentMethods`: *string* <br> `paymentType`: *string*| Exclude payment methods | **OPTIONAL** |
 |`savedCards` | *object* | `cardIds`: *string* <br> `customerId`: *string*| Set default saved cards | **OPTIONAL** |
 
 ##### Additional configurations 
@@ -907,15 +899,12 @@ Regardless of the product you are trying to render, you can pass some other conf
 |`elementsColor` | *string* | Checkout elements color (e.g., buttons, labels)|
 |`headerColor` | *string* | Color for the checkout header|
 
-`internalConfigurations` | *string* | **OPTIONAL** : Additional payment configurations.
-
 `autoOpen` | *boolean* | **OPTIONAL** : If the value is set to `true`, it will trigger the checkout to automatically open as soon as the page loads.
 
 `render` | *object* | **OPTIONAL** : Set the render options right away without needing to call the rendering functions later.
 |Option name|Type|Description|
 |-|-|-|
 |`container` | *string* | Checkout elements color (e.g., buttons, labels)|
-|`openMode` | *string* | Specify how should the checkout be opened. Possible values: `modal`, `redirect`|
 |`label`|*string*|Label for the checkout trigger button|
 |`type`|*string*|Type for the checkout trigger button|
 
@@ -928,17 +917,11 @@ Renders the Payment Button on a given container. This button has the trigger to 
 |Option name|Type|Description||
 |-|-|-|-|
 |`container`|*string*|Selector (id, class) for the container element||
-|`openMode`|*string*|Specify how should the checkout be opened. Possible values: `modal`, `redirect`||
 |`label`|*string*|Label for the checkout trigger button||
 |`type`|*string*|Type for the checkout trigger button||
 
 ##### mercadopago.checkout.`open()`
 Manually triggers the opening of an iframe element with the checkout.
-
-**Params**
-|Option name|Type|Description||
-|-|-|-|-|
-|`openMode`|*string*|Specify how should the checkout be opened. Possible values: `modal`, `redirect`||
 
 ## Notes
 
