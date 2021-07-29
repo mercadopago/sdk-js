@@ -319,6 +319,7 @@ It is the public key for your account.
 |Option name|Values|Default|Type|Description||
 |-|-|-|-|-|-|
 |`locale` |`es-AR`<br>`es-CL`<br>`es-CO`<br>`es-MX`<br>`es-VE`<br>`es-UY`<br>`es-PE`<br>`pt-BR`<br>`en-US`|Browser default locale | *string* | Set the locale | **OPTIONAL** |
+|`advancedFraudPrevention` |`true\|false`| true | *boolean* | Enables/disables device ID fraud prevention system | **OPTIONAL** |
 
 <br />
 
@@ -327,6 +328,7 @@ It is the public key for your account.
 ```javascript
 const mp = new MercadoPago('PUBLIC_KEY', {
   locale: 'en-US',
+  advancedFraudPrevention: true,
 })
 ```
 <br />
