@@ -551,13 +551,14 @@ Return a token card
 `cardTokenParams` | _object_, **REQUIRED**
 | Option Key | Type | Description | |
 |-|-|-|-|
-| `cardNumber` | `STRING` | Card number | **REQUIRED** |
-| `cardholderName` | `STRING` | Cardholder name | **REQUIRED** |
-| `cardExpirationMonth` | `STRING` | Expiration month | **REQUIRED** |
-| `cardExpirationYear` | `STRING` | Expiration year | **REQUIRED** |
+| `cardNumber` | `STRING` | Card number | **OPTIONAL** |
+| `cardholderName` | `STRING` | Cardholder name | **OPTIONAL** |
+| `cardExpirationMonth` | `STRING` | Expiration month | **OPTIONAL** |
+| `cardExpirationYear` | `STRING` | Expiration year | **OPTIONAL** |
 | `securityCode` | `STRING` | Security code | **REQUIRED** |
-| `identificationType` | `STRING` | Type of document | **REQUIRED** |
-| `identificationNumber` | `STRING` | Value of document | **REQUIRED** |
+| `identificationType` | `STRING` | Type of document | **OPTIONAL** |
+| `identificationNumber` | `STRING` | Value of document | **OPTIONAL** |
+| `cardId` | `STRING` | Id of a saved card | **OPTIONAL** |
 
 <br />
 
