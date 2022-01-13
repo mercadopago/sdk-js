@@ -87,8 +87,7 @@ See the API for [Checkout API CardForm](#mp-instancecardformamount-automount-pro
 <body>
  <form id="form-checkout" >
    <input type="text" name="cardNumber" id="form-checkout__cardNumber" />
-   <input type="text" name="cardExpirationMonth" id="form-checkout__cardExpirationMonth" />
-   <input type="text" name="cardExpirationYear" id="form-checkout__cardExpirationYear" />
+   <input type="text" name="cardExpirationDate" id="form-checkout__cardExpirationDate" />
    <input type="text" name="cardholderName" id="form-checkout__cardholderName"/>
    <input type="email" name="cardholderEmail" id="form-checkout__cardholderEmail"/>
    <input type="text" name="securityCode" id="form-checkout__securityCode" />
@@ -125,13 +124,9 @@ See the API for [Checkout API CardForm](#mp-instancecardformamount-automount-pro
                  id: 'form-checkout__cardNumber',
                  placeholder: 'Card number',
              },
-              cardExpirationMonth: {
-                 id: 'form-checkout__cardExpirationMonth',
-                 placeholder: 'MM'
-             },
-             cardExpirationYear: {
-                 id: 'form-checkout__cardExpirationYear',
-                 placeholder: 'YYYY'
+             cardExpirationDate: {
+                 id: 'form-checkout__cardExpirationDate',
+                 placeholder: 'MM/YYYY'
              },
              securityCode: {
                  id: 'form-checkout__securityCode',
@@ -199,6 +194,19 @@ See the API for [Checkout API CardForm](#mp-instancecardformamount-automount-pro
                     progressBar.setAttribute('value', '0')
                 }
             },
+            onError: (error, event) => {
+                console.log(event, error);
+            },
+            onValidityChange: (error, field) => {
+                if (error) {
+                    error.forEach(e => {
+                        console.log(`${field}: ${JSON.stringify(e, null, 2)}`);
+                    })
+                }
+            },
+            onReady: () => {
+                console.log("CardForm ready");
+            }
         }
      })
  </script>
@@ -342,7 +350,9 @@ const mp = new MercadoPago('PUBLIC_KEY', {
 |getIssuers | **METHOD** |
 |getInstallments | **METHOD** |
 |createCardToken | **METHOD** |
-|cardForm | **CARDFORM** |
+|cardForm | **MODULE** |
+|checkout | **MODULE** |
+|fields | **MODULE** |
 
 <br />
 
@@ -640,10 +650,11 @@ Form Options:
 |`id`|`string`|`<form>`|Form ID|**REQUIRED**|
 |`cardholderName`|`cardFormMap`|`<input>`|Cardholder name HTML options|**REQUIRED**|
 |`cardholderEmail`|`cardFormMap`|`<input>`|Cardholder Email HTML options|**OPTIONAL**|
-|`cardNumber`|`cardFormMap`|`<input>`|Card number HTML options|**REQUIRED**|
-|`cardExpirationMonth`|`cardFormMap`|`<input>` \| `<select>`|Card expiration month HTML options|**REQUIRED**|
-|`cardExpirationYear`|`cardFormMap`|`<input>` \| `<select>`|Card expiration year HTML options|**REQUIRED**|
-|`securityCode`|`cardFormMap`|`<input>`|CVV HTML options|**REQUIRED**|
+|`cardNumber`|`cardFormMap`|`<input>`\|Card number HTML options|**REQUIRED**|
+|`cardExpirationMonth`|`cardFormMap`|`<input>` \| `<select>`\|Card expiration month HTML options|**REQUIRED**|
+|`cardExpirationYear`|`cardFormMap`|`<input>` \| `<select>`\|Card expiration year HTML options|**REQUIRED**|
+|`cardExpirationDate`|`cardFormMap`|`<input>` \| `<select>`\|Card expiration date HTML options|**REQUIRED**|
+|`securityCode`|`cardFormMap`|`<input>`\|CVV HTML options|**REQUIRED**|
 |`installments`|`cardFormMap`|`<select>`|Installments HTML options|**REQUIRED**|
 |`identificationType`|`cardFormMap`|`<select>`|Documentation type HTML options|**REQUIRED**|
 |`identificationNumber`|`cardFormMap`|`<input>`|Documentation value HTML options|**REQUIRED**|
@@ -658,6 +669,7 @@ Form Options:
 |-|-|-|-|
 |`id`|`string`|Field ID|**REQUIRED**|
 |`placeholder`|`string`|Field Placeholder|**OPTIONAL**|
+|`style`|`object`|Field styles only available for `cardNumber`, `CVV`, `expirationDate`, `expirationMonth` and `expirationYear` when the `iframe` option is `true`. [See more](#style)|**OPTIONAL**|
 
 <br />
 
@@ -682,6 +694,9 @@ The `callback` object contains callbaks functions to handle different stages of 
 |onCardTokenReceived|`error`?: ERROR  <br/>`data`?: `cardTokenResponse`|Callback triggered when `createCardToken()` response returns|**OPTIONAL**|
 |onFetching|`resource`?: String|Callback triggered whenever the SDK is asynchronously fetching an external resource. **Its possible to return a function from this callback, which is executed after the fetching is done**|**OPTIONAL**|
 |onSubmit|`event`?: Event|Callback triggered before the form is submitted|**OPTIONAL**|
+|onReady||Callback triggered when cardForm is ready. It occurs when `getIdentificationTypes()` response returns and when iframes are ready if iframe option is true|**OPTIONAL**|
+|onValidityChange|`error`?: `validityChangeResponse`<br>`field`?: string|Callback triggered when some field has its value changed from an invalid state to valid or from valid to invalid|**OPTIONAL**|
+|onError|`error`?: `onErrorResponse`<br>`event`?: ErrorEvent|Callback triggered when some error occurs. You can use this callback to replace error validation of previous callbacks|**OPTIONAL**|
 
 <br />
 
@@ -791,8 +806,38 @@ The `callback` object contains callbaks functions to handle different stages of 
     token: string
 }
 ```
+---
+`validityChangeResponse`
+```js
+[
+    {
+        message: string
+    }
+]
+```
+---
+`onErrorResponse`
+```js
+[
+    {
+        message: string
+    }
+]
+```
 
 <br />
+
+---
+
+`iframe` | _boolean_, **OPTIONAL**
+
+Defines wheter the SDK should use MP Fields for `cardNumber`, `CVV` and `expirationDate` or not.
+
+If you opt to use `iframe`, you must change the HTML Element for `cardNumber`, `CVV` and `expirationDate` to `div`, in order to be used as the container for the iFrames.
+
+Check section [Fields](https://developers.mercadopago.com/en/guides/online-payments/checkout-api/receiving-payment-by-card) for more information
+
+**default value**: `false`
 
 ---
 
@@ -853,6 +898,212 @@ Invoke a `HTMLFormElement.requestSubmit()` on your `cardForm` form element
 
 #### Return:
 Trigger `onSubmit` callback
+
+---
+
+<br />
+
+## Fields module
+
+### `mp instance`.fields.createCardToken(`nonPCIData`)
+Token creation method
+
+<br />
+
+#### Returns: `Promise<CardTokenResponse | void>`
+
+`CardTokenResponse`
+```js
+{
+    id: string,
+    public_key: string,
+    card_id?: unknown,
+    luhn_validation: boolean,
+    status: string,
+    date_used?: unknown,
+    card_number_length: number,
+    date_created: Date,
+    first_six_digits: string,
+    last_four_digits: string,
+    security_code_length: number,
+    expiration_month: number,
+    expiration_year: number,
+    date_last_updated: Date,
+    date_due: Date,
+    live_mode: boolean,
+    cardholder: Cardholder,
+}
+```
+
+<br />
+
+#### Params:
+`nonPCIData` | _object_, **REQUIRED**
+
+Options:
+
+| Field                  | Type   |
+|------------------------|--------|
+| `cardId`               | string |
+| `cardholderName`       | string |
+| `identificationType`   | string |
+| `identificationNumber` | string |
+
+<br />
+
+### `mp instance`.fields.create(`type`, `options`)
+Field instantiation method.
+
+<br />
+
+#### Returns: `FIELD INSTANCE`
+
+<br />
+
+#### Params:
+`type` | _string_, **REQUIRED**
+
+Field type. Possible values are: `cardNumber`, `CVV`, `expirationMonth`, `expirationYear` or `expirationDate`.
+
+> Note: Expiration Date cannot coexist with Expiration Month or Expiration Year
+
+<br />
+
+`options` | _object_, **OPTIONAL**
+
+The `options` object have properties to customize the field being created.
+
+Options:
+
+|   Option key  |   Type   |        Description        |              |
+|:-------------:|:--------:|:-------------------------:|:------------:|
+| `placeholder` | `string` | Defines field placeholder | **OPTIONAL** |
+| `style`       | `object` | Defines field styles      | **OPTIONAL** |
+
+<br />
+
+#### Style
+
+Style is an object with keys being the name of CSS property and value a `string` with the property value.
+
+`style`
+```js
+{
+    height: "100%",
+    marginTop: "8px"
+    "margin-bottom": "8px"
+}
+```
+
+Accepted properties are:
+
+|             Property           |
+|:------------------------------:|
+|`color`|
+|`"font-family"` \| \| `fontFamily`|
+|`"font-size"` \| \| `fontSize`|
+|`height`|
+|`margin`|
+|`"margin-bottom"` \| \| `marginBottom`|
+|`"margin-left"` \| \| `marginLeft`|
+|`"margin-right"` \| \| `marginRight`|
+|`"margin-top"` \| \| `marginTop`|
+|`padding`|
+|`"padding-bottom"` \| \| `paddingBottom`|
+|`"padding-left"` \| \| `paddingLeft`|
+|`"padding-right"` \| \| `paddingRight`|
+|`"padding-top"` \| \| `paddingTop`|
+|`"text-align"` \| \| `textAlign`|
+|`width`|
+
+<br />
+
+## FIELD HELPERS
+
+### `field instance`.mount(`container`)
+Field mounting method.
+
+<br />
+
+#### Returns: `FIELD INSTANCE`
+
+<br />
+
+#### Params:
+
+|    Param    |   Type   |               Description               |          |
+|:-----------:|:--------:|:---------------------------------------:|:--------:|
+| `container` | `string` | HTML DIV id where field will be mounted | REQUIRED |
+
+<br />
+
+### `field instance`.unmount()
+Field unmounting method.
+
+<br />
+
+### `field instance`.on(`event`, `callback`)
+Method to add event listeners to field.
+
+<br />
+
+#### Params:
+
+|    Param   |    Type    |                     Description                     |          |
+|:----------:|:----------:|:---------------------------------------------------:|:--------:|
+| `event`    | `string`   | Event to listen                                     | REQUIRED |
+| `callback` | `function` | Callback function to be executed when event happens | REQUIRED |
+
+<br />
+
+The default events, enabled for every field are: `blur`, `focus`, `ready` or `validityChange`. The table below specifies the callback functions signature for every event.
+
+| Event | Params | Description | Enabled for |
+|-|-|-|-|
+|blur|`defaultEvent`|Callback triggered when blur event occurs| ALL |
+|focus|`defaultEvent`|Callback triggered when focus event occurs| ALL |
+|ready|`defaultEvent`|Callback triggered when field has been initialized| ALL |
+|change|`defaultEvent`|Callback triggered when field value changes| ALL |
+|validityChange|`validityChangeEvent`|Callback triggered when field state changes from invalid to valid or from valid to invalid| ALL |
+|error|`errorEvent`|Callback triggered when error event occurs| ALL |
+|binChange|`binChangeEvent`|Callback triggered when bin state changes from invalid to valid or from valid to invalid. It returns the bin when valid or null when invalid| cardNumber |
+
+`defaultEvent`
+```js
+{
+    field: string
+}
+```
+
+`validityChangeEvent`
+```js
+{
+    field: string,
+    errorMessages: string[]
+}
+```
+
+`errorEvent`
+```js
+{
+    field: string,
+    error: string
+}
+```
+
+`binChangeEvent`
+```js
+{
+    bin: string | null,
+    field: string
+}
+```
+
+<br />
+
+#### Returns: `FIELD INSTANCE`
+
+<br />
 
 ---
 
