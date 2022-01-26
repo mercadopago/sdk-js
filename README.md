@@ -28,7 +28,7 @@ It is a **clientside SDK** whose main objective is to **facilitate the integrati
 ### Desktop web
 
 
-| Navegador | Suporte |
+| Browser | Support |
 |---------- | ----------|
 | Chrome    | Complete
 | Firefox    | Complete
@@ -40,7 +40,7 @@ It is a **clientside SDK** whose main objective is to **facilitate the integrati
 <br />
 
 ### Mobile web
-| Navegador | Suporte |
+| Browser | Support |
 |---------- | ----------|
 | Chrome    | Complete
 | Firefox    | Complete
