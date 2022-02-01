@@ -901,10 +901,9 @@ Regardless of the product you are trying to render, you can pass some other conf
 |-|-|-|
 |`elementsColor` | *string* | Checkout elements color (e.g., buttons, labels)|
 |`headerColor` | *string* | Color for the checkout header|
+| `autoOpen` | *boolean* | **OPTIONAL** : If the value is set to `true`, it will trigger the checkout to automatically open as soon as the page loads.|
+|`render` | *object* | **OPTIONAL** : Set the render options right away without needing to call the rendering functions later.|
 
-`autoOpen` | *boolean* | **OPTIONAL** : If the value is set to `true`, it will trigger the checkout to automatically open as soon as the page loads.
-
-`render` | *object* | **OPTIONAL** : Set the render options right away without needing to call the rendering functions later.
 |Option name|Type|Description|
 |-|-|-|
 |`container` | *string* | Checkout elements color (e.g., buttons, labels)|
