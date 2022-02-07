@@ -198,11 +198,8 @@ See the API for [Checkout API CardForm](#mp-instancecardformamount-automount-pro
                 console.log(event, error);
             },
             onValidityChange: (error, field) => {
-                if (error) {
-                    error.forEach(e => {
-                        console.log(`${field}: ${JSON.stringify(e, null, 2)}`);
-                    })
-                }
+                if (error) return error.forEach(e => console.log(`${field}: ${e.message}`));
+                console.log(`${field} is valid`);
             },
             onReady: () => {
                 console.log("CardForm ready");
@@ -695,7 +692,7 @@ The `callback` object contains callbaks functions to handle different stages of 
 |onFetching|`resource`?: String|Callback triggered whenever the SDK is asynchronously fetching an external resource. **Its possible to return a function from this callback, which is executed after the fetching is done**|**OPTIONAL**|
 |onSubmit|`event`?: Event|Callback triggered before the form is submitted|**OPTIONAL**|
 |onReady||Callback triggered when cardForm is ready. It occurs when `getIdentificationTypes()` response returns and when iframes are ready if iframe option is true|**OPTIONAL**|
-|onValidityChange|`error`?: `validityChangeResponse`<br>`field`?: string|Callback triggered when some field has its value changed from an invalid state to valid or from valid to invalid|**OPTIONAL**|
+|onValidityChange|`error`?: `validityChangeResponse`<br>`field`?: string|Callback triggered when some field validation occurs|**OPTIONAL**|
 |onError|`error`?: `onErrorResponse`<br>`event`?: ErrorEvent|Callback triggered when some error occurs. You can use this callback to replace error validation of previous callbacks|**OPTIONAL**|
 
 <br />
@@ -811,7 +808,8 @@ The `callback` object contains callbaks functions to handle different stages of 
 ```js
 [
     {
-        message: string
+        message: string,
+        cause: string
     }
 ]
 ```
@@ -1064,7 +1062,7 @@ The default events, enabled for every field are: `blur`, `focus`, `ready` or `va
 |focus|`defaultEvent`|Callback triggered when focus event occurs| ALL |
 |ready|`defaultEvent`|Callback triggered when field has been initialized| ALL |
 |change|`defaultEvent`|Callback triggered when field value changes| ALL |
-|validityChange|`validityChangeEvent`|Callback triggered when field state changes from invalid to valid or from valid to invalid| ALL |
+|validityChange|`validityChangeEvent`|Callback triggered when field validation occurs| ALL |
 |error|`errorEvent`|Callback triggered when error event occurs| ALL |
 |binChange|`binChangeEvent`|Callback triggered when bin state changes from invalid to valid or from valid to invalid. It returns the bin when valid or null when invalid| cardNumber |
 
@@ -1079,7 +1077,10 @@ The default events, enabled for every field are: `blur`, `focus`, `ready` or `va
 ```js
 {
     field: string,
-    errorMessages: string[]
+    errorMessages: [{
+        message: string,
+        cause: string
+    }]
 }
 ```
 
