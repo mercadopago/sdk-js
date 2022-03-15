@@ -810,7 +810,7 @@ The `callback` object contains callbaks functions to handle different stages of 
 [
     {
         message: string,
-        cause: string
+        code: string
     }
 ]
 ```
