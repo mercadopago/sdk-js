@@ -1084,6 +1084,108 @@ The default events, enabled for every field are: `blur`, `focus`, `ready` or `va
 }
 ```
 
+<br />
+
+The table below provides information about causes and messages:
+<table>
+    <tr>
+        <td><b>Field</b></td>
+        <td><b>Cause</b></td>
+        <td><b>Messages</b></td>
+    </tr>
+    <tr>
+        <td rowspan="2">
+
+`           cardNumber`
+        </td>
+        <td>
+
+`           invalid_type`
+        </td>
+        <td>cardNumber should be a number.</td>
+    </tr>
+    <tr>
+        <td>
+        
+`           invalid_length`
+        </td>
+        <td>cardNumber should be of length between '9' and '18'.</td>
+    </tr>
+    <tr>
+        <td rowspan="2">
+        
+`           CVV`
+        </td>
+        <td>
+        
+`           invalid_type`
+        </td>
+        <td>CVV should be a number.</td>
+    </tr>
+    <tr>
+        <td>
+        
+`           invalid_length`
+        </td>
+        <td>CVV should be of length '3'.<br />CVV should be of length '4'.</td>
+    </tr>
+    <tr>
+        <td rowspan="2">
+        
+`           expirationMonth`
+        </td>
+        <td>
+        
+`           invalid_type`
+        </td>
+        <td>expirationMonth should be a number.</td>
+    </tr>
+    <tr>
+        <td>
+        
+`           invalid_value`
+        </td>
+        <td>expirationMonth should be a value from 1 to 12.</td>
+    </tr>
+    <tr>
+        <td rowspan="3">
+        
+`           expirationYear`
+        </td>
+        <td>
+        
+`           invalid_type`
+        </td>
+        <td>expirationYear should be a number.</td>
+    </tr>
+    <tr>
+        <td>
+        
+`           invalid_length`
+        </td>
+        <td>expirationYear should be of length '2' or '4'.</td>
+    </tr>
+    <tr>
+        <td>
+        
+`           invalid_value`
+        </td>
+        <td>expirationYear should be greater or equal than &lt;currentYear&gt;.</td>
+    </tr>
+    <tr>
+        <td rowspan="3">
+        
+`           expirationDate`
+        </td>
+        <td colspan="2" style="padding: 16px"><center>
+        
+`expirationMonth` and `expirationYear` causes and messages.
+        </center></td>
+    </tr>
+</table>
+
+<br />
+
 `errorEvent`
 ```js
 {
