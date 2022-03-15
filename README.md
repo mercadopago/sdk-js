@@ -651,7 +651,7 @@ Form Options:
 |`cardExpirationMonth`|`cardFormMap`|`<input>` \| `<select>`\|Card expiration month HTML options|**REQUIRED**|
 |`cardExpirationYear`|`cardFormMap`|`<input>` \| `<select>`\|Card expiration year HTML options|**REQUIRED**|
 |`cardExpirationDate`|`cardFormMap`|`<input>` \| `<select>`\|Card expiration date HTML options|**REQUIRED**|
-|`securityCode`|`cardFormMap`|`<input>`\|CVV HTML options|**REQUIRED**|
+|`securityCode`|`cardFormMap`|`<input>`\|SecurityCode HTML options|**REQUIRED**|
 |`installments`|`cardFormMap`|`<select>`|Installments HTML options|**REQUIRED**|
 |`identificationType`|`cardFormMap`|`<select>`|Documentation type HTML options|**REQUIRED**|
 |`identificationNumber`|`cardFormMap`|`<input>`|Documentation value HTML options|**REQUIRED**|
@@ -666,8 +666,8 @@ Form Options:
 |-|-|-|-|
 |`id`|`string`|Field ID|**REQUIRED**|
 |`placeholder`|`string`|Field Placeholder|**OPTIONAL**|
-|`style`|`object`|Field styles only available for `cardNumber`, `CVV`, `expirationDate`, `expirationMonth` and `expirationYear` when the `iframe` option is `true`. [See more](#style)|**OPTIONAL**|
-|`customFonts`|`array`|Field customFonts only available for `cardNumber`, `CVV`, `expirationDate`, `expirationMonth` and `expirationYear` when the `iframe` option is `true`. [See more](#custom-fonts)|**OPTIONAL**|
+|`style`|`object`|Field styles only available for `cardNumber`, `securityCode`, `expirationDate`, `expirationMonth` and `expirationYear` when the `iframe` option is `true`. [See more](#style)|**OPTIONAL**|
+|`customFonts`|`array`|Field customFonts only available for `cardNumber`, `securityCode`, `expirationDate`, `expirationMonth` and `expirationYear` when the `iframe` option is `true`. [See more](#custom-fonts)|**OPTIONAL**|
 
 <br />
 
@@ -830,9 +830,9 @@ The `callback` object contains callbaks functions to handle different stages of 
 
 `iframe` | _boolean_, **OPTIONAL**
 
-Defines wheter the SDK should use MP Fields for `cardNumber`, `CVV` and `expirationDate` or not.
+Defines wheter the SDK should use MP Fields for `cardNumber`, `securityCode` and `expirationDate` or not.
 
-If you opt to use `iframe`, you must change the HTML Element for `cardNumber`, `CVV` and `expirationDate` to `div`, in order to be used as the container for the iFrames.
+If you opt to use `iframe`, you must change the HTML Element for `cardNumber`, `securityCode` and `expirationDate` to `div`, in order to be used as the container for the iFrames.
 
 Check section [Fields](https://developers.mercadopago.com/en/guides/online-payments/checkout-api/receiving-payment-by-card) for more information
 
@@ -992,7 +992,7 @@ mp.fields.create("cardNumber", {
 #### Params:
 `type` | _string_, **REQUIRED**
 
-Field type. Possible values are: `cardNumber`, `CVV`, `expirationMonth`, `expirationYear` or `expirationDate`.
+Field type. Possible values are: `cardNumber`, `securityCode`, `expirationMonth`, `expirationYear` or `expirationDate`.
 
 > Note: Expiration Date cannot coexist with Expiration Month or Expiration Year
 
@@ -1201,20 +1201,20 @@ The table below provides information about causes and messages:
     <tr>
         <td rowspan="2">
         
-`           CVV`
+`           securityCode`
         </td>
         <td>
         
 `           invalid_type`
         </td>
-        <td>CVV should be a number.</td>
+        <td>securityCode should be a number.</td>
     </tr>
     <tr>
         <td>
         
 `           invalid_length`
         </td>
-        <td>CVV should be of length '3'.<br />CVV should be of length '4'.</td>
+        <td>securityCode should be of length '3'.<br />securityCode should be of length '4'.</td>
     </tr>
     <tr>
         <td rowspan="2">
@@ -1311,7 +1311,7 @@ The table below specifies the properties available for being updated.
 | Property | Type | Description | Enabled for |
 |-|-|-|-|
 |placeholder|`string`|Field placeholder| ALL |
-|settings|`SecurityCode` | `CardNumber`|Field settings| CVV, cardNumber |
+|settings|`SecurityCode` \| `CardNumber`|Field settings| securityCode, cardNumber |
 
 `SecurityCode`
 ```js
