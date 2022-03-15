@@ -1311,13 +1311,20 @@ The table below specifies the properties available for being updated.
 | Property | Type | Description | Enabled for |
 |-|-|-|-|
 |placeholder|`string`|Field placeholder| ALL |
-|settings|`SecurityCode`|Security code settings| CVV |
+|settings|`SecurityCode` | `CardNumber`|Field settings| CVV, cardNumber |
 
 `SecurityCode`
 ```js
 {
     mode: string, // 'mandatory' | 'optional'
     length: number // 3 | 4
+}
+```
+
+`CardNumber`
+```js
+{
+    length: number // Between 8 and 19
 }
 ```
 
