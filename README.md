@@ -1004,11 +1004,12 @@ The `options` object have properties to customize the field being created.
 
 Options:
 
-|   Option key  |   Type   |        Description        |              |
-|:-------------:|:--------:|:-------------------------:|:------------:|
-| `placeholder` | `string` | Defines field placeholder | **OPTIONAL** |
-| `style`       | `object` | Defines field styles      | **OPTIONAL** |
-| `customFonts` | `array`  | Defines field customFonts | **OPTIONAL** |
+|   Option key  |   Type   |        Description                                   |              | Enabled for                    |
+|---------------|----------|------------------------------------------------------|--------------|--------------------------------|
+| `placeholder` | `string` | Defines field placeholder.                           | **OPTIONAL** | ALL                            |
+| `style`       | `object` | Defines field styles. [See more](#style)             | **OPTIONAL** | ALL                            |
+| `customFonts` | `array`  | Defines field customFonts. [See more](#custom-fonts) | **OPTIONAL** | ALL                            |
+| `mode`        | `string` | Defines year mode. [See more](#year-mode)            | **OPTIONAL** | expirationYear, expirationDate |
 
 <br />
 
@@ -1087,6 +1088,18 @@ mp.fields.create("cardNumber", {
     ]
 });
 ```
+
+<br />
+
+#### Year Mode
+
+Defines year mode for 'expirationYear' or 'expirationMonth' fields.
+
+Possible values are `short` or `full`. 
+
+- `short`: year must be of two digits.
+- `full`: year must be of two digits.
+- `undefined`: both formats are accepted.
 
 <br />
 
