@@ -1232,7 +1232,7 @@ The table below provides information about causes and messages:
         
 `           invalid_value`
         </td>
-        <td>expirationMonth should be a value from 1 to 12.</td>
+        <td>expirationMonth should be a value from 1 to 12.<br />expirationMonth value should be greater than '&lt;previous month&gt;' or expirationYear value should be greater than '&lt;current year&gt;'.</td>
     </tr>
     <tr>
         <td rowspan="3">
@@ -1257,7 +1257,7 @@ The table below provides information about causes and messages:
         
 `           invalid_value`
         </td>
-        <td>expirationYear should be greater or equal than &lt;currentYear&gt;.</td>
+        <td>expirationYear should be greater or equal than &lt;currentYear&gt;.<br />expirationMonth value should be greater than '&lt;previous month&gt;' or expirationYear value should be greater than '&lt;current year&gt;'.</td>
     </tr>
     <tr>
         <td rowspan="3">
