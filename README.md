@@ -87,7 +87,7 @@ See the API for [Checkout API CardForm](#mp-instancecardformamount-automount-pro
 <body>
  <form id="form-checkout" >
    <input type="text" name="cardNumber" id="form-checkout__cardNumber" />
-   <input type="text" name="cardExpirationDate" id="form-checkout__cardExpirationDate" />
+   <input type="text" name="expirationDate" id="form-checkout__expirationDate" />
    <input type="text" name="cardholderName" id="form-checkout__cardholderName"/>
    <input type="email" name="cardholderEmail" id="form-checkout__cardholderEmail"/>
    <input type="text" name="securityCode" id="form-checkout__securityCode" />
@@ -124,8 +124,8 @@ See the API for [Checkout API CardForm](#mp-instancecardformamount-automount-pro
                  id: 'form-checkout__cardNumber',
                  placeholder: 'Card number',
              },
-             cardExpirationDate: {
-                 id: 'form-checkout__cardExpirationDate',
+             expirationDate: {
+                 id: 'form-checkout__expirationDate',
                  placeholder: 'MM/YYYY'
              },
              securityCode: {
@@ -560,8 +560,8 @@ Return a token card
 |-|-|-|-|
 | `cardNumber` | `STRING` | Card number | **OPTIONAL** |
 | `cardholderName` | `STRING` | Cardholder name | **OPTIONAL** |
-| `cardExpirationMonth` | `STRING` | Expiration month | **OPTIONAL** |
-| `cardExpirationYear` | `STRING` | Expiration year | **OPTIONAL** |
+| `expirationMonth` | `STRING` | Expiration month | **OPTIONAL** |
+| `expirationYear` | `STRING` | Expiration year | **OPTIONAL** |
 | `securityCode` | `STRING` | Security code | **REQUIRED** |
 | `identificationType` | `STRING` | Type of document | **OPTIONAL** |
 | `identificationNumber` | `STRING` | Value of document | **OPTIONAL** |
@@ -575,8 +575,8 @@ Return a token card
 const cardToken = await mp.createCardToken({
     cardNumber: '5031433215406351' ,
     cardholderName: 'APRO',
-    cardExpirationMonth: '11',
-    cardExpirationYear: '2025',
+    expirationMonth: '11',
+    expirationYear: '2025',
     securityCode: '123',
     identificationType: 'CPF',
     identificationNumber: '12345678912',
@@ -648,9 +648,9 @@ Form Options:
 |`cardholderName`|`cardFormMap`|`<input>`|Cardholder name HTML options|**REQUIRED**|
 |`cardholderEmail`|`cardFormMap`|`<input>`|Cardholder Email HTML options|**OPTIONAL**|
 |`cardNumber`|`cardFormMap`|`<input>`\|Card number HTML options|**REQUIRED**|
-|`cardExpirationMonth`|`cardFormMap`|`<input>` \| `<select>`\|Card expiration month HTML options|**REQUIRED**|
-|`cardExpirationYear`|`cardFormMap`|`<input>` \| `<select>`\|Card expiration year HTML options|**REQUIRED**|
-|`cardExpirationDate`|`cardFormMap`|`<input>` \| `<select>`\|Card expiration date HTML options|**REQUIRED**|
+|`expirationMonth`|`cardFormMap`|`<input>` \| `<select>`\|Card expiration month HTML options|**REQUIRED**|
+|`expirationYear`|`cardFormMap`|`<input>` \| `<select>`\|Card expiration year HTML options|**REQUIRED**|
+|`expirationDate`|`cardFormMap`|`<input>` \| `<select>`\|Card expiration date HTML options|**REQUIRED**|
 |`securityCode`|`cardFormMap`|`<input>`\|SecurityCode HTML options|**REQUIRED**|
 |`installments`|`cardFormMap`|`<select>`|Installments HTML options|**REQUIRED**|
 |`identificationType`|`cardFormMap`|`<select>`|Documentation type HTML options|**REQUIRED**|
