@@ -12,9 +12,8 @@ Mercado Pago's Official JS SDK
 4. [Initializing](#initializing)
 5. [Checkout API](#checkout-api)
 6. [Checkout PRO](#checkout-pro)
-7. [Checkout Tokenizer](#checkout-tokenize)
-8. [API](#api)
-9. [Notes](#notes)
+7. [API](#api)
+8. [Notes](#notes)
 
 <br />
 
@@ -242,63 +241,6 @@ See the API for [Checkout PRO](#)
 ```
 
 <br>
-
-## Checkout Tokenize
-With the Web Tokenize Checkout from Mercado Pago forget the complexity to structure a form for tokenization and payment. This simple integration will provide you with a form with a design and ready front end.
-
-See the API for [Checkout Tokenize](#)
-
-<br />
-
-### Full example
-
-```html
-<!DOCTYPE html>
-<html>
-<body>
-    <div class="tokenizer-container"></div>
-    <script src="https://sdk.mercadopago.com/js/v2"></script>
-    <script>
-        const tokenizer = mp.checkout({
-            tokenizer: {
-                totalAmount: 4000,
-                summary: {
-                    arrears: 18,
-                    taxes: 20,
-                    charge: 30,
-                    discountLabel: 'discount label',
-                    discount: 5,
-                    productLabel: 'product label',
-                    product: 400,
-                    shipping: 10,
-                    title: 'summary title',
-                },
-                savedCards: {
-                    cardIds: 'CARD_ID',
-                    customerId: 'CUSTOMER_ID'
-                },
-                installments: {
-                    minInstallments: 2,
-                    maxInstallments: 9,
-                },
-                backUrl: 'http://YOUR_URL/process'
-            },
-            theme: {
-                elementsColor: '#2ddc52',
-                headerColor: '#2ddc52'
-            }
-        });
-        
-        tokenizer.render({
-            container: '.tokenizer-container',
-            label: 'Pagar'
-        });
-    </script>
-</body>
-</html>
-```
-
-<br />
 
 ## API
 
@@ -875,25 +817,8 @@ mercadopago.checkout(checkoutParams)
 |-|-|-|-|-|
 |`preference` | *object* | `id`: *string* | Payment Preference | **REQUIRED** |
 
-##### Tokenizer 
-
-```javascript
-mercadopago.checkout(tokenizerParams)
-```
-###### Params
-
-`tokenizer` | *object*, **REQUIRED** :  Data and customizations for the tokenizer. Can contain the following attributes: 
-
-|Option name|Type|Attributes|Description||
-|-|-|-|-|-|
-|`totalAmount` | *number* || Payment amount | **REQUIRED** |
-|`summary` | *object* |`title`: *string* <br>`taxes`: *number* <br>`arrears`: *number* <br>`charge`: *number* <br>`discount`: *number* <br>`product`: *number* <br>`shipping`: *number* <br>`discountLabel`: *string* <br>`productLabel`: *string* <br>| Additional taxes and customization for the summary | **OPTIONAL** |
-|`backUrl` | *string* || Return URL | **OPTIONAL** |
-|`installments` | *object* |`minInstallments`: *number* <br> `maxInstallments`: *number*| Set minimum and maximum number of installments available | **OPTIONAL** |
-|`savedCards` | *object* | `cardIds`: *string* <br> `customerId`: *string*| Set default saved cards | **OPTIONAL** |
-
 ##### Additional configurations 
-Regardless of the product you are trying to render, you can pass some other configurations as params to the `.checkout()` function: 
+You can pass some other configurations as params to the `.checkout()` function: 
 
 `theme` | *object* | **OPTIONAL** : Visual customization data.
 
