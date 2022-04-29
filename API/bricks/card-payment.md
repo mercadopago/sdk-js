@@ -1,0 +1,353 @@
+## `BricksBuilder`.create(`brick`, `target`, `settings`)
+
+Example:
+```js
+mp.bricks().create('cardPayment', 'cardPaymentBrick_container' , {
+    initialization: {
+        amount: 100,
+        callbacks: {
+            onReady: () => {
+                // handle form ready
+            },
+            onSubmit: () => {
+                return new Promise((resolve, reject) => {
+                    fetch("/process_payment", { 
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(cardFormData)
+                    })
+                    .then((response) => {
+                        // get payment result
+                        resolve();
+                    })
+                    .catch((error) => {
+                        // get payment result error
+                        reject();
+                    })
+                });
+            }, 
+            onError: (error) => {
+                // handle error
+            }
+        }
+    }
+});
+```
+
+<br />
+
+### Params:
+
+<br />
+
+`brick` | _string_, **REQUIRED**
+
+Selected Brick. Possible values are: `cardPayment`.
+
+<br />
+
+`target` | _string_, **REQUIRED**
+
+id of the container that the brick will be rendered in. Can be any HTML element
+
+<br />
+
+`settings` | _object_, **REQUIRED**
+
+The `settings` object has properties to initialize and customize the the brick being created.
+
+
+|   Setting key  |   Type   |        Description                                   |              | 
+|---------------|----------|------------------------------------------------------|--------------|
+| `initialization`| `object` | Defines the initialization data.[See more](#initialization) | **REQUIRED** |
+| `callbacks`     | `object` | Defines the callback functions. [See more](#callbacks) | **REQUIRED** |
+| `customization` | `object`  | Defines custom properties. [See more](#customization) | **OPTIONAL** |
+| `style`        | `object` | Defines style for individual Brick. [See more](#style) | **OPTIONAL** |
+| `locale`        | `string` | Defines locale.                                     | **OPTIONAL** |
+
+<br />
+
+#### Initialization
+
+<br />
+
+Initialization in an object with the properties the brick will initialize with.
+
+|   Initialization key  |   Type   |        Description                                   |              |
+|---------------|----------|------------------------------------------------------|--------------|
+| `amount`| `number` | Defines the transaction amount. | **REQUIRED** |
+| `payer`| `object`| Defines payer initial data. [Possible values](#payer)  | **OPTIONAL** |
+
+<br />
+
+##### Payer
+
+Payer contains initial payer information.
+
+|   Payer key  |   Type   |        Description                                   |
+|---------------|----------|------------------------------------------------------|
+| `email`| `string` | Defines the payer email. Brick will hide email field if this value is correctly filled |
+| `identification`     | `object` | Defines payer identification. Contains keys `id` and `number` |
+| `identification.id` | `string`  | Identification id. Possible values vary based on siteId | 
+| `identification.number` | `string` | Identification number. If filled correctly the Brick will prefill the identification number input | 
+
+|   SiteId  |   Identification Id Values   |
+|---------------|----------|
+| `MLB` | `CPF`, `CNPJ` |
+
+<br />
+
+
+#### Callbacks
+
+<br />
+
+The callbacks object contains the callbacks functions the brick will call during its lifecicle.
+
+|   Callback key     |     Description                                   |              | Params | Returns |
+|-------------------|--------------------------------------------------|--------------|-----|----|
+| `onReady` | Is called when the brick is done loading | **REQUIRED** | `void` | `void` |
+| `onError` | Is called when there is an error on the Brick | **REQUIRED** | `void` | `BrickError` |
+| `onSubmit` | Is called when the user clicks on the submit button | **OPTIONAL** | `void` | `CardData` |
+
+<br />
+
+`BrickError`
+
+```ts
+{
+    type: 'non_critical' | 'critical';
+    message: string;
+    cause: ErrorCause;
+}
+```
+<br />
+
+`ErrorCause`
+
+```ts
+{
+    'invalid_sdk_instance',
+    'container_not_found',
+    'incorrect_initialization',
+    'already_initialized',
+    'settings_empty',
+    'missing_amount_property',
+    'amount_is_not_number',
+    'missing_required_callbacks',
+    'missing_container_id',
+    'missing_locale_property',
+    'missing_texts',
+    'fields_setup_failed',
+    'missing_payment_information',
+    'null_date',
+    'wrong_date_format',
+    'incomplete_fields',
+    'validations_parameter_null',
+    'get_payment_methods_failed',
+    'card_token_creation_failed',
+    'get_identification_types_failed',
+    'get_card_bin_payment_methods_failed',
+    'get_card_issuers_failed',
+    'get_payment_installments_failed',
+}
+```
+<br />
+
+`CardData`
+
+<br />
+
+```ts
+{
+    'token': string,
+    'issuer_id': string,
+    'payment_method_id': string,
+    'transaction_amount': number,
+    'payment_method_option_id': string | null,
+    'processing_mode': string | null,
+    'installments': number,
+    'payer': {
+        'email': string,
+        'identification': {
+                'type': string,
+                'number': string
+        }
+    }
+}
+```
+
+> Note: The `CardData` object can be proccessed directly to the Mercado Pago `payment` API.
+
+<br />
+
+#### Customization
+
+<br />
+
+Customizations object to load Brick under different conditions.
+
+<!-- TODO: Analyse wheather to include processingMode and merchantAccountId -->
+
+|   Customization key  |   Type   |        Description                                   |              |
+|---------------|----------|------------------------------------------------------|--------------|
+| `texts`| `CustomTexts`| Defines custom texts for the Brick (avaliable custom texts vary by Brick).  | **OPTIONAL** |
+| `hidePaymentButton`| `boolean` | Hides the payment button, and inactivates the `onSubmit` callback. [See more](#methods) | **OPTIONAL** |
+| `hideFormTitle`| `boolean` | Hides the form title row. | **OPTIONAL** |
+| `font`| `string` | Defines the custom font URL. This only applies to the [Secure Fields](#fields-module). | **OPTIONAL** |
+| `paymentMethods`| `object` | Object that allow payment methods configuration. Contains `maxInstallments`, `minInstallment`, and `paymentType` | **OPTIONAL** |
+| `paymentMethods.minInstallments`| `number` | Minimal number of installments to be offered to the user  | **OPTIONAL** |
+| `paymentMethods.maxInstallments`| `number` | Maximum number of installments to be offered to the user  | **OPTIONAL** | 
+| `paymentMethods.paymentType`| `object` | Control of the accepted payment types. Contains `excluded` | **OPTIONAL** | 
+| `paymentMethods.paymentType.excluded`| `string[]` | Not accepted payment types. Accepts: `credit_card`, `debit_card` | **OPTIONAL** |
+
+<br />
+
+`CustomTexts`
+
+Accepted properties are:
+
+|             Property           | Type |
+|------------------------------|----------|
+|`formTitle`| `string` |
+|`selectInstallments`| `string` |
+|`formSubmit`| `string` | 
+|`emailSectionTitle`| `string` | 
+|`installmentsSectionTitle`| `string` | 
+|`cardholderName`| `object` |
+|`cardholderName.label`| `string` |
+|`cardholderName.placeholder`| `string` |
+|`cardholderEmail`| `object` |
+|`cardholderEmail.label`| `string` |
+|`cardholderEmail.placeholder`| `string` |
+|`cardholderIdentification`| `object` |
+|`cardholderIdentification.placeholder`| `string` |
+|`cardNumber`| `object` |
+|`cardNumber.label`| `string` |
+|`cardNumber.placeholder`| `string` | 
+|`cardExpirationDate`| `object` |
+|`cardExpirationDate.label`| `string` |
+|`cardExpirationDate.placeholder`| `string` |
+|`cardSecurityCode`| `object` |
+|`cardSecurityCode.label`| `string` |
+|`cardSecurityCode.placeholder`| `string` | 
+|`selectIssuerBank`| `string` | 
+
+<br />
+
+#### Style
+
+<br />
+
+Style is an object with keys for theme and custom variables.
+
+|   Style key  |   Type   |        Description                                   |              |
+|---------------|----------|------------------------------------------------------|--------------|
+| `theme`| `string` | Defines theme for Brick. Possible values: `default`, `dark`, `flat`, `bootstrap` | **OPTIONAL** |
+| `customVariables`| `object`| Defines custom variables to be applied. [Possible values](#custom-variables)  | **OPTIONAL** |
+
+`style`
+```js
+{
+    theme: 'dark',
+    customVariables: {
+        textPrimaryColor: 'blue'
+    }
+}
+```
+##### Custom Variables
+
+Accepted properties are:
+
+|             Property           | Type |
+|------------------------------|----------|
+|`textPrimaryColor`| `string` | 
+|`textSecondaryColor`| `string` |
+|`inputBackgroundColor`| `string` | 
+|`formBackgroundColor`| `string` | 
+|`baseColor`| `string` | 
+|`baseColorFirstVariant`| `string` |
+|`baseColorSecondVariant`| `string` |
+|`errorColor`| `string` |
+|`successColor`| `string` |
+|`outlinePrimaryColor`| `string` |
+|`outlineSecondaryColor`| `string` |
+|`buttonTextColor`| `string` |
+`fontSizeExtraSmall` | `string` |
+`fontSizeSmall` | `string` |
+`fontSizeMedium` | `string` |
+`fontSizeLarge` | `string` |
+`fontSizeExtraLarge` | `string` |
+`fontWeightNormal` | `string` |
+`fontWeightSemiBold` | `string` |
+`formInputsTextTransform` | `string` |
+`inputVerticalPadding` | `string` |
+`inputHorizontalPadding` | `string` |
+`inputFocusedBoxShadow` | `string` |
+`inputErrorFocusedBoxShadow` | `string` |
+`inputBorderWidth` | `string` |
+`inputFocusedBorderWidth` | `string` |
+`borderRadiusSmall` | `string` |
+`borderRadiusMedium` | `string` |
+`borderRadiusLarge` | `string` |
+`borderRadiusFull` | `string` |
+`formPadding` | `string` |
+
+> Note: All sizing properties accept values in: `px`, `rem`, `em`, and `%`
+
+<br />
+
+### Returns: `BRICK CONTROLLER`
+
+<br />
+
+## Brick Controller
+
+The Brick Controller contains methods that allow the integrator to interact with the rendered Brick.
+
+<br />
+
+|||
+|-|-|
+|unmount | **METHOD** |
+|getFormData | **METHOD** |
+
+<br />
+
+### `Brick Controller`.unmount()
+
+<br />
+
+The `unmount` methods removes the rendered Brick from the page.
+
+
+<br />
+
+#### Params
+
+None.
+
+#### Returns
+
+`void`
+
+<br />
+
+### `Brick Controller`.getFormData()
+
+<br />
+
+The `getFormData` method returns the data the user filled in the form, only if the submit button is disabled.
+
+
+#### Params
+
+None.
+
+#### Returns
+
+| Brick | Return Data |
+|------------------------|--------|
+| `cardPayment` | `CardData`|
