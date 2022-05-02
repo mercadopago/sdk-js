@@ -76,7 +76,7 @@ Use our APIs to build your own payment experience on your website or mobile appl
 
 There are multiple supported ways to integrate Checkout API. Ranging from the most simple integration, using Checkout Bricks, to integrating with the Core Methods, where the integrator has total control of the checkout experience.
 
-For a complete refence on the integration options, check the [API reference](#api)
+For a complete reference on the integration options, check the [API reference](#api)
 
 <br />
 
@@ -88,7 +88,9 @@ For a complete refence on the integration options, check the [API reference](#ap
         <div id="cardPaymentBrick_container"></div>
     </body>
 </html>
-<script src="https://beta-sdk.mercadopago.com/gama/js/v2"></script>
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+
+
 <script>
     const mp = new MercadoPago('YOUR_PUBLIC_KEY');
     const bricksBuilder = mp.bricks();
@@ -102,38 +104,35 @@ For a complete refence on the integration options, check the [API reference](#ap
             style: {
                 theme: 'dark' // 'default' |'dark' | 'bootstrap' | 'flat'
             },
-            callbacks: {
-                onReady: () => {
-                    // handle form ready
-                },
-                onSubmit: () => {
-                    return new Promise((resolve, reject) => {
-                        fetch("/process_payment", { 
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(cardFormData)
-                        })
-                        .then((response) => {
-                            // get payment result
-                            resolve();
-                        })
-                        .catch((error) => {
-                            // get payment result error
-                            reject();
-                        })
-                    });
-                }, 
-                onError: (error) => {
-                    // handle error
-                }
+            onSubmit: (cardFormData) => {
+                return new Promise((resolve, reject) => {
+                    fetch("/process_payment", { 
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(cardFormData)
+                    })
+                    .then((response) => {
+                        // get payment result
+                        resolve();
+                    })
+                    .catch((error) => {
+                        // get payment result error
+                        reject();
+                    })
+                });
+            }, 
+            onError: (error) => {
+                // handle error
             }
-            },
-        };
-        return await bricksBuilder.create('cardPayment', 'cardPaymentBrick_container', settings);
+        }
+        },
     };
-    const cardPaymentBrickController = await renderCardPaymentBrick(bricksBuilder);
+    
+    cardPaymentBrickController = await bricksBuilder.create('cardPayment', 'cardPaymentBrick_container', settings);
+
+    renderCardPaymentBrick(bricksBuilder);
 </script>
 
 ```

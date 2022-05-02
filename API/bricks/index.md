@@ -1,7 +1,7 @@
 ## Bricks module
 
 ## `mp instance`.bricks(`Style`)
-Bricks class instanciaton
+Bricks builder class instantiation
 
 <br />
 
@@ -13,9 +13,9 @@ Bricks class instanciaton
 
 Options:
 
-| Field                  | Type   |
-|------------------------|--------|
-| `theme`                | string |
+| Field                  | Type   | Values                                                |
+|------------------------|--------|-------------------------------------------------------|
+| `theme`                | string | `default` <br/> `dark` <br/> `bootstrap` <br/> `flat` |
 
 <br />
 
@@ -32,7 +32,7 @@ Options:
 
 ## `BricksBuilder`.isInitialized()
 
-Method that returns wheather the Bricks class is initialized or not
+Method that returns whether the Bricks class is initialized or not
 
 ### Params
 
