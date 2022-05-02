@@ -9,7 +9,7 @@ mp.bricks().create('cardPayment', 'cardPaymentBrick_container' , {
             onReady: () => {
                 // handle form ready
             },
-            onSubmit: () => {
+            onSubmit: (cardFormData) => {
                 return new Promise((resolve, reject) => {
                     fetch("/process_payment", { 
                         method: "POST",
@@ -50,13 +50,13 @@ Selected Brick. Possible values are: `cardPayment`.
 
 `target` | _string_, **REQUIRED**
 
-id of the container that the brick will be rendered in. Can be any HTML element
+Id of the container that the brick will be rendered in. Can be any HTML element.
 
 <br />
 
 `settings` | _object_, **REQUIRED**
 
-The `settings` object has properties to initialize and customize the the brick being created.
+The `settings` object has properties to initialize and customize the brick being created.
 
 
 |   Setting key  |   Type   |        Description                                   |              | 
@@ -73,7 +73,7 @@ The `settings` object has properties to initialize and customize the the brick b
 
 <br />
 
-Initialization in an object with the properties the brick will initialize with.
+Initialization is an object with the properties the brick will initialize with.
 
 |   Initialization key  |   Type   |        Description                                   |              |
 |---------------|----------|------------------------------------------------------|--------------|
@@ -93,9 +93,14 @@ Payer contains initial payer information.
 | `identification.id` | `string`  | Identification id. Possible values vary based on siteId | 
 | `identification.number` | `string` | Identification number. If filled correctly the Brick will prefill the identification number input | 
 
-|   SiteId  |   Identification Id Values   |
-|---------------|----------|
-| `MLB` | `CPF`, `CNPJ` |
+|   SiteId          |   Identification Id Values          |
+|-------------------|-------------------------------------|
+| `MLB (Brazil)`    | `CPF`, `CNPJ`                       |
+| `MLA (Argentina)` | `DNI`, `CI`, `LC`, `LE`, `Otro`     |
+| `MCO (Colombia)`  | `CC`, `CE`, `NIT`, `Otro`           |
+| `MLC (Chile)`     | `RUT`, `Otro`                       |
+| `MLU (Uruguay)`   | `CI`, `Otro`                        |
+| `MPE (Peru)`      | `DNI`, `C.E`, `RUC`, `Otro`         |
 
 <br />
 
@@ -104,13 +109,13 @@ Payer contains initial payer information.
 
 <br />
 
-The callbacks object contains the callbacks functions the brick will call during its lifecicle.
+The callbacks object contains the callbacks functions the brick will call during its life cycle.
 
 |   Callback key     |     Description                                   |              | Params | Returns |
 |-------------------|--------------------------------------------------|--------------|-----|----|
-| `onReady` | Is called when the brick is done loading | **REQUIRED** | `void` | `void` |
-| `onError` | Is called when there is an error on the Brick | **REQUIRED** | `void` | `BrickError` |
-| `onSubmit` | Is called when the user clicks on the submit button | **OPTIONAL** | `void` | `CardData` |
+| `onReady` | It is called when the brick finishes loading | **REQUIRED** | `void` | `void` |
+| `onError` | It is called when there is an error in the Brick | **REQUIRED** | `void` | `BrickError` |
+| `onSubmit` | It is called when the user clicks on the submit button | **REQUIRED** | `void` | `CardData` |
 
 <br />
 
@@ -179,7 +184,7 @@ The callbacks object contains the callbacks functions the brick will call during
 }
 ```
 
-> Note: The `CardData` object can be proccessed directly to the Mercado Pago `payment` API.
+> Note: The `CardData` object can be processed directly to the Mercado Pago `payment` API.
 
 <br />
 
@@ -187,17 +192,18 @@ The callbacks object contains the callbacks functions the brick will call during
 
 <br />
 
-Customizations object to load Brick under different conditions.
+Customizations object is used to load Brick under different conditions.
 
 <!-- TODO: Analyse wheather to include processingMode and merchantAccountId -->
 
 |   Customization key  |   Type   |        Description                                   |              |
 |---------------|----------|------------------------------------------------------|--------------|
+| `style`| `Style`| Defines custom theme and CSS variables  | **OPTIONAL** |
 | `texts`| `CustomTexts`| Defines custom texts for the Brick (avaliable custom texts vary by Brick).  | **OPTIONAL** |
-| `hidePaymentButton`| `boolean` | Hides the payment button, and inactivates the `onSubmit` callback. [See more](#methods) | **OPTIONAL** |
+| `hidePaymentButton`| `boolean` | Hides the payment button and disables the `onSubmit` callback. | **OPTIONAL** |
 | `hideFormTitle`| `boolean` | Hides the form title row. | **OPTIONAL** |
 | `font`| `string` | Defines the custom font URL. This only applies to the [Secure Fields](#fields-module). | **OPTIONAL** |
-| `paymentMethods`| `object` | Object that allow payment methods configuration. Contains `maxInstallments`, `minInstallment`, and `paymentType` | **OPTIONAL** |
+| `paymentMethods`| `object` | Object that allow payment methods configuration. Contains `maxInstallments`, `minInstallments`, and `paymentType` | **OPTIONAL** |
 | `paymentMethods.minInstallments`| `number` | Minimal number of installments to be offered to the user  | **OPTIONAL** |
 | `paymentMethods.maxInstallments`| `number` | Maximum number of installments to be offered to the user  | **OPTIONAL** | 
 | `paymentMethods.paymentType`| `object` | Control of the accepted payment types. Contains `excluded` | **OPTIONAL** | 
@@ -241,7 +247,7 @@ Accepted properties are:
 
 <br />
 
-Style is an object with keys for theme and custom variables.
+Style is an object with keys for theme and custom CSS variables.
 
 |   Style key  |   Type   |        Description                                   |              |
 |---------------|----------|------------------------------------------------------|--------------|
