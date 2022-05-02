@@ -115,7 +115,7 @@ The callbacks object contains the callbacks functions the brick will call during
 |-------------------|--------------------------------------------------|--------------|-----|----|
 | `onReady` | It is called when the brick finishes loading | **REQUIRED** | `void` | `void` |
 | `onError` | It is called when there is an error in the Brick | **REQUIRED** | `void` | `BrickError` |
-| `onSubmit` | It is called when the user clicks on the submit button | **REQUIRED** | `void` | `CardData` |
+| `onSubmit` | It is called when the user clicks on the submit button | **OPTIONAL** | `void` | `CardData` |
 
 <br />
 
