@@ -76,7 +76,7 @@ Use our APIs to build your own payment experience on your website or mobile appl
 
 There are multiple supported ways to integrate Checkout API. Ranging from the most simple integration, using Checkout Bricks, to integrating with the Core Methods, where the integrator has total control of the checkout experience.
 
-For a complete refence on the integration options, check the [API reference](#api)
+For a complete reference on the integration options, check the [API reference](#api)
 
 <br />
 
@@ -88,7 +88,7 @@ For a complete refence on the integration options, check the [API reference](#ap
     <div id="cardPaymentBrick_container"></div>
 </body>
 </html>
-<script src="https://beta-sdk.mercadopago.com/gama/js/v2"></script>
+<script src="https://sdk.mercadopago.com/js/v2"></script>
 
 
 <script>
@@ -108,7 +108,7 @@ For a complete refence on the integration options, check the [API reference](#ap
             onReady: () => {
                 // handle form ready
             },
-            onSubmit: () => {
+            onSubmit: (cardFormData) => {
                 return new Promise((resolve, reject) => {
                     fetch("/process_payment", { 
                         method: "POST",
@@ -133,8 +133,8 @@ For a complete refence on the integration options, check the [API reference](#ap
         }
         },
     };
+    
     cardPaymentBrickController = await bricksBuilder.create('cardPayment', 'cardPaymentBrick_container', settings);
-    };
 
     renderCardPaymentBrick(bricksBuilder);
 </script>
