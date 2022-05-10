@@ -25,8 +25,8 @@ Options:
 
 |||
 |-|-|
-|create | **METHOD** |
 |isInitialized | **METHOD** |
+|create | **METHOD** |
 
 <br/>
 

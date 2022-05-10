@@ -198,8 +198,8 @@ Customizations object is used to load Brick under different conditions.
 
 |   Customization key  |   Type   |        Description                                   |              |
 |---------------|----------|------------------------------------------------------|--------------|
-| `style`| `Style`| Defines custom theme and CSS variables  | **OPTIONAL** |
 | `texts`| `CustomTexts`| Defines custom texts for the Brick (avaliable custom texts vary by Brick).  | **OPTIONAL** |
+| `style`| `Style`| Defines custom theme and CSS variables  | **OPTIONAL** |
 | `hidePaymentButton`| `boolean` | Hides the payment button and disables the `onSubmit` callback. | **OPTIONAL** |
 | `hideFormTitle`| `boolean` | Hides the form title row. | **OPTIONAL** |
 | `font`| `string` | Defines the custom font URL. This only applies to the [Secure Fields](#fields-module). | **OPTIONAL** |

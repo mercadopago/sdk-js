@@ -11,7 +11,7 @@ Mercado Pago's Official JS SDK
 3. [Installation](#installation)
 4. [Initializing](#initializing)
 5. [Checkout API](#checkout-api)
-6. [Checkout PRO](#checkout-pro)
+6. [Checkout Pro](#checkout-pro)
 7. [API](#api)
 8. [Notes](#notes)
 
@@ -267,20 +267,18 @@ For a complete reference on the integration options, check the [API reference](#
     </script>
     </body>
     </html>
-    ```
 
-    <br>
+```
+## Checkout Pro
+Checkout Pro is the integration that allows you to charge through our web form from any device in a simple, fast and secure way.
 
-    ## Checkout PRO
-    Checkout Pro is the integration that allows you to charge through our web form from any device in a simple, fast and secure way.
+See the [API reference](#api)
 
-    See the [API reference](#api)
+<br />
 
-    <br />
+### Full example
 
-    ### Full example
-
-    ```html
+```html
     <!DOCTYPE html>
     <html>
     <body>
@@ -304,7 +302,7 @@ For a complete reference on the integration options, check the [API reference](#
 </html>
 ```
 
-<br>
+<br />
 
 ## API
 
