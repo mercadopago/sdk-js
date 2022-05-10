@@ -64,7 +64,6 @@ The `settings` object has properties to initialize and customize the brick being
 | `initialization`| `object` | Defines the initialization data.[See more](#initialization) | **REQUIRED** |
 | `callbacks`     | `object` | Defines the callback functions. [See more](#callbacks) | **REQUIRED** |
 | `customization` | `object`  | Defines custom properties. [See more](#customization) | **OPTIONAL** |
-| `style`        | `object` | Defines style for individual Brick. [See more](#style) | **OPTIONAL** |
 | `locale`        | `string` | Defines locale.                                     | **OPTIONAL** |
 
 <br />
