@@ -4,33 +4,33 @@ Example:
 ```js
 mp.bricks().create('cardPayment', 'cardPaymentBrick_container' , {
     initialization: {
-        amount: 100,
-        callbacks: {
-            onReady: () => {
-                // handle form ready
-            },
-            onSubmit: (cardFormData) => {
-                return new Promise((resolve, reject) => {
-                    fetch("/process_payment", { 
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(cardFormData)
-                    })
-                    .then((response) => {
-                        // get payment result
-                        resolve();
-                    })
-                    .catch((error) => {
-                        // get payment result error
-                        reject();
-                    })
-                });
-            }, 
-            onError: (error) => {
-                // handle error
-            }
+        amount: 100
+    },
+    callbacks: {
+        onReady: () => {
+            // handle form ready
+        },
+        onSubmit: (cardFormData) => {
+            return new Promise((resolve, reject) => {
+                fetch("/process_payment", { 
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(cardFormData)
+                })
+                .then((response) => {
+                    // get payment result
+                    resolve();
+                })
+                .catch((error) => {
+                    // get payment result error
+                    reject();
+                })
+            });
+        }, 
+        onError: (error) => {
+            // handle error
         }
     }
 });
@@ -198,16 +198,21 @@ Customizations object is used to load Brick under different conditions.
 
 |   Customization key  |   Type   |        Description                                   |              |
 |---------------|----------|------------------------------------------------------|--------------|
-| `texts`| `CustomTexts`| Defines custom texts for the Brick (avaliable custom texts vary by Brick).  | **OPTIONAL** |
-| `style`| `Style`| Defines custom theme and CSS variables  | **OPTIONAL** |
-| `hidePaymentButton`| `boolean` | Hides the payment button and disables the `onSubmit` callback. | **OPTIONAL** |
-| `hideFormTitle`| `boolean` | Hides the form title row. | **OPTIONAL** |
-| `font`| `string` | Defines the custom font URL. This only applies to the [Secure Fields](#fields-module). | **OPTIONAL** |
-| `paymentMethods`| `object` | Object that allow payment methods configuration. Contains `maxInstallments`, `minInstallments`, and `paymentType` | **OPTIONAL** |
-| `paymentMethods.minInstallments`| `number` | Minimal number of installments to be offered to the user  | **OPTIONAL** |
+| `visual`| `object`| Control the visual aspects of the brick. Contains `styles`, `font`, `texts`, `hidePaymentButton` and `hideFormTitle` | **OPTIONAL** |
+| `visual.style`| `Style`| Defines custom theme and CSS variables | **OPTIONAL** |
+| `visual.font`| `string`| Defines the custom font URL. This only applies to the [Secure Fields](#fields-module). | **OPTIONAL** |
+| `visual.texts`| `CustomTexts`| Defines custom texts for the Brick (avaliable custom texts vary by Brick). | **OPTIONAL** |
+| `visual.hidePaymentButton`| `boolean`| Hides the payment button and disables the `onSubmit` callback. | **OPTIONAL** |
+| `visual.hideFormTitle`| `boolean`| Hides the form title row. | **OPTIONAL** |
+| `paymentMethods`| `object` | Object that allow payment methods configuration. Contains `maxInstallments`, `minInstallments`, and `types` | **OPTIONAL** |
 | `paymentMethods.maxInstallments`| `number` | Maximum number of installments to be offered to the user  | **OPTIONAL** | 
-| `paymentMethods.paymentType`| `object` | Control of the accepted payment types. Contains `excluded` | **OPTIONAL** | 
-| `paymentMethods.paymentType.excluded`| `string[]` | Not accepted payment types. Accepts: `credit_card`, `debit_card` | **OPTIONAL** |
+| `paymentMethods.minInstallments`| `number` | Minimal number of installments to be offered to the user  | **OPTIONAL** |
+| `paymentMethods.types`| `object` | Control of the accepted payment types. Contains `excluded` and `included` | **OPTIONAL** | 
+| `paymentMethods.types.excluded`| `string[]` | Not accepted payment types. Accepts: `credit_card`, `debit_card` | **OPTIONAL** |
+| `paymentMethods.types.included`| `string[]` | Accepted payment types. Accepts: `credit_card`, `debit_card` | **OPTIONAL** |
+<!-- | `paymentProcessing`| `` |  | **OPTIONAL** | -->
+<!-- | `paymentProcessing.mode`| `` |  | **OPTIONAL** | -->
+<!-- | `paymentProcessing.merchantAccountId`| `` |  | **OPTIONAL** | -->
 
 <br />
 
