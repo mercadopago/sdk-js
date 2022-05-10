@@ -101,33 +101,38 @@ For a complete reference on the integration options, check the [API reference](#
             initialization: {
                 amount: 100, //value of the payment to be processed
             },
-            style: {
-                theme: 'dark' // 'default' |'dark' | 'bootstrap' | 'flat'
+            customization: {
+                visual: {
+                    style: {
+                        theme: 'dark' // 'default' |'dark' | 'bootstrap' | 'flat'
+                    } 
+                }
             },
-            onSubmit: (cardFormData) => {
-                return new Promise((resolve, reject) => {
-                    fetch("/process_payment", { 
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(cardFormData)
-                    })
-                    .then((response) => {
-                        // get payment result
-                        resolve();
-                    })
-                    .catch((error) => {
-                        // get payment result error
-                        reject();
-                    })
-                });
-            }, 
-            onError: (error) => {
-                // handle error
-            }
+            callbacks: {
+                onSubmit: (cardFormData) => {
+                    return new Promise((resolve, reject) => {
+                        fetch("/process_payment", { 
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(cardFormData)
+                        })
+                        .then((response) => {
+                            // get payment result
+                            resolve();
+                        })
+                        .catch((error) => {
+                            // get payment result error
+                            reject();
+                        })
+                    });
+                }, 
+                onError: (error) => {
+                    // handle error
+                }
+            }                       
         }
-        },
     };
     
     cardPaymentBrickController = await bricksBuilder.create('cardPayment', 'cardPaymentBrick_container', settings);
