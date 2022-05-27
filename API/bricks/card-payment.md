@@ -113,8 +113,8 @@ The callbacks object contains the callbacks functions the brick will call during
 |   Callback key     |     Description                                   |              | Params | Returns |
 |-------------------|--------------------------------------------------|--------------|-----|----|
 | `onReady` | It is called when the brick finishes loading | **REQUIRED** | `void` | `void` |
-| `onError` | It is called when there is an error in the Brick | **REQUIRED** | `void` | `BrickError` |
-| `onSubmit` | It is called when the user clicks on the submit button | **OPTIONAL** | `void` | `CardData` |
+| `onError` | It is called when there is an error in the Brick | **REQUIRED** |  `BrickError` | `void` |
+| `onSubmit` | It is called when the user clicks on the submit button | **OPTIONAL** | `Promise<CardData | void>` | `Promise<void>` | 
 
 <br />
 
@@ -197,9 +197,9 @@ Customizations object is used to load Brick under different conditions.
 |   Customization key  |   Type   |        Description                                   |              |
 |---------------|----------|------------------------------------------------------|--------------|
 | `visual`| `object`| Control the visual aspects of the brick. Contains `style`, `font`, `texts`, `hidePaymentButton` and `hideFormTitle` | **OPTIONAL** |
-| `visual.style`| `Style`| Defines custom theme and CSS variables | **OPTIONAL** |
-| `visual.font`| `string`| Defines the custom font URL. This only applies to the [Secure Fields](#fields-module). | **OPTIONAL** |
+| `visual.font`| `string`| Defines the custom font URL. This only applies to the [Secure Fields](../fields.md#fields-module). | **OPTIONAL** |
 | `visual.texts`| `CustomTexts`| Defines custom texts for the Brick (avaliable custom texts vary by Brick). | **OPTIONAL** |
+| `visual.style`| `Style`| Defines custom theme and CSS variables | **OPTIONAL** |
 | `visual.hidePaymentButton`| `boolean`| Hides the payment button and disables the `onSubmit` callback. | **OPTIONAL** |
 | `visual.hideFormTitle`| `boolean`| Hides the form title row. | **OPTIONAL** |
 | `paymentMethods`| `object` | Object that allow payment methods configuration. Contains `maxInstallments`, `minInstallments`, and `types` | **OPTIONAL** |
@@ -218,18 +218,6 @@ Accepted properties are:
 |             Property           | Type |
 |------------------------------|----------|
 |`formTitle`| `string` |
-|`selectInstallments`| `string` |
-|`formSubmit`| `string` | 
-|`emailSectionTitle`| `string` | 
-|`installmentsSectionTitle`| `string` | 
-|`cardholderName`| `object` |
-|`cardholderName.label`| `string` |
-|`cardholderName.placeholder`| `string` |
-|`cardholderEmail`| `object` |
-|`cardholderEmail.label`| `string` |
-|`cardholderEmail.placeholder`| `string` |
-|`cardholderIdentification`| `object` |
-|`cardholderIdentification.placeholder`| `string` |
 |`cardNumber`| `object` |
 |`cardNumber.label`| `string` |
 |`cardNumber.placeholder`| `string` | 
@@ -239,7 +227,19 @@ Accepted properties are:
 |`cardSecurityCode`| `object` |
 |`cardSecurityCode.label`| `string` |
 |`cardSecurityCode.placeholder`| `string` | 
+|`cardholderName`| `object` |
+|`cardholderName.label`| `string` |
+|`cardholderName.placeholder`| `string` |
+|`cardholderIdentification`| `object` |
+|`cardholderIdentification.placeholder`| `string` |
+|`installmentsSectionTitle`| `string` | 
+|`selectInstallments`| `string` |
 |`selectIssuerBank`| `string` | 
+|`emailSectionTitle`| `string` | 
+|`cardholderEmail`| `object` |
+|`cardholderEmail.label`| `string` |
+|`cardholderEmail.placeholder`| `string` |
+|`formSubmit`| `string` | 
 
 <br />
 

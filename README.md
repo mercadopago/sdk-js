@@ -329,6 +329,7 @@ It is the public key for your account.
 |-|-|-|-|-|-|
 |`locale` |`es-AR`<br>`es-CL`<br>`es-CO`<br>`es-MX`<br>`es-VE`<br>`es-UY`<br>`es-PE`<br>`pt-BR`<br>`en-US`|Browser default locale | *string* | Set the locale | **OPTIONAL** |
 |`advancedFraudPrevention` |`true\|false`| true | *boolean* | Set the advanced fraud prevention status | **OPTIONAL** |
+|`trackingDisabled` |`true\|false`| false | *boolean* | Enable/disable tracking of generic usage metrics | **OPTIONAL** |
 
 <br />
 

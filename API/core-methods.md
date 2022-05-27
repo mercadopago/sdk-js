@@ -18,6 +18,7 @@ It is the public key for your account.
 |`advancedFraudPrevention` |`true\|false`| true | *boolean* | Set the advanced fraud prevention status | **OPTIONAL** |
 |`trackingDisabled` |`true\|false`| false | *boolean* | Enable/disable tracking of generic usage metrics | **OPTIONAL** |
 
+
 <br />
 
 #### Example:
@@ -41,7 +42,7 @@ const mp = new MercadoPago('PUBLIC_KEY', {
 |createCardToken | **METHOD** |
 |cardForm | **MODULE** |
 |checkout | **MODULE** |
-|[fields](#fields-module) | **MODULE** |
+|[fields](fields.md#fields-module) | **MODULE** |
 
 <br />
 
