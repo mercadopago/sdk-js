@@ -10,14 +10,14 @@ mp.bricks().create('cardPayment', 'cardPaymentBrick_container' , {
         onReady: () => {
             // handle form ready
         },
-        onSubmit: (cardFormData) => {
+        onSubmit: (cardData) => {
             return new Promise((resolve, reject) => {
                 fetch("/process_payment", { 
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(cardFormData)
+                    body: JSON.stringify(cardData)
                 })
                 .then((response) => {
                     // get payment result
