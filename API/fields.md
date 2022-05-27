@@ -39,10 +39,7 @@ const mp = new MercadoPago('PUBLIC_KEY', {
 |getPaymentMethods | **METHOD** |
 |getIssuers | **METHOD** |
 |getInstallments | **METHOD** |
-|createCardToken | **METHOD** |
-|cardForm | **MODULE** |
-|checkout | **MODULE** |
-|[fields](#fields-module) | **MODULE** |
+|fields | **MODULE** |
 
 <br />
 
