@@ -193,11 +193,10 @@ The callbacks object contains the callbacks functions the brick will call during
 
 Customizations object is used to load Brick under different conditions.
 
-<!-- TODO: Analyse wheather to include processingMode and merchantAccountId -->
 
 |   Customization key  |   Type   |        Description                                   |              |
 |---------------|----------|------------------------------------------------------|--------------|
-| `visual`| `object`| Control the visual aspects of the brick. Contains `styles`, `font`, `texts`, `hidePaymentButton` and `hideFormTitle` | **OPTIONAL** |
+| `visual`| `object`| Control the visual aspects of the brick. Contains `style`, `font`, `texts`, `hidePaymentButton` and `hideFormTitle` | **OPTIONAL** |
 | `visual.style`| `Style`| Defines custom theme and CSS variables | **OPTIONAL** |
 | `visual.font`| `string`| Defines the custom font URL. This only applies to the [Secure Fields](#fields-module). | **OPTIONAL** |
 | `visual.texts`| `CustomTexts`| Defines custom texts for the Brick (avaliable custom texts vary by Brick). | **OPTIONAL** |
@@ -209,9 +208,6 @@ Customizations object is used to load Brick under different conditions.
 | `paymentMethods.types`| `object` | Control of the accepted payment types. Contains `excluded` and `included` | **OPTIONAL** | 
 | `paymentMethods.types.excluded`| `string[]` | Not accepted payment types. Accepts: `credit_card`, `debit_card` | **OPTIONAL** |
 | `paymentMethods.types.included`| `string[]` | Accepted payment types. Accepts: `credit_card`, `debit_card` | **OPTIONAL** |
-<!-- | `paymentProcessing`| `` |  | **OPTIONAL** | -->
-<!-- | `paymentProcessing.mode`| `` |  | **OPTIONAL** | -->
-<!-- | `paymentProcessing.merchantAccountId`| `` |  | **OPTIONAL** | -->
 
 <br />
 
@@ -309,7 +305,7 @@ Accepted properties are:
 
 <br />
 
-### Returns: `BRICK CONTROLLER`
+### Returns: `Promise<BRICK CONTROLLER>`
 
 <br />
 
