@@ -114,7 +114,7 @@ The callbacks object contains the callbacks functions the brick will call during
 |-------------------|--------------------------------------------------|--------------|-----|----|
 | `onReady` | It is called when the brick finishes loading | **REQUIRED** | `void` | `void` |
 | `onError` | It is called when there is an error in the Brick | **REQUIRED** |  `BrickError` | `void` |
-| `onSubmit` | It is called when the user clicks on the submit button | **OPTIONAL** | `Promise<CardData | void>` | `Promise<void>` | 
+| `onSubmit` | It is called when the user clicks on the submit button | **OPTIONAL** | <code>Promise<CardData &#124; void></code> | `Promise<void>` | 
 
 <br />
 
@@ -221,12 +221,12 @@ Accepted properties are:
 |`cardNumber`| `object` |
 |`cardNumber.label`| `string` |
 |`cardNumber.placeholder`| `string` | 
-|`cardExpirationDate`| `object` |
-|`cardExpirationDate.label`| `string` |
-|`cardExpirationDate.placeholder`| `string` |
-|`cardSecurityCode`| `object` |
-|`cardSecurityCode.label`| `string` |
-|`cardSecurityCode.placeholder`| `string` | 
+|`expirationDate`| `object` |
+|`expirationDate.label`| `string` |
+|`expirationDate.placeholder`| `string` |
+|`securityCode`| `object` |
+|`securityCode.label`| `string` |
+|`securityCode.placeholder`| `string` | 
 |`cardholderName`| `object` |
 |`cardholderName.label`| `string` |
 |`cardholderName.placeholder`| `string` |
@@ -236,9 +236,9 @@ Accepted properties are:
 |`selectInstallments`| `string` |
 |`selectIssuerBank`| `string` | 
 |`emailSectionTitle`| `string` | 
-|`cardholderEmail`| `object` |
-|`cardholderEmail.label`| `string` |
-|`cardholderEmail.placeholder`| `string` |
+|`email`| `object` |
+|`email.label`| `string` |
+|`email.placeholder`| `string` |
 |`formSubmit`| `string` | 
 
 <br />
