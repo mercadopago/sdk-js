@@ -173,6 +173,7 @@ Accepted properties are:
 |`"padding-left"` \| \| `paddingLeft`|
 |`"padding-right"` \| \| `paddingRight`|
 |`"padding-top"` \| \| `paddingTop`|
+|`"placeholder-color"` \| \| `placeholderColor`|
 |`"text-align"` \| \| `textAlign`|
 |`width`|
 
