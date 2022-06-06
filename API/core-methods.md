@@ -89,7 +89,7 @@ Returns a payment methods list
 `paymentMethodsParams` | _object_, **REQUIRED**
 | Option Key | Type | Description | |
 |-|-|-|-|
-| `bin` | `STRING` | Card number first 6 digits | **REQUIRED** |
+| `bin` | `STRING` | Card number first 8 digits | **REQUIRED** |
 | `processingMode` | `"aggregator"` \| `"gateway"` | Process mode | **OPTIONAL** |
 
 <br />
@@ -97,7 +97,7 @@ Returns a payment methods list
 #### Example:
 
 ```javascript
-const paymentMethods = await mp.getPaymentMethods({ bin: '411111' })
+const paymentMethods = await mp.getPaymentMethods({ bin: '41111111' })
 ```
 
 #### Return: `PROMISE` (showing most common used results.)
@@ -165,14 +165,14 @@ Returns a issuers list
 | Option Key | Type | Description | |
 |-|-|-|-|
 | `paymentMethodId` | `STRING` | Payment method ID | **REQUIRED** |
-| `bin` | `STRING` | Card number first 6 digits | **REQUIRED** |
+| `bin` | `STRING` | Card number first 8 digits | **REQUIRED** |
 
 <br />
 
 #### Example:
 
 ```javascript
-const issuers = await mp.getIssuers({ paymentMethodId: 'visa', bin: '4111111' })
+const issuers = await mp.getIssuers({ paymentMethodId: 'visa', bin: '411111111' })
 ```
 
 #### Return: `PROMISE`
@@ -203,7 +203,7 @@ Returns all installments available
 | Option Key | Type | Description | |
 |-|-|-|-|
 | `amount` | `STRING` | Payment total amount | **REQUIRED** |
-| `bin` | `STRING` | Card number first 6 digits | **REQUIRED** |
+| `bin` | `STRING` | Card number first 8 digits | **REQUIRED** |
 | `locale` | `STRING` | Set the response message language | **OPTIONAL** |
 | `processingMode` | `"aggregator"` \| `"gateway"` | Process mode | **OPTIONAL** |
 
@@ -214,7 +214,7 @@ Returns all installments available
 const installments = await mp.getInstallments({
   amount: '1000',
   locale: 'pt-BR',
-  bin: '411111',
+  bin: '41111111',
   processingMode: 'aggregator'
 })
 ```
