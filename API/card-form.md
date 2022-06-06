@@ -66,6 +66,7 @@ Form Options:
 |`placeholder`|`string`|Field Placeholder|**OPTIONAL**|
 |`style`|`object`|Field styles only available for `cardNumber`, `securityCode`, `expirationDate`, `expirationMonth` and `expirationYear` when the `iframe` option is `true`. [See more](fields.md#style)|**OPTIONAL**|
 |`customFonts`|`array`|Field customFonts only available for `cardNumber`, `securityCode`, `expirationDate`, `expirationMonth` and `expirationYear` when the `iframe` option is `true`. [See more](fields.md#custom-fonts)|**OPTIONAL**|
+|`mode`|`string`|Field mode only available for `expirationDate` and `expirationYear` when the `iframe` option is `true`. [See more](fields.md#year-mode)|**OPTIONAL**|
 
 <br />
 
