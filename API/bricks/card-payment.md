@@ -88,11 +88,11 @@ Payer contains initial payer information.
 |   Payer key  |   Type   |        Description                                   |
 |---------------|----------|------------------------------------------------------|
 | `email`| `string` | Defines the payer email. Brick will hide email field if this value is correctly filled |
-| `identification`     | `object` | Defines payer identification. Contains keys `id` and `number` |
-| `identification.id` | `string`  | Identification id. Possible values vary based on siteId | 
+| `identification`     | `object` | Defines payer identification. Contains keys `type` and `number` |
+| `identification.type` | `string`  | Identification type. Possible values vary based on siteId | 
 | `identification.number` | `string` | Identification number. If filled correctly the Brick will prefill the identification number input | 
 
-|   SiteId          |   Identification Id Values          |
+|   SiteId          |   Identification Type Values          |
 |-------------------|-------------------------------------|
 | `MLB (Brazil)`    | `CPF`, `CNPJ`                       |
 | `MLA (Argentina)` | `DNI`, `CI`, `LC`, `LE`, `Otro`     |
