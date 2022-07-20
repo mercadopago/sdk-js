@@ -90,13 +90,13 @@ Payer contains initial payer information.
 |   Payer key  |   Type   |        Description                                   |
 |---------------|----------|------------------------------------------------------|
 | `email`| `string` | Defines the payer email. Brick will hide email field if this value is correctly filled |
-| `identification`     | `object` | Defines payer identification. Contains keys `id` and `number` |
-| `identification.id` | `string`  | Identification id. Possible values vary based on siteId | 
+| `identification`     | `object` | Defines payer identification. Contains keys `type` and `number` |
+| `identification.type` | `string`  | Identification type. Possible values vary based on siteId | 
 | `identification.number` | `string` | Identification number. If filled correctly the Brick will prefill the identification number input | 
 | `customer_id` | `string` | Customer ID. View how to manage customers. [See More](https://www.mercadopago.com.br/developers/pt/reference/customers/_customers/post)  | 
 | `card_ids` | `string[]` | Saved Cards Ids. If defined in conjunction with Customer ID, the buyer will be able to used their saved cards in checkout. [See More](https://www.mercadopago.com.br/developers/pt/reference/cards/_customers_customer_id_cards/post)  | 
 
-|   SiteId          |   Identification Id Values          |
+|   SiteId          |   Identification Type Values          |
 |-------------------|-------------------------------------|
 | `MLB (Brazil)`    | `CPF`, `CNPJ`                       |
 | `MLA (Argentina)` | `DNI`, `CI`, `LC`, `LE`, `Otro`     |
