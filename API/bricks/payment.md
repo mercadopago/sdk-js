@@ -93,8 +93,8 @@ Payer contains initial payer information.
 | `identification`     | `object` | Defines payer identification. Contains keys `type` and `number` |
 | `identification.type` | `string`  | Identification type. Possible values vary based on siteId | 
 | `identification.number` | `string` | Identification number. If filled correctly the Brick will prefill the identification number input | 
-| `customer_id` | `string` | Customer ID. View how to manage customers. [See More](https://www.mercadopago.com.br/developers/pt/reference/customers/_customers/post)  | 
-| `card_ids` | `string[]` | Saved Cards Ids. If defined in conjunction with Customer ID, the buyer will be able to used their saved cards in checkout. [See More](https://www.mercadopago.com.br/developers/pt/reference/cards/_customers_customer_id_cards/post)  | 
+| `customerId` | `string` | Customer ID. View how to manage customers. [See More](https://www.mercadopago.com.br/developers/pt/reference/customers/_customers/post)  | 
+| `cardsIds` | `string[]` | Saved Cards Ids. If defined in conjunction with Customer ID, the buyer will be able to used their saved cards in checkout. [See More](https://www.mercadopago.com.br/developers/pt/reference/cards/_customers_customer_id_cards/post)  | 
 
 |   SiteId          |   Identification Type Values          |
 |-------------------|-------------------------------------|
