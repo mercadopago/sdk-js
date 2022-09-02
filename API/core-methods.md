@@ -256,8 +256,8 @@ Return a token card
 |-|-|-|-|
 | `cardNumber` | `STRING` | Card number | **OPTIONAL** |
 | `cardholderName` | `STRING` | Cardholder name | **OPTIONAL** |
-| `expirationMonth` | `STRING` | Expiration month | **OPTIONAL** |
-| `expirationYear` | `STRING` | Expiration year | **OPTIONAL** |
+| `cardExpirationMonth` | `STRING` | Expiration month | **OPTIONAL** |
+| `cardExpirationYear` | `STRING` | Expiration year | **OPTIONAL** |
 | `securityCode` | `STRING` | Security code | **REQUIRED** |
 | `identificationType` | `STRING` | Type of document | **OPTIONAL** |
 | `identificationNumber` | `STRING` | Value of document | **OPTIONAL** |
@@ -271,8 +271,8 @@ Return a token card
 const cardToken = await mp.createCardToken({
     cardNumber: '5031433215406351' ,
     cardholderName: 'APRO',
-    expirationMonth: '11',
-    expirationYear: '2025',
+    cardExpirationMonth: '11',
+    cardExpirationYear: '2025',
     securityCode: '123',
     identificationType: 'CPF',
     identificationNumber: '12345678912',
