@@ -128,7 +128,7 @@ For a complete reference on the integration options, check the [API reference](#
                         })
                     });
                 },
-                onReady: (error) => {
+                onReady: () => {
                     // handle form ready
                 },
                 onError: (error) => {
