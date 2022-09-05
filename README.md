@@ -127,15 +127,18 @@ For a complete reference on the integration options, check the [API reference](#
                             reject();
                         })
                     });
-                }, 
+                },
+                onReady: (error) => {
+                    // handle form ready
+                },
                 onError: (error) => {
                     // handle error
                 }
             }                       
         }
+
+        cardPaymentBrickController = await bricksBuilder.create('cardPayment', 'cardPaymentBrick_container', settings);
     };
-    
-    cardPaymentBrickController = await bricksBuilder.create('cardPayment', 'cardPaymentBrick_container', settings);
 
     renderCardPaymentBrick(bricksBuilder);
 </script>
