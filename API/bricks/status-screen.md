@@ -209,28 +209,29 @@ Accepted properties are:
 |`baseColorSecondVariant`| `string` |
 |`errorColor`| `string` |
 |`successColor`| `string` |
+|`warningColor`| `string`|
 |`outlinePrimaryColor`| `string` |
 |`outlineSecondaryColor`| `string` |
 |`buttonTextColor`| `string` |
-`fontSizeExtraSmall` | `string` |
-`fontSizeSmall` | `string` |
-`fontSizeMedium` | `string` |
-`fontSizeLarge` | `string` |
-`fontSizeExtraLarge` | `string` |
-`fontWeightNormal` | `string` |
-`fontWeightSemiBold` | `string` |
-`formInputsTextTransform` | `string` |
-`inputVerticalPadding` | `string` |
-`inputHorizontalPadding` | `string` |
-`inputFocusedBoxShadow` | `string` |
-`inputErrorFocusedBoxShadow` | `string` |
-`inputBorderWidth` | `string` |
-`inputFocusedBorderWidth` | `string` |
-`borderRadiusSmall` | `string` |
-`borderRadiusMedium` | `string` |
-`borderRadiusLarge` | `string` |
-`borderRadiusFull` | `string` |
-`formPadding` | `string` |
+|`fontSizeExtraSmall` | `string` |
+|`fontSizeSmall` | `string` |
+|`fontSizeMedium` | `string` |
+|`fontSizeLarge` | `string` |
+|`fontSizeExtraLarge` | `string` |
+|`fontWeightNormal` | `string` |
+|`fontWeightSemiBold` | `string` |
+|`formInputsTextTransform` | `string` |
+|`inputVerticalPadding` | `string` |
+|`inputHorizontalPadding` | `string` |
+|`inputFocusedBoxShadow` | `string` |
+|`inputErrorFocusedBoxShadow` | `string` |
+|`inputBorderWidth` | `string` |
+|`inputFocusedBorderWidth` | `string` |
+|`borderRadiusSmall` | `string` |
+|`borderRadiusMedium` | `string` |
+|`borderRadiusLarge` | `string` |
+|`borderRadiusFull` | `string` |
+|`formPadding` | `string` |
 
 > Note: All sizing properties accept values in: `px`, `rem`, `em`, and `%`
 
