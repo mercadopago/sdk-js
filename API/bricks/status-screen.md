@@ -134,43 +134,10 @@ Customizations object is used to load Brick under different conditions.
 |---------------|----------|------------------------------------------------------|--------------|
 | `visual`| `object`| Control the visual aspects of the brick. Contains `style`, `font`, `texts`, `hidePaymentButton` and `hideFormTitle` | **OPTIONAL** |
 | `visual.font`| `string`| Defines the custom font URL. This only applies to the [Secure Fields](../fields.md#fields-module). | **OPTIONAL** |
-| `visual.texts`| `CustomTexts`| Defines custom texts for the Brick (available custom texts vary by Brick). | **OPTIONAL** |
 | `visual.style`| `Style`| Defines custom theme and CSS variables | **OPTIONAL** |
 | `visual.showExternalReference`| `boolean`| Shows the `external_reference` field from the Payments API | **OPTIONAL** |
 | `visual.hideTransactionDate`| `boolean`| Controls if the transaction date is shown in the Brick | **OPTIONAL** |
 | `visual.hideStatusDetails`| `boolean`| Controls if the status detail of the payment is shown in the Brick | **OPTIONAL** |
-
-<br />
-
-`CustomTexts`
-
-Accepted properties are:
-
-|             Property           | Type |
-|------------------------------|----------|
-|`formTitle`| `string` |
-|`cardNumber`| `object` |
-|`cardNumber.label`| `string` |
-|`cardNumber.placeholder`| `string` | 
-|`expirationDate`| `object` |
-|`expirationDate.label`| `string` |
-|`expirationDate.placeholder`| `string` |
-|`securityCode`| `object` |
-|`securityCode.label`| `string` |
-|`securityCode.placeholder`| `string` | 
-|`cardholderName`| `object` |
-|`cardholderName.label`| `string` |
-|`cardholderName.placeholder`| `string` |
-|`cardholderIdentification`| `object` |
-|`cardholderIdentification.placeholder`| `string` |
-|`installmentsSectionTitle`| `string` | 
-|`selectInstallments`| `string` |
-|`selectIssuerBank`| `string` | 
-|`emailSectionTitle`| `string` | 
-|`email`| `object` |
-|`email.label`| `string` |
-|`email.placeholder`| `string` |
-|`formSubmit`| `string` | 
 
 <br />
 

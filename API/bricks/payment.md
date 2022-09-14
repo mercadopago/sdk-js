@@ -111,7 +111,7 @@ Payer contains initial payer information.
 | `address.streetNumber` | `number` | Street number of payer address. If filled correctly the Brick will prefill the street number input | 
 | `address.complement` | `string` | Complement of payer address. If filled correctly the Brick will prefill the complement input | 
 | `customerId` | `string` | Customer ID. View how to manage customers. [See More](https://www.mercadopago.com.br/developers/pt/reference/customers/_customers/post)  | 
-| `cardsIds` | `string[]` | Saved Cards Ids. If defined in conjunction with Customer ID, the buyer will be able to use their saved cards in checkout. [See More](https://www.mercadopago.com.br/developers/pt/reference/cards/_customers_customer_id_cards/post)  | 
+| `cardsIds` | `string[]` | Saved Cards Ids. If defined in conjunction with Customer ID, the payer will be able to use their saved cards in checkout. [See More](https://www.mercadopago.com.br/developers/pt/reference/cards/_customers_customer_id_cards/post)  | 
 
 |   SiteId          |   Identification Type Values          |
 |-------------------|-------------------------------------|
@@ -272,10 +272,10 @@ Accepted properties are:
 |`email.label`| `string` |
 |`email.placeholder`| `string` |
 |`formSubmit`| `string` |
-|`buyerName.placeholder`| `string`|
-|`buyerName.label`| `string`|
-|`buyerLastName.placeholder`| `string`|
-|`buyerLastName.label`| `string`|
+|`payerFirstName.placeholder`| `string`|
+|`payerFirstName.label`| `string`|
+|`payerLastName.placeholder`| `string`|
+|`payerLastName.label`| `string`|
 |`zipCode.placeholder`| `string`|
 |`zipCode.label`| `string`|
 |`addressState.placeholder`| `string`|
