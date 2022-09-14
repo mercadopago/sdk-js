@@ -42,7 +42,7 @@ The `settings` object has properties to initialize and customize the brick being
 
 |   Setting key  |   Type   |        Description                                   |              | 
 |---------------|----------|------------------------------------------------------|--------------|
-| `initialization`| `object` | Defines the initialization data.[See more](#initialization) | **REQUIRED** |
+| `initialization`| `object` | Defines the initialization data. [See more](#initialization) | **REQUIRED** |
 | `callbacks`     | `object` | Defines the callback functions. [See more](#callbacks) | **REQUIRED** |
 | `customization` | `object`  | Defines custom properties. [See more](#customization) | **OPTIONAL** |
 | `locale`        | `string` | Defines locale.                                     | **OPTIONAL** |
@@ -134,9 +134,9 @@ Customizations object is used to load Brick under different conditions.
 |---------------|----------|------------------------------------------------------|--------------|
 | `visual`| `object`| Control the visual aspects of the brick. Contains `style`, `font`, `texts`, `hidePaymentButton` and `hideFormTitle` | **OPTIONAL** |
 | `visual.font`| `string`| Defines the custom font URL. This only applies to the [Secure Fields](../fields.md#fields-module). | **OPTIONAL** |
-| `visual.texts`| `CustomTexts`| Defines custom texts for the Brick (avaliable custom texts vary by Brick). | **OPTIONAL** |
+| `visual.texts`| `CustomTexts`| Defines custom texts for the Brick (available custom texts vary by Brick). | **OPTIONAL** |
 | `visual.style`| `Style`| Defines custom theme and CSS variables | **OPTIONAL** |
-| `visual.showExternalReference`| `boolean`| Shows the `external_reference` field from the payementAPI | **OPTIONAL** |
+| `visual.showExternalReference`| `boolean`| Shows the `external_reference` field from the Payments API | **OPTIONAL** |
 | `visual.hideTransactionDate`| `boolean`| Controls if the transaction date is shown in the Brick | **OPTIONAL** |
 | `visual.hideStatusDetails`| `boolean`| Controls if the status detail of the payment is shown in the Brick | **OPTIONAL** |
 
