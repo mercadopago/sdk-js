@@ -71,7 +71,7 @@ The `settings` object has properties to initialize and customize the brick being
 |---------------|----------|------------------------------------------------------|--------------|
 | `initialization`| `object` | Defines the initialization data. [See more](#initialization) | **REQUIRED** |
 | `callbacks`     | `object` | Defines the callback functions. [See more](#callbacks) | **REQUIRED** |
-| `customization` | `object`  | Defines custom properties. [See more](#customization) | **REQUIRED** |
+| `customization` | `object`  | Defines custom properties. [See more](#customization) | **OPTIONAL** |
 | `locale`        | `string` | Defines locale.                                     | **OPTIONAL** |
 
 <br />
@@ -233,7 +233,7 @@ Customizations object is used to load Brick under different conditions.
 | `visual.style`| `Style`| Defines custom theme and CSS variables | **OPTIONAL** |
 | `visual.hidePaymentButton`| `boolean`| Hides the payment button and disables the `onSubmit` callback. | **OPTIONAL** |
 | `visual.hideFormTitle`| `boolean`| Hides the form title row. | **OPTIONAL** |
-| `paymentMethods`| `object` | Object that allow payment methods configuration. Contains `maxInstallments`, `minInstallments`, `creditCard`, `debitCard`, `ticket`, `bankTransfer`. At least one of the properties (`creditCard`, `debitCard`, `ticket`, `bankTransfer`) should be provided. | **REQUIRED** |
+| `paymentMethods`| `object` | Object that allow payment methods configuration. Contains `maxInstallments`, `minInstallments`, `creditCard`, `debitCard`, `ticket`, `bankTransfer`. | **OPTIONAL** |
 | `paymentMethods.maxInstallments`| `number` | Maximum number of installments to be offered to the user  | **OPTIONAL** | 
 | `paymentMethods.minInstallments`| `number` | Minimal number of installments to be offered to the user  | **OPTIONAL** |
 | `paymentMethods.creditCard`| `string[] or string` | Allow payments with credit card. When the value `'all'` is provided, all credit cards are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the paymentType `credit_card`. | **OPTIONAL** |
