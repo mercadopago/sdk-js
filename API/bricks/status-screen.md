@@ -185,6 +185,7 @@ Accepted properties are:
 |`fontSizeMedium` | `string` |
 |`fontSizeLarge` | `string` |
 |`fontSizeExtraLarge` | `string` |
+|`fontSizeExtraExtraLarge` | `string` |
 |`fontWeightNormal` | `string` |
 |`fontWeightSemiBold` | `string` |
 |`formInputsTextTransform` | `string` |

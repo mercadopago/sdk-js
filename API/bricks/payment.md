@@ -233,6 +233,7 @@ Customizations object is used to load Brick under different conditions.
 | `visual.style`| `Style`| Defines custom theme and CSS variables | **OPTIONAL** |
 | `visual.hidePaymentButton`| `boolean`| Hides the payment button and disables the `onSubmit` callback. | **OPTIONAL** |
 | `visual.hideFormTitle`| `boolean`| Hides the form title row. | **OPTIONAL** |
+| `visual.hideRedirectionPanel`| `boolean`| Hides the redirection form. Only applies when the Wallet Purchase option is enabled. | **OPTIONAL** |
 | `paymentMethods`| `object` | Object that allow payment methods configuration. Contains `maxInstallments`, `minInstallments`, `creditCard`, `debitCard`, `ticket`, `bankTransfer`. | **OPTIONAL** |
 | `paymentMethods.maxInstallments`| `number` | Maximum number of installments to be offered to the user  | **OPTIONAL** | 
 | `paymentMethods.minInstallments`| `number` | Minimal number of installments to be offered to the user  | **OPTIONAL** |
