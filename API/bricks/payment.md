@@ -69,9 +69,9 @@ The `settings` object has properties to initialize and customize the brick being
 
 |   Setting key  |   Type   |        Description                                   |              | 
 |---------------|----------|------------------------------------------------------|--------------|
-| `initialization`| `object` | Defines the initialization data.[See more](#initialization) | **REQUIRED** |
+| `initialization`| `object` | Defines the initialization data. [See more](#initialization) | **REQUIRED** |
 | `callbacks`     | `object` | Defines the callback functions. [See more](#callbacks) | **REQUIRED** |
-| `customization` | `object`  | Defines custom properties. [See more](#customization) | **REQUIRED** |
+| `customization` | `object`  | Defines custom properties. [See more](#customization) | **OPTIONAL** |
 | `locale`        | `string` | Defines locale.                                     | **OPTIONAL** |
 
 <br />
@@ -86,6 +86,7 @@ Initialization is an object with the properties the brick will initialize with.
 |---------------|----------|------------------------------------------------------|--------------|
 | `amount`| `number` | Defines the transaction amount. | **REQUIRED** |
 | `payer`| `object`| Defines payer initial data. [Possible values](#payer)  | **OPTIONAL** |
+| `preferenceId`| `string`| If provided, the brick will bring to screen the Mercado Pago payment option. [The preference id should be created in Backend](https://www.mercadopago.com.br/developers/pt/docs/checkout-pro/checkout-customization/preferences)  | **OPTIONAL** |
 
 <br />
 
@@ -96,11 +97,21 @@ Payer contains initial payer information.
 |   Payer key  |   Type   |        Description                                   |
 |---------------|----------|------------------------------------------------------|
 | `email`| `string` | Defines the payer email. Brick will hide email field if this value is correctly filled |
+| `firstName`| `string` | Payer first name |
+| `lastName`| `string` | Payer last name |
 | `identification`     | `object` | Defines payer identification. Contains keys `type` and `number` |
 | `identification.type` | `string`  | Identification type. Possible values vary based on siteId | 
-| `identification.number` | `string` | Identification number. If filled correctly the Brick will prefill the identification number input | 
+| `identification.number` | `string` | Identification number. If filled correctly the Brick will prefill the identification number input |
+| `address` | `object` | Defines payer address. Contains keys `zipCode`, `federalUnit`,`city`,`neighborhood`,`streetName`,`streetNumber` and `complement` | 
+| `address.zipCode` | `string` | Zip code of payer address. If filled correctly the Brick will prefill the zip code input | 
+| `address.federalUnit` | `string` | State of payer address. If filled correctly the Brick will prefill the federal unit input | 
+| `address.city` | `string` | City of payer address. If filled correctly the Brick will prefill the city input | 
+| `address.neighborhood` | `string` | Neighborhood of payer address. If filled correctly the Brick will prefill the neighborhood input | 
+| `address.streetName` | `string` | Street name of payer address. If filled correctly the Brick will prefill the street name input | 
+| `address.streetNumber` | `number` | Street number of payer address. If filled correctly the Brick will prefill the street number input | 
+| `address.complement` | `string` | Complement of payer address. If filled correctly the Brick will prefill the complement input | 
 | `customerId` | `string` | Customer ID. View how to manage customers. [See More](https://www.mercadopago.com.br/developers/pt/reference/customers/_customers/post)  | 
-| `cardsIds` | `string[]` | Saved Cards Ids. If defined in conjunction with Customer ID, the buyer will be able to used their saved cards in checkout. [See More](https://www.mercadopago.com.br/developers/pt/reference/cards/_customers_customer_id_cards/post)  | 
+| `cardsIds` | `string[]` | Saved Cards Ids. If defined in conjunction with Customer ID, the payer will be able to use their saved cards in checkout. [See More](https://www.mercadopago.com.br/developers/pt/reference/cards/_customers_customer_id_cards/post)  | 
 
 |   SiteId          |   Identification Type Values          |
 |-------------------|-------------------------------------|
@@ -222,11 +233,14 @@ Customizations object is used to load Brick under different conditions.
 | `visual.style`| `Style`| Defines custom theme and CSS variables | **OPTIONAL** |
 | `visual.hidePaymentButton`| `boolean`| Hides the payment button and disables the `onSubmit` callback. | **OPTIONAL** |
 | `visual.hideFormTitle`| `boolean`| Hides the form title row. | **OPTIONAL** |
-| `paymentMethods`| `object` | Object that allow payment methods configuration. Contains `maxInstallments`, `minInstallments`, `creditCard`, `debitCard`. At least one of the properties (`creditCard`, `debitCard`) should be provided. | **REQUIRED** |
+| `visual.hideRedirectionPanel`| `boolean`| Hides the redirection form. Only applies when the Wallet Purchase option is enabled. | **OPTIONAL** |
+| `paymentMethods`| `object` | Object that allow payment methods configuration. Contains `maxInstallments`, `minInstallments`, `creditCard`, `debitCard`, `ticket`, `bankTransfer`. | **OPTIONAL** |
 | `paymentMethods.maxInstallments`| `number` | Maximum number of installments to be offered to the user  | **OPTIONAL** | 
 | `paymentMethods.minInstallments`| `number` | Minimal number of installments to be offered to the user  | **OPTIONAL** |
 | `paymentMethods.creditCard`| `string[] or string` | Allow payments with credit card. When the value `'all'` is provided, all credit cards are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the paymentType `credit_card`. | **OPTIONAL** |
 | `paymentMethods.debitCard`| `string[] or string` | Allow payments with debit card. When the value `'all'` is provided, all debit cards are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the paymentType `debit_card`. | **OPTIONAL** |
+| `paymentMethods.ticket`| `string[] or string` | Allow payments with tickets (only available in Brazil). When the value `'all'` is provided, all ticket methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the payment type `ticket`. | **OPTIONAL** |
+| `paymentMethods.bankTransfer`| `string[] or string` | Allow payments with Bank Transfer (only available in Brazil). When the value `'all'` is provided, all bank transfer methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the payment type `bank_transfer`. | **OPTIONAL** |
 
 <br />
 
@@ -258,7 +272,23 @@ Accepted properties are:
 |`email`| `object` |
 |`email.label`| `string` |
 |`email.placeholder`| `string` |
-|`formSubmit`| `string` | 
+|`formSubmit`| `string` |
+|`payerFirstName.placeholder`| `string`|
+|`payerFirstName.label`| `string`|
+|`payerLastName.placeholder`| `string`|
+|`payerLastName.label`| `string`|
+|`zipCode.placeholder`| `string`|
+|`zipCode.label`| `string`|
+|`addressState.placeholder`| `string`|
+|`addressState.label`| `string`|
+|`addressCity.placeholder`| `string`|
+|`addressCity.label`| `string`|
+|`addressNeighborhood.placeholder`| `string`|
+|`addressNeighborhood.label`| `string`|
+|`addressStreet.placeholder`| `string`|
+|`addressStreet.label`| `string`|
+|`addressNumber.label`| `string`|
+|`addressComplement.label`| `string`|
 
 <br />
 
@@ -295,6 +325,7 @@ Accepted properties are:
 |`baseColor`| `string` | 
 |`baseColorFirstVariant`| `string` |
 |`baseColorSecondVariant`| `string` |
+|`secondaryColor`| `string` |
 |`errorColor`| `string` |
 |`successColor`| `string` |
 |`outlinePrimaryColor`| `string` |
