@@ -132,9 +132,9 @@ Customizations object is used to load Brick under different conditions.
 
 |   Customization key  |   Type   |        Description                                   |              |
 |---------------|----------|------------------------------------------------------|--------------|
-| `backUrls`| `object`| Controls whether the brick will show the user button to navigate back to the seller's website | **OPTIONAL** |
+| `backUrls`| `object`| Controls whether the brick will show the user a button to navigate back to the seller's website | **OPTIONAL** |
 | `visual`| `object`| Control the visual aspects of the brick. Contains `style`, `font`, `texts`, `hidePaymentButton` and `hideFormTitle` | **OPTIONAL** |
-| `visual.texts`| `CustomTexts`| Defines custom texts for the Brick (avaliable custom texts vary by Brick). | **OPTIONAL** |
+| `visual.texts`| `CustomTexts`| Defines custom texts for the Brick (available custom texts vary by Brick). | **OPTIONAL** |
 | `visual.font`| `string`| Defines the custom font URL. This only applies to the [Secure Fields](../fields.md#fields-module). | **OPTIONAL** |
 | `visual.style`| `Style`| Defines custom theme and CSS variables | **OPTIONAL** |
 | `visual.showExternalReference`| `boolean`| Shows the `external_reference` field from the Payments API | **OPTIONAL** |
@@ -145,13 +145,13 @@ Customizations object is used to load Brick under different conditions.
 
 #### backUrls
 
-Controls whether the brick will show the user button to navigate back to the seller's website.
-The url must be in the same domain that the Brick is loaded on.
+Controls whether the brick will show the user a button to navigate back to the seller's website.
+The url must be in the same domain and subdomain that the Brick is loaded on, urls in another domain will be ignored.
 
 |   key  |   Type   |        Description                                   |              |
 |---------------|----------|------------------------------------------------------|--------------|
-| `error`| `string` | Defines the url the user will be show in case of error in the payment. | **OPTIONAL** |
-| `return`| `strinf`| Defines the url the user will be show in all scenarios of the brick. Useful to return to shopping page.  | **OPTIONAL** |
+| `error`| `string` | Defines the url that will be shown to the user in case of error in the payment. | **OPTIONAL** |
+| `return`| `string`| Defines the url that will be shown to the user in all scenarios of the brick. Useful to return to shopping page.  | **OPTIONAL** |
 
 <br />
 
