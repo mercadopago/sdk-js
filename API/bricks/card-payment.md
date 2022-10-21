@@ -198,7 +198,7 @@ Customizations object is used to load Brick under different conditions.
 |---------------|----------|------------------------------------------------------|--------------|
 | `visual`| `object`| Control the visual aspects of the brick. Contains `style`, `font`, `texts`, `hidePaymentButton` and `hideFormTitle` | **OPTIONAL** |
 | `visual.font`| `string`| Defines the custom font URL. This only applies to the [Secure Fields](../fields.md#fields-module). | **OPTIONAL** |
-| `visual.texts`| `CustomTexts`| Defines custom texts for the Brick (avaliable custom texts vary by Brick). | **OPTIONAL** |
+| `visual.texts`| `CustomTexts`| Defines custom texts for the Brick (available custom texts vary by Brick). | **OPTIONAL** |
 | `visual.style`| `Style`| Defines custom theme and CSS variables | **OPTIONAL** |
 | `visual.hidePaymentButton`| `boolean`| Hides the payment button and disables the `onSubmit` callback. | **OPTIONAL** |
 | `visual.hideFormTitle`| `boolean`| Hides the form title row. | **OPTIONAL** |
