@@ -186,10 +186,14 @@ The callbacks object contains the callbacks functions the brick will call during
 
 ```ts
 {
-    paymentMethod: 'credit_card' | 'debit_card';
-    formData: CardData;
+    selectedPaymentMethod: 'credit_card' | 'debit_card' | 'ticket' | 'bank_transfer' | 'wallet_purchase';
+    formData: CardData | TicketData | BankTransferData | WalletPurchaseData;
 }
 ```
+<br />
+
+> Note: The objects `CardData`, `TicketData` and `BankTransferData` can be processed directly to the Mercado Pago `payment` API.
+
 <br />
 
 `CardData`
@@ -215,7 +219,60 @@ The callbacks object contains the callbacks functions the brick will call during
 }
 ```
 
-> Note: The `CardData` object can be processed directly to the Mercado Pago `payment` API.
+<br />
+
+`TicketData`
+
+<br />
+
+```ts
+{
+    'payment_method_id': string,
+    'transaction_amount': number,
+    'payer': {
+        'email': string,
+        'identification': {
+                'type': string,
+                'number': string
+        }
+        'first_name': string,
+        'last_name': string,
+        'address': {
+            'city': string,
+            'federal_unit': string,
+            'neighborhood': string,
+            'street_name': string,
+            'street_number': string,
+            'zip_code': string
+        }
+    }
+}
+```
+
+<br />
+
+`BankTransferData`
+
+<br />
+
+```ts
+{
+    'payment_method_id': string,
+    'transaction_amount': number,
+    'payer': {
+        'email': string
+    }
+}
+```
+
+
+`WalletPurchaseData`
+
+<br />
+
+```ts
+null
+```
 
 <br />
 
