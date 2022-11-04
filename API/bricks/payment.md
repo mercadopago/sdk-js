@@ -135,7 +135,8 @@ The callbacks object contains the callbacks functions the brick will call during
 |-------------------|--------------------------------------------------|--------------|-----|----|
 | `onReady` | It is called when the brick finishes loading | **REQUIRED** | `void` | `void` |
 | `onError` | It is called when there is an error in the Brick | **REQUIRED** |  `BrickError` | `void` |
-| `onSubmit` | It is called when the user clicks on the submit button | **OPTIONAL** | <code>Promise<PaymentFormData &#124; void></code> | `Promise<void>` | 
+| `onSubmit` | It is called when the user clicks on the submit button | **OPTIONAL** | `PaymentFormData`, `AdditionalData` | `Promise<void>` | 
+| `onBinChange` | It is called when the user fills in the card's BIN | **OPTIONAL** |  `bin` | `void` |
 
 <br />
 
@@ -215,6 +216,18 @@ The callbacks object contains the callbacks functions the brick will call during
 ```
 
 > Note: The `CardData` object can be processed directly to the Mercado Pago `payment` API.
+
+<br />
+
+`AdditionalData`
+
+<br />
+
+```ts
+{
+    'bin': string
+}
+```
 
 <br />
 
@@ -369,6 +382,7 @@ The Brick Controller contains methods that allow the integrator to interact with
 |-|-|
 |unmount | **METHOD** |
 |getFormData | **METHOD** |
+|getAdditionalData | **METHOD** |
 
 <br />
 
@@ -395,7 +409,7 @@ None.
 
 <br />
 
-The `getFormData` method returns the data the user filled in the form, only if the submit button is disabled.
+The `getFormData` method returns the data the user filled in the form (only works if the submit button is disabled).
 
 
 #### Params
@@ -407,3 +421,20 @@ None.
 | Brick | Return Data |
 |------------------------|--------|
 | `payment` | `PaymentFormData`|
+
+### `Brick Controller`.getAdditionalData()
+
+<br />
+
+The `getAdditionalData` method returns additional data that may be useful to you (only works if the submit button is disabled).
+
+
+#### Params
+
+None.
+
+#### Returns
+
+| Brick | Return Data |
+|------------------------|--------|
+| `payment` | `AdditionalData`|
