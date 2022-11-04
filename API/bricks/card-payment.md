@@ -184,6 +184,8 @@ The callbacks object contains the callbacks functions the brick will call during
 }
 ```
 
+> Note: The `CardData` object can be processed directly to the Mercado Pago `payment` API.
+
 <br />
 
 `AdditionalData`
@@ -195,8 +197,6 @@ The callbacks object contains the callbacks functions the brick will call during
     'bin': string
 }
 ```
-
-> Note: The `CardData` object can be processed directly to the Mercado Pago `payment` API.
 
 <br />
 
