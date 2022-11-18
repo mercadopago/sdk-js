@@ -29,10 +29,10 @@ It is a **clientside SDK** whose main objective is to **facilitate the integrati
 
 | Browser | Support |
 |---------- | ----------|
-| Chrome    | Complete
-| Firefox    | Complete
-| Safari    | Complete
-| Edge | Complete
+| Chrome    | 80+
+| Firefox    | 74+
+| Safari    | 14+
+| Edge | 80+
 | Opera | Complete
 | Internet Explorer    | 11
 

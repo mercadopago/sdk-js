@@ -93,6 +93,7 @@ The `callback` object contains callbaks functions to handle different stages of 
 |onSubmit|`event`?: Event|Callback triggered before the form is submitted|**OPTIONAL**|
 |onReady||Callback triggered when cardForm is ready. It occurs when `getIdentificationTypes()` response returns and when iframes are ready if iframe option is true|**OPTIONAL**|
 |onValidityChange|`error`?: `validityChangeResponse`<br>`field`?: string|Callback triggered when some field validation occurs|**OPTIONAL**|
+|onBinChange|`bin`: string|Callback triggered when BIN has changed|**OPTIONAL**|
 |onError|`error`?: `onErrorResponse`<br>`event`?: ErrorEvent|Callback triggered when some error occurs. You can use this callback to replace error validation of previous callbacks|**OPTIONAL**|
 
 <br />
