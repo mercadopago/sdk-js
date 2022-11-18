@@ -136,7 +136,7 @@ The callbacks object contains the callbacks functions the brick will call during
 | `onReady` | It is called when the brick finishes loading | **REQUIRED** | `void` | `void` |
 | `onError` | It is called when there is an error in the Brick | **REQUIRED** |  `BrickError` | `void` |
 | `onSubmit` | It is called when the user clicks on the submit button | **OPTIONAL** | `PaymentFormData`, `AdditionalData` | `Promise<void>` | 
-| `onBinChange` | It is called when the user fills in the card's BIN | **OPTIONAL** |  `bin` | `void` |
+| `onBinChange` | It is called when the user fills or update card's BIN (first 8 digits) | **OPTIONAL** |  `bin` | `void` |
 
 <br />
 
@@ -192,7 +192,7 @@ The callbacks object contains the callbacks functions the brick will call during
 ```
 <br />
 
-> Note: The objects `CardData`, `TicketData` and `BankTransferData` can be processed directly to the Mercado Pago `payment` API.
+> Note: The objects `CardData`, `TicketData` and `BankTransferData` could be directly sent to Mercado Pago `payment` API for processing.
 
 <br />
 
