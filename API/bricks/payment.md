@@ -309,8 +309,8 @@ Customizations object is used to load Brick under different conditions.
 | `defaultPaymentOption.creditCardForm`| `boolean`| When `true`, the form loads with credit card selected. | **OPTIONAL** |
 | `defaultPaymentOption.debitCardForm`| `boolean`| When `true`, the form loads with debit card selected. | **OPTIONAL** |
 | `defaultPaymentOption.savedCardForm`| `string`| One of the `cardsIds` informed in the property `initialization.payer.cardsIds`. | **OPTIONAL** |
-| `defaultPaymentOption.ticketForm`| `boolean`| When `true`, the form loads with ticket selected. | **OPTIONAL** |
-| `defaultPaymentOption.bankTransferForm`| `boolean`| When `true`, the form loads with PIX selected (only available in Brazil). | **OPTIONAL** |
+| `defaultPaymentOption.ticketForm`| `boolean`| When `true`, the form loads with ticket selected (only available in Argentina, Brazil and Mexico). | **OPTIONAL** |
+| `defaultPaymentOption.bankTransferForm`| `boolean`| When `true`, the form loads bank transfer selected (only available in Brazil). | **OPTIONAL** |
 | `defaultPaymentOption.walletForm`| `boolean`| When `true`, the form loads with Mercado Pago Wallet selected. | **OPTIONAL** |
 | `defaultPaymentOption.creditForm`| `boolean`| When `true`, the form loads with Mercado Pago Credits selected. | **OPTIONAL** |
 | `paymentMethods`| `object` | Object that allow payment methods configuration. Contains `maxInstallments`, `minInstallments`, `creditCard`, `debitCard`, `ticket`, `bankTransfer`. | **OPTIONAL** |
