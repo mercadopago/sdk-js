@@ -111,7 +111,7 @@ Payer contains initial payer information.
 | `address.streetNumber` | `number` | Street number of payer address. If filled correctly the Brick will prefill the street number input | 
 | `address.complement` | `string` | Complement of payer address. If filled correctly the Brick will prefill the complement input | 
 | `customerId` | `string` | Customer ID. View how to manage customers. [See More](https://www.mercadopago.com.br/developers/pt/reference/customers/_customers/post)  | 
-| `cardsIds` | `string[]` | Saved Cards Ids. If defined in conjunction with Customer ID, the payer will be able to use their saved cards in checkout. The brick will sort from most recent save card to oldest. If you want the cards to be sorted according to this property, you add the property `preserveSavedCardsOrder` explained in [this secion](#customization). For more information about cards ids in Mercado Pago [click here](https://www.mercadopago.com.br/developers/pt/reference/cards/_customers_customer_id_cards/post).  | 
+| `cardsIds` | `string[]` | Saved Cards Ids. If defined in conjunction with Customer ID, the payer will be able to use their saved cards in checkout. The brick will sort from most recent save card to oldest. If you want the cards not to be sorted, you should add the property `preserveSavedCardsOrder` explained in [this section](#customization). For more information about cards ids in Mercado Pago [click here](https://www.mercadopago.com.br/developers/pt/reference/cards/_customers_customer_id_cards/post).  | 
 
 |   SiteId          |   Identification Type Values          |
 |-------------------|-------------------------------------|
@@ -304,7 +304,7 @@ Customizations object is used to load Brick under different conditions.
 | `visual.hidePaymentButton`| `boolean`| Hides the payment button and disables the `onSubmit` callback. | **OPTIONAL** |
 | `visual.hideFormTitle`| `boolean`| Hides the form title row. | **OPTIONAL** |
 | `visual.hideRedirectionPanel`| `boolean`| Hides the redirection form. Only applies when the Wallet Purchase option is enabled. | **OPTIONAL** |
-| `visual.preserveSavedCardsOrder`| `boolean`| When `true`, the brick will sort the saved cards according to order informed in the property `initialization.payer.cardsIds`. | **OPTIONAL** |
+| `visual.preserveSavedCardsOrder`| `boolean`| When `true`, the brick will present the cards maintaining the order established in the property `initialization.payer.cardsIds`. | **OPTIONAL** |
 | `visual.defaultPaymentOption`| `object`| Object that define a single payment method as default, so the form will load with this option already selected. Only one option is allowed. (Can contain one of the following properties `creditCardForm`, `debitCardForm`, `savedCardForm`, `ticketForm`, `bankTransferForm`, `walletForm`, or `creditForm`) | **OPTIONAL** |
 | `defaultPaymentOption.creditCardForm`| `boolean`| When `true`, the form loads with credit card selected. | **OPTIONAL** |
 | `defaultPaymentOption.debitCardForm`| `boolean`| When `true`, the form loads with debit card selected. | **OPTIONAL** |
