@@ -111,7 +111,7 @@ Payer contains initial payer information.
 | `address.streetNumber` | `number` | Street number of payer address. If filled correctly the Brick will prefill the street number input | 
 | `address.complement` | `string` | Complement of payer address. If filled correctly the Brick will prefill the complement input | 
 | `customerId` | `string` | Customer ID. View how to manage customers. [See More](https://www.mercadopago.com.br/developers/pt/reference/customers/_customers/post)  | 
-| `cardsIds` | `string[]` | Saved Cards Ids. If defined in conjunction with Customer ID, the payer will be able to use their saved cards in checkout. [See More](https://www.mercadopago.com.br/developers/pt/reference/cards/_customers_customer_id_cards/post)  | 
+| `cardsIds` | `string[]` | Saved Cards Ids. If defined in conjunction with Customer ID, the payer will be able to use their saved cards in checkout. The brick will sort from most recent save card to oldest. If you want the cards not to be sorted, you should add the property `preserveSavedCardsOrder` explained in [this section](#customization). For more information about cards ids in Mercado Pago [click here](https://www.mercadopago.com.br/developers/pt/reference/cards/_customers_customer_id_cards/post).  | 
 
 |   SiteId          |   Identification Type Values          |
 |-------------------|-------------------------------------|
@@ -297,13 +297,22 @@ Customizations object is used to load Brick under different conditions.
 
 |   Customization key  |   Type   |        Description                                   |              |
 |---------------|----------|------------------------------------------------------|--------------|
-| `visual`| `object`| Control the visual aspects of the brick. Contains `style`, `font`, `texts`, `hidePaymentButton` and `hideFormTitle` | **OPTIONAL** |
+| `visual`| `object`| Control the visual aspects of the brick. Contains `style`, `font`, `texts`, `hidePaymentButton`, `hideFormTitle`, `hideRedirectionPanel`, `preserveSavedCardsOrder` and `defaultPaymentOption` | **OPTIONAL** |
 | `visual.font`| `string`| Defines the custom font URL. This only applies to the [Secure Fields](../fields.md#fields-module). | **OPTIONAL** |
 | `visual.texts`| `CustomTexts`| Defines custom texts for the Brick (available custom texts vary by Brick). | **OPTIONAL** |
 | `visual.style`| `Style`| Defines custom theme and CSS variables | **OPTIONAL** |
 | `visual.hidePaymentButton`| `boolean`| Hides the payment button and disables the `onSubmit` callback. | **OPTIONAL** |
 | `visual.hideFormTitle`| `boolean`| Hides the form title row. | **OPTIONAL** |
 | `visual.hideRedirectionPanel`| `boolean`| Hides the redirection form. Only applies when the Wallet Purchase option is enabled. | **OPTIONAL** |
+| `visual.preserveSavedCardsOrder`| `boolean`| When `true`, the brick will present the cards maintaining the order established in the property `initialization.payer.cardsIds`. | **OPTIONAL** |
+| `visual.defaultPaymentOption`| `object`| Object that define a single payment method as default, so the form will load with this option already selected. Only one option is allowed. (Can contain one of the following properties `creditCardForm`, `debitCardForm`, `savedCardForm`, `ticketForm`, `bankTransferForm`, `walletForm`, or `creditForm`) | **OPTIONAL** |
+| `defaultPaymentOption.creditCardForm`| `boolean`| When `true`, the form loads with credit card selected. | **OPTIONAL** |
+| `defaultPaymentOption.debitCardForm`| `boolean`| When `true`, the form loads with debit card selected. | **OPTIONAL** |
+| `defaultPaymentOption.savedCardForm`| `string`| One of the `cardsIds` informed in the property `initialization.payer.cardsIds`. | **OPTIONAL** |
+| `defaultPaymentOption.ticketForm`| `boolean`| When `true`, the form loads with ticket selected (only available in Argentina, Brazil and Mexico). | **OPTIONAL** |
+| `defaultPaymentOption.bankTransferForm`| `boolean`| When `true`, the form loads bank transfer selected (only available in Brazil). | **OPTIONAL** |
+| `defaultPaymentOption.walletForm`| `boolean`| When `true`, the form loads with Mercado Pago Wallet selected. | **OPTIONAL** |
+| `defaultPaymentOption.creditForm`| `boolean`| When `true`, the form loads with Mercado Pago Credits selected. | **OPTIONAL** |
 | `paymentMethods`| `object` | Object that allow payment methods configuration. Contains `maxInstallments`, `minInstallments`, `creditCard`, `debitCard`, `ticket`, `bankTransfer`. | **OPTIONAL** |
 | `paymentMethods.maxInstallments`| `number` | Maximum number of installments to be offered to the user  | **OPTIONAL** | 
 | `paymentMethods.minInstallments`| `number` | Minimal number of installments to be offered to the user  | **OPTIONAL** |
