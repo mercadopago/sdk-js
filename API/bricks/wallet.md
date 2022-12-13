@@ -108,12 +108,12 @@ Id of the container that the brick will be rendered in. Can be any HTML element.
 
 The `settings` object has properties to initialize and customize the brick being created.
 
-| Setting key      | Type     | Description                                                 |                                                                                                          |
-| ---------------- | -------- | ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `initialization` | `object` | Defines the initialization data.[See more](#initialization) | **Only required if you chose to integrate through the flow that sends the preference on initialization** |
-| `callbacks`      | `object` | Defines the callback functions. [See more](#callbacks)      | **REQUIRED**                                                                                             |
-| `customization`  | `object` | Defines custom properties. [See more](#customization)       | **OPTIONAL**                                                                                             |
-| `locale`         | `string` | Defines locale.                                             | **OPTIONAL**                                                                                             |
+| Setting key      | Type     | Description                                                  |                                                                                                          |
+| ---------------- | -------- | ------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| `initialization` | `object` | Defines the initialization data. [See more](#initialization) | **Only required if you chose to integrate through the flow that sends the preference on initialization** |
+| `callbacks`      | `object` | Defines the callback functions. [See more](#callbacks)       | **REQUIRED**                                                                                             |
+| `customization`  | `object` | Defines custom properties. [See more](#customization)        | **OPTIONAL**                                                                                             |
+| `locale`         | `string` | Defines locale.                                              | **OPTIONAL**                                                                                             |
 
 <br />
 
@@ -138,7 +138,7 @@ The callbacks object contains the callbacks functions the brick will call during
 | Callback key | Description                                      |              | Params       | Returns         |
 | ------------ | ------------------------------------------------ | ------------ | ------------ | --------------- |
 | `onReady`    | It is called when the brick finishes loading     | **REQUIRED** | `void`       | `void`          |
-| `onError`    | It is called when there is an error in the Brick | **REQUIRED** | `BrickError` | `void`          |
+| `onError`    | It is called when there is an error in the brick | **REQUIRED** | `BrickError` | `void`          |
 | `onSubmit`   | It is called when the user clicks on the brick   | **OPTIONAL** | `void`       | `Promise<void>` |
 
 <br />
@@ -164,8 +164,6 @@ The callbacks object contains the callbacks functions the brick will call during
     'incorrect_initialization',
     'already_initialized',
     'settings_empty',
-    'missing_amount_property',
-    'amount_is_not_number',
     'missing_required_callbacks',
     'missing_container_id',
     'missing_locale_property',
@@ -218,8 +216,6 @@ The Brick Controller contains methods that allow the integrator to interact with
 <br />
 
 The `unmount` methods removes the rendered Brick from the page.
-
-<br />
 
 #### Params
 
