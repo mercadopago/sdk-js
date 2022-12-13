@@ -223,3 +223,10 @@ None.
 #### Returns
 
 `void`
+
+### A note about the purpose of the preference
+
+When creating the preference in the backend, you can (optionally) configure a field called `purpose`, which can be `wallet_purchase` or `onboarding_credits`, learn more about the differences between them:
+
+- `wallet_purchase`: users must log in when redirected to their Mercado Pago account.
+- `onboarding_credits`: after logging in, the user will see the pre-selected credit payment option in his Mercado Pago account.
