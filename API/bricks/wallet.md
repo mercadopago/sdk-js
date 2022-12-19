@@ -193,7 +193,7 @@ Customizations object is used to load Brick under different conditions.
 | `visual.borderRadius`     | `string`  | Defines the brick border radius. Default is `6px`.                                                                                             | **OPTIONAL** |
 | `visual.valuePropColor`   | `string`  | Defines the value prop color. Available options: `grey`, `white`. Default is `grey`.                                                           | **OPTIONAL** |
 | `visual.verticalPadding`  | `string`  | Defines the brick vertical padding. Default is `16px`. Min: `8px`. Max: free choice.                                                           | **OPTIONAL** |
-| `visual.hideValueProp`    | `boolean` | Hides the value prop text. Default is `false`                                                                                                  | **OPTIONAL** |
+| `visual.hideValueProp`    | `boolean` | Hides the value prop text. Default is `false`.                                                                                                 | **OPTIONAL** |
 
 <br />
 
