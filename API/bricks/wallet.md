@@ -182,18 +182,19 @@ The callbacks object contains the callbacks functions the brick will call during
 
 Customizations object is used to load Brick under different conditions.
 
-| Customization key         | Type      | Description                                                                                                                                    |              |
-| ------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| `texts`                   | `object`  | Controls the texts of the brick.                                                                                                               | **OPTIONAL** |
-| `texts.action`            | `string`  | Defines the the call to action text. Options available: `pay`, `buy`. Default is `pay`.                                                        | **OPTIONAL** |
-| `texts.valueProp`         | `string`  | Defines the value prop. Options available: `practicality`, `convenience`, `security_details`, `security_safety`. Default is `security_safety`. | **OPTIONAL** |
-| `visual`                  | `object`  | Controls visual aspects of the brick.                                                                                                          | **OPTIONAL** |
-| `visual.buttonBackground` | `string`  | Defines the brick background color. Available options: `default`, `black`, `blue`, `white`. Default is `default`.                              | **OPTIONAL** |
-| `visual.buttonHeight`     | `string`  | Defines the brick height. Default is `48px`. Min: `48px`. Max: free choice.                                                                    | **OPTIONAL** |
-| `visual.borderRadius`     | `string`  | Defines the brick border radius. Default is `6px`.                                                                                             | **OPTIONAL** |
-| `visual.valuePropColor`   | `string`  | Defines the value prop color. Available options: `grey`, `white`. Default is `grey`.                                                           | **OPTIONAL** |
-| `visual.verticalPadding`  | `string`  | Defines the brick vertical padding. Default is `16px`. Min: `8px`. Max: free choice.                                                           | **OPTIONAL** |
-| `visual.hideValueProp`    | `boolean` | Hides the value prop text. Default is `false`.                                                                                                 | **OPTIONAL** |
+| Customization key          | Type      | Description                                                                                                                                    |              |
+| -------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| `texts`                    | `object`  | Controls the texts of the brick.                                                                                                               | **OPTIONAL** |
+| `texts.action`             | `string`  | Defines the the call to action text. Options available: `pay`, `buy`. Default is `pay`.                                                        | **OPTIONAL** |
+| `texts.valueProp`          | `string`  | Defines the value prop. Options available: `practicality`, `convenience`, `security_details`, `security_safety`. Default is `security_safety`. | **OPTIONAL** |
+| `visual`                   | `object`  | Controls visual aspects of the brick.                                                                                                          | **OPTIONAL** |
+| `visual.buttonBackground`  | `string`  | Defines the brick background color. Available options: `default`, `black`, `blue`, `white`. Default is `default`.                              | **OPTIONAL** |
+| `visual.buttonHeight`      | `string`  | Defines the brick height. Default is `48px`. Min: `48px`. Max: free choice.                                                                    | **OPTIONAL** |
+| `visual.borderRadius`      | `string`  | Defines the brick border radius. Default is `6px`.                                                                                             | **OPTIONAL** |
+| `visual.valuePropColor`    | `string`  | Defines the value prop color. Available options: `grey`, `white`. Default is `grey`.                                                           | **OPTIONAL** |
+| `visual.verticalPadding`   | `string`  | Defines the brick vertical padding. Default is `16px`. Min: `8px`. Max: free choice.                                                           | **OPTIONAL** |
+| `visual.horizontalPadding` | `string`  | Defines the brick horizontal padding. Default is `0px`. Min: `0px`. Max: free choice.                                                          | **OPTIONAL** |
+| `visual.hideValueProp`     | `boolean` | Hides the value prop text. Default is `false`.                                                                                                 | **OPTIONAL** |
 
 <br />
 
