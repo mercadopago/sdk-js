@@ -440,6 +440,7 @@ Accepted properties are:
 
 | Site |
 |------------------------|
+| `MLA` |
 | `MLB` |
 | `MLM` |
 
