@@ -440,21 +440,21 @@ Accepted properties are:
 
 | Site |
 |------------------------|
-| `MLA` |
-| `MLB` |
-| `MLM` |
+| `MLA (Argentina)` |
+| `MLB (Brazil)` |
+| `MLM (Mexico)` |
 
 #### Bank Transfer availability
 
 | Site |
 |------------------------|
-| `MLB` |
+| `MLB (Brazil)` |
 
 #### ATM availability
 
 | Site |
 |------------------------|
-| `MLM` |
+| `MLM (Mexico)` |
 ### Returns: `Promise<BRICK CONTROLLER>`
 
 <br />
