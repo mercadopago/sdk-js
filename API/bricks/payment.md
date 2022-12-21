@@ -299,7 +299,7 @@ Customizations object is used to load Brick under different conditions.
 |---------------|----------|------------------------------------------------------|--------------|
 | `visual`| `object`| Control the visual aspects of the brick. Contains `style`, `font`, `texts`, `hidePaymentButton`, `hideFormTitle`, `hideRedirectionPanel`, `preserveSavedCardsOrder` and `defaultPaymentOption` | **OPTIONAL** |
 | `visual.font`| `string`| Defines the custom font URL. This only applies to the [Secure Fields](../fields.md#fields-module). | **OPTIONAL** |
-| `visual.texts`| `CustomTexts`| Defines custom texts for the Brick (available custom texts vary by Brick). | **OPTIONAL** |
+| `visual.texts`| `CustomTexts`| Defines [custom texts](#custom-texts) for the Brick (available custom texts vary by Brick). | **OPTIONAL** |
 | `visual.style`| `Style`| Defines custom theme and CSS variables | **OPTIONAL** |
 | `visual.hidePaymentButton`| `boolean`| Hides the payment button and disables the `onSubmit` callback. | **OPTIONAL** |
 | `visual.hideFormTitle`| `boolean`| Hides the form title row. | **OPTIONAL** |
@@ -318,12 +318,14 @@ Customizations object is used to load Brick under different conditions.
 | `paymentMethods.minInstallments`| `number` | Minimal number of installments to be offered to the user  | **OPTIONAL** |
 | `paymentMethods.creditCard`| `string[] or string` | Allow payments with credit card. When the value `'all'` is provided, all credit cards are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the paymentType `credit_card`. | **OPTIONAL** |
 | `paymentMethods.debitCard`| `string[] or string` | Allow payments with debit card. When the value `'all'` is provided, all debit cards are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the paymentType `debit_card`. | **OPTIONAL** |
-| `paymentMethods.ticket`| `string[] or string` | Allow payments with tickets (only available in Brazil and Argentina). When the value `'all'` is provided, all ticket methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the payment type `ticket`. | **OPTIONAL** |
-| `paymentMethods.bankTransfer`| `string[] or string` | Allow payments with Bank Transfer (only available in Brazil). When the value `'all'` is provided, all bank transfer methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the payment type `bank_transfer`. | **OPTIONAL** |
+| `paymentMethods.ticket`| `string[] or string` | Allow payments with tickets ([check availability](#ticket-availability)). When the value `'all'` is provided, all ticket methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the payment type `ticket`. | **OPTIONAL** |
+| `paymentMethods.bankTransfer`| `string[] or string` | Allow payments with Bank Transfer ([check availability](#bank-transfer-availability)). When the value `'all'` is provided, all bank transfer methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the payment type `bank_transfer`. | **OPTIONAL** |
+| `paymentMethods.atm`| `string[] or string` | Allow payments with ATM methods ([check availability](#atm-availability)). When the value `'all'` is provided, all bank transfer methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the payment type `atm`. | **OPTIONAL** |
+| `paymentMethods.mercadoPago`| `string[] or string` | Allow payments with Mercado Pago Wallet and installments without card (only available in Argentina, Brazil and Mexico). When the value `'all'` is provided, payments with both are accepted. When `'wallet_purchase'` is provided, just payments with Mercado Pago Wallet are accepted and users must log in when redirected to their Mercado Pago account. When `'onboarding_credits'` is provided, just payments with installments without card are accepted. In that case, after logging in, will be presented to the user the pre-selected credit payment option in their Mercado Pago account. | **OPTIONAL** |
 
 <br />
 
-`CustomTexts`
+#### Custom Texts
 
 Accepted properties are:
 
@@ -434,6 +436,25 @@ Accepted properties are:
 
 <br />
 
+#### Ticket availability
+
+| Site |
+|------------------------|
+| `MLA (Argentina)` |
+| `MLB (Brazil)` |
+| `MLM (Mexico)` |
+
+#### Bank Transfer availability
+
+| Site |
+|------------------------|
+| `MLB (Brazil)` |
+
+#### ATM availability
+
+| Site |
+|------------------------|
+| `MLM (Mexico)` |
 ### Returns: `Promise<BRICK CONTROLLER>`
 
 <br />
