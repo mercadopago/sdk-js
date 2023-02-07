@@ -1,5 +1,3 @@
-SALVE
-
 # SDK MercadoPago.js V2
 Mercado Pago's Official JS SDK
 
