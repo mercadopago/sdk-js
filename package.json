@@ -1,0 +1,23 @@
+{
+  "name": "@mercadopago/sdk-js",
+  "version": "0.0.1-alpha",
+  "description": "Mercadopago SDK JS",
+  "main": "index.js",
+  "module": "dist/index.esm.js",
+  "jsnext:main": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "rm -rf ./dist && tsc -b ./tsconfig.json",
+    "dev": "tsc -c -w",
+    "test": "node test/test.js",
+    "pretest": "npm run build"
+  },
+  "devDependencies": {
+    "ts-loader": "^9.4.2",
+    "tslib": "^2.4.1",
+    "typescript": "^4.9.4"
+  },
+  "author": "MercadoPago (https://www.mercadopago.com/developers)",
+  "license": "Apache-2.0"
+}
