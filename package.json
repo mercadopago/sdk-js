@@ -1,6 +1,6 @@
 {
   "name": "@mercadopago/sdk-js",
-  "version": "0.0.1-alpha",
+  "version": "0.0.1",
   "description": "Mercadopago SDK JS",
   "main": "index.js",
   "module": "dist/index.esm.js",
