@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "Mercadopago SDK JS",
   "main": "index.js",
-  "module": "dist/index.esm.js",
-  "jsnext:main": "dist/index.esm.js",
+  "module": "dist/index.js",
+  "jsnext:main": "dist/index.js",
   "types": "dist/index.d.ts",
   "typings": "dist/index.d.ts",
   "scripts": {
