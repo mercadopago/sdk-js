@@ -1,9 +1,9 @@
 .github
 .pre-commit-config
-API
+API/
 bug_report
 CODE_OF_CONDUCT
-dist
 feature_request
 LICENSE
 node_modules
+SDK/
