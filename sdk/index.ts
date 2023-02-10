@@ -10,7 +10,7 @@ const EXISTING_SCRIPT_MESSAGE_FAILED_TO_LOAD =
 
 const findScript = () => {
   var scripts: NodeListOf<HTMLScriptElement> = document.querySelectorAll(
-    'script[src^="'.concat(SDK_MERCADOPAGO_URL, '"]')
+    `script[src^="${SDK_MERCADOPAGO_URL}"`
   );
 
   for (var i = 0; i < scripts.length; i++) {
