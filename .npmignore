@@ -1,5 +1,5 @@
 .github
-.pre-commit-config
+.pre-commit-config.yaml
 API/
 bug_report
 CODE_OF_CONDUCT
