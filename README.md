@@ -49,11 +49,17 @@ It is a **clientside SDK** whose main objective is to **facilitate the integrati
 <br />
 
 ## Installation
-To install the SDK, you must include script in your application's HTML:
+To install the SDK, you must include script in your application's HTML or install a package on `npm`
 
 
 ```html
 <script src="https://sdk.mercadopago.com/js/v2"></script>
+```
+
+or
+
+```npm
+npm install @mercadopago/sdk-js;
 ```
 
 <br />
@@ -61,10 +67,25 @@ To install the SDK, you must include script in your application's HTML:
 ## Initializing
 To start the SDK, you need to assign your `public_key` along with some `options`.
 
+If you are using `html` reference:
+
 ### Example:
 
 ```javascript
 const mp = new MercadoPago('YOUR_PUBLIC_KEY', {
+  locale: 'en-US',
+})
+```
+
+If you are using `npm` package:
+
+### Example:
+
+```javascript
+import { loadMercadoPago } from '@mercadopago/sdk-js'
+
+await loadMercadoPago();
+const mp = new window.MercadoPago('YOUR_PUBLIC_KEY', {
   locale: 'en-US',
 })
 ```
