@@ -159,18 +159,17 @@ The callbacks object contains the callbacks functions the brick will call during
 
 ```ts
 {
-    'get_preference_details_failed',
-    'invalid_preference_id',
-    'invalid_sdk_instance',
-    'container_not_found',
-    'incorrect_initialization',
-    'already_initialized',
-    'settings_empty',
-    'missing_required_callbacks',
-    'missing_container_id',
-    'missing_locale_property',
-    'missing_texts',
-    'missing_site_property',
+  'already_initialized'
+  'container_not_found'
+  'get_preference_details_failed'
+  'incorrect_initialization'
+  'invalid_sdk_instance'
+  'missing_container_id'
+  'missing_locale_property'
+  'missing_required_callbacks'
+  'missing_texts'
+  'no_preference_provided'
+  'settings_empty'
 }
 ```
 
