@@ -153,6 +153,7 @@ The callbacks object contains the callbacks functions the brick will call during
     'validations_parameter_null',
     'get_payment_methods_failed',
     'card_token_creation_failed',
+    'secure_fields_card_token_creation_failed',
     'get_identification_types_failed',
     'get_card_bin_payment_methods_failed',
     'get_card_issuers_failed',
