@@ -165,6 +165,7 @@ The callbacks object contains the callbacks functions the brick will call during
   'get_card_bin_payment_methods_failed'
   'get_card_issuers_failed'
   'get_identification_types_failed'
+  'get_mexico_payment_points_failed'
   'get_payment_installments_failed'
   'get_payment_methods_failed'
   'get_saved_cards_failed'
