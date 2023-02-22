@@ -92,11 +92,9 @@ The callbacks object contains the callbacks functions the brick will call during
     'already_initialized'
     'amount_is_not_number'
     'container_not_found'
-    'get_identification_types_failed'
     'get_mexico_payment_points_failed'
     'get_payment_data_failed'
     'get_payment_methods_failed'
-    'get_preference_details_failed'
     'incorrect_initialization'
     'invalid_sdk_instance'
     'missing_container_id'
@@ -104,7 +102,6 @@ The callbacks object contains the callbacks functions the brick will call during
     'missing_required_callbacks'
     'missing_texts'
     'settings_empty'
-    'validations_parameter_null'
 }
 ```
 <br />
