@@ -167,7 +167,7 @@ For a complete reference on the integration options, check the [API reference](#
 ```
 
 
-```
+
 ## Checkout Pro
 Checkout Pro is the integration that allows you to charge through our web form from any device in a simple, fast and secure way.
 
