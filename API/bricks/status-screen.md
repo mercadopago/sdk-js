@@ -89,36 +89,19 @@ The callbacks object contains the callbacks functions the brick will call during
 
 ```ts
 {
-    'invalid_sdk_instance',
-    'container_not_found',
-    'incorrect_initialization',
-    'already_initialized',
-    'settings_empty',
-    'missing_amount_property',
-    'amount_is_not_number',
-    'missing_required_callbacks',
-    'missing_container_id',
-    'missing_locale_property',
-    'missing_site_property',
-    'missing_texts',
-    'fields_setup_failed',
-    'fields_setup_failed_after_3_tries',
-    'missing_payment_information',
-    'missing_payment_type',
-    'null_date',
-    'wrong_date_format',
-    'incomplete_fields',
-    'validations_parameter_null',
-    'get_payment_methods_failed',
-    'card_token_creation_failed',
-    'get_identification_types_failed',
-    'get_card_bin_payment_methods_failed',
-    'get_card_issuers_failed',
-    'get_payment_installments_failed',
-    'get_saved_cards_failed',
-    'get_address_data_failed',
-    'unauthorized_payment_method',
+    'already_initialized'
+    'amount_is_not_number'
+    'container_not_found'
+    'get_mexico_payment_points_failed'
     'get_payment_data_failed'
+    'get_payment_methods_failed'
+    'incorrect_initialization'
+    'invalid_sdk_instance'
+    'missing_container_id'
+    'missing_locale_property'
+    'missing_required_callbacks'
+    'missing_texts'
+    'settings_empty'
 }
 ```
 <br />
