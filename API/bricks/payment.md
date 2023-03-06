@@ -3,14 +3,14 @@
 Example:
 
 ```js
-mp.bricks().create('payment', 'paymentBrick_container', {
+mp.bricks().create("payment", "paymentBrick_container", {
   initialization: {
     amount: 100,
   },
   customization: {
     paymentMethods: {
-      creditCard: 'all',
-      debitCard: 'all',
+      creditCard: "all",
+      debitCard: "all",
     },
   },
   callbacks: {
@@ -18,12 +18,12 @@ mp.bricks().create('payment', 'paymentBrick_container', {
       // handle form ready
     },
     onSubmit: ({ paymentMethod, formData }) => {
-      if (paymentMethod === 'credit_card' || paymentMethod === 'debit_card') {
+      if (paymentMethod === "credit_card" || paymentMethod === "debit_card") {
         return new Promise((resolve, reject) => {
-          fetch('/process_payment', {
-            method: 'POST',
+          fetch("/process_payment", {
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
             body: JSON.stringify(formData),
           })
@@ -143,7 +143,7 @@ The callbacks object contains the callbacks functions the brick will call during
 
 ```ts
 {
-  type: 'non_critical' | 'critical';
+  type: "non_critical" | "critical";
   message: string;
   cause: ErrorCause;
 }
@@ -155,35 +155,35 @@ The callbacks object contains the callbacks functions the brick will call during
 
 ```ts
 {
-  'already_initialized'
-  'amount_is_not_number'
-  'card_token_creation_failed'
-  'container_not_found'
-  'fields_setup_failed'
-  'fields_setup_failed_after_3_tries'
-  'get_address_data_failed'
-  'get_card_bin_payment_methods_failed'
-  'get_card_issuers_failed'
-  'get_identification_types_failed'
-  'get_mexico_payment_points_failed'
-  'get_payment_installments_failed'
-  'get_payment_methods_failed'
-  'get_saved_cards_failed'
-  'incomplete_fields'
-  'incorrect_initialization'
-  'invalid_preference_purpose'
-  'invalid_sdk_instance'
-  'missing_amount_property'
-  'missing_container_id'
-  'missing_locale_property'
-  'missing_payment_information'
-  'missing_payment_type'
-  'missing_required_callbacks'
-  'missing_texts'
-  'settings_empty'
-  'unauthorized_payment_method'
-  'update_preference_details_failed'
-  'validations_parameter_null'
+  'already_initialized',
+  'amount_is_not_number',
+  'card_token_creation_failed',
+  'container_not_found',
+  'fields_setup_failed',
+  'fields_setup_failed_after_3_tries',
+  'get_address_data_failed',
+  'get_card_bin_payment_methods_failed',
+  'get_card_issuers_failed',
+  'get_identification_types_failed',
+  'get_mexico_payment_points_failed',
+  'get_payment_installments_failed',
+  'get_payment_methods_failed',
+  'get_saved_cards_failed',
+  'incomplete_fields',
+  'incorrect_initialization',
+  'invalid_preference_purpose',
+  'invalid_sdk_instance',
+  'missing_amount_property',
+  'missing_container_id',
+  'missing_locale_property',
+  'missing_payment_information',
+  'missing_payment_type',
+  'missing_required_callbacks',
+  'missing_texts',
+  'settings_empty',
+  'unauthorized_payment_method',
+  'update_preference_details_failed',
+  'validations_parameter_null',
 }
 ```
 
@@ -193,11 +193,11 @@ The callbacks object contains the callbacks functions the brick will call during
 
 ```ts
 {
-  selectedPaymentMethod: 'credit_card' |
-    'debit_card' |
-    'ticket' |
-    'bank_transfer' |
-    'wallet_purchase';
+  selectedPaymentMethod: "credit_card" |
+    "debit_card" |
+    "ticket" |
+    "bank_transfer" |
+    "wallet_purchase";
   formData: CardData | TicketData | BankTransferData | WalletPurchaseData;
 }
 ```
@@ -468,6 +468,7 @@ Accepted properties are:
 | Site           |
 | -------------- |
 | `MLM (Mexico)` |
+| `MPE (Peru)`   |
 
 ### Returns: `Promise<BRICK CONTROLLER>`
 
