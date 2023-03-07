@@ -6,6 +6,7 @@ Example:
 mp.bricks().create("payment", "paymentBrick_container", {
   initialization: {
     amount: 100,
+    preferenceId: "<PREFERENCE_ID>",
   },
   customization: {
     paymentMethods: {
