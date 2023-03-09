@@ -33,7 +33,7 @@ mercadopago.bricks().create("wallet", "<DOM_CONTAINER>", {
 
 #### Opening scheme
 
-The are three ways to open the checkout experience: redirect on the same tab, which is the default, redirecting to a new tab or using a modal.
+There are three ways to open the checkout experience: redirect on the same tab, which is the default, redirecting to a new tab or using a modal.
 
 | Option name    | value   | Description                                       |
 | -------------- | ------- | ------------------------------------------------- |

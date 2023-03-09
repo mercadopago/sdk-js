@@ -191,7 +191,7 @@ Customizations object is used to load Brick under different conditions.
 | Customization key          | Type      | Description                                                                                                                                    |              |
 | -------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
 | `texts`                    | `object`  | Controls the texts of the brick.                                                                                                               | **OPTIONAL** |
-| `texts.action`             | `string`  | Defines the the call to action text. Options available: `pay`, `buy`. Default is `pay`.                                                        | **OPTIONAL** |
+| `texts.action`             | `string`  | Defines the call to action text. Options available: `pay`, `buy`. Default is `pay`.                                                        | **OPTIONAL** |
 | `texts.valueProp`          | `string`  | Defines the value prop. Options available: `practicality`, `convenience`, `security_details`, `security_safety`. Default is `security_safety`. | **OPTIONAL** |
 | `visual`                   | `object`  | Controls visual aspects of the brick.                                                                                                          | **OPTIONAL** |
 | `visual.buttonBackground`  | `string`  | Defines the brick background color. Available options: `default`, `black`, `blue`, `white`. Default is `default`.                              | **OPTIONAL** |
@@ -208,7 +208,7 @@ Customizations object is used to load Brick under different conditions.
 
 ### **Opening scheme**
 
-The are three ways to open the checkout experience: redirect on the same tab, which is the default, redirecting to a new tab or using a modal.
+There are three ways to open the checkout experience: redirect on the same tab, which is the default, redirecting to a new tab or using a modal.
 
 | Parameter      | value   | Description                                 |
 | -------------- | ------- | ------------------------------------------- |
@@ -262,7 +262,7 @@ const App = () => {
 }
 ```
 
-### The `ErrorCause`'s
+### The `ErrorCause`s
 
 ```ts
 {
