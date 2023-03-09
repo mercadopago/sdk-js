@@ -1,10 +1,8 @@
 # SDK MercadoPago.js V2
 
-Mercado Pago's Official JS SDK
-
 <br />
 
-# Table of Contents
+## Table of Contents
 
 1. [About](#about)
 2. [Support](#support)
@@ -53,7 +51,7 @@ It is a **clientside SDK** whose main objective is to **facilitate the integrati
 
 ## Installation
 
-To install the SDK, you must include script in your application's HTML or install a package on `npm`
+To install the SDK, you must include the script in your application's HTML or install a package on `npm`
 
 ```html
 <script src="https://sdk.mercadopago.com/js/v2"></script>
@@ -105,8 +103,8 @@ There are multiple supported ways to integrate Checkout API. Ranging from the mo
 For a complete reference on the integration options, check the [API reference](#api)
 
 <br />
-
-### Full example (using Bricks)
+<details>
+  <summary>Full example using Bricks</summary>
 
 ```HTML
 <html>
@@ -144,6 +142,7 @@ For a complete reference on the integration options, check the [API reference](#
                             },
                             body: JSON.stringify(cardFormData)
                         })
+                        .then(resp => resp.json())
                         .then((response) => {
                             // get payment result
                             resolve();
@@ -168,147 +167,152 @@ For a complete reference on the integration options, check the [API reference](#
 
     renderCardPaymentBrick(bricksBuilder);
 </script>
-
 ```
 
-### Full example (using cardForm)
+</details>
+
+<details>
+  <summary>Full example using cardForm</summary>
 
 ```HTML
 <style>
-  #form-checkout {
-    display: flex;
-    flex-direction: column;
-    max-width: 600px;
-  }
+#form-checkout {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+}
 
-  .container {
-    height: 18px;
-    display: inline-block;
-    border: 1px solid rgb(118, 118, 118);
-    border-radius: 2px;
-    padding: 1px 2px;
-  }
+.container {
+  height: 18px;
+  display: inline-block;
+  border: 1px solid rgb(118, 118, 118);
+  border-radius: 2px;
+  padding: 1px 2px;
+}
 </style>
 <form id="form-checkout">
-  <div id="form-checkout__cardNumber" class="container"></div>
-  <div id="form-checkout__expirationDate" class="container"></div>
-  <div id="form-checkout__securityCode" class="container"></div>
-  <input type="text" id="form-checkout__cardholderName" />
-  <select id="form-checkout__issuer"></select>
-  <select id="form-checkout__installments"></select>
-  <select id="form-checkout__identificationType"></select>
-  <input type="text" id="form-checkout__identificationNumber" />
-  <input type="email" id="form-checkout__cardholderEmail" />
+<div id="form-checkout__cardNumber" class="container"></div>
+<div id="form-checkout__expirationDate" class="container"></div>
+<div id="form-checkout__securityCode" class="container"></div>
+<input type="text" id="form-checkout__cardholderName" />
+<select id="form-checkout__issuer"></select>
+<select id="form-checkout__installments"></select>
+<select id="form-checkout__identificationType"></select>
+<input type="text" id="form-checkout__identificationNumber" />
+<input type="email" id="form-checkout__cardholderEmail" />
 
-  <button type="submit" id="form-checkout__submit">Pagar</button>
-  <progress value="0" class="progress-bar">Carregando...</progress>
+<button type="submit" id="form-checkout__submit">Pagar</button>
+<progress value="0" class="progress-bar">Carregando...</progress>
 </form>
 
 <script src="https://sdk.mercadopago.com/js/v2"></script>
 <script>
-  const mp = new MercadoPago('PUBLIC_KEY', {
-      locale: 'en-US'
-  })
-  const cardForm = mp.cardForm({
-    amount: "100.5",
-    iframe: true,
-    form: {
-      id: "form-checkout",
-      cardNumber: {
-        id: "form-checkout__cardNumber",
-        placeholder: "Card number",
-      },
-      expirationDate: {
-        id: "form-checkout__expirationDate",
-        placeholder: "MM/YYYY",
-      },
-      securityCode: {
-        id: "form-checkout__securityCode",
-        placeholder: "CVV",
-      },
-      cardholderName: {
-        id: "form-checkout__cardholderName",
-        placeholder: "Cardholder name",
-      },
-      issuer: {
-        id: "form-checkout__issuer",
-        placeholder: "Issuer",
-      },
-      installments: {
-        id: "form-checkout__installments",
-        placeholder: "Total installments",
-      },
-      identificationType: {
-        id: "form-checkout__identificationType",
-        placeholder: "Document type",
-      },
-      identificationNumber: {
-        id: "form-checkout__identificationNumber",
-        placeholder: "Document number",
-      },
-      cardholderEmail: {
-        id: "form-checkout__cardholderEmail",
-        placeholder: "Email",
-      },
+const mp = new MercadoPago('PUBLIC_KEY', {
+    locale: 'en-US'
+})
+const cardForm = mp.cardForm({
+  amount: "100.5",
+  iframe: true,
+  form: {
+    id: "form-checkout",
+    cardNumber: {
+      id: "form-checkout__cardNumber",
+      placeholder: "Card number",
     },
-    callbacks: {
-      onFormMounted: error => {
-        if (error) return console.warn("Form Mounted handling error: ", error);
-        console.log("Form mounted");
-      },
-      onSubmit: event => {
-        event.preventDefault();
+    expirationDate: {
+      id: "form-checkout__expirationDate",
+      placeholder: "MM/YYYY",
+    },
+    securityCode: {
+      id: "form-checkout__securityCode",
+      placeholder: "CVV",
+    },
+    cardholderName: {
+      id: "form-checkout__cardholderName",
+      placeholder: "Cardholder name",
+    },
+    issuer: {
+      id: "form-checkout__issuer",
+      placeholder: "Issuer",
+    },
+    installments: {
+      id: "form-checkout__installments",
+      placeholder: "Total installments",
+    },
+    identificationType: {
+      id: "form-checkout__identificationType",
+      placeholder: "Document type",
+    },
+    identificationNumber: {
+      id: "form-checkout__identificationNumber",
+      placeholder: "Document number",
+    },
+    cardholderEmail: {
+      id: "form-checkout__cardholderEmail",
+      placeholder: "Email",
+    },
+  },
+  callbacks: {
+    onFormMounted: error => {
+      if (error) return console.warn("Form Mounted handling error: ", error);
+      console.log("Form mounted");
+    },
+    onSubmit: event => {
+      event.preventDefault();
 
-        const {
-          paymentMethodId: payment_method_id,
-          issuerId: issuer_id,
-          cardholderEmail: email,
-          amount,
+      const {
+        paymentMethodId: payment_method_id,
+        issuerId: issuer_id,
+        cardholderEmail: email,
+        amount,
+        token,
+        installments,
+        identificationNumber,
+        identificationType,
+      } = cardForm.getCardFormData();
+
+      fetch("/process_payment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
           token,
-          installments,
-          identificationNumber,
-          identificationType,
-        } = cardForm.getCardFormData();
-
-        fetch("/process_payment", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            token,
-            issuer_id,
-            payment_method_id,
-            transaction_amount: Number(amount),
-            installments: Number(installments),
-            description: "Product description",
-            payer: {
-              email,
-              identification: {
-                type: identificationType,
-                number: identificationNumber,
-              },
+          issuer_id,
+          payment_method_id,
+          transaction_amount: Number(amount),
+          installments: Number(installments),
+          description: "Product description",
+          payer: {
+            email,
+            identification: {
+              type: identificationType,
+              number: identificationNumber,
             },
-          }),
-        });
-      },
-      onFetching: (resource) => {
-        console.log("Fetching resource: ", resource);
-
-        // Animate progress bar
-        const progressBar = document.querySelector(".progress-bar");
-        progressBar.removeAttribute("value");
-
-        return () => {
-          progressBar.setAttribute("value", "0");
-        };
-      }
+          },
+        }),
+      });
     },
-  });
+    onFetching: (resource) => {
+      console.log("Fetching resource: ", resource);
+
+      // Animate progress bar
+      const progressBar = document.querySelector(".progress-bar");
+      progressBar.removeAttribute("value");
+
+      return () => {
+        progressBar.setAttribute("value", "0");
+      };
+    }
+  },
+});
 
 </script>
 
 ```
+
+</details>
+</br>
 
 ## Checkout Pro
 
@@ -316,9 +320,8 @@ Checkout Pro is the integration that allows you to charge through our web form f
 
 See the [API reference](#api)
 
-<br />
-
-### Full example
+<details>
+  <summary>Full example using Checkout Pro</summary>
 
 ```html
 <!DOCTYPE html>
@@ -347,6 +350,7 @@ See the [API reference](#api)
 </html>
 ```
 
+</details>
 <br />
 
 ## API
@@ -401,6 +405,18 @@ Check the reference for all SDK modules.
 ---
 
 <br />
+
+## React library
+
+The [React SDK library](https://github.com/mercadopago/sdk-react) makes the integration even easier. It is a wrapper that allows integrate Checkout Bricks easily inside React projects.
+
+> Currently available for Checkout Pro and Checkout Bricks
+
+```js
+import { initMercadoPago } from "@mercadopago/sdk-react";
+
+initMercadoPago("YOUR_PUBLIC_KEY");
+```
 
 ## Notes
 
