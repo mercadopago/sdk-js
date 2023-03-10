@@ -3,14 +3,19 @@
 Example:
 
 ```js
-mp.bricks().create('payment', 'paymentBrick_container', {
+mp.bricks().create("payment", "paymentBrick_container", {
   initialization: {
     amount: 100,
+    preferenceId: "<PREFERENCE_ID>",
   },
   customization: {
     paymentMethods: {
-      creditCard: 'all',
-      debitCard: 'all',
+      creditCard: "all",
+      debitCard: "all",
+      ticket: "all",
+      bankTransfer: "all",
+      mercadoPago: "all",
+      atm: "all",
     },
   },
   callbacks: {
@@ -18,25 +23,23 @@ mp.bricks().create('payment', 'paymentBrick_container', {
       // handle form ready
     },
     onSubmit: ({ paymentMethod, formData }) => {
-      if (paymentMethod === 'credit_card' || paymentMethod === 'debit_card') {
-        return new Promise((resolve, reject) => {
-          fetch('/process_payment', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
+      return new Promise((resolve, reject) => {
+        fetch("/process_payment", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        })
+          .then((response) => {
+            // get payment result
+            resolve();
           })
-            .then((response) => {
-              // get payment result
-              resolve();
-            })
-            .catch((error) => {
-              // get payment result error
-              reject();
-            });
-        });
-      }
+          .catch((error) => {
+            // get payment result error
+            reject();
+          });
+      });
     },
     onError: (error) => {
       // handle error
@@ -143,7 +146,7 @@ The callbacks object contains the callbacks functions the brick will call during
 
 ```ts
 {
-  type: 'non_critical' | 'critical';
+  type: "non_critical" | "critical";
   message: string;
   cause: ErrorCause;
 }
@@ -155,30 +158,36 @@ The callbacks object contains the callbacks functions the brick will call during
 
 ```ts
 {
-    'invalid_sdk_instance',
-    'container_not_found',
-    'incorrect_initialization',
-    'already_initialized',
-    'settings_empty',
-    'missing_amount_property',
-    'amount_is_not_number',
-    'missing_required_callbacks',
-    'missing_container_id',
-    'missing_locale_property',
-    'missing_texts',
-    'fields_setup_failed',
-    'missing_payment_information',
-    'null_date',
-    'wrong_date_format',
-    'incomplete_fields',
-    'validations_parameter_null',
-    'get_payment_methods_failed',
-    'card_token_creation_failed',
-    'secure_fields_card_token_creation_failed',
-    'get_identification_types_failed',
-    'get_card_bin_payment_methods_failed',
-    'get_card_issuers_failed',
-    'get_payment_installments_failed',
+  'already_initialized',
+  'amount_is_not_number',
+  'card_token_creation_failed',
+  'secure_fields_card_token_creation_failed',
+  'container_not_found',
+  'fields_setup_failed',
+  'fields_setup_failed_after_3_tries',
+  'get_address_data_failed',
+  'get_card_bin_payment_methods_failed',
+  'get_card_issuers_failed',
+  'get_identification_types_failed',
+  'get_mexico_payment_points_failed',
+  'get_payment_installments_failed',
+  'get_payment_methods_failed',
+  'get_saved_cards_failed',
+  'incomplete_fields',
+  'incorrect_initialization',
+  'invalid_preference_purpose',
+  'invalid_sdk_instance',
+  'missing_amount_property',
+  'missing_container_id',
+  'missing_locale_property',
+  'missing_payment_information',
+  'missing_payment_type',
+  'missing_required_callbacks',
+  'missing_texts',
+  'settings_empty',
+  'unauthorized_payment_method',
+  'update_preference_details_failed',
+  'validations_parameter_null',
 }
 ```
 
@@ -188,11 +197,12 @@ The callbacks object contains the callbacks functions the brick will call during
 
 ```ts
 {
-  selectedPaymentMethod: 'credit_card' |
-    'debit_card' |
-    'ticket' |
-    'bank_transfer' |
-    'wallet_purchase';
+  selectedPaymentMethod: "credit_card" |
+    "debit_card" |
+    "ticket" |
+    "bank_transfer" |
+    "wallet_purchase" |
+    "atm";
   formData: CardData | TicketData | BankTransferData | WalletPurchaseData;
 }
 ```
@@ -232,19 +242,21 @@ The callbacks object contains the callbacks functions the brick will call during
 
 <br />
 
+`?` means the field is optional
+
 ```ts
 {
     'payment_method_id': string,
     'transaction_amount': number,
     'payer': {
         'email': string,
-        'identification': {
+        'identification?': {
                 'type': string,
                 'number': string
-        }
-        'first_name': string,
-        'last_name': string,
-        'address': {
+        },
+        'first_name?': string,
+        'last_name?': string,
+        'address?': {
             'city': string,
             'federal_unit': string,
             'neighborhood': string,
@@ -300,33 +312,33 @@ null;
 
 Customizations object is used to load Brick under different conditions.
 
-| Customization key                       | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |              |
-| --------------------------------------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| `visual`                                | `object`             | Control the visual aspects of the brick. Contains `style`, `font`, `texts`, `hidePaymentButton`, `hideFormTitle`, `hideRedirectionPanel`, `preserveSavedCardsOrder` and `defaultPaymentOption`                                                                                                                                                                                                                                                                                                                                                                                                      | **OPTIONAL** |
-| `visual.font`                           | `string`             | Defines the custom font URL. This only applies to the [Secure Fields](../fields.md#fields-module).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | **OPTIONAL** |
-| `visual.texts`                          | `CustomTexts`        | Defines [custom texts](#custom-texts) for the Brick (available custom texts vary by Brick).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | **OPTIONAL** |
-| `visual.style`                          | `Style`              | Defines custom theme and CSS variables                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | **OPTIONAL** |
-| `visual.hidePaymentButton`              | `boolean`            | Hides the payment button and disables the `onSubmit` callback.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | **OPTIONAL** |
-| `visual.hideFormTitle`                  | `boolean`            | Hides the form title row.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | **OPTIONAL** |
-| `visual.hideRedirectionPanel`           | `boolean`            | Hides the redirection form. Only applies when the Wallet Purchase option is enabled.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | **OPTIONAL** |
-| `visual.preserveSavedCardsOrder`        | `boolean`            | When `true`, the brick will present the cards maintaining the order established in the property `initialization.payer.cardsIds`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | **OPTIONAL** |
-| `visual.defaultPaymentOption`           | `object`             | Object that define a single payment method as default, so the form will load with this option already selected. Only one option is allowed. (Can contain one of the following properties `creditCardForm`, `debitCardForm`, `savedCardForm`, `ticketForm`, `bankTransferForm`, `walletForm`, or `creditForm`)                                                                                                                                                                                                                                                                                       | **OPTIONAL** |
-| `defaultPaymentOption.creditCardForm`   | `boolean`            | When `true`, the form loads with credit card selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | **OPTIONAL** |
-| `defaultPaymentOption.debitCardForm`    | `boolean`            | When `true`, the form loads with debit card selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | **OPTIONAL** |
-| `defaultPaymentOption.savedCardForm`    | `string`             | One of the `cardsIds` informed in the property `initialization.payer.cardsIds`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | **OPTIONAL** |
-| `defaultPaymentOption.ticketForm`       | `boolean`            | When `true`, the form loads with ticket selected (only available in Argentina, Brazil, Colombia and Mexico).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | **OPTIONAL** |
-| `defaultPaymentOption.bankTransferForm` | `boolean`            | When `true`, the form loads bank transfer selected (only available in Brazil).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | **OPTIONAL** |
-| `defaultPaymentOption.walletForm`       | `boolean`            | When `true`, the form loads with Mercado Pago Wallet selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | **OPTIONAL** |
-| `defaultPaymentOption.creditForm`       | `boolean`            | When `true`, the form loads with Mercado Pago Credits selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | **OPTIONAL** |
-| `paymentMethods`                        | `object`             | Object that allow payment methods configuration. Contains `maxInstallments`, `minInstallments`, `creditCard`, `debitCard`, `ticket`, `bankTransfer`.                                                                                                                                                                                                                                                                                                                                                                                                                                                | **OPTIONAL** |
-| `paymentMethods.maxInstallments`        | `number`             | Maximum number of installments to be offered to the user                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | **OPTIONAL** |
-| `paymentMethods.minInstallments`        | `number`             | Minimal number of installments to be offered to the user                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | **OPTIONAL** |
-| `paymentMethods.creditCard`             | `string[] or string` | Allow payments with credit card. When the value `'all'` is provided, all credit cards are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the paymentType `credit_card`.                                                                                                                                                                                                                                                                            | **OPTIONAL** |
-| `paymentMethods.debitCard`              | `string[] or string` | Allow payments with debit card. When the value `'all'` is provided, all debit cards are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the paymentType `debit_card`.                                                                                                                                                                                                                                                                               | **OPTIONAL** |
-| `paymentMethods.ticket`                 | `string[] or string` | Allow payments with tickets ([check availability](#ticket-availability)). When the value `'all'` is provided, all ticket methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the payment type `ticket`.                                                                                                                                                                                                                                     | **OPTIONAL** |
-| `paymentMethods.bankTransfer`           | `string[] or string` | Allow payments with Bank Transfer ([check availability](#bank-transfer-availability)). When the value `'all'` is provided, all bank transfer methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the payment type `bank_transfer`.                                                                                                                                                                                                          | **OPTIONAL** |
-| `paymentMethods.atm`                    | `string[] or string` | Allow payments with ATM methods ([check availability](#atm-availability)). When the value `'all'` is provided, all bank transfer methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the payment type `atm`.                                                                                                                                                                                                                                | **OPTIONAL** |
-| `paymentMethods.mercadoPago`            | `string[] or string` | Allow payments with Mercado Pago Wallet and installments without card (only available in Argentina, Brazil and Mexico). When the value `'all'` is provided, payments with both are accepted. When `'wallet_purchase'` is provided, just payments with Mercado Pago Wallet are accepted and users must log in when redirected to their Mercado Pago account. When `'onboarding_credits'` is provided, just payments with installments without card are accepted. In that case, after logging in, will be presented to the user the pre-selected credit payment option in their Mercado Pago account. | **OPTIONAL** |
+| Customization key                       | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |              |
+| --------------------------------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| `visual`                                | `object`             | Control the visual aspects of the brick. Contains `style`, `font`, `texts`, `hidePaymentButton`, `hideFormTitle`, `hideRedirectionPanel`, `preserveSavedCardsOrder` and `defaultPaymentOption`                                                                                                                                                                                                                                                                                                                                                                                                                                   | **OPTIONAL** |
+| `visual.font`                           | `string`             | Defines the custom font URL. This only applies to the [Secure Fields](../fields.md#fields-module).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | **OPTIONAL** |
+| `visual.texts`                          | `CustomTexts`        | Defines [custom texts](#custom-texts) for the Brick (available custom texts vary by Brick).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | **OPTIONAL** |
+| `visual.style`                          | `Style`              | Defines custom theme and CSS variables                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | **OPTIONAL** |
+| `visual.hidePaymentButton`              | `boolean`            | Hides the payment button and disables the `onSubmit` callback.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | **OPTIONAL** |
+| `visual.hideFormTitle`                  | `boolean`            | Hides the form title row.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | **OPTIONAL** |
+| `visual.hideRedirectionPanel`           | `boolean`            | Hides the redirection form. Only applies when the Wallet Purchase option is enabled.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | **OPTIONAL** |
+| `visual.preserveSavedCardsOrder`        | `boolean`            | When `true`, the brick will present the cards maintaining the order established in the property `initialization.payer.cardsIds`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | **OPTIONAL** |
+| `visual.defaultPaymentOption`           | `object`             | Object that define a single payment method as default, so the form will load with this option already selected. Only one option is allowed. (Can contain one of the following properties `creditCardForm`, `debitCardForm`, `savedCardForm`, `ticketForm`, `bankTransferForm`, `walletForm`, or `creditForm`)                                                                                                                                                                                                                                                                                                                    | **OPTIONAL** |
+| `defaultPaymentOption.creditCardForm`   | `boolean`            | When `true`, the form loads with credit card selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | **OPTIONAL** |
+| `defaultPaymentOption.debitCardForm`    | `boolean`            | When `true`, the form loads with debit card selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | **OPTIONAL** |
+| `defaultPaymentOption.savedCardForm`    | `string`             | One of the `cardsIds` informed in the property `initialization.payer.cardsIds`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | **OPTIONAL** |
+| `defaultPaymentOption.ticketForm`       | `boolean`            | When `true`, the form loads with ticket selected ([check availability](#ticket-availability))                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | **OPTIONAL** |
+| `defaultPaymentOption.bankTransferForm` | `boolean`            | When `true`, the form loads bank transfer selected (only available in Brazil).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | **OPTIONAL** |
+| `defaultPaymentOption.walletForm`       | `boolean`            | When `true`, the form loads with Mercado Pago Wallet selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | **OPTIONAL** |
+| `defaultPaymentOption.creditForm`       | `boolean`            | When `true`, the form loads with Mercado Pago Credits selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | **OPTIONAL** |
+| `paymentMethods`                        | `object`             | Object that allow payment methods configuration. Contains `maxInstallments`, `minInstallments`, `creditCard`, `debitCard`, `ticket`, `bankTransfer`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | **OPTIONAL** |
+| `paymentMethods.maxInstallments`        | `number`             | Maximum number of installments to be offered to the user                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | **OPTIONAL** |
+| `paymentMethods.minInstallments`        | `number`             | Minimal number of installments to be offered to the user                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | **OPTIONAL** |
+| `paymentMethods.creditCard`             | `string[] or string` | Allow payments with credit card. When the value `'all'` is provided, all credit cards are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the paymentType `credit_card`.                                                                                                                                                                                                                                                                                                         | **OPTIONAL** |
+| `paymentMethods.debitCard`              | `string[] or string` | Allow payments with debit card. When the value `'all'` is provided, all debit cards are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the paymentType `debit_card`.                                                                                                                                                                                                                                                                                                            | **OPTIONAL** |
+| `paymentMethods.ticket`                 | `string[] or string` | Allow payments with tickets ([check availability](#ticket-availability)). When the value `'all'` is provided, all ticket methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the payment type `ticket`.                                                                                                                                                                                                                                                                  | **OPTIONAL** |
+| `paymentMethods.bankTransfer`           | `string[] or string` | Allow payments with Bank Transfer ([check availability](#bank-transfer-availability)). When the value `'all'` is provided, all bank transfer methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the payment type `bank_transfer`.                                                                                                                                                                                                                                       | **OPTIONAL** |
+| `paymentMethods.atm`                    | `string[] or string` | Allow payments with ATM methods ([check availability](#atm-availability)). When the value `'all'` is provided, all bank transfer methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the payment type `atm`.                                                                                                                                                                                                                                                             | **OPTIONAL** |
+| `paymentMethods.mercadoPago`            | `string[] or string` | Allow payments with Mercado Pago Wallet (available in all countries) and installments without card (only available in Argentina, Brazil and Mexico). When the value `'all'` is provided, payments with both are accepted. When `'wallet_purchase'` is provided, just payments with Mercado Pago Wallet are accepted and users must log in when redirected to their Mercado Pago account. When `'onboarding_credits'` is provided, just payments with installments without card are accepted. In that case, after logging in, will be presented to the user the pre-selected credit payment option in their Mercado Pago account. | **OPTIONAL** |
 
 <br />
 
@@ -451,6 +463,7 @@ Accepted properties are:
 | `MLB (Brazil)`    |
 | `MCO (Colombia)`  |
 | `MLM (Mexico)`    |
+| `MLU (Uruguay)`   |
 
 #### Bank Transfer availability
 
