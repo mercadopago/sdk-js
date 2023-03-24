@@ -45,20 +45,12 @@ There are three ways to open the checkout experience: redirect on the same tab, 
   <summary>HTML/JS</summary>
 
 ```javascript
-const renderComponent = async (bricksBuilder) => {
-  const settings = {
-    initialization: {
-      preferenceId: "<PREFERENCE_ID>",
-      redirectMode: "modal",
-    },
-  };
-  const brickController = await bricksBuilder.create(
-    "wallet",
-    "wallet_container",
-    settings
-  );
-};
-renderComponent(bricksBuilder);
+mercadopago.bricks().create("wallet", "<DOM_CONTAINER>", {
+  initialization: {
+    preferenceId: "<PREFERENCE_ID>",
+    redirectMode: "modal",
+  },
+});
 ```
 
 </details>
@@ -131,13 +123,20 @@ Renders the Checkout Button in a given container. This button has the trigger to
   <summary>Unmount example</summary>
 
 ```javascript
-const controller = await mercadopago
-  .bricks()
-  .create("wallet", "<DOM_CONTAINER>", {
+const bricksBuilder = mp.bricks();
+const renderComponent = async (bricksBuilder) => {
+  const settings = {
     initialization: {
       preferenceId: "<PREFERENCE_ID>",
     },
-  });
+  };
+  window.brickController = await bricksBuilder.create(
+    "wallet",
+    "wallet_container",
+    settings
+  );
+};
+renderComponent(bricksBuilder);
 
 // Somewhere in your flow
 controller.unmount();
