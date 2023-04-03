@@ -31,6 +31,7 @@ mp.bricks().create("payment", "paymentBrick_container", {
           },
           body: JSON.stringify(formData),
         })
+          .then((response) => response.json())
           .then((response) => {
             // get payment result
             resolve();
