@@ -20,6 +20,7 @@ mp.bricks().create("cardPayment", "cardPaymentBrick_container", {
           },
           body: JSON.stringify(cardData),
         })
+          .then((response) => response.json())
           .then((response) => {
             // get payment result
             resolve();

@@ -68,6 +68,7 @@ mp.bricks().create("wallet", "walletBrick_container", {
           },
           body: JSON.stringify(yourRequestBodyHere)
         })
+        .then((response) => response.json())
         .then((response) => {
           // Resolve the promise with the Preference ID
           resolve(response.preference_id);
@@ -159,17 +160,17 @@ The callbacks object contains the callbacks functions the brick will call during
 
 ```ts
 {
-  'already_initialized'
-  'container_not_found'
-  'get_preference_details_failed'
-  'incorrect_initialization'
-  'invalid_sdk_instance'
-  'missing_container_id'
-  'missing_locale_property'
-  'missing_required_callbacks'
-  'missing_texts'
-  'no_preference_provided'
-  'settings_empty'
+  ("already_initialized");
+  ("container_not_found");
+  ("get_preference_details_failed");
+  ("incorrect_initialization");
+  ("invalid_sdk_instance");
+  ("missing_container_id");
+  ("missing_locale_property");
+  ("missing_required_callbacks");
+  ("missing_texts");
+  ("no_preference_provided");
+  ("settings_empty");
 }
 ```
 
