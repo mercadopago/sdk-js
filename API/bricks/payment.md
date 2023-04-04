@@ -162,6 +162,7 @@ The callbacks object contains the callbacks functions the brick will call during
   'already_initialized',
   'amount_is_not_number',
   'card_token_creation_failed',
+  'secure_fields_card_token_creation_failed',
   'container_not_found',
   'fields_setup_failed',
   'fields_setup_failed_after_3_tries',
