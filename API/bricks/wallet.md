@@ -47,14 +47,14 @@ mp.bricks().create("wallet", "walletBrick_container", {
       // This is possible because the brick is a button.
       // At this time of submit, you must create the preference.
       const yourRequestBodyHere = {
-        items: [
+        items: [{
           id: "202809963",
           title: "Dummy title",
           description: "Dummy description",
           quantity: 1,
           unit_price: 10,
-        ],
-        purpose: "wallet_purchase"
+          }],
+        purpose: "wallet_purchase",
       };
 
       return new Promise((resolve, reject) => {
@@ -63,9 +63,9 @@ mp.bricks().create("wallet", "walletBrick_container", {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(yourRequestBodyHere)
+          body: JSON.stringify(yourRequestBodyHere),
         })
-        .then(resp => resp.json())
+        .then((resp) => resp.json())
         .then((response) => {
           // Resolve the promise with the Preference ID
           resolve(response.preference_id);
@@ -73,7 +73,7 @@ mp.bricks().create("wallet", "walletBrick_container", {
         .catch((error) => {
           // Handle error response when trying to create the preference
           reject();
-        })
+        });
       });
     }
   },
@@ -92,11 +92,13 @@ const App = () => {
         // At this time of submit, you must create the preference.
         const yourRequestBodyHere = {
           items: [
-            (id = "202809963"),
-            (title = "Dummy title"),
-            (description = "Dummy description"),
-            (quantity = 1),
-            (unit_price = 10),
+            {
+              id: "202809963",
+              title: "Dummy title",
+              description: "Dummy description",
+              quantity: 1,
+              unit_price: 10,
+            },
           ],
           purpose: "wallet_purchase",
         };
