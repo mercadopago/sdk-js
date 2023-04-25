@@ -42,9 +42,9 @@ It is a **clientside SDK** whose main objective is to **facilitate the integrati
 
 | Browser         | Support  |
 | --------------- | -------- |
-| Chrome          | Complete |
-| Firefox         | Complete |
-| Safari          | Complete |
+| Chrome          | 80+      |
+| Firefox         | 74+      |
+| Safari          | 13.3+    |
 | Android Browser | Complete |
 
 <br />
