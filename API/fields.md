@@ -462,6 +462,7 @@ The table below specifies the properties available for being updated.
 ```js
 {
     length: number // Between 8 and 19
+    validation: string // 'standard' | 'none'
 }
 ```
 
