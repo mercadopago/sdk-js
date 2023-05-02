@@ -135,7 +135,7 @@ Options:
 | `style`               | `object` | Defines field styles. [See more](#style)             | **OPTIONAL** | ALL                            |
 | `customFonts`         | `array`  | Defines field customFonts. [See more](#custom-fonts) | **OPTIONAL** | ALL                            |
 | `mode`                | `string` | Defines year mode. [See more](#year-mode)            | **OPTIONAL** | expirationYear, expirationDate |
-| `enableLuhnValidation`| `boolean`| Defines Luhn validation. [See more](#luhn-validation)| **OPTIONAL** | expirationYear, expirationDate |
+| `enableLuhnValidation`| `boolean`| Defines Luhn validation. [See more](#luhn-validation)| **OPTIONAL** | cardNumber |
 
 <br />
 
@@ -231,12 +231,8 @@ Possible values are `short` or `full`.
 #### Luhn Validation
 
 Defines whether the card number will be validated by [Luhn](https://en.wikipedia.org/wiki/Luhn_algorithm) validation.
+It is very important to remember that for it to work, the [update](#field-instanceupdateproperties) must have been sent correctly.
 
-Possible values are `short` or `full`. 
-
-- `short`: year must be of two digits.
-- `full`: year must be of two digits.
-- `undefined`: both formats are accepted.
 
 <br />
 
