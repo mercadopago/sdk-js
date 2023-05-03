@@ -146,6 +146,7 @@ mp.fields.create("cardNumber", {
     placeholder: "Card Number",
 });
 ```
+<br />
 
 ### `mp instance`.fields.focus()
 Used to focus on secure fields
@@ -154,6 +155,7 @@ Example:
 ```js
 mp.fields.focus();
 ```
+<br />
 
 ### `mp instance`.fields.blur()
 Used to blur on secure fields
