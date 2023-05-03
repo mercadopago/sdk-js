@@ -98,6 +98,45 @@ Options:
 
 <br />
 
+### `mp instance`.fields.updateCardToken(`token`)
+Token update method
+
+<br />
+
+#### Returns: `Promise<CardTokenResponse | void>`
+
+`CardTokenResponse`
+```js
+{
+    id: string,
+    public_key: string,
+    card_id?: unknown,
+    luhn_validation: boolean,
+    status: string,
+    date_used?: unknown,
+    card_number_length: number,
+    date_created: Date,
+    first_six_digits: string,
+    last_four_digits: string,
+    security_code_length: number,
+    expiration_month: number,
+    expiration_year: number,
+    date_last_updated: Date,
+    date_due: Date,
+    live_mode: boolean,
+    cardholder: Cardholder,
+}
+```
+
+<br />
+
+#### Params:
+`token` | _string_, **REQUIRED**
+
+To update the _cardtoken_, it is necessary to fill in the fields that will be updated in the form and send the previously created _cardtoken_ as a parameter
+
+<br />
+
 ### `mp instance`.fields.create(`type`, `options`)
 Field instantiation method.
 
@@ -129,12 +168,13 @@ The `options` object have properties to customize the field being created.
 
 Options:
 
-|   Option key  |   Type   |        Description                                   |              | Enabled for                    |
-|---------------|----------|------------------------------------------------------|--------------|--------------------------------|
-| `placeholder` | `string` | Defines field placeholder.                           | **OPTIONAL** | ALL                            |
-| `style`       | `object` | Defines field styles. [See more](#style)             | **OPTIONAL** | ALL                            |
-| `customFonts` | `array`  | Defines field customFonts. [See more](#custom-fonts) | **OPTIONAL** | ALL                            |
-| `mode`        | `string` | Defines year mode. [See more](#year-mode)            | **OPTIONAL** | expirationYear, expirationDate |
+|       Option key      |   Type   |        Description                                   |              | Enabled for                    |
+|-----------------------|----------|------------------------------------------------------|--------------|--------------------------------|
+| `placeholder`         | `string` | Defines field placeholder.                           | **OPTIONAL** | ALL                            |
+| `style`               | `object` | Defines field styles. [See more](#style)             | **OPTIONAL** | ALL                            |
+| `customFonts`         | `array`  | Defines field customFonts. [See more](#custom-fonts) | **OPTIONAL** | ALL                            |
+| `mode`                | `string` | Defines year mode. [See more](#year-mode)            | **OPTIONAL** | expirationYear, expirationDate |
+| `enableLuhnValidation`| `boolean`| Defines Luhn validation. [See more](#luhn-validation)| **OPTIONAL** | cardNumber |
 
 <br />
 
@@ -226,6 +266,12 @@ Possible values are `short` or `full`.
 - `short`: year must be of two digits.
 - `full`: year must be of two digits.
 - `undefined`: both formats are accepted.
+
+#### Luhn Validation
+
+Defines whether the card number will be validated by [Luhn](https://en.wikipedia.org/wiki/Luhn_algorithm) validation.
+It is very important to remember that for it to work, the [update](#field-instanceupdateproperties) must have been sent correctly.
+
 
 <br />
 
@@ -451,6 +497,7 @@ The table below specifies the properties available for being updated.
 ```js
 {
     length: number // Between 8 and 19
+    validation: string // 'standard' | 'none'
 }
 ```
 
