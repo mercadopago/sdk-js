@@ -146,6 +146,24 @@ mp.fields.create("cardNumber", {
     placeholder: "Card Number",
 });
 ```
+<br />
+
+### `mp instance`.fields.focus()
+Used to focus on secure fields
+
+Example:
+```js
+mp.fields.focus();
+```
+<br />
+
+### `mp instance`.fields.blur()
+Used to blur on secure fields
+
+Example:
+```js
+mp.fields.blur();
+```
 
 <br />
 
@@ -321,6 +339,7 @@ The default events, enabled for every field are: `blur`, `focus`, `ready` or `va
 |focus|`defaultEvent`|Callback triggered when focus event occurs| ALL |
 |ready|`defaultEvent`|Callback triggered when field has been initialized| ALL |
 |change|`defaultEvent`|Callback triggered when field value changes| ALL |
+|paste|`defaultEvent`|Callback triggered when paste some value on field| ALL |
 |validityChange|`validityChangeEvent`|Callback triggered when field validation occurs| ALL |
 |error|`errorEvent`|Callback triggered when error event occurs| ALL |
 |binChange|`binChangeEvent`|Callback triggered when bin state changes from invalid to valid or from valid to invalid. It returns the bin when valid or null when invalid| cardNumber |
