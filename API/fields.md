@@ -98,6 +98,45 @@ Options:
 
 <br />
 
+### `mp instance`.fields.updateCardToken(`token`)
+Token update method
+
+<br />
+
+#### Returns: `Promise<CardTokenResponse | void>`
+
+`CardTokenResponse`
+```js
+{
+    id: string,
+    public_key: string,
+    card_id?: unknown,
+    luhn_validation: boolean,
+    status: string,
+    date_used?: unknown,
+    card_number_length: number,
+    date_created: Date,
+    first_six_digits: string,
+    last_four_digits: string,
+    security_code_length: number,
+    expiration_month: number,
+    expiration_year: number,
+    date_last_updated: Date,
+    date_due: Date,
+    live_mode: boolean,
+    cardholder: Cardholder,
+}
+```
+
+<br />
+
+#### Params:
+`token` | _string_, **REQUIRED**
+
+To update the _cardtoken_, it is necessary to fill in the fields that will be updated in the form and send the previously created _cardtoken_ as a parameter
+
+<br />
+
 ### `mp instance`.fields.create(`type`, `options`)
 Field instantiation method.
 
