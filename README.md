@@ -59,7 +59,7 @@ To install the SDK, you must include the script in your application's HTML or in
 
 or
 
-```npm
+```javascript
 npm install @mercadopago/sdk-js;
 ```
 

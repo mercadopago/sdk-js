@@ -147,6 +147,22 @@ mp.fields.create("cardNumber", {
 });
 ```
 
+### `mp instance`.fields.focus()
+Used to focus on secure fields
+
+Example:
+```js
+mp.fields.focus();
+```
+
+### `mp instance`.fields.blur()
+Used to blur on secure fields
+
+Example:
+```js
+mp.fields.blur();
+```
+
 <br />
 
 #### Returns: `FIELD INSTANCE`
