@@ -372,7 +372,7 @@ The table below provides information about causes and messages:
         <td><b>Messages</b></td>
     </tr>
     <tr>
-        <td rowspan="2">
+        <td rowspan="3">
 
 `           cardNumber`
         </td>
@@ -388,6 +388,13 @@ The table below provides information about causes and messages:
 `           invalid_length`
         </td>
         <td>cardNumber should be of length between '9' and '18'.</td>
+    </tr>
+    <tr>
+        <td>
+        
+`           invalid_value`
+        </td>
+        <td>card number rejected on Luhn Validation.</td>
     </tr>
     <tr>
         <td rowspan="2">
@@ -461,6 +468,8 @@ The table below provides information about causes and messages:
         </center></td>
     </tr>
 </table>
+
+>IMPORTANT: All errors return a detailed object of each error
 
 <br />
 
