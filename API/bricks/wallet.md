@@ -205,6 +205,18 @@ Customizations object is used to load Brick under different conditions.
 
 ¹ **Value prop**: for more details about the value props and its behavior, see the [Change texts](https://www.mercadopago.com.br/developers/en/docs/checkout-bricks/wallet-brick/additional-customization/change-texts) page.
 
+#### Value prop availability
+
+| Site              | Value prop availability                                                                  |
+| ----------------- | ---------------------------------------------------------------------------------------- |
+| `MLA (Argentina)` | `practicality`, `convenience`, `security_details`, `security_safety`, `credits`, `smart` |
+| `MLB (Brazil)`    | `practicality`, `convenience`, `security_details`, `security_safety`, `credits`, `smart` |
+| `MLM (Mexico)`    | `practicality`, `convenience`, `security_details`, `security_safety`, `credits`, `smart` |
+| `MCO (Colombia)`  | `practicality`, `security_details`, `security_safety`, `smart`                           |
+| `MLU (Uruguay)`   | `practicality`, `security_details`, `security_safety`, `smart`                           |
+| `MLC (Chile)`     | `practicality`, `security_details`, `security_safety`, `smart`                           |
+| `MPE (Peru)`      | `practicality`, `security_details`, `security_safety`, `smart`                           |
+
 <br>
 
 ### **Opening scheme**
