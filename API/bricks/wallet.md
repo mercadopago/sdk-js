@@ -203,7 +203,7 @@ Customizations object is used to load Brick under different conditions.
 
 ---
 
-¹ **Value prop**: for more details about the value props and its behavior, see the [Change texts](https://www.mercadopago.com.br/developers/en/docs/checkout-bricks/wallet-brick/additional-customization/change-texts) page.
+¹ **Value prop**: for more details about the value props and its behavior, see the [Change texts](https://www.mercadopago.com/developers/en/docs/checkout-bricks/wallet-brick/additional-customization/change-texts) page.
 
 #### Value prop availability
 
