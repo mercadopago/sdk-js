@@ -388,6 +388,10 @@ Accepted properties are:
 | `addressStreet.label`                  | `string` |
 | `addressNumber.label`                  | `string` |
 | `addressComplement.label`              | `string` |
+| `entityType.label`                     | `string` |
+| `entityType.placeholder`               | `string` |
+| `financialInstitution.label`           | `string` |
+| `financialInstitution.placeholder`     | `string` |
 
 <br />
 
