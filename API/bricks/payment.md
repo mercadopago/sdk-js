@@ -5,7 +5,7 @@ Example:
 ```js
 mp.bricks().create("payment", "paymentBrick_container", {
   initialization: {
-    amount: 100,
+    amount: 10000,
     preferenceId: "<PREFERENCE_ID>",
   },
   customization: {
@@ -388,6 +388,10 @@ Accepted properties are:
 | `addressStreet.label`                  | `string` |
 | `addressNumber.label`                  | `string` |
 | `addressComplement.label`              | `string` |
+| `entityType.label`                     | `string` |
+| `entityType.placeholder`               | `string` |
+| `financialInstitution.label`           | `string` |
+| `financialInstitution.placeholder`     | `string` |
 
 <br />
 
@@ -468,9 +472,10 @@ Accepted properties are:
 
 #### Bank Transfer availability
 
-| Site           |
-| -------------- |
-| `MLB (Brazil)` |
+| Site             |
+| ---------------- |
+| `MLB (Brazil)`   |
+| `MCO (Colombia)` |
 
 #### ATM availability
 
