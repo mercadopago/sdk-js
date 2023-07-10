@@ -5,7 +5,7 @@ Example:
 ```js
 mp.bricks().create("payment", "paymentBrick_container", {
   initialization: {
-    amount: 100,
+    amount: 10000,
     preferenceId: "<PREFERENCE_ID>",
   },
   customization: {
@@ -249,15 +249,18 @@ The callbacks object contains the callbacks functions the brick will call during
 {
     'payment_method_id': string,
     'transaction_amount': number,
+    'transaction_details'?: {
+        'financial_institution': string,
+    },
     'payer': {
         'email': string,
-        'identification?': {
-                'type': string,
-                'number': string
+        'identification'?: {
+            'type': string,
+            'number': string
         },
-        'first_name?': string,
-        'last_name?': string,
-        'address?': {
+        'first_name'?: string,
+        'last_name'?: string,
+        'address'?: {
             'city': string,
             'federal_unit': string,
             'neighborhood': string,
@@ -265,6 +268,10 @@ The callbacks object contains the callbacks functions the brick will call during
             'street_number': string,
             'zip_code': string
         }
+    },
+    'metadata'?: {
+        'payment_point'?: string,
+        'payment_mode'?: string
     }
 }
 ```
@@ -388,6 +395,10 @@ Accepted properties are:
 | `addressStreet.label`                  | `string` |
 | `addressNumber.label`                  | `string` |
 | `addressComplement.label`              | `string` |
+| `entityType.label`                     | `string` |
+| `entityType.placeholder`               | `string` |
+| `financialInstitution.label`           | `string` |
+| `financialInstitution.placeholder`     | `string` |
 
 <br />
 
@@ -468,9 +479,10 @@ Accepted properties are:
 
 #### Bank Transfer availability
 
-| Site           |
-| -------------- |
-| `MLB (Brazil)` |
+| Site             |
+| ---------------- |
+| `MLB (Brazil)`   |
+| `MCO (Colombia)` |
 
 #### ATM availability
 

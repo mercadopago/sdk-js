@@ -1,8 +1,8 @@
 {
   "name": "@mercadopago/sdk-js",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Mercadopago SDK JS",
-  "main": "index.js",
+  "main": "dist/index.js",
   "module": "dist/index.js",
   "jsnext:main": "dist/index.js",
   "types": "dist/index.d.ts",
