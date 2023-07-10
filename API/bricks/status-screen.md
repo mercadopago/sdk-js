@@ -1,19 +1,20 @@
 ## `BricksBuilder`.create(`brick`, `target`, `settings`)
 
 Example:
+
 ```js
-mp.bricks().create('statusScreen', 'statusScreenBrick_container' , {
-    initialization: {
-        paymentId: '1234567890'
+mp.bricks().create("statusScreen", "statusScreenBrick_container", {
+  initialization: {
+    paymentId: "1234567890",
+  },
+  callbacks: {
+    onReady: () => {
+      // handle form ready
     },
-    callbacks: {
-        onReady: () => {
-            // handle form ready
-        },
-        onError: (error) => {
-            // handle error
-        }
-    }
+    onError: (error) => {
+      // handle error
+    },
+  },
 });
 ```
 
@@ -85,11 +86,12 @@ The callbacks object contains the callbacks functions the brick will call during
 
 ```ts
 {
-    type: 'non_critical' | 'critical';
-    message: string;
-    cause: ErrorCause;
+  type: "non_critical" | "critical";
+  message: string;
+  cause: ErrorCause;
 }
 ```
+
 <br />
 
 `ErrorCause`
