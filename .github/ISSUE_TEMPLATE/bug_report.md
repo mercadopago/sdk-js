@@ -1,10 +1,9 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
-
+title: ""
+labels: ""
+assignees: ""
 ---
 
 **Describe the bug**
@@ -13,7 +12,7 @@ A clear and concise description of what the bug is.
 **To Reproduce**
 Steps to reproduce the behavior:
 
-- Test case to reproduce the bug.  Try to reproduce in the latest version.
+- Test case to reproduce the bug. Try to reproduce in the latest version.
 - Code sample that fails
 
 **Expected behavior**
