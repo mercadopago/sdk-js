@@ -3,7 +3,8 @@
 SDK instantiation method.
 
 #### Params:
-`public_key` | *string*, **REQUIRED** 
+
+`public_key` | _string_, **REQUIRED**
 
 It is the public key for your account.
 
@@ -11,38 +12,37 @@ It is the public key for your account.
  
 `options` | *object*, **OPTIONAL**
 
-
-|Option name|Values|Default|Type|Description||
-|-|-|-|-|-|-|
-|`locale` |`es-AR`<br>`es-CL`<br>`es-CO`<br>`es-MX`<br>`es-VE`<br>`es-UY`<br>`es-PE`<br>`pt-BR`<br>`en-US`|Browser default locale | *string* | Set the locale | **OPTIONAL** |
-|`advancedFraudPrevention` |`true\|false`| true | *boolean* | Set the advanced fraud prevention status | **OPTIONAL** |
-|`trackingDisabled` |`true\|false`| false | *boolean* | Enable/disable tracking of generic usage metrics | **OPTIONAL** |
-
+| Option name               | Values                                                                                          | Default                | Type      | Description                                      |              |
+| ------------------------- | ----------------------------------------------------------------------------------------------- | ---------------------- | --------- | ------------------------------------------------ | ------------ |
+| `locale`                  | `es-AR`<br>`es-CL`<br>`es-CO`<br>`es-MX`<br>`es-VE`<br>`es-UY`<br>`es-PE`<br>`pt-BR`<br>`en-US` | Browser default locale | _string_  | Set the locale                                   | **OPTIONAL** |
+| `advancedFraudPrevention` | `true\|false`                                                                                   | true                   | _boolean_ | Set the advanced fraud prevention status         | **OPTIONAL** |
+| `trackingDisabled`        | `true\|false`                                                                                   | false                  | _boolean_ | Enable/disable tracking of generic usage metrics | **OPTIONAL** |
 
 <br />
 
 #### Example:
 
 ```javascript
-const mp = new MercadoPago('PUBLIC_KEY', {
-  locale: 'en-US',
+const mp = new MercadoPago("PUBLIC_KEY", {
+  locale: "en-US",
   advancedFraudPrevention: true,
-})
+});
 ```
+
 <br />
 
 #### Return: `mp instance`
 
-|||
-|-|-|
-|getIdentificationTypes | **METHOD** |
-|getPaymentMethods | **METHOD** |
-|getIssuers | **METHOD** |
-|getInstallments | **METHOD** |
-|createCardToken | **METHOD** |
-|cardForm | **MODULE** |
-|checkout | **MODULE** |
-|[fields](fields.md#fields-module) | **MODULE** |
+|                                   |            |
+| --------------------------------- | ---------- |
+| getIdentificationTypes            | **METHOD** |
+| getPaymentMethods                 | **METHOD** |
+| getIssuers                        | **METHOD** |
+| getInstallments                   | **METHOD** |
+| createCardToken                   | **METHOD** |
+| cardForm                          | **MODULE** |
+| checkout                          | **MODULE** |
+| [fields](fields.md#fields-module) | **MODULE** |
 
 <br />
 
@@ -50,30 +50,30 @@ const mp = new MercadoPago('PUBLIC_KEY', {
 
 <br />
 
-
-
-
-
 ### `mp instance`.getIdentificationTypes()
+
 Return all the document types based on the `public_key`
 
 #### Example:
 
 ```javascript
-const identificationTypes = await mp.getIdentificationTypes()
+const identificationTypes = await mp.getIdentificationTypes();
 ```
- 
 
 #### Return: `PROMISE`
+
 ```javascript
-[{
-  id: string,
-  name: string,
-  type: string,
-  min_length: number,
-  max_length: number
-}]
+[
+  {
+    id: string,
+    name: string,
+    type: string,
+    min_length: number,
+    max_length: number,
+  },
+];
 ```
+
 <br />
 
 ---
@@ -81,11 +81,13 @@ const identificationTypes = await mp.getIdentificationTypes()
 <br />
 
 ### `mp instance`.getPaymentMethods(`paymentMethodsParams`)
+
 Returns a payment methods list
 
 <br />
 
 #### Params:
+
 `paymentMethodsParams` | _object_, **REQUIRED**
 | Option Key | Type | Description | |
 |-|-|-|-|
@@ -97,7 +99,7 @@ Returns a payment methods list
 #### Example:
 
 ```javascript
-const paymentMethods = await mp.getPaymentMethods({ bin: '41111111' })
+const paymentMethods = await mp.getPaymentMethods({ bin: "41111111" });
 ```
 
 #### Return: `PROMISE` (showing most common used results.)
@@ -156,11 +158,13 @@ const paymentMethods = await mp.getPaymentMethods({ bin: '41111111' })
 <br />
 
 ### `mp instance`.getIssuers(`issuersParams`)
+
 Returns a issuers list
 
 <br />
 
 #### Params:
+
 `issuersParams` | _object_, **REQUIRED**
 | Option Key | Type | Description | |
 |-|-|-|-|
@@ -172,10 +176,14 @@ Returns a issuers list
 #### Example:
 
 ```javascript
-const issuers = await mp.getIssuers({ paymentMethodId: 'visa', bin: '411111111' })
+const issuers = await mp.getIssuers({
+  paymentMethodId: "visa",
+  bin: "411111111",
+});
 ```
 
 #### Return: `PROMISE`
+
 ```javascript
 [{
   id: string,
@@ -194,11 +202,13 @@ const issuers = await mp.getIssuers({ paymentMethodId: 'visa', bin: '411111111' 
 <br />
 
 ### `mp instance`.getInstallments(`installmentsParams`)
+
 Returns all installments available
 
 <br />
 
 #### Params:
+
 `installmentsParams` | _object_, **REQUIRED**
 | Option Key | Type | Description | |
 |-|-|-|-|
@@ -210,13 +220,14 @@ Returns all installments available
 <br />
 
 #### Example:
+
 ```javascript
 const installments = await mp.getInstallments({
-  amount: '1000',
-  locale: 'pt-BR',
-  bin: '41111111',
-  processingMode: 'aggregator'
-})
+  amount: "1000",
+  locale: "pt-BR",
+  bin: "41111111",
+  processingMode: "aggregator",
+});
 ```
 
 #### Return: `PROMISE`
@@ -248,9 +259,11 @@ const installments = await mp.getInstallments({
 <br />
 
 ### `mp instance`.createCardToken(`cardTokenParams`)
+
 Return a token card
 
 #### Params:
+
 `cardTokenParams` | _object_, **REQUIRED**
 | Option Key | Type | Description | |
 |-|-|-|-|
@@ -269,14 +282,14 @@ Return a token card
 
 ```javascript
 const cardToken = await mp.createCardToken({
-    cardNumber: '5031433215406351' ,
-    cardholderName: 'APRO',
-    cardExpirationMonth: '11',
-    cardExpirationYear: '2025',
-    securityCode: '123',
-    identificationType: 'CPF',
-    identificationNumber: '12345678912',
-})
+  cardNumber: "5031433215406351",
+  cardholderName: "APRO",
+  cardExpirationMonth: "11",
+  cardExpirationYear: "2025",
+  securityCode: "123",
+  identificationType: "CPF",
+  identificationNumber: "12345678912",
+});
 ```
 
 <br />
