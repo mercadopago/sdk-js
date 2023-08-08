@@ -506,6 +506,7 @@ The Brick Controller contains methods that allow the integrator to interact with
 | unmount           | **METHOD** |
 | getFormData       | **METHOD** |
 | getAdditionalData | **METHOD** |
+| update            | **METHOD** |
 
 <br />
 
@@ -558,3 +559,25 @@ None.
 | Brick     | Return Data      |
 | --------- | ---------------- |
 | `payment` | `AdditionalData` |
+
+### `Brick Controller`.update()
+
+<br />
+
+When called, the `update` method updates the given data, preserving the current instance of the brick.
+
+#### Params
+
+| Field    | Type     | Description                                                                                                                                                     | Validation                                                                                                                                                                                                              |
+| -------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `amount` | `number` | Payment amount. Updating the amount does not affect payments via Mercado Pago Wallet and Installments without card, as their values are defined in the backend. | The new amount must be greater than or equal to the minimum amount allowed by the payment method selected by the user. If validation succeeds, the update method will return `true`. Otherwise, it will return `false`. |
+
+#### Returns
+
+`boolean`
+
+#### Example
+
+```js
+paymentBrickController.update({ amount: 95.32 });
+```
