@@ -337,6 +337,7 @@ The Brick Controller contains methods that allow the integrator to interact with
 | unmount           | **METHOD** |
 | getFormData       | **METHOD** |
 | getAdditionalData | **METHOD** |
+| update            | **METHOD** |
 
 <br />
 
@@ -345,8 +346,6 @@ The Brick Controller contains methods that allow the integrator to interact with
 <br />
 
 The `unmount` methods removes the rendered Brick from the page.
-
-<br />
 
 #### Params
 
@@ -389,3 +388,25 @@ None.
 | Brick         | Return Data      |
 | ------------- | ---------------- |
 | `cardPayment` | `AdditionalData` |
+
+### `Brick Controller`.update()
+
+<br />
+
+When called, the `update` method updates the given data, preserving the current instance of the brick.
+
+#### Params
+
+| Field    | Type     | Description     | Validation                                                                                                                                                                                                              |
+| -------- | -------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `amount` | `number` | Payment amount. | The new amount must be greater than or equal to the minimum amount allowed by the payment method selected by the user. If validation succeeds, the update method will return `true`. Otherwise, it will return `false`. |
+
+#### Returns
+
+`boolean`
+
+#### Example
+
+```js
+cardPaymentBrickController.update({ amount: 95.32 });
+```
