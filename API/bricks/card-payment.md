@@ -408,5 +408,5 @@ When called, the `update` method updates the given data, preserving the current 
 #### Example
 
 ```js
-cardPaymentBrickController.update({ amount: 95 });
+cardPaymentBrickController.update({ amount: 95.32 });
 ```
