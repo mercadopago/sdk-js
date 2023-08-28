@@ -356,7 +356,7 @@ The Brick Controller contains methods that allow the integrator to interact with
 
 ### `Brick Controller`.unmount()
 
-The `unmount` methods removes the rendered Brick from the page.
+The `unmount` method removes the rendered Brick from the page.
 
 #### Params
 

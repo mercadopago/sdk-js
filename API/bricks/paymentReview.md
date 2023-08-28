@@ -1,8 +1,8 @@
 ## `BricksBuilder`.create(`brick`, `target`, `settings`)
 
-### Full example with **review and confirmation** steps:
+### This feature is temporarily exclusive for **MLM (México)** 🇲🇽
 
-> **IMPORTANT:** This feature is temporarily exclusive for **MLM (México)**.
+#### Full example with **review and confirmation** steps:
 
 ```js
 mp.bricks().create("payment", "paymentBrick_container", {
@@ -78,7 +78,7 @@ mp.bricks().create("payment", "paymentBrick_container", {
       mercadoPago: "all",
       atm: "all",
     },
-    enableReviewStep: false,
+    enableReviewStep: true,
     reviewCardsOrder: ["payer", "shipping", "billing", "payment_method"],
   },
   callbacks: {
@@ -100,7 +100,7 @@ mp.bricks().create("payment", "paymentBrick_container", {
     onError: (error) => {},
     onClickEditPersonalData: () => {},
     onClickEditShippingData: () => {},
-    onClicktEditBillingData: () => {},
+    onClickEditBillingData: () => {},
     onRenderNextStep: () => {},
     onRenderPreviousStep: () => {},
   },
@@ -158,7 +158,7 @@ Initialization is an object with the properties the brick will initialize with.
 
 ##### Payer
 
-Payer contains initial payer information.
+Contains initial payer information.
 
 | Payer key               | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |               |
 | ----------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
@@ -182,24 +182,24 @@ Payer contains initial payer information.
 | `customerId`            | `string`   | Customer ID. View how to manage customers. [See More](https://www.mercadopago.com/developers/en/reference/customers/_customers/post)                                                                                                                                                                                                                                                                                                                                                           | **OPTIONAL**  |
 | `cardsIds`              | `string[]` | Saved Cards Ids. If defined in conjunction with Customer ID, the payer will be able to use their saved cards in checkout. The brick will sort from most recent save card to oldest. If you want the cards not to be sorted, you should add the property `preserveSavedCardsOrder` explained in [this section](#customization). For more information about cards ids in Mercado Pago [click here](https://www.mercadopago.com/developers/en/reference/cards/_customers_customer_id_cards/post). | **OPTIONAL**  |
 
-¹ **Required** when any other key for `initialization.payer` property were provided. \
-² **Required** when the parent key property were provided.
+¹ **Required** when any other key is provided for the `initialization.payer` property. \
+² **Required** when the parent key property was provided.
 
 ##### Items
 
-Items contains items information for **review steps**
+Contains items information for **review steps**
 
-| Items key     | Type     | Description                  |              |
-| ------------- | -------- | ---------------------------- | ------------ |
-| `units`       | `number` | Number of purchased products | **REQUIRED** |
-| `value`       | `number` | Value per product            | **REQUIRED** |
-| `name`        | `string` | Product name                 | **REQUIRED** |
-| `description` | `string` | Product description          | **OPTIONAL** |
-| `imageURL`    | `string` | Product icon URL             | **OPTIONAL** |
+| Items key     | Type     | Description                    |              |
+| ------------- | -------- | ------------------------------ | ------------ |
+| `units`       | `number` | Quantity of purchased products | **REQUIRED** |
+| `value`       | `number` | Value per product              | **REQUIRED** |
+| `name`        | `string` | Product name                   | **REQUIRED** |
+| `description` | `string` | Product description            | **OPTIONAL** |
+| `imageURL`    | `string` | Product icon URL               | **OPTIONAL** |
 
 ##### Shipping
 
-Shiping contains shipping information for **review steps**
+Contains shipping information for **review steps**
 
 | Items key                      | Type     | Description                            |              |
 | ------------------------------ | -------- | -------------------------------------- | ------------ |
@@ -216,13 +216,13 @@ Shiping contains shipping information for **review steps**
 
 ##### Billing
 
-Billing contains billing information for **review steps**
+Contains billing information for **review steps**
 
 | Items key                     | Type     | Description                                                     |               |
 | ----------------------------- | -------- | --------------------------------------------------------------- | ------------- |
 | `firstName`                   | `string` | The first name under which the payment should be issued         | **OPTIONAL**  |
 | `lastName`                    | `string` | The last name under which the payment should be issued          | **OPTIONAL**  |
-| `taxRegime`                   | `string` | The tax regime. Example: Simplified Trust Regime                | **OPTIONAL**  |
+| `taxRegime`                   | `string` | The tax regime. Example: `Simplified Trust Regime`              | **OPTIONAL**  |
 | `taxIdentificationNumber`     | `number` | The tax identification number                                   | **REQUIRED**  |
 | `billingAddress`              | `object` | The payer`s address under which the payment should be issued    | **OPTIONAL**  |
 | `billingAddress.streetName`   | `string` | Address street name                                             | **OPTIONAL¹** |
@@ -235,18 +235,18 @@ Billing contains billing information for **review steps**
 | `identification.type`         | `string` | Identification type. Possible values vary based on siteId       | **REQUIRED**  |
 | `identification.number`       | `string` | Identification number                                           | **REQUIRED**  |
 
-¹ **Required** when the property `billing.billingAddress` were provided.
+¹ **Required** when the property `billing.billingAddress` was provided.
 
 ##### Discounts
 
-Discounts contains discounts information for **review steps**
+Contains discounts information for **review steps**
 
 > **NOTE:** The discount report is only a visual representation and it will not automatically be subtracted from the total amount.
 
-| Items key | Type     | Description                           |              |
-| --------- | -------- | ------------------------------------- | ------------ |
-| `name`    | `string` | Discount name. Example: BLACKFRIDAY10 | **REQUIRED** |
-| `value`   | `number` | Discount value: Example: 10           | **REQUIRED** |
+| Items key | Type     | Description                             |              |
+| --------- | -------- | --------------------------------------- | ------------ |
+| `name`    | `string` | Discount name. Example: `BLACKFRIDAY10` | **REQUIRED** |
+| `value`   | `number` | Discount value: Example: `10`           | **REQUIRED** |
 
 </br>
 
@@ -276,14 +276,14 @@ The callbacks object contains the callbacks functions the brick will call during
 | `onSubmit`                | It is called when the user clicks on the submit button                                                   | **OPTIONAL**  | `PaymentFormData`, `AdditionalData` | `Promise<void>` |
 | `onBinChange`             | It is called when the user fills or update card's BIN (first 8 digits)                                   | **OPTIONAL**  | `bin`                               | `void`          |
 | `onClickEditPersonalData` | [Exclusive for review step] It is called when the user clicks to edit the personal data card             | **OPTIONAL¹** | `void`                              | `void`          |
-| `onClickEditShippingData` | [Exclusive for review step] It is called when the user clicks to edit the shiiping data card             | **OPTIONAL²** | `void`                              | `void`          |
-| `onClicktEditBillingData` | [Exclusive for review step] It is called when the user clicks to edit the billing data card              | **OPTIONAL³** | `void`                              | `void`          |
+| `onClickEditShippingData` | [Exclusive for review step] It is called when the user clicks to edit the shipping data card             | **OPTIONAL²** | `void`                              | `void`          |
+| `onClickEditBillingData`  | [Exclusive for review step] It is called when the user clicks to edit the billing data card              | **OPTIONAL³** | `void`                              | `void`          |
 | `onRenderNextStep`        | [Exclusive for review step] It is called when the user moves through the next step on the payment flow   | **OPTIONAL**  | `void`                              | `void`          |
 | `onRenderPreviousStep`    | [Exclusive for review step] It is called when the user moves back to a previous step on the payment flow | **OPTIONAL**  | `void`                              | `void`          |
 
-¹ **Required** when the `initialization.payer` property were provided. \
-² **Required** when the `initialization.shipping` property were provided. \
-³ **Required** when the `initialization.billing` property were provided.
+¹ **Required** when any other key is provided for the `initialization.payer` property. \
+² **Required** when any other key is provided for the `initialization.shipping` property. \
+³ **Required** when any other key is provided for the `initialization.billing` property.
 
 <br />
 
@@ -673,7 +673,7 @@ The Brick Controller contains methods that allow the integrator to interact with
 
 ### `Brick Controller`.unmount()
 
-The `unmount` methods removes the rendered Brick from the page.
+The `unmount` method removes the rendered Brick from the page.
 
 #### Params
 
