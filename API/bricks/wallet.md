@@ -166,6 +166,7 @@ Initialization is an object with the properties the brick will initialize with.
 | ------------------ | -------- | --------------------------------------------------------------------------- | ------------- |
 | `preferenceId`     | `string` | Preference generated in the backend                                         | **OPTIONAL³** |
 | `redirectMode`     | `string` | Indicates how the experience will be conducted. [See more](#opening-scheme) | **REQUIRED**  |
+| `marketplace`      | `boolean`| Indicates if the integration is for a marketplace flow.                     | **OPTIONAL**  |
 
 ³ **Optional** when integrating through the flow that creates the preference on submit
 
