@@ -278,8 +278,8 @@ The callbacks object contains the callbacks functions the brick will call during
 | `onClickEditPersonalData` | [Exclusive for review step] It is called when the user clicks to edit the personal data card             | **OPTIONAL¹** | `void`                              | `void`          |
 | `onClickEditShippingData` | [Exclusive for review step] It is called when the user clicks to edit the shipping data card             | **OPTIONAL²** | `void`                              | `void`          |
 | `onClickEditBillingData`  | [Exclusive for review step] It is called when the user clicks to edit the billing data card              | **OPTIONAL³** | `void`                              | `void`          |
-| `onRenderNextStep`        | [Exclusive for review step] It is called when the user moves through the next step on the payment flow   | **OPTIONAL**  | `void`                              | `void`          |
-| `onRenderPreviousStep`    | [Exclusive for review step] It is called when the user moves back to a previous step on the payment flow | **OPTIONAL**  | `void`                              | `void`          |
+| `onRenderNextStep`        | [Exclusive for review step] It is called when the user moves through the next step on the payment flow   | **OPTIONAL**  | `void`                              | `Promise<void>` |
+| `onRenderPreviousStep`    | [Exclusive for review step] It is called when the user moves back to a previous step on the payment flow | **OPTIONAL**  | `void`                              | `Promise<void>` |
 
 ¹ **Required** when any other key is provided for the `initialization.payer` property. \
 ² **Required** when any other key is provided for the `initialization.shipping` property. \
