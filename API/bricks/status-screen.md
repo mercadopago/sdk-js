@@ -98,19 +98,25 @@ The callbacks object contains the callbacks functions the brick will call during
 
 ```ts
 {
-    'already_initialized'
-    'amount_is_not_number'
-    'container_not_found'
-    'get_mexico_payment_points_failed'
-    'get_payment_data_failed'
-    'get_payment_methods_failed'
-    'incorrect_initialization'
-    'invalid_sdk_instance'
-    'missing_container_id'
-    'missing_locale_property'
-    'missing_required_callbacks'
-    'missing_texts'
-    'settings_empty'
+    'already_initialized',
+    'amount_is_not_number',
+    'container_not_found',
+    'get_mexico_payment_points_failed',
+    'get_payment_data_failed',
+    'get_remedy_updated_payment_failed',
+    'get_payment_methods_failed',
+    'incorrect_initialization',
+    'invalid_sdk_instance',
+    'missing_container_id',
+    'missing_locale_property',
+    'missing_site_property',
+    'missing_required_callbacks',
+    'missing_texts',
+    'settings_empty',
+    'translation_key_not_found',
+    'window_redirect_was_blocked',
+    'no_chunk_path_provided',
+    'get_chunk_failed',
 }
 ```
 
@@ -245,7 +251,7 @@ The Brick Controller contains methods that allow the integrator to interact with
 
 <br />
 
-The `unmount` methods removes the rendered Brick from the page.
+The `unmount` method removes the rendered Brick from the page.
 
 <br />
 

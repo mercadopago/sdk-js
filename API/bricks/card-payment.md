@@ -159,6 +159,15 @@ The callbacks object contains the callbacks functions the brick will call during
     'settings_empty',
     'unauthorized_payment_method',
     'validations_parameter_null',
+    'no_chunk_path_provided',
+    'get_chunk_failed',
+    'missing_site_property',
+    'translation_key_not_found',
+    'no_payment_method_for_provided_bin',
+    'payment_method_not_in_allowed_types',
+    'payment_method_not_in_allowed_methods',
+    'no_installments_in_selected_range',
+    'no_issuers_found_for_card',
 }
 ```
 
@@ -345,7 +354,7 @@ The Brick Controller contains methods that allow the integrator to interact with
 
 <br />
 
-The `unmount` methods removes the rendered Brick from the page.
+The `unmount` method removes the rendered Brick from the page.
 
 #### Params
 
