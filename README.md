@@ -10,10 +10,11 @@
    2. [Mobile web](#mobile-web)
 3. [Installation](#installation)
 4. [Initializing](#initializing)
-5. [Checkout API](#checkout-api)
-6. [Checkout Pro](#checkout-pro)
-7. [API](#api)
-8. [Notes](#notes)
+5. [Live Demo](#live-demo)
+6. [Checkout API](#checkout-api)
+7. [Checkout Pro](#checkout-pro)
+8. [API](#api)
+9. [Notes](#notes)
 
 <br />
 
@@ -93,6 +94,17 @@ const mp = new window.MercadoPago("YOUR_PUBLIC_KEY", {
 ```
 
 <br/>
+
+## Live Demo: 
+
+| Brick               | Description                         | Documentation |
+|-----------------------|-------------------------------------|----------------|
+| Card Payment Brick   | Card Payment Brick offers a payment form with an optimized design and different themes, providing all the necessary fields to make a payment with a credit and/or debit card, and includes the necessary mechanisms to automatically receive the necessary data to create the payment in the back end. | [🇦🇷 Argentina](https://www.mercadopago.com.ar/developers/es/live-demo/card-payment-brick)<br/>[🇧🇷 Brazil](https://www.mercadopago.com.br/developers/pt/live-demo/card-payment-brick)<br/>[🇨🇱 Chile](https://www.mercadopago.cl/developers/es/live-demo/card-payment-brick)<br/>[🇨🇴 Colombia](https://www.mercadopago.com.co/developers/es/live-demo/card-payment-brick)<br/>[🇲🇽 Mexico](https://www.mercadopago.com.mx/developers/es/live-demo/card-payment-brick)<br/>[🇵🇪 Peru](https://www.mercadopago.com.pe/developers/es/live-demo/card-payment-brick)<br/>[🇺🇾 Uruguay](https://www.mercadopago.com.uy/developers/es/live-demo/card-payment-brick) |
+| Payment Brick         | Payment Brick is a modular and customizable solution that allows you to add several payment methods to your store with just one Brick, allowing you to save card data for future purchases. By using Payment Brick, you will have different payment methods at your disposal and you will be able to choose which ones to enable for your site. | [🇦🇷 Argentina](https://www.mercadopago.com.ar/developers/es/live-demo/payment-brick)<br/>[🇧🇷 Brazil](https://www.mercadopago.com.br/developers/pt/live-demo/payment-brick)<br/>[🇨🇱 Chile](https://www.mercadopago.cl/developers/es/live-demo/payment-brick)<br/>[🇨🇴 Colombia](https://www.mercadopago.com.co/developers/es/live-demo/payment-brick)<br/>[🇲🇽 Mexico](https://www.mercadopago.com.mx/developers/es/live-demo/payment-brick)<br/>[🇵🇪 Peru](https://www.mercadopago.com.pe/developers/es/live-demo/payment-brick)<br/>[🇺🇾 Uruguay](https://www.mercadopago.com.uy/developers/es/live-demo/payment-brick) |
+| Wallet                | Wallet Brick allows you to offer payments from your Mercado Pago account at any stage of the purchase process. | [🇦🇷 Argentina](https://www.mercadopago.com.ar/developers/es/live-demo/wallet-brick)<br/>[🇧🇷 Brazil](https://www.mercadopago.com.br/developers/pt/live-demo/wallet-brick)<br/>[🇨🇱 Chile](https://www.mercadopago.cl/developers/es/live-demo/wallet-brick)<br/>[🇨🇴 Colombia](https://www.mercadopago.com.co/developers/es/live-demo/wallet-brick)<br/>[🇲🇽 Mexico](https://www.mercadopago.com.mx/developers/es/live-demo/wallet-brick)<br/>[🇵🇪 Peru](https://www.mercadopago.com.pe/developers/es/live-demo/wallet-brick)<br/>[🇺🇾 Uruguay](https://www.mercadopago.com.uy/developers/es/live-demo/wallet-brick) |
+| Status Screen Bricks  | The Status Screen Brick allows you to show the buyer the status of a purchase made with any payment method provided by Checkout Bricks. | [🇦🇷 Argentina](https://www.mercadopago.com.ar/developers/es/live-demo/status-screen-brick)<br/>[🇧🇷 Brazil](https://www.mercadopago.com.br/developers/pt/live-demo/status-screen-brick)<br/>[🇨🇱 Chile](https://www.mercadopago.cl/developers/es/live-demo/status-screen-brick)<br/>[🇨🇴 Colombia](https://www.mercadopago.com.co/developers/es/live-demo/status-screen-brick)<br/>[🇲🇽 Mexico](https://www.mercadopago.com.mx/developers/es/live-demo/status-screen-brick)<br/>[🇵🇪 Peru](https://www.mercadopago.com.pe/developers/es/live-demo/status-screen-brick)<br/>[🇺🇾 Uruguay](https://www.mercadopago.com.uy/developers/es/live-demo/status-screen-brick) |
+
+<br />
 
 ## Checkout API
 
