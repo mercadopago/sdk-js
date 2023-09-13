@@ -269,7 +269,7 @@ The callbacks object contains the callbacks functions the brick will call during
 | ------------------------- | -------------------------------------------------------------------------------------------------------- | ------------- | ----------------------------------- | ----------------------- |
 | `onReady`                 | It is called when the brick finishes loading                                                             | **REQUIRED**  | `void`                              | `void`                  |
 | `onError`                 | It is called when there is an error in the Brick                                                         | **REQUIRED**  | `BrickError`                        | `void`                  |
-| `onSubmit`                | It is called when the user clicks on the submit button                                                   | **OPTIONAL**  | `PaymentFormData`, `AdditionalData` | `Promise<void>`         |
+| `onSubmit`                | It is called when the user clicks on the submit button                                                   | **REQUIRED**  | `PaymentFormData`, `AdditionalData` | `Promise<void>`         |
 | `onBinChange`             | It is called when the user fills or update card's BIN (first 8 digits)                                   | **OPTIONAL**  | `bin`                               | `void`                  |
 | `onClickEditShippingData` | [Exclusive for review step] It is called when the user clicks to edit the shipping data card             | **OPTIONAL¹** | `void`                              | `void`                  |
 | `onClickEditBillingData`  | [Exclusive for review step] It is called when the user clicks to edit the billing data card              | **OPTIONAL²** | `void`                              | `void`                  |
@@ -512,63 +512,63 @@ Customizations object is used to load Brick under different conditions.
 
 Accepted properties are:
 
-| Property                               | Type     |
-| -------------------------------------- | -------- |
-| `formTitle`                            | `string` |
-| `cardNumber`                           | `object` |
-| `cardNumber.label`                     | `string` |
-| `cardNumber.placeholder`               | `string` |
-| `expirationDate`                       | `object` |
-| `expirationDate.label`                 | `string` |
-| `expirationDate.placeholder`           | `string` |
-| `securityCode`                         | `object` |
-| `securityCode.label`                   | `string` |
-| `securityCode.placeholder`             | `string` |
-| `cardholderName`                       | `object` |
-| `cardholderName.label`                 | `string` |
-| `cardholderName.placeholder`           | `string` |
-| `cardholderIdentification`             | `object` |
-| `cardholderIdentification.placeholder` | `string` |
-| `installmentsSectionTitle`             | `string` |
-| `selectInstallments`                   | `string` |
-| `selectIssuerBank`                     | `string` |
-| `emailSectionTitle`                    | `string` |
-| `email`                                | `object` |
-| `email.label`                          | `string` |
-| `email.placeholder`                    | `string` |
-| `formSubmit`                           | `string` |
-| `payerFirstName.placeholder`           | `string` |
-| `payerFirstName.label`                 | `string` |
-| `payerLastName.placeholder`            | `string` |
-| `payerLastName.label`                  | `string` |
-| `zipCode.placeholder`                  | `string` |
-| `zipCode.label`                        | `string` |
-| `addressState.placeholder`             | `string` |
-| `addressState.label`                   | `string` |
-| `addressCity.placeholder`              | `string` |
-| `addressCity.label`                    | `string` |
-| `addressNeighborhood.placeholder`      | `string` |
-| `addressNeighborhood.label`            | `string` |
-| `addressStreet.placeholder`            | `string` |
-| `addressStreet.label`                  | `string` |
-| `addressNumber.label`                  | `string` |
-| `addressComplement.label`              | `string` |
-| `entityType.label`                     | `string` |
-| `entityType.placeholder`               | `string` |
-| `financialInstitution.label`           | `string` |
-| `financialInstitution.placeholder`     | `string` |
-| `reviewConfirm`                        | `object` |
-| `componentTitle`                       | `string` |
-| `payerDetailsTitle`                    | `string` |
-| `shippingDetailsTitle`                 | `string` |
-| `billingDetailsTitle`                  | `string` |
-| `paymentMethodDetailsTitle`            | `string` |
-| `detailsTitle`                         | `string` |
-| `summaryItemsTitle`                    | `string` |
-| `summaryShippingTitle`                 | `string` |
-| `summaryDiscountTitle`                 | `string` |
-| `summaryYouPayTitle`                   | `string` |
-| `summaryTotalTitle`                    | `string` |
+| Property                                  | Type     |
+| ----------------------------------------- | -------- |
+| `formTitle`                               | `string` |
+| `cardNumber`                              | `object` |
+| `cardNumber.label`                        | `string` |
+| `cardNumber.placeholder`                  | `string` |
+| `expirationDate`                          | `object` |
+| `expirationDate.label`                    | `string` |
+| `expirationDate.placeholder`              | `string` |
+| `securityCode`                            | `object` |
+| `securityCode.label`                      | `string` |
+| `securityCode.placeholder`                | `string` |
+| `cardholderName`                          | `object` |
+| `cardholderName.label`                    | `string` |
+| `cardholderName.placeholder`              | `string` |
+| `cardholderIdentification`                | `object` |
+| `cardholderIdentification.placeholder`    | `string` |
+| `installmentsSectionTitle`                | `string` |
+| `selectInstallments`                      | `string` |
+| `selectIssuerBank`                        | `string` |
+| `emailSectionTitle`                       | `string` |
+| `email`                                   | `object` |
+| `email.label`                             | `string` |
+| `email.placeholder`                       | `string` |
+| `formSubmit`                              | `string` |
+| `payerFirstName.placeholder`              | `string` |
+| `payerFirstName.label`                    | `string` |
+| `payerLastName.placeholder`               | `string` |
+| `payerLastName.label`                     | `string` |
+| `zipCode.placeholder`                     | `string` |
+| `zipCode.label`                           | `string` |
+| `addressState.placeholder`                | `string` |
+| `addressState.label`                      | `string` |
+| `addressCity.placeholder`                 | `string` |
+| `addressCity.label`                       | `string` |
+| `addressNeighborhood.placeholder`         | `string` |
+| `addressNeighborhood.label`               | `string` |
+| `addressStreet.placeholder`               | `string` |
+| `addressStreet.label`                     | `string` |
+| `addressNumber.label`                     | `string` |
+| `addressComplement.label`                 | `string` |
+| `entityType.label`                        | `string` |
+| `entityType.placeholder`                  | `string` |
+| `financialInstitution.label`              | `string` |
+| `financialInstitution.placeholder`        | `string` |
+| `reviewConfirm`                           | `object` |
+| `reviewConfirm.componentTitle`            | `string` |
+| `reviewConfirm.payerDetailsTitle`         | `string` |
+| `reviewConfirm.shippingDetailsTitle`      | `string` |
+| `reviewConfirm.billingDetailsTitle`       | `string` |
+| `reviewConfirm.paymentMethodDetailsTitle` | `string` |
+| `reviewConfirm.detailsTitle`              | `string` |
+| `reviewConfirm.summaryItemsTitle`         | `string` |
+| `reviewConfirm.summaryShippingTitle`      | `string` |
+| `reviewConfirm.summaryDiscountTitle`      | `string` |
+| `reviewConfirm.summaryYouPayTitle`        | `string` |
+| `reviewConfirm.summaryTotalTitle`         | `string` |
 
 <br />
 
