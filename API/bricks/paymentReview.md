@@ -16,7 +16,7 @@ mp.bricks().create("payment", "paymentBrick_container", {
           units: 10,
           value: 10,
           name: "<NAME>",
-          description: "<DESCRIPTION>"
+          description: "<DESCRIPTION>",
           imageURL: "<IMAGE_URL>",
         },
       ],
