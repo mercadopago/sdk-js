@@ -96,8 +96,8 @@ mp.bricks().create("payment", "paymentBrick_container", {
     onError: (error) => {},
     onClickEditShippingData: () => {},
     onClickEditBillingData: () => {},
-    onRenderNextStep: () => "<CURRENT_STEP>",
-    onRenderPreviousStep: () => "<CURRENT_STEP>",
+    onRenderNextStep: (currentStep) => {},
+    onRenderPreviousStep: (currentStep) => {},
   },
 });
 ```
