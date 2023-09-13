@@ -7,14 +7,14 @@
 ```js
 mp.bricks().create("payment", "paymentBrick_container", {
   initialization: {
-    amount: 10000,
+    amount: 80,
     preferenceId: "<PREFERENCE_ID>",
     items: {
-      totalItems: 1,
+      totalItemsAmount: 100,
       itemsList: [
         {
-          units: 3,
-          value: 3.14,
+          units: 10,
+          value: 10,
           name: "<NAME>",
           description: "<DESCRIPTION>"
           imageURL: "<IMAGE_URL>",
@@ -22,7 +22,7 @@ mp.bricks().create("payment", "paymentBrick_container", {
       ],
     },
     shipping: {
-      costs: 3.14,
+      costs: 0,
       shippingMode: "<SHIPPING_MODE>",
       description: "<SHIPPING_DESCRIPTION>",
       receiverAddress: {
@@ -56,11 +56,11 @@ mp.bricks().create("payment", "paymentBrick_container", {
       },
     },
     discounts: {
-      totalDiscounts: 3,
+      totalDiscountsAmount: 20,
       discountsList: [
         {
           name: "<DISCOUNT_NAME>",
-          value: 3,
+          value: 20,
         },
       ],
     },
@@ -139,15 +139,15 @@ The `settings` object has properties to initialize and customize the brick being
 
 Initialization is an object with the properties the brick will initialize with.
 
-| Initialization key | Type       | Description                                                                                                                                                                                                                   |              |
-| ------------------ | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| `amount`           | `number`   | Defines the transaction amount.                                                                                                                                                                                               | **REQUIRED** |
-| `preferenceId`     | `string`   | If provided, the brick will bring to screen the Mercado Pago payment option. [The preference id should be created in Backend](https://www.mercadopago.com/developers/en/docs/checkout-pro/checkout-customization/preferences) | **OPTIONAL** |
-| `payer`            | `object`   | Defines payer initial data. [See more](#payer)                                                                                                                                                                                | **OPTIONAL** |
-| `items`            | `object[]` | [Exclusive for review step] Defines the payment items. [See more](#items)                                                                                                                                                     | **OPTIONAL** |
-| `shipping`         | `object`   | [Exclusive for review step] Defines shipping data. [See more](#shipping)                                                                                                                                                      | **OPTIONAL** |
-| `billing`          | `object`   | [Exclusive for review step] Defines billing data. [See more](#billing)                                                                                                                                                        | **OPTIONAL** |
-| `discounts`        | `object`   | [Exclusive for review step] Defines applied discounts data. [See more](#discounts)                                                                                                                                            | **OPTIONAL** |
+| Initialization key | Type     | Description                                                                                                                                                                                                                   |              |
+| ------------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| `amount`           | `number` | Defines the final transaction amount, including shipping fee and possible discounts                                                                                                                                           | **REQUIRED** |
+| `preferenceId`     | `string` | If provided, the brick will bring to screen the Mercado Pago payment option. [The preference id should be created in Backend](https://www.mercadopago.com/developers/en/docs/checkout-pro/checkout-customization/preferences) | **OPTIONAL** |
+| `payer`            | `object` | Defines payer initial data. [See more](#payer)                                                                                                                                                                                | **OPTIONAL** |
+| `items`            | `object` | [Exclusive for review step] Defines the ordered items. [See more](#items)                                                                                                                                                     | **OPTIONAL** |
+| `shipping`         | `object` | [Exclusive for review step] Defines shipping data. [See more](#shipping)                                                                                                                                                      | **OPTIONAL** |
+| `billing`          | `object` | [Exclusive for review step] Defines billing data. [See more](#billing)                                                                                                                                                        | **OPTIONAL** |
+| `discounts`        | `object` | [Exclusive for review step] Defines applied discounts data. [See more](#discounts)                                                                                                                                            | **OPTIONAL** |
 
 <br />
 
@@ -179,15 +179,17 @@ Contains initial payer information.
 
 ##### Items
 
-Contains items information for **review steps**
+Contains product information for **review steps**
 
-| Items key     | Type     | Description                    |              |
-| ------------- | -------- | ------------------------------ | ------------ |
-| `units`       | `number` | Quantity of purchased products | **REQUIRED** |
-| `value`       | `number` | Value per product              | **REQUIRED** |
-| `name`        | `string` | Product name                   | **REQUIRED** |
-| `description` | `string` | Product description            | **OPTIONAL** |
-| `imageURL`    | `string` | Product icon URL               | **OPTIONAL** |
+| Items key                 | Type       | Description                            |              |
+| ------------------------- | ---------- | -------------------------------------- | ------------ |
+| `totalItemsAmount`        | `number`   | Sum of the values of all ordered items | **REQUIRED** |
+| `itemsList`               | `object[]` | Array with the ordered items           | **REQUIRED** |
+| `itemsList[].units`       | `number`   | Quantity of a given item               | **REQUIRED** |
+| `itemsList[].value`       | `number`   | Value per a given item                 | **REQUIRED** |
+| `itemsList[].name`        | `string`   | Item name                              | **REQUIRED** |
+| `itemsList[].description` | `string`   | Item description                       | **OPTIONAL** |
+| `itemsList[].imageURL`    | `string`   | Item icon URL                          | **OPTIONAL** |
 
 ##### Shipping
 
@@ -235,10 +237,12 @@ Contains discounts information for **review steps**
 
 > **NOTE:** The discount report is only a visual representation and it will not automatically be subtracted from the total amount.
 
-| Items key | Type     | Description                             |              |
-| --------- | -------- | --------------------------------------- | ------------ |
-| `name`    | `string` | Discount name. Example: `BLACKFRIDAY10` | **REQUIRED** |
-| `value`   | `number` | Discount value: Example: `10`           | **REQUIRED** |
+| Items key               | Type       | Description                                |              |
+| ----------------------- | ---------- | ------------------------------------------ | ------------ |
+| `totalDiscountsAmount`  | `number`   | Sum of the values of all applied discounts | **REQUIRED** |
+| `discountsList`         | `object[]` | Array with the applied discounts           | **REQUIRED** |
+| `discountsList[].name`  | `string`   | Discount name. Example: `BLACKFRIDAY10`    | **REQUIRED** |
+| `discountsList[].value` | `number`   | Discount value: Example: `10`              | **REQUIRED** |
 
 </br>
 
