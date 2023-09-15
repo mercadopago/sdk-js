@@ -7,48 +7,41 @@
 ```js
 mp.bricks().create("payment", "paymentBrick_container", {
   initialization: {
-    amount: 10000,
+    amount: 80,
     preferenceId: "<PREFERENCE_ID>",
-    items: [
-      {
-        units: 3,
-        value: 3.14,
-        name: "<NAME>",
-        description: "<DESCRIPTION>",
-        imageURL: "<IMAGE_URL>",
-      },
-    ],
+    items: {
+      totalItemsAmount: 100,
+      itemsList: [
+        {
+          units: 10,
+          value: 10,
+          name: "<NAME>",
+          description: "<DESCRIPTION>",
+          imageURL: "<IMAGE_URL>",
+        },
+      ],
+    },
     shipping: {
-      costs: 3.14,
+      costs: 0,
       shippingMode: "<SHIPPING_MODE>",
       description: "<SHIPPING_DESCRIPTION>",
       receiverAddress: {
         streetName: "<STREET_NAME>",
         streetNumber: "<STREET_NUMBER>",
         neighborhood: "<PAYER_NEIGHBORHOOD>",
-        city: "<PAYER_CITY_HERE>",
+        city: "<PAYER_CITY>",
         federalUnit: "<PAYER_FED_UNIT>",
         zipCode: "<ZIP_CODE>",
       },
     },
     payer: {
-      firstName: "<FIRST_NAME>",
-      lastName: "<LAST_NAME>",
       email: "<EMAIL>",
-      phone: {
-        areaCode: "<AREA_CODE>",
-        number: "<PHONE_NUMBER>",
-      },
-      identification: {
-        type: "<IDENTIFICATION_TYPE>",
-        number: "<IDENTIFICATION_NUMBER>",
-      },
     },
     billing: {
       firstName: "<FIRST_NAME>",
       lastName: "<LAST_NAME>",
       taxRegime: "<TAX_REGIME>",
-      taxIdentificationNumber: 3,
+      taxIdentificationNumber: "<TAX_IDENTIFICATION_NUMBER>",
       identification: {
         type: "<IDENTIFICATION_TYPE>",
         number: "<IDENTIFICATION_NUMBER>",
@@ -57,17 +50,20 @@ mp.bricks().create("payment", "paymentBrick_container", {
         streetName: "<STREET_NAME>",
         streetNumber: "<STREET_NUMBER>",
         neighborhood: "<PAYER_NEIGHBORHOOD>",
-        city: "<CITY_HERE>",
+        city: "<PAYER_CITY>",
         federalUnit: "<FED_UNIT>",
         zipCode: "<ZIP_CODE>",
       },
     },
-    discounts: [
-      {
-        name: "<DISCOUNT_NAME>",
-        value: 3,
-      },
-    ],
+    discounts: {
+      totalDiscountsAmount: 20,
+      discountsList: [
+        {
+          name: "<DISCOUNT_NAME>",
+          value: 20,
+        },
+      ],
+    },
   },
   customization: {
     paymentMethods: {
@@ -79,7 +75,7 @@ mp.bricks().create("payment", "paymentBrick_container", {
       atm: "all",
     },
     enableReviewStep: true,
-    reviewCardsOrder: ["payer", "shipping", "billing", "payment_method"],
+    reviewCardsOrder: ["payment_method", "shipping", "billing"],,
   },
   callbacks: {
     onReady: () => {},
@@ -98,11 +94,10 @@ mp.bricks().create("payment", "paymentBrick_container", {
       });
     },
     onError: (error) => {},
-    onClickEditPersonalData: () => {},
     onClickEditShippingData: () => {},
     onClickEditBillingData: () => {},
-    onRenderNextStep: () => {},
-    onRenderPreviousStep: () => {},
+    onRenderNextStep: (currentStep) => {},
+    onRenderPreviousStep: (currentStep) => {},
   },
 });
 ```
@@ -144,15 +139,15 @@ The `settings` object has properties to initialize and customize the brick being
 
 Initialization is an object with the properties the brick will initialize with.
 
-| Initialization key | Type       | Description                                                                                                                                                                                                                   |              |
-| ------------------ | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| `amount`           | `number`   | Defines the transaction amount.                                                                                                                                                                                               | **REQUIRED** |
-| `preferenceId`     | `string`   | If provided, the brick will bring to screen the Mercado Pago payment option. [The preference id should be created in Backend](https://www.mercadopago.com/developers/en/docs/checkout-pro/checkout-customization/preferences) | **OPTIONAL** |
-| `payer`            | `object`   | Defines payer initial data. [See more](#payer)                                                                                                                                                                                | **OPTIONAL** |
-| `items`            | `object[]` | [Exclusive for review step] Defines the payment items. [See more](#items)                                                                                                                                                     | **OPTIONAL** |
-| `shipping`         | `object`   | [Exclusive for review step] Defines shipping data. [See more](#shipping)                                                                                                                                                      | **OPTIONAL** |
-| `billing`          | `object`   | [Exclusive for review step] Defines billing data. [See more](#billing)                                                                                                                                                        | **OPTIONAL** |
-| `discounts`        | `object`   | [Exclusive for review step] Defines applied discounts data. [See more](#discounts)                                                                                                                                            | **OPTIONAL** |
+| Initialization key | Type     | Description                                                                                                                                                                                                                   |              |
+| ------------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| `amount`           | `number` | Defines the final transaction amount, including shipping fee and possible discounts                                                                                                                                           | **REQUIRED** |
+| `preferenceId`     | `string` | If provided, the brick will bring to screen the Mercado Pago payment option. [The preference id should be created in Backend](https://www.mercadopago.com/developers/en/docs/checkout-pro/checkout-customization/preferences) | **OPTIONAL** |
+| `payer`            | `object` | Defines payer initial data. [See more](#payer)                                                                                                                                                                                | **OPTIONAL** |
+| `items`            | `object` | [Exclusive for review step] Defines the ordered items. [See more](#items)                                                                                                                                                     | **OPTIONAL** |
+| `shipping`         | `object` | [Exclusive for review step] Defines shipping data. [See more](#shipping)                                                                                                                                                      | **OPTIONAL** |
+| `billing`          | `object` | [Exclusive for review step] Defines billing data. [See more](#billing)                                                                                                                                                        | **OPTIONAL** |
+| `discounts`        | `object` | [Exclusive for review step] Defines applied discounts data. [See more](#discounts)                                                                                                                                            | **OPTIONAL** |
 
 <br />
 
@@ -168,9 +163,6 @@ Contains initial payer information.
 | `identification`        | `object`   | Defines payer identification. Contains keys `type` and `number`                                                                                                                                                                                                                                                                                                                                                                                                                                | **OPTIONAL**  |
 | `identification.type`   | `string`   | Identification type. Possible values vary based on siteId                                                                                                                                                                                                                                                                                                                                                                                                                                      | **OPTIONAL²** |
 | `identification.number` | `string`   | Identification number. If filled correctly the Brick will prefill the identification number input                                                                                                                                                                                                                                                                                                                                                                                              | **OPTIONAL²** |
-| `phone`                 | `object`   | [Exclusive for review step] Payer phone                                                                                                                                                                                                                                                                                                                                                                                                                                                        | **OPTIONAL**  |
-| `phone.areaCode`        | `string`   | [Exclusive for review step] Payer phone area code                                                                                                                                                                                                                                                                                                                                                                                                                                              | **OPTIONAL²** |
-| `phone.number`          | `string`   | [Exclusive for review step] Payer phone`s number                                                                                                                                                                                                                                                                                                                                                                                                                                               | **OPTIONAL²** |
 | `address`               | `object`   | Defines payer address. Contains keys `zipCode`, `federalUnit`, `city`, `neighborhood`, `streetName`, `streetNumber` and `complement`                                                                                                                                                                                                                                                                                                                                                           | **OPTIONAL**  |
 | `address.zipCode`       | `string`   | Zip code of payer address. If filled correctly the Brick will prefill the zip code input                                                                                                                                                                                                                                                                                                                                                                                                       | **OPTIONAL**  |
 | `address.federalUnit`   | `string`   | State of payer address. If filled correctly the Brick will prefill the federal unit input                                                                                                                                                                                                                                                                                                                                                                                                      | **OPTIONAL**  |
@@ -187,15 +179,17 @@ Contains initial payer information.
 
 ##### Items
 
-Contains items information for **review steps**
+Contains product information for **review steps**
 
-| Items key     | Type     | Description                    |              |
-| ------------- | -------- | ------------------------------ | ------------ |
-| `units`       | `number` | Quantity of purchased products | **REQUIRED** |
-| `value`       | `number` | Value per product              | **REQUIRED** |
-| `name`        | `string` | Product name                   | **REQUIRED** |
-| `description` | `string` | Product description            | **OPTIONAL** |
-| `imageURL`    | `string` | Product icon URL               | **OPTIONAL** |
+| Items key                 | Type       | Description                            |              |
+| ------------------------- | ---------- | -------------------------------------- | ------------ |
+| `totalItemsAmount`        | `number`   | Sum of the values of all ordered items | **REQUIRED** |
+| `itemsList`               | `object[]` | Array with the ordered items           | **REQUIRED** |
+| `itemsList[].units`       | `number`   | Quantity of a given item               | **REQUIRED** |
+| `itemsList[].value`       | `number`   | Value per a given item                 | **REQUIRED** |
+| `itemsList[].name`        | `string`   | Item name                              | **REQUIRED** |
+| `itemsList[].description` | `string`   | Item description                       | **OPTIONAL** |
+| `itemsList[].imageURL`    | `string`   | Item icon URL                          | **OPTIONAL** |
 
 ##### Shipping
 
@@ -223,7 +217,7 @@ Contains billing information for **review steps**
 | `firstName`                   | `string` | The first name under which the payment should be issued         | **OPTIONAL**  |
 | `lastName`                    | `string` | The last name under which the payment should be issued          | **OPTIONAL**  |
 | `taxRegime`                   | `string` | The tax regime. Example: `Simplified Trust Regime`              | **OPTIONAL**  |
-| `taxIdentificationNumber`     | `number` | The tax identification number                                   | **REQUIRED**  |
+| `taxIdentificationNumber`     | `string` | The tax identification number                                   | **REQUIRED**  |
 | `billingAddress`              | `object` | The payer`s address under which the payment should be issued    | **OPTIONAL**  |
 | `billingAddress.streetName`   | `string` | Address street name                                             | **OPTIONAL¹** |
 | `billingAddress.streetNumber` | `string` | Address street number                                           | **OPTIONAL¹** |
@@ -231,7 +225,7 @@ Contains billing information for **review steps**
 | `billingAddress.city`         | `string` | Address city                                                    | **OPTIONAL**  |
 | `billingAddress.federalUnit`  | `string` | Address federal unit                                            | **OPTIONAL**  |
 | `billingAddress.zipCode`      | `string` | Address zip code                                                | **OPTIONAL¹** |
-| `identification`              | `object` | Defines payer identification. Contains keys `type` and `number` | **REQUIRED**  |
+| `identification`              | `object` | Defines payer identification. Contains keys `type` and `number` | **OPTIONAL**  |
 | `identification.type`         | `string` | Identification type. Possible values vary based on siteId       | **REQUIRED**  |
 | `identification.number`       | `string` | Identification number                                           | **REQUIRED**  |
 
@@ -243,10 +237,12 @@ Contains discounts information for **review steps**
 
 > **NOTE:** The discount report is only a visual representation and it will not automatically be subtracted from the total amount.
 
-| Items key | Type     | Description                             |              |
-| --------- | -------- | --------------------------------------- | ------------ |
-| `name`    | `string` | Discount name. Example: `BLACKFRIDAY10` | **REQUIRED** |
-| `value`   | `number` | Discount value: Example: `10`           | **REQUIRED** |
+| Items key               | Type       | Description                                |              |
+| ----------------------- | ---------- | ------------------------------------------ | ------------ |
+| `totalDiscountsAmount`  | `number`   | Sum of the values of all applied discounts | **REQUIRED** |
+| `discountsList`         | `object[]` | Array with the applied discounts           | **REQUIRED** |
+| `discountsList[].name`  | `string`   | Discount name. Example: `BLACKFRIDAY10`    | **REQUIRED** |
+| `discountsList[].value` | `number`   | Discount value: Example: `10`              | **REQUIRED** |
 
 </br>
 
@@ -269,21 +265,19 @@ Contains discounts information for **review steps**
 
 The callbacks object contains the callbacks functions the brick will call during its life cycle.
 
-| Callback key              | Description                                                                                              |               | Params                              | Returns         |
-| ------------------------- | -------------------------------------------------------------------------------------------------------- | ------------- | ----------------------------------- | --------------- |
-| `onReady`                 | It is called when the brick finishes loading                                                             | **REQUIRED**  | `void`                              | `void`          |
-| `onError`                 | It is called when there is an error in the Brick                                                         | **REQUIRED**  | `BrickError`                        | `void`          |
-| `onSubmit`                | It is called when the user clicks on the submit button                                                   | **OPTIONAL**  | `PaymentFormData`, `AdditionalData` | `Promise<void>` |
-| `onBinChange`             | It is called when the user fills or update card's BIN (first 8 digits)                                   | **OPTIONAL**  | `bin`                               | `void`          |
-| `onClickEditPersonalData` | [Exclusive for review step] It is called when the user clicks to edit the personal data card             | **OPTIONAL¹** | `void`                              | `void`          |
-| `onClickEditShippingData` | [Exclusive for review step] It is called when the user clicks to edit the shipping data card             | **OPTIONAL²** | `void`                              | `void`          |
-| `onClickEditBillingData`  | [Exclusive for review step] It is called when the user clicks to edit the billing data card              | **OPTIONAL³** | `void`                              | `void`          |
-| `onRenderNextStep`        | [Exclusive for review step] It is called when the user moves through the next step on the payment flow   | **OPTIONAL**  | `void`                              | `Promise<void>` |
-| `onRenderPreviousStep`    | [Exclusive for review step] It is called when the user moves back to a previous step on the payment flow | **OPTIONAL**  | `void`                              | `Promise<void>` |
+| Callback key              | Description                                                                                              |               | Params                              | Returns                 |
+| ------------------------- | -------------------------------------------------------------------------------------------------------- | ------------- | ----------------------------------- | ----------------------- |
+| `onReady`                 | It is called when the brick finishes loading                                                             | **REQUIRED**  | `void`                              | `void`                  |
+| `onError`                 | It is called when there is an error in the Brick                                                         | **REQUIRED**  | `BrickError`                        | `void`                  |
+| `onSubmit`                | It is called when the user clicks on the submit button                                                   | **REQUIRED**  | `PaymentFormData`, `AdditionalData` | `Promise<void>`         |
+| `onBinChange`             | It is called when the user fills or update card's BIN (first 8 digits)                                   | **OPTIONAL**  | `bin`                               | `void`                  |
+| `onClickEditShippingData` | [Exclusive for review step] It is called when the user clicks to edit the shipping data card             | **OPTIONAL¹** | `void`                              | `void`                  |
+| `onClickEditBillingData`  | [Exclusive for review step] It is called when the user clicks to edit the billing data card              | **OPTIONAL²** | `void`                              | `void`                  |
+| `onRenderNextStep`        | [Exclusive for review step] It is called when the user moves through the next step on the payment flow   | **OPTIONAL**  | `void`                              | `Promise<CURRENT_STEP>` |
+| `onRenderPreviousStep`    | [Exclusive for review step] It is called when the user moves back to a previous step on the payment flow | **OPTIONAL**  | `void`                              | `Promise<CURRENT_STEP>` |
 
-¹ **Required** when any other key is provided for the `initialization.payer` property. \
-² **Required** when any other key is provided for the `initialization.shipping` property. \
-³ **Required** when any other key is provided for the `initialization.billing` property.
+¹ **Required** when any other key is provided for the `initialization.shipping` property. \
+² **Required** when any other key is provided for the `initialization.billing` property.
 
 <br />
 
@@ -510,7 +504,7 @@ Customizations object is used to load Brick under different conditions.
 | `paymentMethods.atm`                    | `string[] or string` | Allow payments with ATM methods ([check availability](#atm-availability)). When the value `'all'` is provided, all bank transfer methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com/developers/en/reference/payment_methods/_payment_methods/get) for the payment type `atm`.                                                                                                                                                                                                                                                                | **OPTIONAL** |
 | `paymentMethods.mercadoPago`            | `string[] or string` | Allow payments with Mercado Pago Wallet (available in all countries) and installments without card (only available in Argentina, Brazil and Mexico). When the value `'all'` is provided, payments with both are accepted. When `'wallet_purchase'` is provided, just payments with Mercado Pago Wallet are accepted and users must log in when redirected to their Mercado Pago account. When `'onboarding_credits'` is provided, just payments with installments without card are accepted. In that case, after logging in, will be presented to the user the pre-selected credit payment option in their Mercado Pago account. | **OPTIONAL** |
 | `enableReviewStep`                      | `boolean`            | [Exclusive for review step] Enables the payment confirmation flow                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | **OPTIONAL** |
-| `reviewCardsOrder`                      | `string[]`           | [Exclusive for review step] Change the order that the cards are displayed on screen. The default is `["payer", "shipping", "billing", "payment_method"]`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | **OPTIONAL** |
+| `reviewCardsOrder`                      | `string[]`           | [Exclusive for review step] Change the order that the cards are displayed on screen. The default is `["payment_method", "shipping", "billing"`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | **OPTIONAL** |
 
 <br />
 
@@ -518,51 +512,63 @@ Customizations object is used to load Brick under different conditions.
 
 Accepted properties are:
 
-| Property                               | Type     |
-| -------------------------------------- | -------- |
-| `formTitle`                            | `string` |
-| `cardNumber`                           | `object` |
-| `cardNumber.label`                     | `string` |
-| `cardNumber.placeholder`               | `string` |
-| `expirationDate`                       | `object` |
-| `expirationDate.label`                 | `string` |
-| `expirationDate.placeholder`           | `string` |
-| `securityCode`                         | `object` |
-| `securityCode.label`                   | `string` |
-| `securityCode.placeholder`             | `string` |
-| `cardholderName`                       | `object` |
-| `cardholderName.label`                 | `string` |
-| `cardholderName.placeholder`           | `string` |
-| `cardholderIdentification`             | `object` |
-| `cardholderIdentification.placeholder` | `string` |
-| `installmentsSectionTitle`             | `string` |
-| `selectInstallments`                   | `string` |
-| `selectIssuerBank`                     | `string` |
-| `emailSectionTitle`                    | `string` |
-| `email`                                | `object` |
-| `email.label`                          | `string` |
-| `email.placeholder`                    | `string` |
-| `formSubmit`                           | `string` |
-| `payerFirstName.placeholder`           | `string` |
-| `payerFirstName.label`                 | `string` |
-| `payerLastName.placeholder`            | `string` |
-| `payerLastName.label`                  | `string` |
-| `zipCode.placeholder`                  | `string` |
-| `zipCode.label`                        | `string` |
-| `addressState.placeholder`             | `string` |
-| `addressState.label`                   | `string` |
-| `addressCity.placeholder`              | `string` |
-| `addressCity.label`                    | `string` |
-| `addressNeighborhood.placeholder`      | `string` |
-| `addressNeighborhood.label`            | `string` |
-| `addressStreet.placeholder`            | `string` |
-| `addressStreet.label`                  | `string` |
-| `addressNumber.label`                  | `string` |
-| `addressComplement.label`              | `string` |
-| `entityType.label`                     | `string` |
-| `entityType.placeholder`               | `string` |
-| `financialInstitution.label`           | `string` |
-| `financialInstitution.placeholder`     | `string` |
+| Property                                  | Type     |
+| ----------------------------------------- | -------- |
+| `formTitle`                               | `string` |
+| `cardNumber`                              | `object` |
+| `cardNumber.label`                        | `string` |
+| `cardNumber.placeholder`                  | `string` |
+| `expirationDate`                          | `object` |
+| `expirationDate.label`                    | `string` |
+| `expirationDate.placeholder`              | `string` |
+| `securityCode`                            | `object` |
+| `securityCode.label`                      | `string` |
+| `securityCode.placeholder`                | `string` |
+| `cardholderName`                          | `object` |
+| `cardholderName.label`                    | `string` |
+| `cardholderName.placeholder`              | `string` |
+| `cardholderIdentification`                | `object` |
+| `cardholderIdentification.placeholder`    | `string` |
+| `installmentsSectionTitle`                | `string` |
+| `selectInstallments`                      | `string` |
+| `selectIssuerBank`                        | `string` |
+| `emailSectionTitle`                       | `string` |
+| `email`                                   | `object` |
+| `email.label`                             | `string` |
+| `email.placeholder`                       | `string` |
+| `formSubmit`                              | `string` |
+| `payerFirstName.placeholder`              | `string` |
+| `payerFirstName.label`                    | `string` |
+| `payerLastName.placeholder`               | `string` |
+| `payerLastName.label`                     | `string` |
+| `zipCode.placeholder`                     | `string` |
+| `zipCode.label`                           | `string` |
+| `addressState.placeholder`                | `string` |
+| `addressState.label`                      | `string` |
+| `addressCity.placeholder`                 | `string` |
+| `addressCity.label`                       | `string` |
+| `addressNeighborhood.placeholder`         | `string` |
+| `addressNeighborhood.label`               | `string` |
+| `addressStreet.placeholder`               | `string` |
+| `addressStreet.label`                     | `string` |
+| `addressNumber.label`                     | `string` |
+| `addressComplement.label`                 | `string` |
+| `entityType.label`                        | `string` |
+| `entityType.placeholder`                  | `string` |
+| `financialInstitution.label`              | `string` |
+| `financialInstitution.placeholder`        | `string` |
+| `reviewConfirm`                           | `object` |
+| `reviewConfirm.componentTitle`            | `string` |
+| `reviewConfirm.payerDetailsTitle`         | `string` |
+| `reviewConfirm.shippingDetailsTitle`      | `string` |
+| `reviewConfirm.billingDetailsTitle`       | `string` |
+| `reviewConfirm.paymentMethodDetailsTitle` | `string` |
+| `reviewConfirm.detailsTitle`              | `string` |
+| `reviewConfirm.summaryItemsTitle`         | `string` |
+| `reviewConfirm.summaryShippingTitle`      | `string` |
+| `reviewConfirm.summaryDiscountTitle`      | `string` |
+| `reviewConfirm.summaryYouPayTitle`        | `string` |
+| `reviewConfirm.summaryTotalTitle`         | `string` |
 
 <br />
 
@@ -720,7 +726,6 @@ When called, the `update` method updates the given data, preserving the current 
 | Field       | Type     | Description                                                                                                                                                     | Validation                                                                                                                                                                                                              |
 | ----------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `amount`    | `number` | Payment amount. Updating the amount does not affect payments via Mercado Pago Wallet and Installments without card, as their values are defined in the backend. | The new amount must be greater than or equal to the minimum amount allowed by the payment method selected by the user. If validation succeeds, the update method will return `true`. Otherwise, it will return `false`. |
-| `payer`     | `object` | `initialization.payer` object                                                                                                                                   | If validation succeeds, the update method will return `true`. Otherwise, it will return `false`.                                                                                                                        |
 | `items`     | `object` | `initialization.items` object                                                                                                                                   | If validation succeeds, the update method will return `true`. Otherwise, it will return `false`.                                                                                                                        |
 | `shipping`  | `object` | `initialization.shipping` object                                                                                                                                | If validation succeeds, the update method will return `true`. Otherwise, it will return `false`.                                                                                                                        |
 | `billing`   | `object` | `initialization.billing` object                                                                                                                                 | If validation succeeds, the update method will return `true`. Otherwise, it will return `false`.                                                                                                                        |
@@ -746,7 +751,7 @@ void
 
 #### Returns
 
-`string` indicating the current step.
+`Promise<string>` indicating the current step.
 
 #### Example
 
