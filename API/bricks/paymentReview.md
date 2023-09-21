@@ -189,7 +189,9 @@ Contains product information for **review steps**
 | `itemsList[].value`       | `number`   | Value per a given item                 | **REQUIRED** |
 | `itemsList[].name`        | `string`   | Item name                              | **REQUIRED** |
 | `itemsList[].description` | `string`   | Item description                       | **OPTIONAL** |
-| `itemsList[].imageURL`    | `string`   | Item icon URL                          | **OPTIONAL** |
+| `itemsList[].imageURL`    | `string`   | Item icon URL¹                         | **OPTIONAL** |
+
+¹ **NOTE**: The `imageURL` property, used to display the item icon, must end with one of the following extensions: `.jpg`, `.jpeg`, `.png`, `.gif`, `.bmp`, `.webp`, `.svg`.
 
 ##### Shipping
 
