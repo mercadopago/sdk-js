@@ -717,7 +717,9 @@ None.
 
 ### `Brick Controller`.update()
 
-When called, the `update` method updates the given data, preserving the current instance of the brick.
+When called, the `update` method updates the given data via patch, preserving the current instance of the brick.
+
+> **You should use the same object structure as the initialization.**
 
 #### Params
 
@@ -733,10 +735,24 @@ When called, the `update` method updates the given data, preserving the current 
 
 `boolean`
 
-#### Example
+#### Examples
 
 ```js
 paymentBrickController.update({ amount: 95.32 });
+```
+
+```js
+paymentBrickController.update({
+  discounts: {
+    totalDiscountsAmount: 25,
+    discountsList: [
+      {
+        name: "<DISCOUNT_NAME_UPDATED>",
+        value: 25,
+      },
+    ],
+  },
+});
 ```
 
 ### `Brick Controller`.nextStep()
