@@ -326,7 +326,8 @@ null;
 
 ```ts
 {
-    'bin': string
+    'bin': string,
+    'lastFourDigits': string,
 }
 ```
 
