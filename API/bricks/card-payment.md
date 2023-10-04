@@ -207,6 +207,8 @@ The callbacks object contains the callbacks functions the brick will call during
 ```ts
 {
     'bin': string
+    'lastFourDigits': string,
+    'cardholderName': string,
 }
 ```
 
