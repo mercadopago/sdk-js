@@ -386,7 +386,28 @@ The callbacks object contains the callbacks functions the brick will call during
                 'type': string,
                 'number': string
         }
-    }
+    },
+    'additional_info'?: {
+        'shipments'?: {
+            'receiver_address': {
+                'zip_code'?: string,
+                'state_name'?: string,
+                'city_name'?: string,
+                'street_name'?: string,
+                'street_number'?: number,
+                'apartment'?: string,
+            },
+        },
+        'items'?: [
+            {
+              'unit_price': number,
+              'quantity': number,
+              'title': string,
+              'description'?: string,
+              'picture_url'?: string,
+            },
+        ],
+    },
 }
 ```
 
@@ -426,6 +447,28 @@ The callbacks object contains the callbacks functions the brick will call during
         'payment_point'?: string,
         'payment_mode'?: string
     }
+    'additional_info'?: {
+        'shipments'?: {
+            'receiver_address': {
+                'zip_code'?: string,
+                'state_name'?: string,
+                'city_name'?: string,
+                'street_name'?: string,
+                'street_number'?: number,
+                'apartment'?: string,
+            },
+        },
+        'items'?: [
+            {
+              'unit_price': number,
+              'quantity': number,
+              'title': string,
+              'description'?: string,
+              'picture_url'?: string,
+            }
+        ],
+    },
+
 }
 ```
 
@@ -461,7 +504,9 @@ null;
 
 ```ts
 {
-    'bin': string
+    'bin': string,
+    'lastFourDigits': string,
+    'cardholderName'?: string,
 }
 ```
 
