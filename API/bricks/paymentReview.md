@@ -194,18 +194,19 @@ Contains product information for **review steps**
 
 Contains shipping information for **review steps**
 
-| Items key                      | Type     | Description                            |              |
-| ------------------------------ | -------- | -------------------------------------- | ------------ |
-| `costs`                        | `number` | The shipping cost                      | **OPTIONAL** |
-| `shippingMode`                 | `string` | The type of shipping. Example: Express | **REQUIRED** |
-| `description`                  | `string` | Shipping description                   | **OPTIONAL** |
-| `receiverAddress`              | `object` | Shipping address                       | **REQUIRED** |
-| `receiverAddress.streetName`   | `string` | Address street name                    | **REQUIRED** |
-| `receiverAddress.streetNumber` | `string` | Address street number                  | **REQUIRED** |
-| `receiverAddress.neighborhood` | `string` | Address neighborhood                   | **OPTIONAL** |
-| `receiverAddress.city`         | `string` | Address city                           | **OPTIONAL** |
-| `receiverAddress.federalUnit`  | `string` | Address federal unit                   | **OPTIONAL** |
-| `receiverAddress.zipCode`      | `string` | Address zip code                       | **REQUIRED** |
+| Items key                      | Type     | Description                                  |              |
+| ------------------------------ | -------- | -------------------------------------------- | ------------ |
+| `costs`                        | `number` | The shipping cost                            | **OPTIONAL** |
+| `shippingMode`                 | `string` | The type of shipping. Example: Express       | **REQUIRED** |
+| `description`                  | `string` | Shipping description                         | **OPTIONAL** |
+| `receiverAddress`              | `object` | Shipping address                             | **REQUIRED** |
+| `receiverAddress.streetName`   | `string` | Address street name                          | **REQUIRED** |
+| `receiverAddress.streetNumber` | `string` | Address street number                        | **REQUIRED** |
+| `receiverAddress.neighborhood` | `string` | Address neighborhood                         | **OPTIONAL** |
+| `receiverAddress.city`         | `string` | Address city                                 | **OPTIONAL** |
+| `receiverAddress.federalUnit`  | `string` | Address federal unit                         | **OPTIONAL** |
+| `receiverAddress.complement`   | `string` | Address complement, such as apartment number | **OPTIONAL** |
+| `receiverAddress.zipCode`      | `string` | Address zip code                             | **REQUIRED** |
 
 ##### Billing
 
