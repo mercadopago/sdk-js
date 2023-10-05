@@ -371,6 +371,8 @@ The callbacks object contains the callbacks functions the brick will call during
 
 <br />
 
+`?` means the field is optional
+
 ```ts
 {
     'token': string,
@@ -446,7 +448,7 @@ The callbacks object contains the callbacks functions the brick will call during
     'metadata'?: {
         'payment_point'?: string,
         'payment_mode'?: string
-    }
+    },
     'additional_info'?: {
         'shipments'?: {
             'receiver_address': {
@@ -468,7 +470,6 @@ The callbacks object contains the callbacks functions the brick will call during
             }
         ],
     },
-
 }
 ```
 
@@ -506,7 +507,7 @@ null;
 {
     'bin': string,
     'lastFourDigits': string,
-    'cardholderName'?: string,
+    'cardholderName': string,
 }
 ```
 
