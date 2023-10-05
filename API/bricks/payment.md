@@ -1,6 +1,6 @@
 ## `BricksBuilder`.create(`brick`, `target`, `settings`)
 
-Example:
+### Usage example:
 
 ```js
 mp.bricks().create("payment", "paymentBrick_container", {
@@ -86,11 +86,11 @@ The `settings` object has properties to initialize and customize the brick being
 
 Initialization is an object with the properties the brick will initialize with.
 
-| Initialization key | Type     | Description                                                                                                                                                                                                                      |              |
-| ------------------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| `amount`           | `number` | Defines the transaction amount.                                                                                                                                                                                                  | **REQUIRED** |
-| `payer`            | `object` | Defines payer initial data. [Possible values](#payer)                                                                                                                                                                            | **OPTIONAL** |
-| `preferenceId`     | `string` | If provided, the brick will bring to screen the Mercado Pago payment option. [The preference id should be created in Backend](https://www.mercadopago.com.br/developers/pt/docs/checkout-pro/checkout-customization/preferences) | **OPTIONAL** |
+| Initialization key | Type     | Description                                                                                                                                                                                                                   |              |
+| ------------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| `amount`           | `number` | Defines the transaction amount.                                                                                                                                                                                               | **REQUIRED** |
+| `payer`            | `object` | Defines payer initial data. [Possible values](#payer)                                                                                                                                                                         | **OPTIONAL** |
+| `preferenceId`     | `string` | If provided, the brick will bring to screen the Mercado Pago payment option. [The preference id should be created in Backend](https://www.mercadopago.com/developers/en/docs/checkout-pro/checkout-customization/preferences) | **OPTIONAL** |
 
 <br />
 
@@ -98,24 +98,24 @@ Initialization is an object with the properties the brick will initialize with.
 
 Payer contains initial payer information.
 
-| Payer key               | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ----------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `email`                 | `string`   | Defines the payer email. Brick will hide email field if this value is correctly filled                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `firstName`             | `string`   | Payer first name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `lastName`              | `string`   | Payer last name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `identification`        | `object`   | Defines payer identification. Contains keys `type` and `number`                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `identification.type`   | `string`   | Identification type. Possible values vary based on siteId                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `identification.number` | `string`   | Identification number. If filled correctly the Brick will prefill the identification number input                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `address`               | `object`   | Defines payer address. Contains keys `zipCode`, `federalUnit`,`city`,`neighborhood`,`streetName`,`streetNumber` and `complement`                                                                                                                                                                                                                                                                                                                                                                  |
-| `address.zipCode`       | `string`   | Zip code of payer address. If filled correctly the Brick will prefill the zip code input                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `address.federalUnit`   | `string`   | State of payer address. If filled correctly the Brick will prefill the federal unit input                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `address.city`          | `string`   | City of payer address. If filled correctly the Brick will prefill the city input                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `address.neighborhood`  | `string`   | Neighborhood of payer address. If filled correctly the Brick will prefill the neighborhood input                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `address.streetName`    | `string`   | Street name of payer address. If filled correctly the Brick will prefill the street name input                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `address.streetNumber`  | `number`   | Street number of payer address. If filled correctly the Brick will prefill the street number input                                                                                                                                                                                                                                                                                                                                                                                                |
-| `address.complement`    | `string`   | Complement of payer address. If filled correctly the Brick will prefill the complement input                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `customerId`            | `string`   | Customer ID. View how to manage customers. [See More](https://www.mercadopago.com.br/developers/pt/reference/customers/_customers/post)                                                                                                                                                                                                                                                                                                                                                           |
-| `cardsIds`              | `string[]` | Saved Cards Ids. If defined in conjunction with Customer ID, the payer will be able to use their saved cards in checkout. The brick will sort from most recent save card to oldest. If you want the cards not to be sorted, you should add the property `preserveSavedCardsOrder` explained in [this section](#customization). For more information about cards ids in Mercado Pago [click here](https://www.mercadopago.com.br/developers/pt/reference/cards/_customers_customer_id_cards/post). |
+| Payer key               | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ----------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `email`                 | `string`   | Defines the payer email. Brick will hide email field if this value is correctly filled                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `firstName`             | `string`   | Payer first name                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `lastName`              | `string`   | Payer last name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `identification`        | `object`   | Defines payer identification. Contains keys `type` and `number`                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `identification.type`   | `string`   | Identification type. Possible values vary based on siteId                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `identification.number` | `string`   | Identification number. If filled correctly the Brick will prefill the identification number input                                                                                                                                                                                                                                                                                                                                                                                              |
+| `address`               | `object`   | Defines payer address. Contains keys `zipCode`, `federalUnit`,`city`,`neighborhood`,`streetName`,`streetNumber` and `complement`                                                                                                                                                                                                                                                                                                                                                               |
+| `address.zipCode`       | `string`   | Zip code of payer address. If filled correctly the Brick will prefill the zip code input                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `address.federalUnit`   | `string`   | State of payer address. If filled correctly the Brick will prefill the federal unit input                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `address.city`          | `string`   | City of payer address. If filled correctly the Brick will prefill the city input                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `address.neighborhood`  | `string`   | Neighborhood of payer address. If filled correctly the Brick will prefill the neighborhood input                                                                                                                                                                                                                                                                                                                                                                                               |
+| `address.streetName`    | `string`   | Street name of payer address. If filled correctly the Brick will prefill the street name input                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `address.streetNumber`  | `number`   | Street number of payer address. If filled correctly the Brick will prefill the street number input                                                                                                                                                                                                                                                                                                                                                                                             |
+| `address.complement`    | `string`   | Complement of payer address. If filled correctly the Brick will prefill the complement input                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `customerId`            | `string`   | Customer ID. View how to manage customers. [See More](https://www.mercadopago.com/developers/en/reference/customers/_customers/post)                                                                                                                                                                                                                                                                                                                                                           |
+| `cardsIds`              | `string[]` | Saved Cards Ids. If defined in conjunction with Customer ID, the payer will be able to use their saved cards in checkout. The brick will sort from most recent save card to oldest. If you want the cards not to be sorted, you should add the property `preserveSavedCardsOrder` explained in [this section](#customization). For more information about cards ids in Mercado Pago [click here](https://www.mercadopago.com/developers/en/reference/cards/_customers_customer_id_cards/post). |
 
 | SiteId            | Identification Type Values      |
 | ----------------- | ------------------------------- |
@@ -161,34 +161,52 @@ The callbacks object contains the callbacks functions the brick will call during
 {
   'already_initialized',
   'amount_is_not_number',
+  'amount_is_not_number_in_update',
   'card_token_creation_failed',
-  'secure_fields_card_token_creation_failed',
   'container_not_found',
   'fields_setup_failed',
   'fields_setup_failed_after_3_tries',
+  'financial_institution_not_found',
   'get_address_data_failed',
   'get_card_bin_payment_methods_failed',
   'get_card_issuers_failed',
   'get_identification_types_failed',
   'get_mexico_payment_points_failed',
+  'get_config_assets_failed',
   'get_payment_installments_failed',
+  'empty_installments',
   'get_payment_methods_failed',
+  'get_preference_details_failed',
   'get_saved_cards_failed',
   'incomplete_fields',
   'incorrect_initialization',
   'invalid_preference_purpose',
   'invalid_sdk_instance',
   'missing_amount_property',
+  'missing_site_property',
   'missing_container_id',
   'missing_locale_property',
   'missing_payment_information',
   'missing_payment_type',
   'missing_required_callbacks',
   'missing_texts',
+  'no_preference_provided',
+  'no_chunk_path_provided',
+  'secure_fields_card_token_creation_failed',
   'settings_empty',
+  'translation_key_not_found',
   'unauthorized_payment_method',
   'update_preference_details_failed',
   'validations_parameter_null',
+  'get_chunk_failed',
+  'get_saved_cards_on_bricks_api_failed',
+  'window_redirect_was_blocked',
+  'missing_required_review_props',
+  'no_payment_method_for_provided_bin',
+  'payment_method_not_in_allowed_types',
+  'payment_method_not_in_allowed_methods',
+  'no_installments_in_selected_range',
+  'no_issuers_found_for_card',
 }
 ```
 
@@ -308,7 +326,8 @@ null;
 
 ```ts
 {
-    'bin': string
+    'bin': string,
+    'lastFourDigits': string,
 }
 ```
 
@@ -341,11 +360,11 @@ Customizations object is used to load Brick under different conditions.
 | `paymentMethods`                        | `object`             | Object that allow payment methods configuration. Contains `maxInstallments`, `minInstallments`, `creditCard`, `debitCard`, `ticket`, `bankTransfer`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | **OPTIONAL** |
 | `paymentMethods.maxInstallments`        | `number`             | Maximum number of installments to be offered to the user                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | **OPTIONAL** |
 | `paymentMethods.minInstallments`        | `number`             | Minimal number of installments to be offered to the user                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | **OPTIONAL** |
-| `paymentMethods.creditCard`             | `string[] or string` | Allow payments with credit card. When the value `'all'` is provided, all credit cards are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the paymentType `credit_card`.                                                                                                                                                                                                                                                                                                         | **OPTIONAL** |
-| `paymentMethods.debitCard`              | `string[] or string` | Allow payments with debit card. When the value `'all'` is provided, all debit cards are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the paymentType `debit_card`.                                                                                                                                                                                                                                                                                                            | **OPTIONAL** |
-| `paymentMethods.ticket`                 | `string[] or string` | Allow payments with tickets ([check availability](#ticket-availability)). When the value `'all'` is provided, all ticket methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the payment type `ticket`.                                                                                                                                                                                                                                                                  | **OPTIONAL** |
-| `paymentMethods.bankTransfer`           | `string[] or string` | Allow payments with Bank Transfer ([check availability](#bank-transfer-availability)). When the value `'all'` is provided, all bank transfer methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the payment type `bank_transfer`.                                                                                                                                                                                                                                       | **OPTIONAL** |
-| `paymentMethods.atm`                    | `string[] or string` | Allow payments with ATM methods ([check availability](#atm-availability)). When the value `'all'` is provided, all bank transfer methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com.br/developers/pt/reference/payment_methods/_payment_methods/get) for the payment type `atm`.                                                                                                                                                                                                                                                             | **OPTIONAL** |
+| `paymentMethods.creditCard`             | `string[] or string` | Allow payments with credit card. When the value `'all'` is provided, all credit cards are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com/developers/en/reference/payment_methods/_payment_methods/get) for the paymentType `credit_card`.                                                                                                                                                                                                                                                                                                            | **OPTIONAL** |
+| `paymentMethods.debitCard`              | `string[] or string` | Allow payments with debit card. When the value `'all'` is provided, all debit cards are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com/developers/en/reference/payment_methods/_payment_methods/get) for the paymentType `debit_card`.                                                                                                                                                                                                                                                                                                               | **OPTIONAL** |
+| `paymentMethods.ticket`                 | `string[] or string` | Allow payments with tickets ([check availability](#ticket-availability)). When the value `'all'` is provided, all ticket methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com/developers/en/reference/payment_methods/_payment_methods/get) for the payment type `ticket`.                                                                                                                                                                                                                                                                     | **OPTIONAL** |
+| `paymentMethods.bankTransfer`           | `string[] or string` | Allow payments with Bank Transfer ([check availability](#bank-transfer-availability)). When the value `'all'` is provided, all bank transfer methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com/developers/en/reference/payment_methods/_payment_methods/get) for the payment type `bank_transfer`.                                                                                                                                                                                                                                          | **OPTIONAL** |
+| `paymentMethods.atm`                    | `string[] or string` | Allow payments with ATM methods ([check availability](#atm-availability)). When the value `'all'` is provided, all bank transfer methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com/developers/en/reference/payment_methods/_payment_methods/get) for the payment type `atm`.                                                                                                                                                                                                                                                                | **OPTIONAL** |
 | `paymentMethods.mercadoPago`            | `string[] or string` | Allow payments with Mercado Pago Wallet (available in all countries) and installments without card (only available in Argentina, Brazil and Mexico). When the value `'all'` is provided, payments with both are accepted. When `'wallet_purchase'` is provided, just payments with Mercado Pago Wallet are accepted and users must log in when redirected to their Mercado Pago account. When `'onboarding_credits'` is provided, just payments with installments without card are accepted. In that case, after logging in, will be presented to the user the pre-selected credit payment option in their Mercado Pago account. | **OPTIONAL** |
 
 <br />
@@ -499,8 +518,6 @@ Accepted properties are:
 
 The Brick Controller contains methods that allow the integrator to interact with the rendered Brick.
 
-<br />
-
 |                   |            |
 | ----------------- | ---------- |
 | unmount           | **METHOD** |
@@ -508,15 +525,9 @@ The Brick Controller contains methods that allow the integrator to interact with
 | getAdditionalData | **METHOD** |
 | update            | **METHOD** |
 
-<br />
-
 ### `Brick Controller`.unmount()
 
-<br />
-
-The `unmount` methods removes the rendered Brick from the page.
-
-<br />
+The `unmount` method removes the rendered Brick from the page.
 
 #### Params
 
@@ -526,11 +537,7 @@ None.
 
 `void`
 
-<br />
-
 ### `Brick Controller`.getFormData()
-
-<br />
 
 The `getFormData` method returns the data the user filled in the form (only works if the submit button is disabled).
 
@@ -546,8 +553,6 @@ None.
 
 ### `Brick Controller`.getAdditionalData()
 
-<br />
-
 The `getAdditionalData` method returns additional data that may be useful to you (only works if the submit button is disabled).
 
 #### Params
@@ -561,8 +566,6 @@ None.
 | `payment` | `AdditionalData` |
 
 ### `Brick Controller`.update()
-
-<br />
 
 When called, the `update` method updates the given data, preserving the current instance of the brick.
 
