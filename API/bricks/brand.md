@@ -33,14 +33,14 @@ mp.bricks().create("brand", "brandBrick_container", {
       borderWidth: "1px",
       borderRadius: "0px",
       verticalPadding: "8px",
-      horizontalPadding: "16px"
+      horizontalPadding: "16px",
     },
   },
-  callbacks:{
+  callbacks: {
     onReady: () => {
       // handle form ready
     },
-  }
+  },
 });
 ```
 
@@ -70,12 +70,12 @@ Customizations object is used to load Brick under different conditions.
 | Customization key                         | Type       | Description                                                                                                                                                                                                                                           |              |
 | ----------------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
 | `paymentMethods`                          | `object`   | Controls which information about payment methods and payment method types will apear on the Brand Brick - at the default render and modal. Contains `excludedPaymentMethods`,`excludedPaymentTypes`,`maxInstallments` and `interestFreeInstallments`. | **OPTIONAL** |
-| `paymentMethods.excludedPaymentMethods`   | `string[]` | Defines which Payment Method will not be shown at Brand Brick. Example: card issuer, as `Visa`.                                                                                                                                                       | **OPTIONAL** |
+| `paymentMethods.excludedPaymentMethods`   | `string[]` | Defines which Payment Method will not be shown at Brand Brick. Example: card issuer, as `visa`. The payment method name needs to be lower case.                                                                                                       | **OPTIONAL** |
 | `paymentMethods.excludedPaymentTypes`     | `string[]` | Defines which Payment Method Type will not be shown at Brand Brick. The default value is `empty`. Example: `debit_card`.                                                                                                                              | **OPTIONAL** |
 | `paymentMethods.interestFreeInstallments` | `boolean`  | Defines if it will be shown that the installments have interest or do not have interest. The possible values are `true` or `false`.                                                                                                                   | **OPTIONAL** |
 | `paymentMethods.maxInstallments`          | `number`   | Defines which value will be shown as maximum installments accepted by the seller. If filled, the value start at `2` and the maximum allowed to show is `12`.                                                                                          | **OPTIONAL** |
 | `text`                                    | `object`   | Controls which message will appear on the Brand Brick. Contains `valueProp`, `useCustomFont`, `textSize`, `fontWeight` and `textColor`.                                                                                                               | **OPTIONAL** |
-| `text.fontWeight`                         | `string`   | Defines the font weight to the texts at Brand Brick. The possible values are `semi-bold` or `regular`.                                                                                                                                                  | **OPTIONAL** |
+| `text.fontWeight`                         | `string`   | Defines the font weight to the texts at Brand Brick. The possible values are `semi-bold` or `regular`.                                                                                                                                                | **OPTIONAL** |
 | `text.textColor`                          | `string`   | Defines the font color to the texts at Brand Brick. The possible values are `primary`, `secondary` or `inverted`.                                                                                                                                     | **OPTIONAL** |
 | `text.textSize`                           | `string`   | Defines the font size to the texts at Brand Brick. The possible values are `extra-small`, `small`, `medium` or `large`.                                                                                                                               | **OPTIONAL** |
 | `text.useCustomFont`                      | `boolean`  | Defines if will be used a custom font or if it will adopt the standart font to Brand Brick. The possible values are `true` or `false`.                                                                                                                | **OPTIONAL** |
