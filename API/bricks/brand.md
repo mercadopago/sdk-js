@@ -3,7 +3,7 @@
 Example without settings:
 
 ```js
-mp.bricks().create("brand", "brandBrick_container", {});
+mp.bricks().create("brand", "brandBrick_container");
 ```
 
 Example with complete settings:
