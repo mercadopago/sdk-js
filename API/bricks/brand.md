@@ -21,7 +21,7 @@ mp.bricks().create("brand", "brandBrick_container", {
       fontWeight: "semibold",
       textColor: "primary",
       textSize: "medium",
-      useCustomFont: false,s
+      useCustomFont: false,
       valueProp: "payment_methods",
     },
     visual: {
