@@ -65,3 +65,4 @@ Refer to the specific Brick API refence for parameters and methods specification
 | [`Card Payment`](./card-payment.md)               |
 | [`Status Screen`](./status-screen.md)             |
 | [`Wallet`](./wallet.md)                           |
+| [`Brand`](./brand.md)                             |
