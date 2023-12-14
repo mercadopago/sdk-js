@@ -23,6 +23,7 @@ mp.bricks().create("brand", "brandBrick_container", {
       textSize: "medium",
       useCustomFont: true,
       valueProp: "payment_methods_logos",
+      align: "right",
     },
     visual: {
       hideMercadoPagoLogo: true,
@@ -75,6 +76,7 @@ Customizations object is used to load Brick under different conditions.
 | `paymentMethods.interestFreeInstallments` | `boolean`  | Defines if it will be shown that the installments have interest or do not have interest. The possible values are `true` or `false`.                                                                                                                    | **OPTIONAL** |
 | `paymentMethods.maxInstallments`          | `number`   | Defines which value will be shown as maximum installments accepted by the seller. If filled, the value starts at `2` and the maximum allowed to show is `12`.                                                                                          | **OPTIONAL** |
 | `text`                                    | `object`   | Controls which message will appear on the Brand Brick. Contains `valueProp`, `useCustomFont`, `textSize`, `fontWeight` and `textColor`.                                                                                                                | **OPTIONAL** |
+| `text.align`                              | `string`   | Defines only the text alignment. The possible values are `left`, `center` and `right`. The default value is `left`.                                                                                                                                    | **OPTIONAL** |
 | `text.fontWeight`                         | `string`   | Defines the font weight to the texts at Brand Brick. The possible values are `semi-bold` or `regular`.                                                                                                                                                 | **OPTIONAL** |
 | `text.textColor`                          | `string`   | Defines the font color to the texts at Brand Brick. The possible values are `primary`, `secondary` or `inverted`.                                                                                                                                      | **OPTIONAL** |
 | `text.textSize`                           | `string`   | Defines the font size to the texts at Brand Brick. The possible values are `extra-small`, `small`, `medium` or `large`.                                                                                                                                | **OPTIONAL** |
