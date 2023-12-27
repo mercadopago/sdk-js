@@ -1,4 +1,5 @@
 # `BricksBuilder`.create(`brick`, `target`, `settings`)
+### This Brick is temporarily exclusive for **MLA (Argentina)** 🇦🇷
 
 Example without settings:
 
@@ -19,7 +20,7 @@ mp.bricks().create("brand", "brandBrick_container", {
     },
     text: {
       fontWeight: "regular",
-      textColor: "inverted",
+      color: "inverted",
       textSize: "medium",
       useCustomFont: true,
       valueProp: "payment_methods_logos",
@@ -75,10 +76,10 @@ Customizations object is used to load Brick under different conditions.
 | `paymentMethods.excludedPaymentTypes`     | `string[]` | Defines which Payment Method Type will not be shown at Brand Brick. The default value is `empty`. The possible value are `credit_card`, `debit_card` and `ticket`                                                                                      | **OPTIONAL** |
 | `paymentMethods.interestFreeInstallments` | `boolean`  | Defines if it will be shown that the installments have interest or do not have interest. The possible values are `true` or `false`.                                                                                                                    | **OPTIONAL** |
 | `paymentMethods.maxInstallments`          | `number`   | Defines which value will be shown as maximum installments accepted by the seller. If filled, the value starts at `2` and the maximum allowed to show is `12`.                                                                                          | **OPTIONAL** |
-| `text`                                    | `object`   | Controls which message will appear on the Brand Brick. Contains `valueProp`, `useCustomFont`, `textSize`, `fontWeight` and `textColor`.                                                                                                                | **OPTIONAL** |
+| `text`                                    | `object`   | Controls which message will appear on the Brand Brick. Contains `valueProp`, `useCustomFont`, `textSize`, `fontWeight` and `color`.                                                                                                                    | **OPTIONAL** |
 | `text.align`                              | `string`   | Defines only the text alignment. The possible values are `left`, `center` and `right`. The default value is `left`.                                                                                                                                    | **OPTIONAL** |
 | `text.fontWeight`                         | `string`   | Defines the font weight to the texts at Brand Brick. The possible values are `semi-bold` or `regular`.                                                                                                                                                 | **OPTIONAL** |
-| `text.textColor`                          | `string`   | Defines the font color to the texts at Brand Brick. The possible values are `primary`, `secondary` or `inverted`.                                                                                                                                      | **OPTIONAL** |
+| `text.color`                              | `string`   | Defines the font color to the texts at Brand Brick. The possible values are `primary`, `secondary` or `inverted`.                                                                                                                                      | **OPTIONAL** |
 | `text.textSize`                           | `string`   | Defines the font size to the texts at Brand Brick. The possible values are `extra-small`, `small`, `medium` or `large`.                                                                                                                                | **OPTIONAL** |
 | `text.useCustomFont`                      | `boolean`  | Defines if will be used a custom font or if it will adopt the standard font to Brand Brick. The possible values are `true` or `false`. If `true`, brand brick will inherit the font-family from the container                                          | **OPTIONAL** |
 | `text.valueProp`                          | `string`   | Defines which message will appear on the Brand Brick. The options are `payment_methods` (which is the default value), `payment_methods_logos`, `installments`,`security` and `credits`.                                                                | **OPTIONAL** |
