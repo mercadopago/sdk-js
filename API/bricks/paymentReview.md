@@ -1,6 +1,6 @@
 ## `BricksBuilder`.create(`brick`, `target`, `settings`)
 
-### This feature is temporarily exclusive for **MLM (México)** 🇲🇽
+### This feature is temporarily exclusive for **MLM (México)** 🇲🇽 and **MLA (Argentina)** 🇦🇷
 
 #### Full example with **review and confirmation** steps:
 
@@ -32,6 +32,7 @@ mp.bricks().create("payment", "paymentBrick_container", {
         city: "<PAYER_CITY>",
         federalUnit: "<PAYER_FED_UNIT>",
         zipCode: "<ZIP_CODE>",
+        additionalInformation: "<ADDITIONAL_INFORMATION>",
       },
     },
     payer: {
@@ -194,19 +195,20 @@ Contains product information for **review steps**
 
 Contains shipping information for **review steps**
 
-| Items key                      | Type     | Description                                  |              |
-| ------------------------------ | -------- | -------------------------------------------- | ------------ |
-| `costs`                        | `number` | The shipping cost                            | **OPTIONAL** |
-| `shippingMode`                 | `string` | The type of shipping. Example: Express       | **REQUIRED** |
-| `description`                  | `string` | Shipping description                         | **OPTIONAL** |
-| `receiverAddress`              | `object` | Shipping address                             | **REQUIRED** |
-| `receiverAddress.streetName`   | `string` | Address street name                          | **REQUIRED** |
-| `receiverAddress.streetNumber` | `string` | Address street number                        | **REQUIRED** |
-| `receiverAddress.neighborhood` | `string` | Address neighborhood                         | **OPTIONAL** |
-| `receiverAddress.city`         | `string` | Address city                                 | **OPTIONAL** |
-| `receiverAddress.federalUnit`  | `string` | Address federal unit                         | **OPTIONAL** |
-| `receiverAddress.complement`   | `string` | Address complement, such as apartment number | **OPTIONAL** |
-| `receiverAddress.zipCode`      | `string` | Address zip code                             | **REQUIRED** |
+| Items key                               | Type     | Description                                  |              |
+| --------------------------------------- | -------- | -------------------------------------------- | ------------ |
+| `costs`                                 | `number` | The shipping cost                            | **OPTIONAL** |
+| `shippingMode`                          | `string` | The type of shipping. Example: Express       | **REQUIRED** |
+| `description`                           | `string` | Shipping description                         | **OPTIONAL** |
+| `receiverAddress`                       | `object` | Shipping address                             | **REQUIRED** |
+| `receiverAddress.streetName`            | `string` | Address street name                          | **REQUIRED** |
+| `receiverAddress.streetNumber`          | `string` | Address street number                        | **REQUIRED** |
+| `receiverAddress.neighborhood`          | `string` | Address neighborhood                         | **OPTIONAL** |
+| `receiverAddress.city`                  | `string` | Address city                                 | **OPTIONAL** |
+| `receiverAddress.federalUnit`           | `string` | Address federal unit                         | **OPTIONAL** |
+| `receiverAddress.complement`            | `string` | Address complement, such as apartment number | **OPTIONAL** |
+| `receiverAddress.zipCode`               | `string` | Address zip code                             | **REQUIRED** |
+| `receiverAddress.additionalInformation` | `string` | Note message regarding shipping address      | **OPTIONAL** |
 
 ##### Billing
 
