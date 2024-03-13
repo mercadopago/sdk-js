@@ -162,11 +162,11 @@ The `settings` object has properties to initialize and customize the brick being
 
 Initialization is an object with the properties the brick will initialize with.
 
-| Initialization key | Type     | Description                                                                 |               |
-| ------------------ | -------- | --------------------------------------------------------------------------- | ------------- |
-| `preferenceId`     | `string` | Preference generated in the backend                                         | **OPTIONAL³** |
-| `redirectMode`     | `string` | Indicates how the experience will be conducted. [See more](#opening-scheme) | **REQUIRED**  |
-| `marketplace`      | `boolean`| Indicates if the integration is for a marketplace flow.                     | **OPTIONAL**  |
+| Initialization key | Type      | Description                                                                 |               |
+| ------------------ | --------- | --------------------------------------------------------------------------- | ------------- |
+| `preferenceId`     | `string`  | Preference generated in the backend                                         | **OPTIONAL³** |
+| `redirectMode`     | `string`  | Indicates how the experience will be conducted. [See more](#opening-scheme) | **REQUIRED**  |
+| `marketplace`      | `boolean` | Indicates if the integration is for a marketplace flow.                     | **OPTIONAL**  |
 
 ³ **Optional** when integrating through the flow that creates the preference on submit
 
@@ -190,35 +190,51 @@ The callbacks object contains the auxiliary callbacks functions the brick will c
 
 Customizations object is used to load Brick under different conditions.
 
-| Customization key          | Type      | Description                                                                                                                                                                                  |              |
-| -------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| `texts`                    | `object`  | Controls the texts of the brick.                                                                                                                                                             | **OPTIONAL** |
-| `texts.action`             | `string`  | Defines the call to action text. Options available: `pay`, `buy`. Default is `pay`.                                                                                                          | **OPTIONAL** |
-| `texts.valueProp`¹         | `string`  | Defines the value prop. Options available: `practicality`, `convenience_all`, `security_details`, `security_safety`, `convenience_credits` and `smart_option`. Default is `security_safety`. | **OPTIONAL** |
-| `visual`                   | `object`  | Controls visual aspects of the brick.                                                                                                                                                        | **OPTIONAL** |
-| `visual.buttonBackground`  | `string`  | Defines the brick background color. Available options: `default`, `black`, `blue`, `white`. Default is `default`.                                                                            | **OPTIONAL** |
-| `visual.buttonHeight`      | `string`  | Defines the brick height. Default is `48px`. Min: `48px`. Max: free choice.                                                                                                                  | **OPTIONAL** |
-| `visual.borderRadius`      | `string`  | Defines the brick border radius. Default is `6px`.                                                                                                                                           | **OPTIONAL** |
-| `visual.valuePropColor`    | `string`  | Defines the value prop color. Available options: `grey`, `white`. Default is `grey`.                                                                                                         | **OPTIONAL** |
-| `visual.verticalPadding`   | `string`  | Defines the brick vertical padding. Default is `16px`. Min: `8px`. Max: free choice.                                                                                                         | **OPTIONAL** |
-| `visual.horizontalPadding` | `string`  | Defines the brick horizontal padding. Default is `0px`. Min: `0px`. Max: free choice.                                                                                                        | **OPTIONAL** |
-| `visual.hideValueProp`     | `boolean` | Hides the value prop text. Default is `false`.                                                                                                                                               | **OPTIONAL** |
+| Customization key          | Type      | Description                                                                                                                                                                                                           |              |
+| -------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| `texts`                    | `object`  | Controls the texts of the brick.                                                                                                                                                                                      | **OPTIONAL** |
+| `texts.action`             | `string`  | Defines the call to action text. Options available: `pay`, `buy`. Default is `pay`.                                                                                                                                   | **OPTIONAL** |
+| `texts.valueProp`¹         | `string`  | Defines the value prop. Options available: `practicality`, `convenience_all`, `security_details`, `security_safety`, `convenience_credits`, `smart_option` and `payment_methods_logos`. Default is `security_safety`. | **OPTIONAL** |
+| `visual`                   | `object`  | Controls visual aspects of the brick.                                                                                                                                                                                 | **OPTIONAL** |
+| `visual.buttonBackground`  | `string`  | Defines the brick background color. Available options: `default`, `black`, `blue`, `white`. Default is `default`.                                                                                                     | **OPTIONAL** |
+| `visual.buttonHeight`      | `string`  | Defines the brick height. Default is `48px`. Min: `48px`. Max: free choice.                                                                                                                                           | **OPTIONAL** |
+| `visual.borderRadius`      | `string`  | Defines the brick border radius. Default is `6px`.                                                                                                                                                                    | **OPTIONAL** |
+| `visual.valuePropColor`    | `string`  | Defines the value prop color. Available options: `grey`, `white`. Default is `grey`.                                                                                                                                  | **OPTIONAL** |
+| `visual.verticalPadding`   | `string`  | Defines the brick vertical padding. Default is `16px`. Min: `8px`. Max: free choice.                                                                                                                                  | **OPTIONAL** |
+| `visual.horizontalPadding` | `string`  | Defines the brick horizontal padding. Default is `0px`. Min: `0px`. Max: free choice.                                                                                                                                 | **OPTIONAL** |
+| `visual.hideValueProp`     | `boolean` | Hides the value prop text. Default is `false`.                                                                                                                                                                        | **OPTIONAL** |
 
 ---
 
-¹ **Value prop**: for more details about the value props and its behavior, see the [Change texts](https://www.mercadopago.com/developers/en/docs/checkout-bricks/wallet-brick/additional-customization/change-texts) page.
+¹ **Value prop**: for more details about the value props and its behavior, see the [Change texts](https://www.mercadopago.com/developers/en/docs/checkout-bricks/wallet-brick/visual-customizations/change-texts) page.
 
 #### Value prop availability
 
-| Site              | Value prop availability                                                                                         |
-| ----------------- | --------------------------------------------------------------------------------------------------------------- |
-| `MLA (Argentina)` | `practicality`, `convenience_all`, `security_details`, `security_safety`, `convenience_credits`, `smart_option` |
-| `MLB (Brazil)`    | `practicality`, `convenience_all`, `security_details`, `security_safety`, `convenience_credits`, `smart_option` |
-| `MLM (Mexico)`    | `practicality`, `convenience_all`, `security_details`, `security_safety`, `convenience_credits`, `smart_option` |
-| `MCO (Colombia)`  | `practicality`, `security_details`, `security_safety`, `smart_option`                                           |
-| `MLU (Uruguay)`   | `practicality`, `security_details`, `security_safety`, `smart_option`                                           |
-| `MLC (Chile)`     | `practicality`, `security_details`, `security_safety`, `smart_option`                                           |
-| `MPE (Peru)`      | `practicality`, `security_details`, `security_safety`, `smart_option`                                           |
+| Country                 | Value prop availability                                                                                                                  |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| :argentina: `Argentina` | `practicality`, `convenience_all`, `security_details`, `security_safety`, `convenience_credits`, `smart_option`, `payment_methods_logos` |
+| :brazil: `Brazil`       | `practicality`, `convenience_all`, `security_details`, `security_safety`, `convenience_credits`, `smart_option`, `payment_methods_logos` |
+| :mexico: `Mexico`       | `practicality`, `convenience_all`, `security_details`, `security_safety`, `convenience_credits`, `smart_option`, `payment_methods_logos` |
+| :colombia: `Colombia`   | `practicality`, `security_details`, `security_safety`, `smart_option`,`payment_methods_logos`                                            |
+| :uruguay: `Uruguay`     | `practicality`, `security_details`, `security_safety`, `smart_option`, `payment_methods_logos`                                           |
+| :chile: `Chile`         | `practicality`, `security_details`, `security_safety`, `smart_option`, `payment_methods_logos`                                           |
+| :peru: `Peru`           | `practicality`, `security_details`, `security_safety`, `smart_option`, `payment_methods_logos`                                           |
+
+> [!CAUTION]
+> **Important notice about `payment_methods_logos`**<br>
+> When using the value prop `payment_methods_logos`, it is recommended to initialize Wallet Brick with a preference.<br>
+> If the preference has zero or only one valid payment method, Wallet Brick will stop displaying the payment methods logos and will show a fallback text according to the country.<br>
+> See the table below to know each fallback text.
+
+| Country                 | Fallback text                                |
+| ----------------------- | -------------------------------------------- |
+| :argentina: `Argentina` | `Account money or installments with no card` |
+| :brazil: `Brazil`       | `Account money or installments with no card` |
+| :mexico: `Mexico`       | `Account money or installments with no card` |
+| :colombia: `Colombia`   | `With account money`                         |
+| :uruguay: `Uruguay`     | `With account money`                         |
+| :chile: `Chile`         | `With account money`                         |
+| :peru: `Peru`           | `With account money`                         |
 
 <br>
 
