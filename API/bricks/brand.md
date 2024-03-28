@@ -1,4 +1,5 @@
 # `BricksBuilder`.create(`brick`, `target`, `settings`)
+
 ### This Brick is temporarily exclusive for **MLA (Argentina)** 🇦🇷
 
 Example without settings:
@@ -73,7 +74,7 @@ Customizations object is used to load Brick under different conditions.
 | ----------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------ |
 | `paymentMethods`                          | `object`   | Controls which information about payment methods and payment method types will appear on the Brand Brick - at the default render and modal. Contains `excludedPaymentMethods`,`excludedPaymentTypes`,`maxInstallments` and `interestFreeInstallments`. | **OPTIONAL** |
 | `paymentMethods.excludedPaymentMethods`   | `string[]` | Defines which Payment Method will not be shown at Brand Brick. The payment method name needs to be lower case. [See options here](#options)                                                                                                            | **OPTIONAL** |
-| `paymentMethods.excludedPaymentTypes`     | `string[]` | Defines which Payment Method Type will not be shown at Brand Brick. The default value is `empty`. The possible value are `credit_card`, `debit_card` and `ticket`                                                                                      | **OPTIONAL** |
+| `paymentMethods.excludedPaymentTypes`     | `string[]` | Defines which Payment Method Type will not be shown at Brand Brick. The default value is `empty`. The possible values are `credit_card`, `debit_card` and `ticket`                                                                                     | **OPTIONAL** |
 | `paymentMethods.interestFreeInstallments` | `boolean`  | Defines if it will be shown that the installments have interest or do not have interest. The possible values are `true` or `false`.                                                                                                                    | **OPTIONAL** |
 | `paymentMethods.maxInstallments`          | `number`   | Defines which value will be shown as maximum installments accepted by the seller. If filled, the value starts at `2` and the maximum allowed to show is `12`.                                                                                          | **OPTIONAL** |
 | `text`                                    | `object`   | Controls which message will appear on the Brand Brick. Contains `valueProp`, `useCustomFont`, `textSize`, `fontWeight` and `color`.                                                                                                                    | **OPTIONAL** |
@@ -98,24 +99,22 @@ Customizations object is used to load Brick under different conditions.
 
 The excluded payment options are
 
-|                  |
-| ---------------- |
-| `master`         |
-| `visa`           |
-| `amex`           |
-| `naranja`        |
-| `maestro`        |
-| `cabal`          |
-| `cencosud`       |
-| `cordobesa`      |
-| `argencard`      |
-| `diners`         |
-| `tarshop`        |
-| `cmr`            |
-| `rapipago`       |
-| `pagofacil`      |
-| `mercadopago`    |
-| `mercadocredito` |
+|             |
+| ----------- |
+| `master`    |
+| `visa`      |
+| `amex`      |
+| `naranja`   |
+| `maestro`   |
+| `cabal`     |
+| `cencosud`  |
+| `cordobesa` |
+| `argencard` |
+| `diners`    |
+| `tarshop`   |
+| `cmr`       |
+| `rapipago`  |
+| `pagofacil` |
 
 ## Callbacks
 
