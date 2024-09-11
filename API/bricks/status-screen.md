@@ -138,6 +138,7 @@ Customizations object is used to load Brick under different conditions.
 | `visual.showExternalReference` | `boolean`     | Shows the `external_reference` field from the Payments API                                                          | **OPTIONAL** |
 | `visual.hideTransactionDate`   | `boolean`     | Controls if the transaction date is shown in the Brick                                                              | **OPTIONAL** |
 | `visual.hideStatusDetails`     | `boolean`     | Controls if the status detail of the payment is shown in the Brick                                                  | **OPTIONAL** |
+| `visual.hidePixQrCode`     | `boolean`     | Controls if the QR Code for Pix is shown in the Brick (only applies in MLB).                                            | **OPTIONAL** |
 
 <br />
 
