@@ -133,12 +133,11 @@ Customizations object is used to load Brick under different conditions.
 | `backUrls`                     | `object`      | Controls whether the brick will show the user a button to navigate back to the seller's website                     | **OPTIONAL** |
 | `visual`                       | `object`      | Control the visual aspects of the brick. Contains `style`, `font`, `texts`, `hidePaymentButton` and `hideFormTitle` | **OPTIONAL** |
 | `visual.texts`                 | `CustomTexts` | Defines custom texts for the Brick (available custom texts vary by Brick).                                          | **OPTIONAL** |
-| `visual.font`                  | `string`      | Defines the custom font URL. This only applies to the [Secure Fields](../fields.md#fields-module).                  | **OPTIONAL** |
 | `visual.style`                 | `Style`       | Defines custom theme and CSS variables                                                                              | **OPTIONAL** |
 | `visual.showExternalReference` | `boolean`     | Shows the `external_reference` field from the Payments API                                                          | **OPTIONAL** |
 | `visual.hideTransactionDate`   | `boolean`     | Controls if the transaction date is shown in the Brick                                                              | **OPTIONAL** |
 | `visual.hideStatusDetails`     | `boolean`     | Controls if the status detail of the payment is shown in the Brick                                                  | **OPTIONAL** |
-| `visual.hidePixQrCode`     | `boolean`     | Controls if the QR Code for Pix is shown in the Brick (only applies in MLB).                                            | **OPTIONAL** |
+| `visual.hidePixQrCode`         | `boolean`     | Controls if the QR Code for Pix is shown in the Brick (only applies in MLB).                                        | **OPTIONAL** |
 
 <br />
 
