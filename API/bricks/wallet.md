@@ -241,13 +241,12 @@ Customizations object is used to load Brick under different conditions.
 
 ### **Opening scheme**
 
-There are three ways to open the checkout experience: redirect on the same tab, which is the default, redirecting to a new tab or using a modal.
+There are three ways to open the checkout experience: redirect on the same tab, which is the default, or redirecting to a new tab.
 
 | Parameter      | value   | Description                                 |
 | -------------- | ------- | ------------------------------------------- |
 | `redirectMode` | `self`  | Keeps the redirect on the same page         |
 | `redirectMode` | `blank` | Makes the redirect to a new page            |
-| `redirectMode` | `modal` | Opens the checkout experience in modal mode |
 
 <details>
   <summary>HTML/JS example</summary>
@@ -256,7 +255,7 @@ There are three ways to open the checkout experience: redirect on the same tab, 
 mp.bricks().create("wallet", "walletBrick_container", {
   initialization: {
     preferenceId: "<PREFERENCE_ID>", // preferenceId generated in the backend
-    redirectMode: "modal", // default value is 'self'
+    redirectMode: "blank", // default value is 'self'
   },
 });
 ```
@@ -272,7 +271,7 @@ const App = () => {
     <Wallet
       initialization={{
         preferenceId: "PREFERENCE_ID", // preferenceId generated in the backend
-        redirectMode: "modal", // default value is 'self'
+        redirectMode: "blank", // default value is 'self'
       }}
     />
   );
