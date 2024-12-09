@@ -205,6 +205,7 @@ Options:
 | `customFonts`          | `array`   | Defines field customFonts. [See more](#custom-fonts)  | **OPTIONAL** | ALL                            |
 | `mode`                 | `string`  | Defines year mode. [See more](#year-mode)             | **OPTIONAL** | expirationYear, expirationDate |
 | `enableLuhnValidation` | `boolean` | Defines Luhn validation. [See more](#luhn-validation) | **OPTIONAL** | cardNumber                     |
+| `srLabel`              | `string`  | Defines the label for screen readers                  | **OPTIONAL** | ALL                            |
 
 <br />
 
@@ -549,10 +550,11 @@ Method to update field properties.
 
 The table below specifies the properties available for being updated.
 
-| Property    | Type                           | Description       | Enabled for              |
-| ----------- | ------------------------------ | ----------------- | ------------------------ |
-| placeholder | `string`                       | Field placeholder | ALL                      |
-| settings    | `SecurityCode` \| `CardNumber` | Field settings    | securityCode, cardNumber |
+| Property    | Type                           | Description                                        | Enabled for              |
+| ----------- | ------------------------------ | -------------------------------------------------- | ------------------------ |
+| placeholder | `string`                       | Field placeholder                                  | ALL                      |
+| settings    | `SecurityCode` \| `CardNumber` | Field settings                                     | securityCode, cardNumber |
+| invalid     | `boolean`                      | Applies the aria-invalid status for screen readers | ALL                      |
 
 `SecurityCode`
 
