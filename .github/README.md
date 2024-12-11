@@ -472,27 +472,39 @@ See the [API reference](#api)
 
 </details>
 
-## API
+## API Reference
 
-### MercadoPago(`public_key`[`, options`])
+### Class: MercadoPago
 
-SDK instantiation method.
+Main SDK class for integrating MercadoPago payment solutions.
 
-#### Params:
+#### Constructor
 
-`public_key` | _string_, **REQUIRED**
+```typescript
+new MercadoPago(publicKey: string, options?: MercadoPagoOptions)
+```
 
-Public key for the merchant account.
+Creates a new instance of the MercadoPago SDK.
 
-`options` | _object_, **OPTIONAL**
+##### Parameters
 
-| Option name               | Values                                                                                          | Default                | Type      | Description                                      |              |
-| ------------------------- | ----------------------------------------------------------------------------------------------- | ---------------------- | --------- | ------------------------------------------------ | ------------ |
-| `locale`                  | `es-AR`<br>`es-CL`<br>`es-CO`<br>`es-MX`<br>`es-VE`<br>`es-UY`<br>`es-PE`<br>`pt-BR`<br>`en-US` | Browser default locale | _string_  | Set the locale                                   | **OPTIONAL** |
-| `advancedFraudPrevention` | `true\|false`                                                                                   | true                   | _boolean_ | Set the advanced fraud prevention status         | **OPTIONAL** |
-| `trackingDisabled`        | `true\|false`                                                                                   | false                  | _boolean_ | Enable/disable tracking of generic usage metrics | **OPTIONAL** |
+- `publicKey` _string_ **Required**  
+  The public key for your merchant account
 
-#### Example
+- `options` _object_ **Optional**  
+  Configuration options for the SDK instance
+
+  | Property                  | Type    | Default         | Description                                                                                                                                                                                                                                                                                                                       |
+  | ------------------------- | ------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | `locale`                  | string  | Browser default | Payment form locale. Valid values:<br/>• `es-AR` - Argentina Spanish<br/>• `es-CL` - Chile Spanish<br/>• `es-CO` - Colombia Spanish<br/>• `es-MX` - Mexico Spanish<br/>• `es-VE` - Venezuela Spanish<br/>• `es-UY` - Uruguay Spanish<br/>• `es-PE` - Peru Spanish<br/>• `pt-BR` - Brazilian Portuguese<br/>• `en-US` - US English |
+  | `advancedFraudPrevention` | boolean | `true`          | Enable/disable advanced fraud prevention features                                                                                                                                                                                                                                                                                 |
+  | `trackingDisabled`        | boolean | `false`         | Disable tracking of generic usage metrics                                                                                                                                                                                                                                                                                         |
+
+##### Returns
+
+- `MercadoPago` - New SDK instance
+
+##### Example
 
 ```javascript
 const mp = new MercadoPago("PUBLIC_KEY", {
@@ -501,23 +513,19 @@ const mp = new MercadoPago("PUBLIC_KEY", {
 });
 ```
 
-#### Return: `mp instance`
+#### Available Modules
 
-Check the reference for all SDK modules.
+The SDK instance provides access to the following modules:
 
-|                                         |
-| --------------------------------------- |
-| [Checkout Bricks](/API/bricks/index.md) |
-| [Card Form](/API/card-form.md)          |
-| [Core Methods](/API/core-methods.md)    |
-| [Secure Fields](/API/fields.md)         |
-| [Checkout Pro](/API/checkout-pro.md)    |
-
-<br />
+| Module          | Documentation                         |
+| --------------- | ------------------------------------- |
+| Checkout Bricks | [Documentation](/API/bricks/index.md) |
+| Card Form       | [Documentation](/API/card-form.md)    |
+| Core Methods    | [Documentation](/API/core-methods.md) |
+| Secure Fields   | [Documentation](/API/fields.md)       |
+| Checkout Pro    | [Documentation](/API/checkout-pro.md) |
 
 ---
-
-<br />
 
 ## React library
 
@@ -525,7 +533,7 @@ The [React SDK library](https://github.com/mercadopago/sdk-react) makes the inte
 
 > Currently available for Checkout Pro and Checkout Bricks
 
-```js
+```javascript
 import { initMercadoPago } from "@mercadopago/sdk-react";
 
 initMercadoPago("YOUR_PUBLIC_KEY");
