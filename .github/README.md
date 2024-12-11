@@ -523,13 +523,13 @@ const mp = new MercadoPago("PUBLIC_KEY", {
 
 The SDK instance provides access to the following modules:
 
-| Module          | Documentation                         |
-| --------------- | ------------------------------------- |
-| Checkout Bricks | [Documentation](/API/bricks/index.md) |
-| Card Form       | [Documentation](/API/card-form.md)    |
-| Core Methods    | [Documentation](/API/core-methods.md) |
-| Secure Fields   | [Documentation](/API/fields.md)       |
-| Checkout Pro    | [Documentation](/API/checkout-pro.md) |
+| Module          | Documentation                          |
+| --------------- | -------------------------------------- |
+| Checkout Bricks | [Documentation](/docs/bricks/index.md) |
+| Card Form       | [Documentation](/docs/card-form.md)    |
+| Core Methods    | [Documentation](/docs/core-methods.md) |
+| Secure Fields   | [Documentation](/docs/fields.md)       |
+| Checkout Pro    | [Documentation](/docs/checkout-pro.md) |
 
 ---
 
