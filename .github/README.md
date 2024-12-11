@@ -42,6 +42,12 @@ or
 npm install @mercadopago/sdk-js;
 ```
 
+You can also use the type definitions provided as a `npm` package:
+
+```bash
+npm install --save-dev @types/mercadopago-sdk-js
+```
+
 ## Initializing
 
 To start the SDK, you need to assign your `public_key` along with some `options`.
