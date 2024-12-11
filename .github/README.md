@@ -1,32 +1,12 @@
-# SDK MercadoPago.js V2
-
-<br />
-
-## Table of Contents
-
-1. [About](#about)
-2. [Support](#support)
-   1. [Desktop web](#desktop-web)
-   2. [Mobile web](#mobile-web)
-3. [Installation](#installation)
-4. [Initializing](#initializing)
-5. [Checkout API](#checkout-api)
-6. [Bricks](#bricks)
-7. [Checkout Pro](#checkout-pro)
-8. [API](#api)
-9. [Notes](#notes)
-
-<br />
+# SDK MercadoPago.js
 
 ## About
 
-It is a **clientside SDK** whose main objective is to **facilitate the integration of Mercado Pago payment solutions on your website**, thus allowing a secure flow and within the security standards of sensitive data transfer.
+A **clientside SDK** whose main objective is to **facilitate the integration of Mercado Pago payment solutions on your website**, allowing a secure flow within the security standards for sensitive data transfer.
 
-<br />
+## Browser Support
 
-## Support
-
-### Desktop web
+### Desktop Browsers
 
 | Browser           | Support  |
 | ----------------- | -------- |
@@ -37,9 +17,7 @@ It is a **clientside SDK** whose main objective is to **facilitate the integrati
 | Opera             | Complete |
 | Internet Explorer | 11       |
 
-<br />
-
-### Mobile web
+### Mobile Browsers
 
 | Browser         | Support  |
 | --------------- | -------- |
@@ -48,11 +26,11 @@ It is a **clientside SDK** whose main objective is to **facilitate the integrati
 | Safari          | 13.3+    |
 | Android Browser | Complete |
 
-<br />
+## Getting Started
 
-## Installation
+### Installation
 
-To install the SDK, you must include the script in your application's HTML or install a package on `npm`
+To install the SDK, you must include the script in your application's HTML or install as a package via `npm`
 
 ```html
 <script src="https://sdk.mercadopago.com/js/v2"></script>
@@ -60,17 +38,15 @@ To install the SDK, you must include the script in your application's HTML or in
 
 or
 
-```javascript
+```bash
 npm install @mercadopago/sdk-js;
 ```
-
-<br />
 
 ## Initializing
 
 To start the SDK, you need to assign your `public_key` along with some `options`.
 
-If you are using `html` reference:
+If you are embedding the script in your HTML:
 
 ### Example:
 
@@ -80,7 +56,7 @@ const mp = new MercadoPago("YOUR_PUBLIC_KEY", {
 });
 ```
 
-If you are using `npm` package:
+If you are using the `npm` package:
 
 ### Example:
 
@@ -92,8 +68,6 @@ const mp = new window.MercadoPago("YOUR_PUBLIC_KEY", {
   locale: "en-US",
 });
 ```
-
-<br/>
 
 ## Checkout API
 
@@ -116,72 +90,71 @@ A modular, secure and customizable payment solution, where you control the entir
 | Wallet               | Wallet Brick allows you to offer payments from your Mercado Pago account at any stage of the purchase process.                                                                                                                                                                                                                                  | [🇦🇷 Argentina](https://www.mercadopago.com.ar/developers/es/live-demo/wallet-brick)<br/>[🇧🇷 Brazil](https://www.mercadopago.com.br/developers/pt/live-demo/wallet-brick)<br/>[🇨🇱 Chile](https://www.mercadopago.cl/developers/es/live-demo/wallet-brick)<br/>[🇨🇴 Colombia](https://www.mercadopago.com.co/developers/es/live-demo/wallet-brick)<br/>[🇲🇽 Mexico](https://www.mercadopago.com.mx/developers/es/live-demo/wallet-brick)<br/>[🇵🇪 Peru](https://www.mercadopago.com.pe/developers/es/live-demo/wallet-brick)<br/>[🇺🇾 Uruguay](https://www.mercadopago.com.uy/developers/es/live-demo/wallet-brick)                                                  |
 | Status Screen Bricks | The Status Screen Brick allows you to show the buyer the status of a purchase made with any payment method provided by Checkout Bricks.                                                                                                                                                                                                         | [🇦🇷 Argentina](https://www.mercadopago.com.ar/developers/es/live-demo/status-screen-brick)<br/>[🇧🇷 Brazil](https://www.mercadopago.com.br/developers/pt/live-demo/status-screen-brick)<br/>[🇨🇱 Chile](https://www.mercadopago.cl/developers/es/live-demo/status-screen-brick)<br/>[🇨🇴 Colombia](https://www.mercadopago.com.co/developers/es/live-demo/status-screen-brick)<br/>[🇲🇽 Mexico](https://www.mercadopago.com.mx/developers/es/live-demo/status-screen-brick)<br/>[🇵🇪 Peru](https://www.mercadopago.com.pe/developers/es/live-demo/status-screen-brick)<br/>[🇺🇾 Uruguay](https://www.mercadopago.com.uy/developers/es/live-demo/status-screen-brick) |
 
-<br />
-
-<br />
 <details>
   <summary>Full example using Bricks</summary>
 
-```HTML
+```html
 <html>
-    <body>
-        <div id="cardPaymentBrick_container"></div>
-    </body>
+  <body>
+    <div id="cardPaymentBrick_container"></div>
+  </body>
 </html>
 <script src="https://sdk.mercadopago.com/js/v2"></script>
 
-
 <script>
-    const mp = new MercadoPago('YOUR_PUBLIC_KEY');
-    const bricksBuilder = mp.bricks();
+  const mp = new MercadoPago("YOUR_PUBLIC_KEY");
+  const bricksBuilder = mp.bricks();
 
-    const renderCardPaymentBrick = async (bricksBuilder) => {
-
-        const settings = {
-            initialization: {
-                amount: 100, //value of the payment to be processed
-            },
-            customization: {
-                visual: {
-                    style: {
-                        theme: 'dark' // 'default' |'dark' | 'bootstrap' | 'flat'
-                    }
-                }
-            },
-            callbacks: {
-                onSubmit: (cardFormData) => {
-                    return new Promise((resolve, reject) => {
-                        fetch("/process_payment", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(cardFormData)
-                        })
-                        .then(resp => resp.json())
-                        .then((response) => {
-                            // get payment result
-                            resolve();
-                        })
-                        .catch((error) => {
-                            // get payment result error
-                            reject();
-                        })
-                    });
-                },
-                onReady: () => {
-                    // handle form ready
-                },
-                onError: (error) => {
-                    // handle error
-                }
-            }
-        }
-
-        cardPaymentBrickController = await bricksBuilder.create('cardPayment', 'cardPaymentBrick_container', settings);
+  const renderCardPaymentBrick = async (bricksBuilder) => {
+    const settings = {
+      initialization: {
+        amount: 100, //value of the payment to be processed
+      },
+      customization: {
+        visual: {
+          style: {
+            theme: "dark", // 'default' |'dark' | 'bootstrap' | 'flat'
+          },
+        },
+      },
+      callbacks: {
+        onSubmit: (cardFormData) => {
+          return new Promise((resolve, reject) => {
+            fetch("/process_payment", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(cardFormData),
+            })
+              .then((resp) => resp.json())
+              .then((response) => {
+                // get payment result
+                resolve();
+              })
+              .catch((error) => {
+                // get payment result error
+                reject();
+              });
+          });
+        },
+        onReady: () => {
+          // handle form ready
+        },
+        onError: (error) => {
+          // handle error
+        },
+      },
     };
 
-    renderCardPaymentBrick(bricksBuilder);
+    cardPaymentBrickController = await bricksBuilder.create(
+      "cardPayment",
+      "cardPaymentBrick_container",
+      settings,
+    );
+  };
+
+  renderCardPaymentBrick(bricksBuilder);
 </script>
 ```
 
@@ -190,240 +163,276 @@ A modular, secure and customizable payment solution, where you control the entir
 <details>
   <summary>Full example using Core Methods</summary>
 
-```HTML
+```html
 <style>
-    #form-checkout {
-      display: flex;
-      flex-direction: column;
-      max-width: 600px;
-    }
+  #form-checkout {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+  }
 
-    .container {
-      height: 18px;
-      display: inline-block;
-      border: 1px solid rgb(118, 118, 118);
-      border-radius: 2px;
-      padding: 1px 2px;
-    }
-  </style>
-  <form id="form-checkout" action="/process_payment" method="POST">
-    <div id="form-checkout__cardNumber" class="container"></div>
-    <div id="form-checkout__expirationDate" class="container"></div>
-    <div id="form-checkout__securityCode" class="container"></div>
-    <input type="text" id="form-checkout__cardholderName" placeholder="Titular do cartão" />
-    <select id="form-checkout__issuer" name="issuer">
-      <option value="" disabled selected>Banco emissor</option>
-    </select>
-    <select id="form-checkout__installments" name="installments">
-      <option value="" disabled selected>Parcelas</option>
-    </select>
-    <select id="form-checkout__identificationType" name="identificationType">
-      <option value="" disabled selected>Tipo de documento</option>
-    </select>
-    <input type="text" id="form-checkout__identificationNumber" name="identificationNumber" placeholder="Número do documento" />
-    <input type="email" id="form-checkout__email" name="email" placeholder="E-mail" />
+  .container {
+    height: 18px;
+    display: inline-block;
+    border: 1px solid rgb(118, 118, 118);
+    border-radius: 2px;
+    padding: 1px 2px;
+  }
+</style>
+<form id="form-checkout" action="/process_payment" method="POST">
+  <div id="form-checkout__cardNumber" class="container"></div>
+  <div id="form-checkout__expirationDate" class="container"></div>
+  <div id="form-checkout__securityCode" class="container"></div>
+  <input
+    type="text"
+    id="form-checkout__cardholderName"
+    placeholder="Titular do cartão"
+  />
+  <select id="form-checkout__issuer" name="issuer">
+    <option value="" disabled selected>Banco emissor</option>
+  </select>
+  <select id="form-checkout__installments" name="installments">
+    <option value="" disabled selected>Parcelas</option>
+  </select>
+  <select id="form-checkout__identificationType" name="identificationType">
+    <option value="" disabled selected>Tipo de documento</option>
+  </select>
+  <input
+    type="text"
+    id="form-checkout__identificationNumber"
+    name="identificationNumber"
+    placeholder="Número do documento"
+  />
+  <input
+    type="email"
+    id="form-checkout__email"
+    name="email"
+    placeholder="E-mail"
+  />
 
-    <input id="token" name="token" type="hidden">
-    <input id="paymentMethodId" name="paymentMethodId" type="hidden">
-    <input id="transactionAmount" name="transactionAmount" type="hidden" value="100">
-    <input id="description" name="description" type="hidden" value="Nome do Produto">
+  <input id="token" name="token" type="hidden" />
+  <input id="paymentMethodId" name="paymentMethodId" type="hidden" />
+  <input
+    id="transactionAmount"
+    name="transactionAmount"
+    type="hidden"
+    value="100"
+  />
+  <input
+    id="description"
+    name="description"
+    type="hidden"
+    value="Nome do Produto"
+  />
 
-    <button type="submit" id="form-checkout__submit">Pagar</button>
-  </form>
-
+  <button type="submit" id="form-checkout__submit">Pagar</button>
+</form>
 
 <script>
   const mp = new MercadoPago("YOUR_PUBLIC_KEY");
 </script>
 
-
-  <script>
-        const cardNumberElement = mp.fields.create('cardNumber', {
-      placeholder: "Número do cartão"
-    }).mount('form-checkout__cardNumber');
-    const expirationDateElement = mp.fields.create('expirationDate', {
+<script>
+  const cardNumberElement = mp.fields
+    .create("cardNumber", {
+      placeholder: "Número do cartão",
+    })
+    .mount("form-checkout__cardNumber");
+  const expirationDateElement = mp.fields
+    .create("expirationDate", {
       placeholder: "MM/YY",
-    }).mount('form-checkout__expirationDate');
-    const securityCodeElement = mp.fields.create('securityCode', {
-      placeholder: "Código de segurança"
-    }).mount('form-checkout__securityCode');
+    })
+    .mount("form-checkout__expirationDate");
+  const securityCodeElement = mp.fields
+    .create("securityCode", {
+      placeholder: "Código de segurança",
+    })
+    .mount("form-checkout__securityCode");
 
+  (async function getIdentificationTypes() {
+    try {
+      const identificationTypes = await mp.getIdentificationTypes();
+      const identificationTypeElement = document.getElementById(
+        "form-checkout__identificationType",
+      );
 
-
-
-    (async function getIdentificationTypes() {
-      try {
-        const identificationTypes = await mp.getIdentificationTypes();
-        const identificationTypeElement = document.getElementById('form-checkout__identificationType');
-
-        createSelectOptions(identificationTypeElement, identificationTypes);
-      } catch (e) {
-        return console.error('Error getting identificationTypes: ', e);
-      }
-    })();
-
-    function createSelectOptions(elem, options, labelsAndKeys = { label: "name", value: "id" }) {
-      const { label, value } = labelsAndKeys;
-
-      elem.options.length = 0;
-
-      const tempOptions = document.createDocumentFragment();
-
-      options.forEach(option => {
-        const optValue = option[value];
-        const optLabel = option[label];
-
-        const opt = document.createElement('option');
-        opt.value = optValue;
-        opt.textContent = optLabel;
-
-        tempOptions.appendChild(opt);
-      });
-
-      elem.appendChild(tempOptions);
+      createSelectOptions(identificationTypeElement, identificationTypes);
+    } catch (e) {
+      return console.error("Error getting identificationTypes: ", e);
     }
+  })();
 
+  function createSelectOptions(
+    elem,
+    options,
+    labelsAndKeys = { label: "name", value: "id" },
+  ) {
+    const { label, value } = labelsAndKeys;
 
+    elem.options.length = 0;
 
+    const tempOptions = document.createDocumentFragment();
 
-    const paymentMethodElement = document.getElementById('paymentMethodId');
-    const issuerElement = document.getElementById('form-checkout__issuer');
-    const installmentsElement = document.getElementById('form-checkout__installments');
+    options.forEach((option) => {
+      const optValue = option[value];
+      const optLabel = option[label];
 
-    const issuerPlaceholder = "Banco emissor";
-    const installmentsPlaceholder = "Parcelas";
+      const opt = document.createElement("option");
+      opt.value = optValue;
+      opt.textContent = optLabel;
 
-    let currentBin;
-    cardNumberElement.on('binChange', async (data) => {
-      const { bin } = data;
-      try {
-        if (!bin && paymentMethodElement.value) {
-          clearSelectsAndSetPlaceholders();
-          paymentMethodElement.value = "";
-        }
-
-        if (bin && bin !== currentBin) {
-          const { results } = await mp.getPaymentMethods({ bin });
-          const paymentMethod = results[0];
-
-          paymentMethodElement.value = paymentMethod.id;
-          updatePCIFieldsSettings(paymentMethod);
-          updateIssuer(paymentMethod, bin);
-          updateInstallments(paymentMethod, bin);
-        }
-
-        currentBin = bin;
-      } catch (e) {
-        console.error('error getting payment methods: ', e)
-      }
+      tempOptions.appendChild(opt);
     });
 
-    function clearSelectsAndSetPlaceholders() {
-      clearHTMLSelectChildrenFrom(issuerElement);
-      createSelectElementPlaceholder(issuerElement, issuerPlaceholder);
+    elem.appendChild(tempOptions);
+  }
 
-      clearHTMLSelectChildrenFrom(installmentsElement);
-      createSelectElementPlaceholder(installmentsElement, installmentsPlaceholder);
-    }
+  const paymentMethodElement = document.getElementById("paymentMethodId");
+  const issuerElement = document.getElementById("form-checkout__issuer");
+  const installmentsElement = document.getElementById(
+    "form-checkout__installments",
+  );
 
-    function clearHTMLSelectChildrenFrom(element) {
-      const currOptions = [...element.children];
-      currOptions.forEach(child => child.remove());
-    }
+  const issuerPlaceholder = "Banco emissor";
+  const installmentsPlaceholder = "Parcelas";
 
-    function createSelectElementPlaceholder(element, placeholder) {
-      const optionElement = document.createElement('option');
-      optionElement.textContent = placeholder;
-      optionElement.setAttribute('selected', "");
-      optionElement.setAttribute('disabled', "");
-
-      element.appendChild(optionElement);
-    }
-
-    // Esta etapa melhora as validações cardNumber e securityCode
-    function updatePCIFieldsSettings(paymentMethod) {
-      const { settings } = paymentMethod;
-
-      const cardNumberSettings = settings[0].card_number;
-      cardNumberElement.update({
-        settings: cardNumberSettings
-      });
-
-      const securityCodeSettings = settings[0].security_code;
-      securityCodeElement.update({
-        settings: securityCodeSettings
-      });
-    }
-
-
-
-    async function updateIssuer(paymentMethod, bin) {
-      const { additional_info_needed, issuer } = paymentMethod;
-      let issuerOptions = [issuer];
-
-      if (additional_info_needed.includes('issuer_id')) {
-        issuerOptions = await getIssuers(paymentMethod, bin);
+  let currentBin;
+  cardNumberElement.on("binChange", async (data) => {
+    const { bin } = data;
+    try {
+      if (!bin && paymentMethodElement.value) {
+        clearSelectsAndSetPlaceholders();
+        paymentMethodElement.value = "";
       }
 
-      createSelectOptions(issuerElement, issuerOptions);
+      if (bin && bin !== currentBin) {
+        const { results } = await mp.getPaymentMethods({ bin });
+        const paymentMethod = results[0];
+
+        paymentMethodElement.value = paymentMethod.id;
+        updatePCIFieldsSettings(paymentMethod);
+        updateIssuer(paymentMethod, bin);
+        updateInstallments(paymentMethod, bin);
+      }
+
+      currentBin = bin;
+    } catch (e) {
+      console.error("error getting payment methods: ", e);
+    }
+  });
+
+  function clearSelectsAndSetPlaceholders() {
+    clearHTMLSelectChildrenFrom(issuerElement);
+    createSelectElementPlaceholder(issuerElement, issuerPlaceholder);
+
+    clearHTMLSelectChildrenFrom(installmentsElement);
+    createSelectElementPlaceholder(
+      installmentsElement,
+      installmentsPlaceholder,
+    );
+  }
+
+  function clearHTMLSelectChildrenFrom(element) {
+    const currOptions = [...element.children];
+    currOptions.forEach((child) => child.remove());
+  }
+
+  function createSelectElementPlaceholder(element, placeholder) {
+    const optionElement = document.createElement("option");
+    optionElement.textContent = placeholder;
+    optionElement.setAttribute("selected", "");
+    optionElement.setAttribute("disabled", "");
+
+    element.appendChild(optionElement);
+  }
+
+  // Esta etapa melhora as validações cardNumber e securityCode
+  function updatePCIFieldsSettings(paymentMethod) {
+    const { settings } = paymentMethod;
+
+    const cardNumberSettings = settings[0].card_number;
+    cardNumberElement.update({
+      settings: cardNumberSettings,
+    });
+
+    const securityCodeSettings = settings[0].security_code;
+    securityCodeElement.update({
+      settings: securityCodeSettings,
+    });
+  }
+
+  async function updateIssuer(paymentMethod, bin) {
+    const { additional_info_needed, issuer } = paymentMethod;
+    let issuerOptions = [issuer];
+
+    if (additional_info_needed.includes("issuer_id")) {
+      issuerOptions = await getIssuers(paymentMethod, bin);
     }
 
-    async function getIssuers(paymentMethod, bin) {
-      try {
-        const { id: paymentMethodId } = paymentMethod;
-        return await mp.getIssuers({ paymentMethodId, bin });
-      } catch (e) {
-        console.error('error getting issuers: ', e)
-      }
-    };
+    createSelectOptions(issuerElement, issuerOptions);
+  }
 
+  async function getIssuers(paymentMethod, bin) {
+    try {
+      const { id: paymentMethodId } = paymentMethod;
+      return await mp.getIssuers({ paymentMethodId, bin });
+    } catch (e) {
+      console.error("error getting issuers: ", e);
+    }
+  }
 
+  async function updateInstallments(paymentMethod, bin) {
+    try {
+      const installments = await mp.getInstallments({
+        amount: document.getElementById("transactionAmount").value,
+        bin,
+        paymentTypeId: "credit_card",
+      });
+      const installmentOptions = installments[0].payer_costs;
+      const installmentOptionsKeys = {
+        label: "recommended_message",
+        value: "installments",
+      };
+      createSelectOptions(
+        installmentsElement,
+        installmentOptions,
+        installmentOptionsKeys,
+      );
+    } catch (error) {
+      console.error("error getting installments: ", e);
+    }
+  }
 
-    async function updateInstallments(paymentMethod, bin) {
-      try {
-        const installments = await mp.getInstallments({
-          amount: document.getElementById('transactionAmount').value,
-          bin,
-          paymentTypeId: 'credit_card'
+  const formElement = document.getElementById("form-checkout");
+  formElement.addEventListener("submit", createCardToken);
+
+  async function createCardToken(event) {
+    try {
+      const tokenElement = document.getElementById("token");
+      if (!tokenElement.value) {
+        event.preventDefault();
+        const token = await mp.fields.createCardToken({
+          cardholderName: document.getElementById(
+            "form-checkout__cardholderName",
+          ).value,
+          identificationType: document.getElementById(
+            "form-checkout__identificationType",
+          ).value,
+          identificationNumber: document.getElementById(
+            "form-checkout__identificationNumber",
+          ).value,
         });
-        const installmentOptions = installments[0].payer_costs;
-        const installmentOptionsKeys = { label: 'recommended_message', value: 'installments' };
-        createSelectOptions(installmentsElement, installmentOptions, installmentOptionsKeys);
-      } catch (error) {
-        console.error('error getting installments: ', e)
+        tokenElement.value = token.id;
+        formElement.requestSubmit();
       }
+    } catch (e) {
+      console.error("error creating card token: ", e);
     }
-
-
-
-    const formElement = document.getElementById('form-checkout');
-    formElement.addEventListener('submit', createCardToken);
-
-    async function createCardToken(event) {
-      try {
-        const tokenElement = document.getElementById('token');
-        if (!tokenElement.value) {
-          event.preventDefault();
-          const token = await mp.fields.createCardToken({
-            cardholderName: document.getElementById('form-checkout__cardholderName').value,
-            identificationType: document.getElementById('form-checkout__identificationType').value,
-            identificationNumber: document.getElementById('form-checkout__identificationNumber').value,
-          });
-          tokenElement.value = token.id;
-          formElement.requestSubmit();
-        }
-      } catch (e) {
-        console.error('error creating card token: ', e)
-      }
-    }
-
-  </script>
-
-
+  }
+</script>
 ```
 
 </details>
-</br>
 
 ## Checkout Pro
 
@@ -462,7 +471,6 @@ See the [API reference](#api)
 ```
 
 </details>
-<br />
 
 ## API
 
@@ -474,11 +482,9 @@ SDK instantiation method.
 
 `public_key` | _string_, **REQUIRED**
 
-It is the public key for your account.
+Public key for the merchant account.
 
-<br />
- 
-`options` | *object*, **OPTIONAL**
+`options` | _object_, **OPTIONAL**
 
 | Option name               | Values                                                                                          | Default                | Type      | Description                                      |              |
 | ------------------------- | ----------------------------------------------------------------------------------------------- | ---------------------- | --------- | ------------------------------------------------ | ------------ |
@@ -486,9 +492,7 @@ It is the public key for your account.
 | `advancedFraudPrevention` | `true\|false`                                                                                   | true                   | _boolean_ | Set the advanced fraud prevention status         | **OPTIONAL** |
 | `trackingDisabled`        | `true\|false`                                                                                   | false                  | _boolean_ | Enable/disable tracking of generic usage metrics | **OPTIONAL** |
 
-<br />
-
-#### Example:
+#### Example
 
 ```javascript
 const mp = new MercadoPago("PUBLIC_KEY", {
@@ -496,8 +500,6 @@ const mp = new MercadoPago("PUBLIC_KEY", {
   advancedFraudPrevention: true,
 });
 ```
-
-<br />
 
 #### Return: `mp instance`
 
