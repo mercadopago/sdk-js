@@ -328,6 +328,8 @@ null;
 {
     'bin': string,
     'lastFourDigits': string,
+    'cardholderName': string,
+    'paymentTypeId': string,
 }
 ```
 
