@@ -260,6 +260,12 @@ mp.bricks().create("wallet", "walletBrick_container", {
     preferenceId: "<PREFERENCE_ID>", // preferenceId generated in the backend
     redirectMode: "blank", // default value is 'self'
   },
+  customization: {
+    theme: 'black',
+    customStyle: {
+      borderRadius: '20px',
+    }
+  }
 });
 ```
 
@@ -275,6 +281,12 @@ const App = () => {
       initialization={{
         preferenceId: "PREFERENCE_ID", // preferenceId generated in the backend
         redirectMode: "blank", // default value is 'self'
+      }}
+      customization={{
+        theme: 'black',
+        customStyle: {
+          borderRadius: '20px',
+        }
       }}
     />
   );
