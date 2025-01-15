@@ -525,7 +525,7 @@ The SDK instance provides access to the following modules:
 
 | Module          | Documentation                          |
 | --------------- | -------------------------------------- |
-| Checkout Bricks | [Documentation](/docs/bricks/index.md) |
+| Checkout Bricks | [Documentation](/docs/bricks/README.md) |
 | Card Form       | [Documentation](/docs/card-form.md)    |
 | Core Methods    | [Documentation](/docs/core-methods.md) |
 | Secure Fields   | [Documentation](/docs/fields.md)       |
