@@ -307,9 +307,11 @@ Accepted properties are:
 | `baseColorSecondVariant`     | `string` |
 | `errorColor`                 | `string` |
 | `successColor`               | `string` |
+| `secondarySuccessColor`      | `string` |
 | `outlinePrimaryColor`        | `string` |
 | `outlineSecondaryColor`      | `string` |
 | `buttonTextColor`            | `string` |
+| `fontSizeExtraExtraSmall`    | `string` |
 | `fontSizeExtraSmall`         | `string` |
 | `fontSizeSmall`              | `string` |
 | `fontSizeMedium`             | `string` |
