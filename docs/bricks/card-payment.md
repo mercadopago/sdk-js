@@ -233,8 +233,8 @@ Customizations object is used to load Brick under different conditions.
 | `paymentMethods.maxInstallments` | `number`      | Maximum number of installments to be offered to the user                                                            | **OPTIONAL** |
 | `paymentMethods.minInstallments` | `number`      | Minimal number of installments to be offered to the user                                                            | **OPTIONAL** |
 | `paymentMethods.types`           | `object`      | Control of the accepted payment types. Contains `excluded` and `included`                                           | **OPTIONAL** |
-| `paymentMethods.types.excluded`  | `string[]`    | Not accepted payment types. Accepts: `credit_card`, `debit_card`                                                    | **OPTIONAL** |
-| `paymentMethods.types.included`  | `string[]`    | Accepted payment types. Accepts: `credit_card`, `debit_card`                                                        | **OPTIONAL** |
+| `paymentMethods.types.excluded`  | `string[]`    | Not accepted payment types. Options: `credit_card`, `prepaid-card`, `debit_card`                                    | **OPTIONAL** |
+| `paymentMethods.types.included`  | `string[]`    | Accepted payment types. Options: `credit_card`, `prepaid-card`, `debit_card`                                        | **OPTIONAL** |
 
 <br />
 
