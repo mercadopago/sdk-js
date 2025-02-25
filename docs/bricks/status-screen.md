@@ -202,10 +202,12 @@ Accepted properties are:
 | `baseColorSecondVariant`     | `string` |
 | `errorColor`                 | `string` |
 | `successColor`               | `string` |
+| `secondarySuccessColor`      | `string` |
 | `warningColor`               | `string` |
 | `outlinePrimaryColor`        | `string` |
 | `outlineSecondaryColor`      | `string` |
 | `buttonTextColor`            | `string` |
+| `fontSizeExtraExtraSmall`    | `string` |
 | `fontSizeExtraSmall`         | `string` |
 | `fontSizeSmall`              | `string` |
 | `fontSizeMedium`             | `string` |
