@@ -190,17 +190,20 @@ The callbacks object contains the auxiliary callbacks functions the brick will c
 
 Customizations object is used to load Brick under different conditions.
 
-| Customization key               | Type      | Description                                                                                                                                                                                                           |              |
-| ------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| `valueProp`¹                    | `string`  | Defines the value prop. Options available: `practicality`, `convenience_all`, `security_details`, `security_safety`, `convenience_credits`, `smart_option` and `payment_methods_logos`. Default is `security_safety`. | **OPTIONAL** |
-| `theme`                         | `string`  | Defines the visual theme of the Brick. Options available: `default`, `black`. Default is `default`.                                                                                                                   | **OPTIONAL** |
-| `customStyle`                   | `object`  | Controls custom visual aspects of the brick. Some options vary depending on theme.                                                                                                                                    | **OPTIONAL** |
-| `customStyle.buttonHeight`      | `string`  | Defines the brick height. Default is `48px`. Min: `48px`. Max: free choice.                                                                                                                                           | **OPTIONAL** |
-| `customStyle.borderRadius`      | `string`  | Defines the brick border radius. Default is `6px`.                                                                                                                                                                    | **OPTIONAL** |
-| `customStyle.valuePropColor`    | `string`  | Defines the value prop color. Options vary depending on theme. For availability details check the _Value Prop Color availability_ table in the next session.                                                          | **OPTIONAL** |
-| `customStyle.verticalPadding`   | `string`  | Defines the brick vertical padding. Default is `8px`. Min: `8px`. Max: free choice.                                                                                                                                  | **OPTIONAL** |
-| `customStyle.horizontalPadding` | `string`  | Defines the brick horizontal padding. Default is `0px`. Min: `0px`. Max: free choice.                                                                                                                                 | **OPTIONAL** |
-| `customStyle.hideValueProp`     | `boolean` | Hides the value prop text. Default is `false`.                                                                                                                                                                        | **OPTIONAL** |
+| Customization key          | Type      | Description                                                                                                                                                                                                           |              |
+| -------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| `texts`                    | `object`  | Controls the texts of the brick.                                                                                                                                                                                      | **OPTIONAL** |
+| `texts.action`             | `string`  | Defines the call to action text. Options available: `pay`, `buy`. Default is `pay`.                                                                                                                                   | **OPTIONAL** |
+| `texts.actionComplement`¹  | `string`  | Defines the action complement. Options available: `brand`, `amount`. Default is `brand`.                                                                                                                              | **OPTIONAL** |
+| `texts.valueProp`¹         | `string`  | Defines the value prop. Options available: `practicality`, `convenience_all`, `security_details`, `security_safety`, `convenience_credits`, `smart_option` and `payment_methods_logos`. Default is `security_safety`. | **OPTIONAL** |
+| `visual`                   | `object`  | Controls visual aspects of the brick.                                                                                                                                                                                 | **OPTIONAL** |
+| `visual.buttonBackground`  | `string`  | Defines the brick background color. Available options: `default`, `black`, `blue`, `white`. Default is `default`.                                                                                                     | **OPTIONAL** |
+| `visual.buttonHeight`      | `string`  | Defines the brick height. Default is `48px`. Min: `48px`. Max: free choice.                                                                                                                                           | **OPTIONAL** |
+| `visual.borderRadius`      | `string`  | Defines the brick border radius. Default is `6px`.                                                                                                                                                                    | **OPTIONAL** |
+| `visual.valuePropColor`    | `string`  | Defines the value prop color. Available options: `grey`, `white`. Default is `grey`.                                                                                                                                  | **OPTIONAL** |
+| `visual.verticalPadding`   | `string`  | Defines the brick vertical padding. Default is `16px`. Min: `8px`. Max: free choice.                                                                                                                                  | **OPTIONAL** |
+| `visual.horizontalPadding` | `string`  | Defines the brick horizontal padding. Default is `0px`. Min: `0px`. Max: free choice.                                                                                                                                 | **OPTIONAL** |
+| `visual.hideValueProp`     | `boolean` | Hides the value prop text. Default is `false`.                                                                                                                                                                        | **OPTIONAL** |
 
 ---
 
@@ -218,14 +221,8 @@ Customizations object is used to load Brick under different conditions.
 | :chile: `Chile`         | `practicality`, `security_details`, `security_safety`, `smart_option`, `payment_methods_logos`                                           |
 | :peru: `Peru`           | `practicality`, `security_details`, `security_safety`, `smart_option`, `payment_methods_logos`                                           |
 
-#### Value prop color availability
-
-| Theme     | Value prop color availability | Default value |
-| --------- | ----------------------------- | ------------- |
-| `dark`    | `black`                       | `black`       |
-| `default` | `blue`, `white`               | `blue`        |
-
-> [!CAUTION] > **Important notice about `payment_methods_logos`**<br>
+> [!CAUTION]
+> **Important notice about `payment_methods_logos`**<br>
 > When using the value prop `payment_methods_logos`, it is recommended to initialize Wallet Brick with a preference.<br>
 > If the preference has zero or only one valid payment method, Wallet Brick will stop displaying the payment methods logos and will show a fallback text according to the country.<br>
 > See the table below to know each fallback text.
@@ -242,56 +239,14 @@ Customizations object is used to load Brick under different conditions.
 
 <br>
 
-<details>
-  <summary>HTML/JS example</summary>
-
-```js
-mp.bricks().create("wallet", "walletBrick_container", {
-  initialization: {
-    preferenceId: "<PREFERENCE_ID>", // preferenceId generated in the backend
-  },
-  customization: {
-    theme: 'black',
-    customStyle: {
-      borderRadius: '20px',
-    }
-  }
-});
-```
-
-</details>
-
-<details>
-  <summary>ReactJS example</summary>
-
-```jsx
-const App = () => {
-  return (
-    <Wallet
-      initialization={{
-        preferenceId: "PREFERENCE_ID", // preferenceId generated in the backend
-      }}
-      customization={{
-        theme: 'black',
-        customStyle: {
-          borderRadius: '20px',
-        }
-      }}
-    />
-  );
-};
-```
-
-</details>
-
 ### **Opening scheme**
 
 There are three ways to open the checkout experience: redirect on the same tab, which is the default, or redirecting to a new tab.
 
-| Parameter      | value   | Description                         |
-| -------------- | ------- | ----------------------------------- |
-| `redirectMode` | `self`  | Keeps the redirect on the same page |
-| `redirectMode` | `blank` | Makes the redirect to a new page    |
+| Parameter      | value   | Description                                 |
+| -------------- | ------- | ------------------------------------------- |
+| `redirectMode` | `self`  | Keeps the redirect on the same page         |
+| `redirectMode` | `blank` | Makes the redirect to a new page            |
 
 <details>
   <summary>HTML/JS example</summary>
@@ -301,7 +256,7 @@ mp.bricks().create("wallet", "walletBrick_container", {
   initialization: {
     preferenceId: "<PREFERENCE_ID>", // preferenceId generated in the backend
     redirectMode: "blank", // default value is 'self'
-  }
+  },
 });
 ```
 
