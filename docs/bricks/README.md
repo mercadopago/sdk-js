@@ -66,5 +66,3 @@ Refer to the specific Brick API refence for parameters and methods specification
 | [`Status Screen`](./status-screen.md)             |
 | [`Wallet`](./wallet.md)                           |
 | [`Brand`](./brand.md)                             |
-
-> Note: The Wallet Brick is currently in a migrations proccess, if you are developing for the countries Argentina or Brazil, please go to [`Wallet (Legacy)`](./legacy/wallet.md)    
