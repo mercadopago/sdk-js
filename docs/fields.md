@@ -198,14 +198,15 @@ The `options` object have properties to customize the field being created.
 
 Options:
 
-| Option key             | Type      | Description                                           |              | Enabled for                    |
-| ---------------------- | --------- | ----------------------------------------------------- | ------------ | ------------------------------ |
-| `placeholder`          | `string`  | Defines field placeholder.                            | **OPTIONAL** | ALL                            |
-| `style`                | `object`  | Defines field styles. [See more](#style)              | **OPTIONAL** | ALL                            |
-| `customFonts`          | `array`   | Defines field customFonts. [See more](#custom-fonts)  | **OPTIONAL** | ALL                            |
-| `mode`                 | `string`  | Defines year mode. [See more](#year-mode)             | **OPTIONAL** | expirationYear, expirationDate |
-| `enableLuhnValidation` | `boolean` | Defines Luhn validation. [See more](#luhn-validation) | **OPTIONAL** | cardNumber                     |
-| `srLabel`              | `string`  | Defines the label for screen readers                  | **OPTIONAL** | ALL                            |
+| Option key             | Type      | Description                                            |              | Enabled for                    |
+| ---------------------- | --------- | ------------------------------------------------------ | ------------ | ------------------------------ |
+| `placeholder`          | `string`  | Defines field placeholder.                             | **OPTIONAL** | ALL                            |
+| `style`                | `object`  | Defines field styles. [See more](#style)               | **OPTIONAL** | ALL                            |
+| `customFonts`          | `array`   | Defines field customFonts. [See more](#custom-fonts)   | **OPTIONAL** | ALL                            |
+| `mode`                 | `string`  | Defines year mode. [See more](#year-mode)              | **OPTIONAL** | expirationYear, expirationDate |
+| `enableLuhnValidation` | `boolean` | Defines Luhn validation. [See more](#luhn-validation)  | **OPTIONAL** | cardNumber                     |
+| `srLabel`              | `string`  | Defines the aria-label attribute for screen readers    | **OPTIONAL** | ALL                            |
+| `ariaRequired`         | `boolean` | Defines the aria-required attribute for screen readers | **OPTIONAL** | ALL                            |
 
 <br />
 
