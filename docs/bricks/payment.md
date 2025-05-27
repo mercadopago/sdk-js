@@ -1,22 +1,66 @@
+# Payment Brick Documentation
+
+The Payment Brick supports two distinct flows based on user authentication status:
+
+## Flow Selection
+
+The brick automatically determines which flow to use based on the presence of the `supertoken` property in the initialization settings:
+
+- **Guest Flow**: Used when `supertoken` is not present in initialization settings
+- **Supertoken Flow**: Used when `supertoken` is present in initialization settings (for authenticated users)
+
+---
+
 ## `BricksBuilder`.create(`brick`, `target`, `settings`)
 
-### Usage example:
+### Parameters
+
+`brick` | _string_, **REQUIRED**
+
+Selected Brick. Possible values are: `payment`.
+
+<br />
+
+`target` | _string_, **REQUIRED**
+
+Id of the container that the brick will be rendered in. Can be any HTML element.
+
+<br />
+
+`settings` | _object_, **REQUIRED**
+
+The `settings` object has properties to initialize and customize the brick being created. The content varies by flow:
+
+| Setting key      | Type     | Description                                                                                                                                                        |              |
+| ---------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------ |
+| `initialization` | `object` | Defines the initialization data. Content varies by flow - see [Guest Flow Settings](#guest-flow-settings) or [Supertoken Flow Settings](#supertoken-flow-settings) | **REQUIRED** |
+| `callbacks`      | `object` | Defines the callback functions. Content varies by flow - see [Guest Flow Settings](#guest-flow-settings) or [Supertoken Flow Settings](#supertoken-flow-settings)  | **REQUIRED** |
+| `customization`  | `object` | Defines custom properties. Content varies by flow - see [Guest Flow Settings](#guest-flow-settings) or [Supertoken Flow Settings](#supertoken-flow-settings)       | **OPTIONAL** |
+| `locale`         | `string` | Defines locale.                                                                                                                                                    | **OPTIONAL** |
+
+### Returns: `Promise<BRICK CONTROLLER>`
+
+---
+
+## Guest Flow
+
+### Usage Example
 
 ```js
-mp.bricks().create("payment", "paymentBrick_container", {
+mp.bricks().create('payment', 'paymentBrick_container', {
   initialization: {
     amount: 10000,
-    preferenceId: "<PREFERENCE_ID>",
+    preferenceId: '<PREFERENCE_ID>',
   },
   customization: {
     paymentMethods: {
-      creditCard: "all",
-      debitCard: "all",
-      prepaidCard: "all",
-      ticket: "all",
-      bankTransfer: "all",
-      mercadoPago: "all",
-      atm: "all",
+      creditCard: 'all',
+      debitCard: 'all',
+      prepaidCard: 'all',
+      ticket: 'all',
+      bankTransfer: 'all',
+      mercadoPago: 'all',
+      atm: 'all',
     },
   },
   callbacks: {
@@ -25,10 +69,10 @@ mp.bricks().create("payment", "paymentBrick_container", {
     },
     onSubmit: ({ paymentMethod, formData }) => {
       return new Promise((resolve, reject) => {
-        fetch("/process_payment", {
-          method: "POST",
+        fetch('/process_payment', {
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(formData),
         })
@@ -50,40 +94,9 @@ mp.bricks().create("payment", "paymentBrick_container", {
 });
 ```
 
-<br />
-
-### Params
-
-<br />
-
-`brick` | _string_, **REQUIRED**
-
-Selected Brick. Possible values are: `payment`.
-
-<br />
-
-`target` | _string_, **REQUIRED**
-
-Id of the container that the brick will be rendered in. Can be any HTML element.
-
-<br />
-
-`settings` | _object_, **REQUIRED**
-
-The `settings` object has properties to initialize and customize the brick being created.
-
-| Setting key      | Type     | Description                                                  |              |
-| ---------------- | -------- | ------------------------------------------------------------ | ------------ |
-| `initialization` | `object` | Defines the initialization data. [See more](#initialization) | **REQUIRED** |
-| `callbacks`      | `object` | Defines the callback functions. [See more](#callbacks)       | **REQUIRED** |
-| `customization`  | `object` | Defines custom properties. [See more](#customization)        | **OPTIONAL** |
-| `locale`         | `string` | Defines locale.                                              | **OPTIONAL** |
-
-<br />
+### Guest Flow Settings
 
 #### Initialization
-
-<br />
 
 Initialization is an object with the properties the brick will initialize with.
 
@@ -93,30 +106,28 @@ Initialization is an object with the properties the brick will initialize with.
 | `payer`            | `object` | Defines payer initial data. [Possible values](#payer)                                                                                                                                                                         | **OPTIONAL** |
 | `preferenceId`     | `string` | If provided, the brick will bring to screen the Mercado Pago payment option. [The preference id should be created in Backend](https://www.mercadopago.com/developers/en/docs/checkout-pro/checkout-customization/preferences) | **OPTIONAL** |
 
-<br />
-
 ##### Payer
 
 Payer contains initial payer information.
 
-| Payer key               | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| ----------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `email`                 | `string`   | Defines the payer email. Brick will hide email field if this value is correctly filled                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `firstName`             | `string`   | Payer first name                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `lastName`              | `string`   | Payer last name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| `identification`        | `object`   | Defines payer identification. Contains keys `type` and `number`                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| `identification.type`   | `string`   | Identification type. Possible values vary based on siteId                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `identification.number` | `string`   | Identification number. If filled correctly the Brick will prefill the identification number input                                                                                                                                                                                                                                                                                                                                                                                              |
-| `address`               | `object`   | Defines payer address. Contains keys `zipCode`, `federalUnit`,`city`,`neighborhood`,`streetName`,`streetNumber` and `complement`                                                                                                                                                                                                                                                                                                                                                               |
-| `address.zipCode`       | `string`   | Zip code of payer address. If filled correctly the Brick will prefill the zip code input                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `address.federalUnit`   | `string`   | State of payer address. If filled correctly the Brick will prefill the federal unit input                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `address.city`          | `string`   | City of payer address. If filled correctly the Brick will prefill the city input                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `address.neighborhood`  | `string`   | Neighborhood of payer address. If filled correctly the Brick will prefill the neighborhood input                                                                                                                                                                                                                                                                                                                                                                                               |
-| `address.streetName`    | `string`   | Street name of payer address. If filled correctly the Brick will prefill the street name input                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `address.streetNumber`  | `number`   | Street number of payer address. If filled correctly the Brick will prefill the street number input                                                                                                                                                                                                                                                                                                                                                                                             |
-| `address.complement`    | `string`   | Complement of payer address. If filled correctly the Brick will prefill the complement input                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `customerId`            | `string`   | Customer ID. View how to manage customers. [See More](https://www.mercadopago.com/developers/en/reference/customers/_customers/post)                                                                                                                                                                                                                                                                                                                                                           |
-| `cardsIds`              | `string[]` | Saved Cards Ids. If defined in conjunction with Customer ID, the payer will be able to use their saved cards in checkout. The brick will sort from most recent save card to oldest. If you want the cards not to be sorted, you should add the property `preserveSavedCardsOrder` explained in [this section](#customization). For more information about cards ids in Mercado Pago [click here](https://www.mercadopago.com/developers/en/reference/cards/_customers_customer_id_cards/post). |
+| Payer key               | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ----------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `email`                 | `string`   | Defines the payer email. Brick will hide email field if this value is correctly filled                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `firstName`             | `string`   | Payer first name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `lastName`              | `string`   | Payer last name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `identification`        | `object`   | Defines payer identification. Contains keys `type` and `number`                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `identification.type`   | `string`   | Identification type. Possible values vary based on siteId                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `identification.number` | `string`   | Identification number. If filled correctly the Brick will prefill the identification number input                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `address`               | `object`   | Defines payer address. Contains keys `zipCode`, `federalUnit`,`city`,`neighborhood`,`streetName`,`streetNumber` and `complement`                                                                                                                                                                                                                                                                                                                                                                          |
+| `address.zipCode`       | `string`   | Zip code of payer address. If filled correctly the Brick will prefill the zip code input                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `address.federalUnit`   | `string`   | State of payer address. If filled correctly the Brick will prefill the federal unit input                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `address.city`          | `string`   | City of payer address. If filled correctly the Brick will prefill the city input                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `address.neighborhood`  | `string`   | Neighborhood of payer address. If filled correctly the Brick will prefill the neighborhood input                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `address.streetName`    | `string`   | Street name of payer address. If filled correctly the Brick will prefill the street name input                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `address.streetNumber`  | `number`   | Street number of payer address. If filled correctly the Brick will prefill the street number input                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `address.complement`    | `string`   | Complement of payer address. If filled correctly the Brick will prefill the complement input                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `customerId`            | `string`   | Customer ID. View how to manage customers. [See More](https://www.mercadopago.com/developers/en/reference/customers/_customers/post)                                                                                                                                                                                                                                                                                                                                                                      |
+| `cardsIds`              | `string[]` | Saved Cards Ids. If defined in conjunction with Customer ID, the payer will be able to use their saved cards in checkout. The brick will sort from most recent save card to oldest. If you want the cards not to be sorted, you should add the property `preserveSavedCardsOrder` explained in [this section](#guest-flow-customization). For more information about cards ids in Mercado Pago [click here](https://www.mercadopago.com/developers/en/reference/cards/_customers_customer_id_cards/post). |
 
 | SiteId            | Identification Type Values      |
 | ----------------- | ------------------------------- |
@@ -127,11 +138,7 @@ Payer contains initial payer information.
 | `MLU (Uruguay)`   | `CI`, `Otro`                    |
 | `MPE (Peru)`      | `DNI`, `C.E`, `RUC`, `Otro`     |
 
-<br />
-
-#### Callbacks
-
-<br />
+#### Guest Flow Callbacks
 
 The callbacks object contains the callbacks functions the brick will call during its life cycle.
 
@@ -142,21 +149,149 @@ The callbacks object contains the callbacks functions the brick will call during
 | `onSubmit`    | It is called when the user clicks on the submit button                 | **OPTIONAL** | `PaymentFormData`, `AdditionalData` | `Promise<void>` |
 | `onBinChange` | It is called when the user fills or update card's BIN (first 8 digits) | **OPTIONAL** | `bin`                               | `void`          |
 
-<br />
+#### Guest Flow Customization
 
-`BrickError`
+Customizations object is used to load Brick under different conditions.
+
+| Customization key                       | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |              |
+| --------------------------------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| `visual`                                | `object`             | Control the visual aspects of the brick. Contains `style`, `font`, `texts`, `hidePaymentButton`, `hideFormTitle`, `preserveSavedCardsOrder` and `defaultPaymentOption`                                                                                                                                                                                                                                                                                                                                                                                                                                                           | **OPTIONAL** |
+| `visual.font`                           | `string`             | Defines the custom font URL. This only applies to the [PCI fields](../fields.md#fields-module).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | **OPTIONAL** |
+| `visual.texts`                          | `CustomTexts`        | Defines [custom texts](#custom-texts) for the Brick (available custom texts vary by Brick).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | **OPTIONAL** |
+| `visual.style`                          | `Style`              | Defines custom theme and CSS variables. [See Style section](#style)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | **OPTIONAL** |
+| `visual.hidePaymentButton`              | `boolean`            | Hides the payment button and disables the `onSubmit` callback.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | **OPTIONAL** |
+| `visual.hideFormTitle`                  | `boolean`            | Hides the form title row.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | **OPTIONAL** |
+| `visual.preserveSavedCardsOrder`        | `boolean`            | When `true`, the brick will present the cards maintaining the order established in the property `initialization.payer.cardsIds`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | **OPTIONAL** |
+| `visual.defaultPaymentOption`           | `object`             | Object that define a single payment method as default, so the form will load with this option already selected. Only one option is allowed. (Can contain one of the following properties `creditCardForm`, `debitCardForm`, `prepaidCardForm`, `savedCardForm`, `ticketForm`, `bankTransferForm`, `walletForm`, or `creditForm`)                                                                                                                                                                                                                                                                                                 | **OPTIONAL** |
+| `defaultPaymentOption.creditCardForm`   | `boolean`            | When `true`, the form loads with credit card form selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | **OPTIONAL** |
+| `defaultPaymentOption.prepaidCardForm`  | `boolean`            | When `true`, the form loads with credit card form selected, since the form used is the same.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | **OPTIONAL** |
+| `defaultPaymentOption.debitCardForm`    | `boolean`            | When `true`, the form loads with debit card form selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | **OPTIONAL** |
+| `defaultPaymentOption.savedCardForm`    | `string`             | One of the `cardsIds` informed in the property `initialization.payer.cardsIds`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | **OPTIONAL** |
+| `defaultPaymentOption.ticketForm`       | `boolean`            | When `true`, the form loads with ticket selected ([check availability](#ticket-availability))                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | **OPTIONAL** |
+| `defaultPaymentOption.bankTransferForm` | `boolean`            | When `true`, the form loads bank transfer selected ([check availability](#bank-transfer-availability))                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | **OPTIONAL** |
+| `defaultPaymentOption.walletForm`       | `boolean`            | When `true`, the form loads with Mercado Pago Wallet selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | **OPTIONAL** |
+| `defaultPaymentOption.creditForm`       | `boolean`            | When `true`, the form loads with Mercado Pago Credits selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | **OPTIONAL** |
+| `paymentMethods`                        | `object`             | Object that allow payment methods configuration. Contains `maxInstallments`, `minInstallments`, `creditCard`, `prepaidCard`, `debitCard`, `ticket`, `bankTransfer`, `atm`, `mercadoPago`                                                                                                                                                                                                                                                                                                                                                                                                                                         | **OPTIONAL** |
+| `paymentMethods.maxInstallments`        | `number`             | Maximum number of installments to be offered to the user                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | **OPTIONAL** |
+| `paymentMethods.minInstallments`        | `number`             | Minimal number of installments to be offered to the user                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | **OPTIONAL** |
+| `paymentMethods.creditCard`             | `string[] or string` | Allow payments with credit card. When the value `'all'` is provided, all credit cards are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com/developers/en/reference/payment_methods/_payment_methods/get) for the paymentType `credit_card`.                                                                                                                                                                                                                                                                                                            | **OPTIONAL** |
+| `paymentMethods.prepaidCard`            | `string[] or string` | Allow payments with prepaid card. When the value `'all'` is provided, all prepaid cards are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com/developers/en/reference/payment_methods/_payment_methods/get) for the paymentType `prepaid_card`.                                                                                                                                                                                                                                                                                                         |
+| `paymentMethods.debitCard`              | `string[] or string` | Allow payments with debit card. When the value `'all'` is provided, all debit cards are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com/developers/en/reference/payment_methods/_payment_methods/get) for the paymentType `debit_card`.                                                                                                                                                                                                                                                                                                               | **OPTIONAL** |
+| `paymentMethods.ticket`                 | `string[] or string` | Allow payments with tickets ([check availability](#ticket-availability)). When the value `'all'` is provided, all ticket methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com/developers/en/reference/payment_methods/_payment_methods/get) for the payment type `ticket`.                                                                                                                                                                                                                                                                     | **OPTIONAL** |
+| `paymentMethods.bankTransfer`           | `string[] or string` | Allow payments with Bank Transfer ([check availability](#bank-transfer-availability)). When the value `'all'` is provided, all bank transfer methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com/developers/en/reference/payment_methods/_payment_methods/get) for the payment type `bank_transfer`.                                                                                                                                                                                                                                          | **OPTIONAL** |
+| `paymentMethods.atm`                    | `string[] or string` | Allow payments with ATM methods ([check availability](#atm-availability)). When the value `'all'` is provided, all bank transfer methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com/developers/en/reference/payment_methods/_payment_methods/get) for the payment type `atm`.                                                                                                                                                                                                                                                                | **OPTIONAL** |
+| `paymentMethods.mercadoPago`            | `string[] or string` | Allow payments with Mercado Pago Wallet (available in all countries) and installments without card (only available in Argentina, Brazil and Mexico). When the value `'all'` is provided, payments with both are accepted. When `'wallet_purchase'` is provided, just payments with Mercado Pago Wallet are accepted and users must log in when redirected to their Mercado Pago account. When `'onboarding_credits'` is provided, just payments with installments without card are accepted. In that case, after logging in, will be presented to the user the pre-selected credit payment option in their Mercado Pago account. | **OPTIONAL** |
+
+---
+
+## Supertoken Flow
+
+The Supertoken Flow is designed for authenticated users who have existing payment methods saved in their Mercado Pago account. This flow provides a streamlined payment experience by leveraging the user's authentication token.
+
+### Usage Example
+
+```js
+mp.bricks().create('payment', 'paymentBrick_container', {
+  initialization: {
+    supertoken: '<USER_SUPERTOKEN>',
+  },
+  customization: {
+    visual: {
+      hidePaymentButton: false,
+      style: {
+        theme: 'default',
+      },
+    },
+  },
+  callbacks: {
+    onReady: () => {
+      // handle form ready
+    },
+    onSubmit: ({ paymentMethod, formData }) => {
+      return new Promise((resolve, reject) => {
+        fetch('/process_payment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        })
+          .then((response) => response.json())
+          .then((response) => {
+            // get payment result
+            resolve();
+          })
+          .catch((error) => {
+            // get payment result error
+            reject();
+          });
+      });
+    },
+    onError: (error) => {
+      // handle error
+    },
+    onBinChange: (bin) => {
+      // handle BIN change for card validation
+    },
+  },
+});
+```
+
+### Supertoken Flow Settings
+
+#### Supertoken Initialization
+
+For authenticated users, the initialization requires the supertoken and supports limited additional configuration.
+
+| Initialization key | Type     | Description                                                                                                                          |              |
+| ------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------ |
+| `supertoken`       | `string` | Authentication token for the logged-in user. This token provides access to the user's saved payment methods and account information. | **REQUIRED** |
+| `fingerprint`      | `string` | Device fingerprint for fraud prevention and security validation.                                                                     | **OPTIONAL** |
+
+#### Supertoken Callbacks
+
+The Supertoken Flow requires all three core callbacks for proper payment processing.
+
+| Callback key  | Description                                                            |              | Params                              | Returns         |
+| ------------- | ---------------------------------------------------------------------- | ------------ | ----------------------------------- | --------------- |
+| `onReady`     | It is called when the brick finishes loading                           | **REQUIRED** | `void`                              | `void`          |
+| `onError`     | It is called when there is an error in the Brick                       | **REQUIRED** | `BrickError`                        | `void`          |
+| `onSubmit`    | It is called when the user clicks on the submit button                 | **REQUIRED** | `PaymentFormData`, `AdditionalData` | `Promise<void>` |
+| `onBinChange` | It is called when the user fills or update card's BIN (first 8 digits) | **OPTIONAL** | `bin`                               | `void`          |
+
+> **Note**: In the Supertoken Flow, `onSubmit` is **REQUIRED** because authenticated users expect immediate payment processing capabilities.
+
+#### Supertoken Customization
+
+The Supertoken Flow supports limited customization options focused on visual appearance and installment configuration.
+
+| Customization key                | Type      | Description                                                                                     |              |
+| -------------------------------- | --------- | ----------------------------------------------------------------------------------------------- | ------------ |
+| `visual`                         | `object`  | Control the visual aspects of the brick. Contains `style`, `font`, `hidePaymentButton`          | **OPTIONAL** |
+| `visual.font`                    | `string`  | Defines the custom font URL. This only applies to the [PCI fields](../fields.md#fields-module). | **OPTIONAL** |
+| `visual.style`                   | `Style`   | Defines custom theme and CSS variables. [See Style section](#style)                             | **OPTIONAL** |
+| `visual.hidePaymentButton`       | `boolean` | Hides the payment button and disables the `onSubmit` callback.                                  | **OPTIONAL** |
+| `paymentMethods`                 | `object`  | Object that allows installment configuration. Contains `maxInstallments`, `minInstallments`     | **OPTIONAL** |
+| `paymentMethods.maxInstallments` | `number`  | Maximum number of installments to be offered to the user                                        | **OPTIONAL** |
+| `paymentMethods.minInstallments` | `number`  | Minimal number of installments to be offered to the user                                        | **OPTIONAL** |
+
+---
+
+## Shared Components
+
+### Data Types
+
+#### `BrickError`
 
 ```ts
 {
-  type: "non_critical" | "critical";
+  type: 'non_critical' | 'critical';
   message: string;
   cause: ErrorCause;
 }
 ```
 
-<br />
-
-`ErrorCause`
+#### `ErrorCause`
 
 ```ts
 {
@@ -211,31 +346,18 @@ The callbacks object contains the callbacks functions the brick will call during
 }
 ```
 
-<br />
-
-`PaymentFormData`
+#### `PaymentFormData`
 
 ```ts
 {
-  selectedPaymentMethod: "credit_card" |
-    "debit_card" |
-    "ticket" |
-    "bank_transfer" |
-    "wallet_purchase" |
-    "atm";
+  selectedPaymentMethod: 'credit_card' | 'debit_card' | 'ticket' | 'bank_transfer' | 'wallet_purchase' | 'atm';
   formData: CardData | TicketData | BankTransferData | WalletPurchaseData;
 }
 ```
 
-<br />
-
 > Note: The objects `CardData`, `TicketData` and `BankTransferData` could be directly sent to Mercado Pago `payment` API for processing.
 
-<br />
-
-`CardData`
-
-<br />
+#### `CardData`
 
 ```ts
 {
@@ -256,11 +378,7 @@ The callbacks object contains the callbacks functions the brick will call during
 }
 ```
 
-<br />
-
-`TicketData`
-
-<br />
+#### `TicketData`
 
 `?` means the field is optional
 
@@ -295,11 +413,7 @@ The callbacks object contains the callbacks functions the brick will call during
 }
 ```
 
-<br />
-
-`BankTransferData`
-
-<br />
+#### `BankTransferData`
 
 ```ts
 {
@@ -311,19 +425,13 @@ The callbacks object contains the callbacks functions the brick will call during
 }
 ```
 
-`WalletPurchaseData`
-
-<br />
+#### `WalletPurchaseData`
 
 ```ts
 null;
 ```
 
-<br />
-
-`AdditionalData`
-
-<br />
+#### `AdditionalData`
 
 ```ts
 {
@@ -334,46 +442,7 @@ null;
 }
 ```
 
-<br />
-
-#### Customization
-
-<br />
-
-Customizations object is used to load Brick under different conditions.
-
-| Customization key                       | Type                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |              |
-| --------------------------------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| `visual`                                | `object`             | Control the visual aspects of the brick. Contains `style`, `font`, `texts`, `hidePaymentButton`, `hideFormTitle`, `preserveSavedCardsOrder` and `defaultPaymentOption`                                                                                                                                                                                                                                                                                                                                                                                                                                                           | **OPTIONAL** |
-| `visual.font`                           | `string`             | Defines the custom font URL. This only applies to the [PCI fields](../fields.md#fields-module).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | **OPTIONAL** |
-| `visual.texts`                          | `CustomTexts`        | Defines [custom texts](#custom-texts) for the Brick (available custom texts vary by Brick).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | **OPTIONAL** |
-| `visual.style`                          | `Style`              | Defines custom theme and CSS variables                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | **OPTIONAL** |
-| `visual.hidePaymentButton`              | `boolean`            | Hides the payment button and disables the `onSubmit` callback.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | **OPTIONAL** |
-| `visual.hideFormTitle`                  | `boolean`            | Hides the form title row.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | **OPTIONAL** |
-| `visual.preserveSavedCardsOrder`        | `boolean`            | When `true`, the brick will present the cards maintaining the order established in the property `initialization.payer.cardsIds`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | **OPTIONAL** |
-| `visual.defaultPaymentOption`           | `object`             | Object that define a single payment method as default, so the form will load with this option already selected. Only one option is allowed. (Can contain one of the following properties `creditCardForm`, `debitCardForm`, `prepaidCardForm`, `savedCardForm`, `ticketForm`, `bankTransferForm`, `walletForm`, or `creditForm`)                                                                                                                                                                                                                                                                                                 | **OPTIONAL** |
-| `defaultPaymentOption.creditCardForm`   | `boolean`            | When `true`, the form loads with credit card form selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | **OPTIONAL** |
-| `defaultPaymentOption.prepaidCardForm`  | `boolean`            | When `true`, the form loads with credit card form selected, since the form used is the same.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | **OPTIONAL** |
-| `defaultPaymentOption.debitCardForm`    | `boolean`            | When `true`, the form loads with debit card form selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | **OPTIONAL** |
-| `defaultPaymentOption.savedCardForm`    | `string`             | One of the `cardsIds` informed in the property `initialization.payer.cardsIds`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | **OPTIONAL** |
-| `defaultPaymentOption.ticketForm`       | `boolean`            | When `true`, the form loads with ticket selected ([check availability](#ticket-availability))                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | **OPTIONAL** |
-| `defaultPaymentOption.bankTransferForm` | `boolean`            | When `true`, the form loads bank transfer selected ([check availability](#bank-transfer-availability))                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | **OPTIONAL** |
-| `defaultPaymentOption.walletForm`       | `boolean`            | When `true`, the form loads with Mercado Pago Wallet selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | **OPTIONAL** |
-| `defaultPaymentOption.creditForm`       | `boolean`            | When `true`, the form loads with Mercado Pago Credits selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | **OPTIONAL** |
-| `paymentMethods`                        | `object`             | Object that allow payment methods configuration. Contains `maxInstallments`, `minInstallments`, `creditCard`, `prepaidCard`, `debitCard`, `ticket`, `bankTransfer`, `atm`, `mercadoPago`                                                                                                                                                                                                                                                                                                                                                                                                                                         | **OPTIONAL** |
-| `paymentMethods.maxInstallments`        | `number`             | Maximum number of installments to be offered to the user                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | **OPTIONAL** |
-| `paymentMethods.minInstallments`        | `number`             | Minimal number of installments to be offered to the user                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | **OPTIONAL** |
-| `paymentMethods.creditCard`             | `string[] or string` | Allow payments with credit card. When the value `'all'` is provided, all credit cards are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com/developers/en/reference/payment_methods/_payment_methods/get) for the paymentType `credit_card`.                                                                                                                                                                                                                                                                                                            | **OPTIONAL** |
-| `paymentMethods.prepaidCard`            | `string[] or string` | Allow payments with prepaid card. When the value `'all'` is provided, all prepaid cards are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com/developers/en/reference/payment_methods/_payment_methods/get) for the paymentType `prepaid_card`.                                                                                                                                                                                                                                                                                                         |
-| `paymentMethods.debitCard`              | `string[] or string` | Allow payments with debit card. When the value `'all'` is provided, all debit cards are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com/developers/en/reference/payment_methods/_payment_methods/get) for the paymentType `debit_card`.                                                                                                                                                                                                                                                                                                               | **OPTIONAL** |
-| `paymentMethods.ticket`                 | `string[] or string` | Allow payments with tickets ([check availability](#ticket-availability)). When the value `'all'` is provided, all ticket methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com/developers/en/reference/payment_methods/_payment_methods/get) for the payment type `ticket`.                                                                                                                                                                                                                                                                     | **OPTIONAL** |
-| `paymentMethods.bankTransfer`           | `string[] or string` | Allow payments with Bank Transfer ([check availability](#bank-transfer-availability)). When the value `'all'` is provided, all bank transfer methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com/developers/en/reference/payment_methods/_payment_methods/get) for the payment type `bank_transfer`.                                                                                                                                                                                                                                          | **OPTIONAL** |
-| `paymentMethods.atm`                    | `string[] or string` | Allow payments with ATM methods ([check availability](#atm-availability)). When the value `'all'` is provided, all bank transfer methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com/developers/en/reference/payment_methods/_payment_methods/get) for the payment type `atm`.                                                                                                                                                                                                                                                                | **OPTIONAL** |
-| `paymentMethods.mercadoPago`            | `string[] or string` | Allow payments with Mercado Pago Wallet (available in all countries) and installments without card (only available in Argentina, Brazil and Mexico). When the value `'all'` is provided, payments with both are accepted. When `'wallet_purchase'` is provided, just payments with Mercado Pago Wallet are accepted and users must log in when redirected to their Mercado Pago account. When `'onboarding_credits'` is provided, just payments with installments without card are accepted. In that case, after logging in, will be presented to the user the pre-selected credit payment option in their Mercado Pago account. | **OPTIONAL** |
-
-<br />
-
-#### Custom Texts
+### Custom Texts
 
 Accepted properties are:
 
@@ -423,11 +492,7 @@ Accepted properties are:
 | `financialInstitution.label`           | `string` |
 | `financialInstitution.placeholder`     | `string` |
 
-<br />
-
-#### Style
-
-<br />
+### Style
 
 Style is an object with keys for theme and custom CSS variables.
 
@@ -447,7 +512,7 @@ Style is an object with keys for theme and custom CSS variables.
 }
 ```
 
-##### Custom Variables
+#### Custom Variables
 
 Accepted properties are:
 
@@ -490,7 +555,7 @@ Accepted properties are:
 
 > Note: All sizing properties accept values in: `px`, `rem`, `em`, and `%`
 
-<br />
+### Payment Method Availability
 
 #### Ticket availability
 
@@ -516,9 +581,20 @@ Accepted properties are:
 | `MLM (Mexico)` |
 | `MPE (Peru)`   |
 
-### Returns: `Promise<BRICK CONTROLLER>`
+---
 
-<br />
+## Flow Comparison
+
+| Feature                   | Guest Flow                                    | Supertoken Flow                             |
+| ------------------------- | --------------------------------------------- | ------------------------------------------- |
+| **Authentication**        | Anonymous users                               | Authenticated users with supertoken         |
+| **Payment Methods**       | Full configuration available                  | Uses user's saved payment methods           |
+| **Required Callbacks**    | `onReady`, `onError`                          | `onReady`, `onError`, `onSubmit`            |
+| **Customization Options** | Extensive (payment methods, payer data, etc.) | Limited (visual styling, installments only) |
+| **User Experience**       | Full payment form with all details            | Streamlined form with saved payment methods |
+| **Amount Configuration**  | Required in initialization                    | Handled through user's account context      |
+
+---
 
 ## Brick Controller
 
