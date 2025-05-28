@@ -90,6 +90,9 @@ mp.bricks().create('payment', 'paymentBrick_container', {
     onError: (error) => {
       // handle error
     },
+    onBinChange: (bin) => {
+      // handle BIN change for card validation
+    },
   },
 });
 ```
@@ -148,6 +151,93 @@ The callbacks object contains the callbacks functions the brick will call during
 | `onError`     | It is called when there is an error in the Brick                       | **REQUIRED** | `BrickError`                        | `void`          |
 | `onSubmit`    | It is called when the user clicks on the submit button                 | **OPTIONAL** | `PaymentFormData`, `AdditionalData` | `Promise<void>` |
 | `onBinChange` | It is called when the user fills or update card's BIN (first 8 digits) | **OPTIONAL** | `bin`                               | `void`          |
+
+#### Guest Flow Data Types
+
+##### `PaymentFormData`
+
+```ts
+{
+  selectedPaymentMethod: 'credit_card' | 'debit_card' | 'ticket' | 'bank_transfer' | 'wallet_purchase' | 'atm';
+  formData: CardData | TicketData | BankTransferData | WalletPurchaseData;
+}
+```
+
+> Note: The objects `CardData`, `TicketData` and `BankTransferData` could be directly sent to Mercado Pago `payment` API for processing.
+
+###### `CardData`
+
+```ts
+{
+    'token': string,
+    'issuer_id': string,
+    'payment_method_id': string,
+    'transaction_amount': number,
+    'payment_method_option_id': string | null,
+    'processing_mode': string | null,
+    'installments': number,
+    'payer': {
+        'email': string,
+        'identification': {
+                'type': string,
+                'number': string
+        }
+    }
+}
+```
+
+###### `TicketData`
+
+`?` means the field is optional
+
+```ts
+{
+    'payment_method_id': string,
+    'transaction_amount': number,
+    'transaction_details'?: {
+        'financial_institution': string,
+    },
+    'payer': {
+        'email': string,
+        'identification'?: {
+            'type': string,
+            'number': string
+        },
+        'first_name'?: string,
+        'last_name'?: string,
+        'address'?: {
+            'city': string,
+            'federal_unit': string,
+            'neighborhood': string,
+            'street_name': string,
+            'street_number': string,
+            'zip_code': string
+        }
+    },
+    'metadata'?: {
+        'payment_point'?: string,
+        'payment_mode'?: string
+    }
+}
+```
+
+###### `BankTransferData`
+
+```ts
+{
+    'payment_method_id': string,
+    'transaction_amount': number,
+    'payer': {
+        'email': string
+    }
+}
+```
+
+###### `WalletPurchaseData`
+
+```ts
+null;
+```
 
 #### Guest Flow Customization
 
@@ -261,6 +351,33 @@ The Supertoken Flow requires all three core callbacks for proper payment process
 
 > **Note**: In the Supertoken Flow, `onSubmit` is **REQUIRED** because authenticated users expect immediate payment processing capabilities.
 
+#### Supertoken Flow Data Types
+
+##### `PaymentFormData`
+
+```ts
+{
+  selectedPaymentMethod: 'credit_card';
+  formData: CardData;
+}
+```
+
+// TODO FIX THE SUBMIT DATA
+
+> Note: ADD.
+
+###### `CardData`
+
+```ts
+ADD;
+```
+
+###### `AccountMoneyData`
+
+```ts
+ADD;
+```
+
 #### Supertoken Customization
 
 The Supertoken Flow supports limited customization options focused on visual appearance and installment configuration.
@@ -295,7 +412,7 @@ The Supertoken Flow supports limited customization options focused on visual app
 
 The following table lists all possible error causes that can occur in the Payment Brick:
 
-#### Initialization Errors
+##### Initialization Errors
 
 | Error Cause                           | Description                                                            | Mode              |
 | ------------------------------------- | ---------------------------------------------------------------------- | ----------------- |
@@ -324,7 +441,7 @@ The following table lists all possible error causes that can occur in the Paymen
 | `translation_key_not_found`           | A required translation key was not found for the current locale        | Guest, Supertoken |
 | `validations_parameter_null`          | A validation parameter is null when it should have a value             | Guest, Supertoken |
 
-#### Data Retrieval Errors
+##### Data Retrieval Errors
 
 | Error Cause                           | Description                                                               | Mode              |
 | ------------------------------------- | ------------------------------------------------------------------------- | ----------------- |
@@ -351,7 +468,7 @@ The following table lists all possible error causes that can occur in the Paymen
 | `get_smart_option_value_prop_failed`  | Failed to retrieve smart option value proposition                         | Guest, Supertoken |
 | `get_payment_methods_failed`          | Failed to retrieve the list of available payment methods                  | Guest, Supertoken |
 
-#### User interaction Errors
+##### User interaction Errors
 
 | Error Cause                                  | Description                                                            | Mode              |
 | -------------------------------------------- | ---------------------------------------------------------------------- | ----------------- |
@@ -364,7 +481,7 @@ The following table lists all possible error causes that can occur in the Paymen
 | `no_installments_in_selected_range`          | No installment options available in the specified range                | Guest, Supertoken |
 | `submit_attempt_while_fetching_payment_info` | Attempted to submit while payment information is still being fetched   | Guest, Supertoken |
 
-#### Payment Processing Errors
+##### Payment Processing Errors
 
 | Error Cause                                | Description                                                | Mode              |
 | ------------------------------------------ | ---------------------------------------------------------- | ----------------- |
@@ -372,97 +489,12 @@ The following table lists all possible error causes that can occur in the Paymen
 | `card_token_creation_failed`               | Failed to create a secure token for the card               | Guest, Supertoken |
 | `secure_fields_card_token_creation_failed` | Failed to create a secure token using PCI-compliant fields | Guest, Supertoken |
 
-#### Update Errors
+##### Update Errors
 
 | Error Cause                            | Description                                              | Mode  |
 | -------------------------------------- | -------------------------------------------------------- | ----- |
 | `amount_is_not_number_in_update`       | The amount provided in the update method is not valid    | Guest |
 | `payment_review_invalid_update_object` | The update object provided for payment review is invalid | Guest |
-
-#### `PaymentFormData`
-
-```ts
-{
-  selectedPaymentMethod: 'credit_card' | 'debit_card' | 'ticket' | 'bank_transfer' | 'wallet_purchase' | 'atm';
-  formData: CardData | TicketData | BankTransferData | WalletPurchaseData;
-}
-```
-
-> Note: The objects `CardData`, `TicketData` and `BankTransferData` could be directly sent to Mercado Pago `payment` API for processing.
-
-##### `CardData`
-
-```ts
-{
-    'token': string,
-    'issuer_id': string,
-    'payment_method_id': string,
-    'transaction_amount': number,
-    'payment_method_option_id': string | null,
-    'processing_mode': string | null,
-    'installments': number,
-    'payer': {
-        'email': string,
-        'identification': {
-                'type': string,
-                'number': string
-        }
-    }
-}
-```
-
-##### `TicketData`
-
-`?` means the field is optional
-
-```ts
-{
-    'payment_method_id': string,
-    'transaction_amount': number,
-    'transaction_details'?: {
-        'financial_institution': string,
-    },
-    'payer': {
-        'email': string,
-        'identification'?: {
-            'type': string,
-            'number': string
-        },
-        'first_name'?: string,
-        'last_name'?: string,
-        'address'?: {
-            'city': string,
-            'federal_unit': string,
-            'neighborhood': string,
-            'street_name': string,
-            'street_number': string,
-            'zip_code': string
-        }
-    },
-    'metadata'?: {
-        'payment_point'?: string,
-        'payment_mode'?: string
-    }
-}
-```
-
-##### `BankTransferData`
-
-```ts
-{
-    'payment_method_id': string,
-    'transaction_amount': number,
-    'payer': {
-        'email': string
-    }
-}
-```
-
-##### `WalletPurchaseData`
-
-```ts
-null;
-```
 
 #### `AdditionalData`
 
