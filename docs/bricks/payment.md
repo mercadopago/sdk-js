@@ -293,58 +293,58 @@ The Supertoken Flow supports limited customization options focused on visual app
 
 #### `ErrorCause`
 
-```ts
-{
-  'already_initialized',
-  'amount_is_not_number',
-  'amount_is_not_number_in_update',
-  'card_token_creation_failed',
-  'container_not_found',
-  'fields_setup_failed',
-  'fields_setup_failed_after_3_tries',
-  'financial_institution_not_found',
-  'get_address_data_failed',
-  'get_card_bin_payment_methods_failed',
-  'get_card_issuers_failed',
-  'get_identification_types_failed',
-  'get_mexico_payment_points_failed',
-  'get_config_assets_failed',
-  'get_payment_installments_failed',
-  'empty_installments',
-  'get_payment_methods_failed',
-  'get_preference_details_failed',
-  'get_saved_cards_failed',
-  'incomplete_fields',
-  'incorrect_initialization',
-  'invalid_preference_purpose',
-  'invalid_sdk_instance',
-  'missing_amount_property',
-  'missing_site_property',
-  'missing_container_id',
-  'missing_locale_property',
-  'missing_payment_information',
-  'missing_payment_type',
-  'missing_required_callbacks',
-  'missing_texts',
-  'no_preference_provided',
-  'no_chunk_path_provided',
-  'secure_fields_card_token_creation_failed',
-  'settings_empty',
-  'translation_key_not_found',
-  'unauthorized_payment_method',
-  'update_preference_details_failed',
-  'validations_parameter_null',
-  'get_chunk_failed',
-  'get_saved_cards_on_bricks_api_failed',
-  'window_redirect_was_blocked',
-  'missing_required_review_props',
-  'no_payment_method_for_provided_bin',
-  'payment_method_not_in_allowed_types',
-  'payment_method_not_in_allowed_methods',
-  'no_installments_in_selected_range',
-  'no_issuers_found_for_card',
-}
-```
+The following table lists all possible error causes that can occur in the Payment Brick:
+
+| Error Cause                                | Description                                                               | Mode |
+| ------------------------------------------ | ------------------------------------------------------------------------- | ---- |
+| `already_initialized`                      | The brick has already been initialized and cannot be initialized again    |      |
+| `amount_is_not_number`                     | The provided amount value is not a valid number                           |      |
+| `amount_is_not_number_in_update`           | The amount provided in the update method is not valid                     |      |
+| `card_token_creation_failed`               | Failed to create a secure token for the card                              |      |
+| `container_not_found`                      | The specified container element was not found in the DOM                  |      |
+| `fields_setup_failed`                      | Failed to set up the secure form fields                                   |      |
+| `fields_setup_failed_after_3_tries`        | Failed to set up secure form fields after 3 retry attempts                |      |
+| `financial_institution_not_found`          | The specified financial institution was not found or is not available     |      |
+| `get_address_data_failed`                  | Failed to retrieve address data (e.g., from ZIP code lookup)              |      |
+| `get_card_bin_payment_methods_failed`      | Failed to retrieve payment methods based on the card BIN (first 8 digits) |      |
+| `get_card_issuers_failed`                  | Failed to retrieve the list of card issuers                               |      |
+| `get_identification_types_failed`          | Failed to retrieve available identification types for the country         |      |
+| `get_mexico_payment_points_failed`         | Failed to retrieve payment points available in Mexico                     |      |
+| `get_config_assets_failed`                 | Failed to load configuration assets required for the Brick                |      |
+| `get_payment_installments_failed`          | Failed to retrieve available installment options                          |      |
+| `empty_installments`                       | No installment options are available for the selected payment method      |      |
+| `get_payment_methods_failed`               | Failed to retrieve the list of available payment methods                  |      |
+| `get_preference_details_failed`            | Failed to retrieve preference details from the provided preference ID     |      |
+| `get_saved_cards_failed`                   | Failed to retrieve saved cards                                            |      |
+| `incomplete_fields`                        | Required form fields are incomplete or missing                            |      |
+| `incorrect_initialization`                 | The brick was initialized with incorrect or invalid parameters            |      |
+| `invalid_preference_purpose`               | The preference has an invalid or unsupported purpose                      |      |
+| `invalid_sdk_instance`                     | The SDK instance is invalid or not properly configured                    |      |
+| `missing_amount_property`                  | The required amount property is missing from initialization               |      |
+| `missing_site_property`                    | The required site property is missing from SDK configuration              |      |
+| `missing_container_id`                     | The container ID parameter is missing or empty                            |      |
+| `missing_locale_property`                  | The required locale property is missing from configuration                |      |
+| `missing_payment_information`              | Essential payment information could not be obtained                       |      |
+| `missing_payment_type`                     | The payment type is not specified or is invalid                           |      |
+| `missing_required_callbacks`               | Required callback functions are missing from the configuration            |      |
+| `missing_texts`                            | Required text translations are missing for the current locale             |      |
+| `no_preference_provided`                   | No preference ID was provided when required                               |      |
+| `no_chunk_path_provided`                   | The required chunk path for loading resources is missing                  |      |
+| `secure_fields_card_token_creation_failed` | Failed to create a secure token using PCI-compliant fields                |      |
+| `settings_empty`                           | The settings object is empty or null                                      |      |
+| `translation_key_not_found`                | A required translation key was not found for the current locale           |      |
+| `unauthorized_payment_method`              | The selected payment method is not authorized for this merchant           |      |
+| `update_preference_details_failed`         | Failed to update preference details                                       |      |
+| `validations_parameter_null`               | A validation parameter is null when it should have a value                |      |
+| `get_chunk_failed`                         | Failed to load a required code chunk or resource                          |      |
+| `get_saved_cards_on_bricks_api_failed`     | Failed to retrieve saved cards from the Bricks API                        |      |
+| `window_redirect_was_blocked`              | A required window redirect was blocked by the browser                     |      |
+| `missing_required_review_props`            | Required properties for the review step are missing                       |      |
+| `no_payment_method_for_provided_bin`       | No payment method found for the provided card BIN                         |      |
+| `payment_method_not_in_allowed_types`      | The selected payment method's type is not in the list of allowed types    |      |
+| `payment_method_not_in_allowed_methods`    | The selected payment method is not in the list of allowed methods         |      |
+| `no_installments_in_selected_range`        | No installment options available in the specified range                   |      |
+| `no_issuers_found_for_card`                | No card issuers found for the provided card information                   |      |
 
 #### `PaymentFormData`
 
