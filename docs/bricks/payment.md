@@ -295,68 +295,89 @@ The Supertoken Flow supports limited customization options focused on visual app
 
 The following table lists all possible error causes that can occur in the Payment Brick:
 
-| Error Cause                                  | Description                                                               | Mode |
-| -------------------------------------------- | ------------------------------------------------------------------------- | ---- |
-| `get_account_payment_methods_failed`         | Failed to retrieve payment methods from the user's account                |      |
-| `account_payment_methods_empty`              | The user's account has no available payment methods                       |      |
-| `account_money_empty`                        | The user's account has insufficient funds                                 |      |
-| `card_method_filling_failed`                 | Failed to fill card payment method information                            |      |
-| `already_initialized`                        | The brick has already been initialized and cannot be initialized again    |      |
-| `amount_is_not_number`                       | The provided amount value is not a valid number                           |      |
-| `amount_is_not_number_in_update`             | The amount provided in the update method is not valid                     |      |
-| `card_payment_brick_initialization_failed`   | Failed to initialize the card payment brick                               |      |
-| `card_token_creation_failed`                 | Failed to create a secure token for the card                              |      |
-| `container_not_found`                        | The specified container element was not found in the DOM                  |      |
-| `empty_installments`                         | No installment options are available for the selected payment method      |      |
-| `fields_setup_failed`                        | Failed to set up the secure form fields                                   |      |
-| `fields_setup_failed_after_3_tries`          | Failed to set up secure form fields after 3 retry attempts                |      |
-| `financial_institution_not_found`            | The specified financial institution was not found or is not available     |      |
-| `get_address_data_failed`                    | Failed to retrieve address data (e.g., from ZIP code lookup)              |      |
-| `get_card_bin_payment_methods_failed`        | Failed to retrieve payment methods based on the card BIN (first 8 digits) |      |
-| `get_card_issuers_failed`                    | Failed to retrieve the list of card issuers                               |      |
-| `get_chunk_failed`                           | Failed to load a required code chunk or resource                          |      |
-| `get_config_assets_failed`                   | Failed to load configuration assets required for the Brick                |      |
-| `get_identification_types_failed`            | Failed to retrieve available identification types for the country         |      |
-| `get_mexico_payment_points_failed`           | Failed to retrieve payment points available in Mexico                     |      |
-| `get_payment_data_failed`                    | Failed to retrieve payment data                                           |      |
-| `get_payment_installments_failed`            | Failed to retrieve available installment options                          |      |
-| `get_payment_methods_failed`                 | Failed to retrieve the list of available payment methods                  |      |
-| `get_preference_details_failed`              | Failed to retrieve preference details from the provided preference ID     |      |
-| `get_remedy_updated_payment_failed`          | Failed to retrieve updated payment information for remedy                 |      |
-| `get_saved_cards_failed`                     | Failed to retrieve saved cards                                            |      |
-| `get_smart_option_value_prop_failed`         | Failed to retrieve smart option value proposition                         |      |
-| `incomplete_fields`                          | Required form fields are incomplete or missing                            |      |
-| `incorrect_initialization`                   | The brick was initialized with incorrect or invalid parameters            |      |
-| `invalid_preference_purpose`                 | The preference has an invalid or unsupported purpose                      |      |
-| `invalid_sdk_instance`                       | The SDK instance is invalid or not properly configured                    |      |
-| `invalid_supertoken`                         | The provided supertoken is invalid or expired                             |      |
-| `missing_amount_property`                    | The required amount property is missing from initialization               |      |
-| `missing_container_id`                       | The container ID parameter is missing or empty                            |      |
-| `missing_locale_property`                    | The required locale property is missing from configuration                |      |
-| `missing_payment_information`                | Essential payment information could not be obtained                       |      |
-| `missing_payment_type`                       | The payment type is not specified or is invalid                           |      |
-| `missing_required_callbacks`                 | Required callback functions are missing from the configuration            |      |
-| `missing_required_review_props`              | Required properties for the review step are missing                       |      |
-| `missing_site_property`                      | The required site property is missing from SDK configuration              |      |
-| `missing_texts`                              | Required text translations are missing for the current locale             |      |
-| `no_installments_in_selected_range`          | No installment options available in the specified range                   |      |
-| `no_issuers_found_for_card`                  | No card issuers found for the provided card information                   |      |
-| `no_payment_method_for_provided_bin`         | No payment method found for the provided card BIN                         |      |
-| `no_preference_provided`                     | No preference ID was provided when required                               |      |
-| `payment_brick_initialization_failed`        | Failed to initialize the payment brick                                    |      |
-| `payment_method_not_in_allowed_methods`      | The selected payment method is not in the list of allowed methods         |      |
-| `payment_method_not_in_allowed_types`        | The selected payment method's type is not in the list of allowed types    |      |
-| `payment_review_invalid_update_object`       | The update object provided for payment review is invalid                  |      |
-| `secure_fields_card_token_creation_failed`   | Failed to create a secure token using PCI-compliant fields                |      |
-| `settings_empty`                             | The settings object is empty or null                                      |      |
-| `submit_attempt_while_fetching_payment_info` | Attempted to submit while payment information is still being fetched      |      |
-| `supertoken_is_undefined`                    | The supertoken is undefined when it should have a value                   |      |
-| `translation_key_not_found`                  | A required translation key was not found for the current locale           |      |
-| `unauthorized_payment_method`                | The selected payment method is not authorized for this merchant           |      |
-| `update_preference_details_failed`           | Failed to update preference details                                       |      |
-| `validations_parameter_null`                 | A validation parameter is null when it should have a value                |      |
-| `window_redirect_was_blocked`                | A required window redirect was blocked by the browser                     |      |
-| `malformed_card_bin_settings`                | The card BIN settings are malformed or invalid                            |      |
+#### Initialization Errors
+
+| Error Cause                           | Description                                                            | Mode              |
+| ------------------------------------- | ---------------------------------------------------------------------- | ----------------- |
+| `missing_amount_property`             | The required amount property is missing from initialization            | Guest             |
+| `missing_required_review_props`       | Required properties for the review step are missing                    | Guest             |
+| `no_preference_provided`              | No preference ID was provided when required                            | Guest             |
+| `amount_is_not_number`                | The provided amount value is not a valid number                        | Guest             |
+| `invalid_supertoken`                  | The provided supertoken is invalid or expired                          | Supertoken        |
+| `supertoken_is_undefined`             | The supertoken is undefined when it should have a value                | Supertoken        |
+| `already_initialized`                 | The brick has already been initialized and cannot be initialized again | Guest, Supertoken |
+| `payment_brick_initialization_failed` | Failed to initialize the payment brick                                 | Guest, Supertoken |
+| `incorrect_initialization`            | The brick was initialized with incorrect or invalid parameters         | Guest, Supertoken |
+| `container_not_found`                 | The specified container element was not found in the DOM               | Guest, Supertoken |
+| `missing_container_id`                | The container ID parameter is missing or empty                         | Guest, Supertoken |
+| `missing_locale_property`             | The required locale property is missing from configuration             | Guest, Supertoken |
+| `missing_payment_information`         | Essential payment information could not be obtained                    | Guest, Supertoken |
+| `missing_payment_type`                | The payment type is not specified or is invalid                        | Guest, Supertoken |
+| `missing_required_callbacks`          | Required callback functions are missing from the configuration         | Guest, Supertoken |
+| `missing_site_property`               | The required site property is missing from SDK configuration           | Guest, Supertoken |
+| `missing_texts`                       | Required text translations are missing for the current locale          | Guest, Supertoken |
+| `settings_empty`                      | The settings object is empty or null                                   | Guest, Supertoken |
+| `invalid_preference_purpose`          | The preference has an invalid or unsupported purpose                   | Guest, Supertoken |
+| `fields_setup_failed`                 | Failed to set up the secure form fields                                | Guest, Supertoken |
+| `fields_setup_failed_after_3_tries`   | Failed to set up secure form fields after 3 retry attempts             | Guest, Supertoken |
+| `invalid_sdk_instance`                | The SDK instance is invalid or not properly configured                 | Guest, Supertoken |
+| `translation_key_not_found`           | A required translation key was not found for the current locale        | Guest, Supertoken |
+| `validations_parameter_null`          | A validation parameter is null when it should have a value             | Guest, Supertoken |
+
+#### Data Retrieval Errors
+
+| Error Cause                           | Description                                                               | Mode              |
+| ------------------------------------- | ------------------------------------------------------------------------- | ----------------- |
+| `get_address_data_failed`             | Failed to retrieve address data (e.g., from ZIP code lookup)              | Guest             |
+| `get_mexico_payment_points_failed`    | Failed to retrieve payment points available in Mexico                     | Guest             |
+| `get_payment_installments_failed`     | Failed to retrieve available installment options                          | Guest             |
+| `get_preference_details_failed`       | Failed to retrieve preference details from the provided preference ID     | Guest             |
+| `get_remedy_updated_payment_failed`   | Failed to retrieve updated payment information for remedy                 | Guest             |
+| `get_saved_cards_failed`              | Failed to retrieve saved cards                                            | Guest             |
+| `get_card_bin_payment_methods_failed` | Failed to retrieve payment methods based on the card BIN (first 8 digits) | Guest             |
+| `get_card_issuers_failed`             | Failed to retrieve the list of card issuers                               | Guest             |
+| `no_issuers_found_for_card`           | No card issuers found for the provided card information                   | Guest             |
+| `no_payment_method_for_provided_bin`  | No payment method found for the provided card BIN                         | Guest             |
+| `malformed_card_bin_settings`         | The card BIN settings are malformed or invalid                            | Guest             |
+| `empty_installments`                  | No installment options are available for the selected payment method      | Guest             |
+| `financial_institution_not_found`     | The specified financial institution was not found or is not available     | Guest             |
+| `get_account_payment_methods_failed`  | Failed to retrieve payment methods from the user's account                | Supertoken        |
+| `account_payment_methods_empty`       | The user's account has no available payment methods                       | Supertoken        |
+| `account_money_empty`                 | The user's account has insufficient funds                                 | Supertoken        |
+| `get_chunk_failed`                    | Failed to load a required code chunk or resource                          | Guest, Supertoken |
+| `get_config_assets_failed`            | Failed to load configuration assets required for the Brick                | Guest, Supertoken |
+| `get_identification_types_failed`     | Failed to retrieve available identification types for the country         | Guest, Supertoken |
+| `get_payment_data_failed`             | Failed to retrieve payment data                                           | Guest, Supertoken |
+| `get_smart_option_value_prop_failed`  | Failed to retrieve smart option value proposition                         | Guest, Supertoken |
+| `get_payment_methods_failed`          | Failed to retrieve the list of available payment methods                  | Guest, Supertoken |
+
+#### User interaction Errors
+
+| Error Cause                                  | Description                                                            | Mode              |
+| -------------------------------------------- | ---------------------------------------------------------------------- | ----------------- |
+| `update_preference_details_failed`           | Failed to update preference details                                    | Guest             |
+| `card_method_filling_failed`                 | Failed to fill card payment method information                         | Guest             |
+| `payment_method_not_in_allowed_methods`      | The selected payment method is not in the list of allowed methods      | Guest             |
+| `payment_method_not_in_allowed_types`        | The selected payment method's type is not in the list of allowed types | Guest             |
+| `unauthorized_payment_method`                | The selected payment method is not authorized for this merchant        | Guest             |
+| `incomplete_fields`                          | Required form fields are incomplete or missing                         | Guest, Supertoken |
+| `no_installments_in_selected_range`          | No installment options available in the specified range                | Guest, Supertoken |
+| `submit_attempt_while_fetching_payment_info` | Attempted to submit while payment information is still being fetched   | Guest, Supertoken |
+
+#### Payment Processing Errors
+
+| Error Cause                                | Description                                                | Mode              |
+| ------------------------------------------ | ---------------------------------------------------------- | ----------------- |
+| `window_redirect_was_blocked`              | A required window redirect was blocked by the browser      | Guest             |
+| `card_token_creation_failed`               | Failed to create a secure token for the card               | Guest, Supertoken |
+| `secure_fields_card_token_creation_failed` | Failed to create a secure token using PCI-compliant fields | Guest, Supertoken |
+
+#### Update Errors
+
+| Error Cause                            | Description                                              | Mode  |
+| -------------------------------------- | -------------------------------------------------------- | ----- |
+| `amount_is_not_number_in_update`       | The amount provided in the update method is not valid    | Guest |
+| `payment_review_invalid_update_object` | The update object provided for payment review is invalid | Guest |
 
 #### `PaymentFormData`
 
