@@ -357,7 +357,7 @@ The Supertoken Flow supports limited customization options focused on visual app
 
 > Note: The objects `CardData`, `TicketData` and `BankTransferData` could be directly sent to Mercado Pago `payment` API for processing.
 
-#### `CardData`
+##### `CardData`
 
 ```ts
 {
@@ -378,7 +378,7 @@ The Supertoken Flow supports limited customization options focused on visual app
 }
 ```
 
-#### `TicketData`
+##### `TicketData`
 
 `?` means the field is optional
 
@@ -413,7 +413,7 @@ The Supertoken Flow supports limited customization options focused on visual app
 }
 ```
 
-#### `BankTransferData`
+##### `BankTransferData`
 
 ```ts
 {
@@ -425,7 +425,7 @@ The Supertoken Flow supports limited customization options focused on visual app
 }
 ```
 
-#### `WalletPurchaseData`
+##### `WalletPurchaseData`
 
 ```ts
 null;
