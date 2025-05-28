@@ -323,7 +323,8 @@ mp.bricks().create('payment', 'paymentBrick_container', {
     onReady: () => {
       // handle form ready
     },
-    onSubmit: ({ paymentMethod, formData }) => {
+    onSubmit: () => {
+    // TODO FIX THE SUBMIT DATA
       return new Promise((resolve, reject) => {
         fetch('/process_payment', {
           method: 'POST',
@@ -361,7 +362,7 @@ For authenticated users, the initialization requires the supertoken and supports
 
 | Initialization key | Type     | Description                                                                                                                          |              |
 | ------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------ |
-| `supertoken`       | `string` | Authentication token for the logged-in user. This token provides access to the user's saved payment methods and account information. | **REQUIRED** |
+| `supertoken`       | `string` | Authentication token for the logged-in user. This token provides access to the user's saved payment methods and account information. The Supertoken can be obtained by following the steps on this documentation: TODO | **REQUIRED** |
 | `fingerprint`      | `string` | Device fingerprint for fraud prevention and security validation.                                                                     | **OPTIONAL** |
 
 #### Supertoken Callbacks
@@ -381,14 +382,14 @@ The Supertoken Flow requires all three core callbacks for proper payment process
 
 ##### `PaymentFormData`
 
+// TODO FIX THE SUBMIT DATA
+
 ```ts
 {
   selectedPaymentMethod: 'credit_card';
   formData: CardData;
 }
 ```
-
-// TODO FIX THE SUBMIT DATA
 
 > Note: ADD.
 
