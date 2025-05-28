@@ -272,6 +272,32 @@ Customizations object is used to load Brick under different conditions.
 | `paymentMethods.atm`                    | `string[] or string` | Allow payments with ATM methods ([check availability](#atm-availability)). When the value `'all'` is provided, all bank transfer methods are accepted. When an array is provided, it should contain the [IDs of the desired payment method](https://www.mercadopago.com/developers/en/reference/payment_methods/_payment_methods/get) for the payment type `atm`.                                                                                                                                                                                                                                                                | **OPTIONAL** |
 | `paymentMethods.mercadoPago`            | `string[] or string` | Allow payments with Mercado Pago Wallet (available in all countries) and installments without card (only available in Argentina, Brazil and Mexico). When the value `'all'` is provided, payments with both are accepted. When `'wallet_purchase'` is provided, just payments with Mercado Pago Wallet are accepted and users must log in when redirected to their Mercado Pago account. When `'onboarding_credits'` is provided, just payments with installments without card are accepted. In that case, after logging in, will be presented to the user the pre-selected credit payment option in their Mercado Pago account. | **OPTIONAL** |
 
+#### Payment Method Availability
+
+##### Ticket availability
+
+| Site              |
+| ----------------- |
+| `MLA (Argentina)` |
+| `MLB (Brazil)`    |
+| `MCO (Colombia)`  |
+| `MLM (Mexico)`    |
+| `MLU (Uruguay)`   |
+
+##### Bank Transfer availability
+
+| Site             |
+| ---------------- |
+| `MLB (Brazil)`   |
+| `MCO (Colombia)` |
+
+##### ATM availability
+
+| Site           |
+| -------------- |
+| `MLM (Mexico)` |
+| `MPE (Peru)`   |
+
 ---
 
 ## Supertoken Flow
@@ -620,32 +646,6 @@ Accepted properties are:
 
 > Note: All sizing properties accept values in: `px`, `rem`, `em`, and `%`
 
-### Payment Method Availability
-
-#### Ticket availability
-
-| Site              |
-| ----------------- |
-| `MLA (Argentina)` |
-| `MLB (Brazil)`    |
-| `MCO (Colombia)`  |
-| `MLM (Mexico)`    |
-| `MLU (Uruguay)`   |
-
-#### Bank Transfer availability
-
-| Site             |
-| ---------------- |
-| `MLB (Brazil)`   |
-| `MCO (Colombia)` |
-
-#### ATM availability
-
-| Site           |
-| -------------- |
-| `MLM (Mexico)` |
-| `MPE (Peru)`   |
-
 ---
 
 ## Flow Comparison
@@ -654,7 +654,6 @@ Accepted properties are:
 | ------------------------- | --------------------------------------------- | ------------------------------------------- |
 | **Authentication**        | Anonymous users                               | Authenticated users with supertoken         |
 | **Payment Methods**       | Full configuration available                  | Uses user's saved payment methods           |
-| **Required Callbacks**    | `onReady`, `onError`                          | `onReady`, `onError`, `onSubmit`            |
 | **Customization Options** | Extensive (payment methods, payer data, etc.) | Limited (visual styling, installments only) |
 | **User Experience**       | Full payment form with all details            | Streamlined form with saved payment methods |
 | **Amount Configuration**  | Required in initialization                    | Handled through user's account context      |
