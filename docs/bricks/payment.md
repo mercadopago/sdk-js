@@ -716,6 +716,8 @@ None.
 
 When called, the `update` method updates the given data, preserving the current instance of the brick.
 
+> **Note**: The `update` method is only available in **Guest Flow**. It is not supported in Supertoken Flow.
+
 #### Params
 
 | Field    | Type     | Description                                                                                                                                                     | Validation                                                                                                                                                                                                              |
