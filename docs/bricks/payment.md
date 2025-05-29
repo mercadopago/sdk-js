@@ -33,7 +33,7 @@ The `settings` object has properties to initialize and customize the brick being
 
 | Setting key      | Type     | Description                                                                                                                                                        |              |
 | ---------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------ |
-| `initialization` | `object` | Defines the initialization data. Content varies by flow - see [Guest Flow Settings](#guest-flow-settings) or [Supertoken Flow Settings](#supertoken-flow-settings) | **REQUIRED** |
+| `initialization` | `object` | Defines the initialization data. Refer to [Guest Flow Settings](#guest-flow-settings) or [Supertoken Flow Settings](#supertoken-flow-settings) for required fields in each flow. | **REQUIRED** |
 | `callbacks`      | `object` | Defines the callback functions. Content varies by flow - see [Guest Flow Settings](#guest-flow-settings) or [Supertoken Flow Settings](#supertoken-flow-settings)  | **REQUIRED** |
 | `customization`  | `object` | Defines custom properties. Content varies by flow - see [Guest Flow Settings](#guest-flow-settings) or [Supertoken Flow Settings](#supertoken-flow-settings)       | **OPTIONAL** |
 | `locale`         | `string` | Defines locale.                                                                                                                                                    | **OPTIONAL** |
