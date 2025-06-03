@@ -8,7 +8,7 @@ The Payment Brick is a comprehensive payment solution that adapts to different u
 
 The Payment Brick supports two distinct flows, each designed for specific user scenarios:
 
-### 🔓 [Guest Flow](./payment-brick-guest-flow.md)
+### 🔓 [Guest Flow](./payment-guest.md)
 
 **For unauthenticated users who need to provide complete payment information**
 
@@ -27,7 +27,7 @@ The Guest Flow is designed for users who are not logged into a Mercado Pago acco
 
 ---
 
-### 🔐 [Supertoken Flow](./payment-brick-supertoken-flow.md)
+### 🔐 [Supertoken Flow](./payment-supertoken.md)
 
 **For authenticated users leveraging saved payment methods**
 
