@@ -6,7 +6,7 @@ The Payment Brick is a comprehensive payment solution that adapts to different u
 
 ## Available Flows
 
-The Payment Brick supports two distinct flows, each designed for specific user scenarios:
+The Payment Brick supports three distinct flows, each designed for specific user scenarios:
 
 ### 🔓 [Guest Flow](./payment-guest.md)
 
@@ -27,11 +27,11 @@ The Guest Flow is designed for users who are not logged into a Mercado Pago acco
 
 ---
 
-### 🔐 [Supertoken Flow](./payment-supertoken.md)
+### 🔐 [Fast Payments Flow](./payment-fast-payments.md)
 
 **For authenticated users leveraging saved payment methods**
 
-The Supertoken Flow provides a streamlined experience for users who are already logged into their Mercado Pago account, utilizing their saved payment methods and account information.
+The Fast Payments Flow provides a streamlined experience for users who are already logged into their Mercado Pago account, utilizing their saved payment methods and account information.
 
 **Key Features:**
 
@@ -41,17 +41,40 @@ The Supertoken Flow provides a streamlined experience for users who are already 
 - Enhanced security with authentication token
 - Limited but focused customization options
 - No dynamic updates (managed through account context)
+- Data structure compatible with Orders API
 
 **Best for:** Returning customers, subscription payments, marketplace integrations with user accounts
 
 ---
 
+### 📋 [Review Flow](./payment-review.md) 🇲🇽 🇦🇷
+
+**For enhanced checkout experience with review and confirmation steps**
+
+_Temporarily exclusive for MLM (México) and MLA (Argentina)_
+
+The Review Flow extends the Guest Flow with additional review and confirmation steps, providing customers with a detailed overview of their purchase before completing the payment.
+
+**Key Features:**
+
+- All Guest Flow capabilities
+- Review and confirmation steps
+- Detailed order summary with items, shipping, and billing
+- Step-by-step navigation with `nextStep()` method
+- Edit capabilities for shipping and billing data
+- Enhanced customer confidence through order review
+- Support for discounts display
+
+**Best for:** High-value transactions, complex orders with multiple items, enhanced customer experience requirements
+
+---
+
 ## Flow Selection
 
-The brick automatically determines which flow to use based on the presence of the `supertoken` property in the initialization settings:
+The brick automatically determines which flow to use based on the initialization properties:
 
 ```js
-// Guest Flow - no supertoken provided
+// Guest Flow - basic configuration
 mp.bricks().create('payment', 'container', {
   initialization: {
     amount: 10000,
@@ -60,11 +83,30 @@ mp.bricks().create('payment', 'container', {
   // ...
 });
 
-// Supertoken Flow - supertoken provided
+// Fast Payments Flow - fastPaymentToken provided
 mp.bricks().create('payment', 'container', {
   initialization: {
-    supertoken: '<USER_SUPERTOKEN>',
-    // ... other supertoken flow settings
+    fastPaymentToken: '<USER_FAST_PAYMENT_TOKEN>',
+    // ... other fast payments flow settings
+  },
+  // ...
+});
+
+// Review Flow - enableReviewStep and review data provided
+mp.bricks().create('payment', 'container', {
+  initialization: {
+    amount: 10000,
+    items: {
+      /* items data */
+    },
+    shipping: {
+      /* shipping data */
+    },
+    // ... other initialization data
+  },
+  customization: {
+    enableReviewStep: true,
+    // ... other customization options
   },
   // ...
 });
@@ -74,23 +116,34 @@ mp.bricks().create('payment', 'container', {
 
 ## Quick Comparison
 
-| Feature             | Guest Flow                   | Supertoken Flow             |
-| ------------------- | ---------------------------- | --------------------------- |
-| **Authentication**  | Not required                 | Required (supertoken)       |
-| **Payment Methods** | Full configuration available | Uses saved payment methods  |
-| **Form Complexity** | Complete payment information | Streamlined with saved data |
-| **Customization**   | Extensive options            | Limited, focused options    |
-| **Amount Updates**  | ✅ Dynamic with `update()`   | ❌ Managed by account       |
-| **User Experience** | Comprehensive form           | Quick, familiar checkout    |
+| Feature             | Guest Flow                   | Fast Payments Flow          | Review Flow 🇲🇽 🇦🇷            |
+| ------------------- | ---------------------------- | --------------------------- | ---------------------------- |
+| **Authentication**  | Not required                 | Required (fastPaymentToken) | Not required                 |
+| **Payment Methods** | Full configuration available | Uses saved payment methods  | Full configuration available |
+| **Form Complexity** | Complete payment information | Streamlined with saved data | Enhanced with review steps   |
+| **Customization**   | Extensive options            | Limited, focused options    | Extensive + review options   |
+| **Amount Updates**  | ✅ Dynamic with `update()`   | ❌ Managed by account       | ✅ Dynamic with `update()`   |
+| **User Experience** | Comprehensive form           | Quick, familiar checkout    | Detailed review & confirm    |
+| **Data Format**     | Standard payment data        | Orders API compatible       | Standard payment data        |
+| **Availability**    | Global                       | Global                      | Mexico & Argentina only      |
+| **Review Steps**    | ❌ Not available             | ❌ Not available            | ✅ Available                 |
 
 ---
 
 ## Getting Started
 
-1. **Choose your flow** based on your user authentication state
+1. **Choose your flow** based on your user authentication state and requirements:
+
+   - **Guest Flow**: For standard unauthenticated checkouts
+   - **Fast Payments Flow**: For authenticated users with saved payment methods
+   - **Review Flow**: For enhanced checkout experience in Mexico and Argentina
+
 2. **Follow the detailed documentation** for your selected flow:
+
    - [Guest Flow Documentation →](./payment-guest.md)
-   - [Supertoken Flow Documentation →](./payment-supertoken.md)
+   - [Fast Payments Flow Documentation →](./payment-fast-payments.md)
+   - [Review Flow Documentation →](./payment-review.md)
+
 3. **Implement the brick** using the provided examples and configurations
 
-Both flows share the same core `BricksBuilder.create()` method but with different configuration options optimized for their respective use cases.
+All flows share the same core `BricksBuilder.create()` method but with different configuration options optimized for their respective use cases.
