@@ -190,7 +190,6 @@ The following table lists all possible error causes that can occur in the Paymen
 | `missing_site_property`               | The required site property is missing from SDK configuration           |
 | `missing_texts`                       | Required text translations are missing for the current locale          |
 | `settings_empty`                      | The settings object is empty or null                                   |
-| `invalid_preference_purpose`          | The preference has an invalid or unsupported purpose                   |
 | `fields_setup_failed`                 | Failed to set up the secure form fields                                |
 | `fields_setup_failed_after_3_tries`   | Failed to set up secure form fields after 3 retry attempts             |
 | `invalid_sdk_instance`                | The SDK instance is invalid or not properly configured                 |
@@ -208,7 +207,6 @@ The following table lists all possible error causes that can occur in the Paymen
 | `get_config_assets_failed`           | Failed to load configuration assets required for the Brick        |
 | `get_identification_types_failed`    | Failed to retrieve available identification types for the country |
 | `get_payment_data_failed`            | Failed to retrieve payment data                                   |
-| `get_smart_option_value_prop_failed` | Failed to retrieve smart option value proposition                 |
 | `get_payment_methods_failed`         | Failed to retrieve the list of available payment methods          |
 
 #### User interaction Errors
@@ -384,7 +382,7 @@ The Fast Payments Flow is designed to work seamlessly with the Mercado Pago Orde
 onSubmit: async (formData, additionalData) => {
   // Send payment data to your backend server
   try {
-    const response = await fetch('/api/process-payment', {
+    const response = await fetch('/process_payment', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
