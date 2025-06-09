@@ -1,6 +1,6 @@
-# Payment Brick - Supertoken Flow Documentation
+# Payment Brick - Fast Payments Flow Documentation
 
-The Payment Brick Supertoken Flow is designed for authenticated users who have existing payment methods saved in their Mercado Pago account. This flow provides a streamlined payment experience by leveraging the user's authentication token.
+The Payment Brick Fast Payments Flow is designed for authenticated users who have existing payment methods saved in their Mercado Pago account. This flow provides a streamlined payment experience by leveraging the user's authentication token.
 
 ---
 
@@ -27,7 +27,7 @@ The `settings` object has properties to initialize and customize the brick being
 | Setting key      | Type     | Description                                             |              |
 | ---------------- | -------- | ------------------------------------------------------- | ------------ |
 | `initialization` | `object` | Defines the initialization data for authenticated users | **REQUIRED** |
-| `callbacks`      | `object` | Defines the callback functions for supertoken flow      | **REQUIRED** |
+| `callbacks`      | `object` | Defines the callback functions for fast payments flow   | **REQUIRED** |
 | `customization`  | `object` | Defines custom properties and visual configurations     | **OPTIONAL** |
 | `locale`         | `string` | Defines locale.                                         | **OPTIONAL** |
 
@@ -40,7 +40,7 @@ The `settings` object has properties to initialize and customize the brick being
 ```js
 mp.bricks().create('payment', 'paymentBrick_container', {
   initialization: {
-    supertoken: '<USER_SUPERTOKEN>',
+    fastPaymentToken: '<USER_FAST_PAYMENT_TOKEN>',
   },
   customization: {
     visual: {
@@ -54,14 +54,14 @@ mp.bricks().create('payment', 'paymentBrick_container', {
     onReady: () => {
       // handle form ready
     },
-    onSubmit: ({ paymentMethod, formData }) => {
+    onSubmit: (formData) => {
       return new Promise((resolve, reject) => {
         fetch('/process_payment', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify({ formData }),
         })
           .then((response) => response.json())
           .then((response) => {
@@ -90,29 +90,28 @@ mp.bricks().create('payment', 'paymentBrick_container', {
 
 ### Initialization
 
-For authenticated users, the initialization requires the supertoken and supports limited additional configuration.
+For authenticated users, the initialization requires the fastPaymentToken and supports limited additional configuration.
 
 | Initialization key | Type     | Description                                                                                                                          |              |
 | ------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------ |
-| `supertoken`       | `string` | Authentication token for the logged-in user. This token provides access to the user's saved payment methods and account information. | **REQUIRED** |
+| `fastPaymentToken` | `string` | Authentication token for the logged-in user. This token provides access to the user's saved payment methods and account information. | **REQUIRED** |
 | `fingerprint`      | `string` | Device fingerprint for fraud prevention and security validation.                                                                     | **OPTIONAL** |
 
 ### Callbacks
 
-The Supertoken Flow requires all three core callbacks for proper payment processing.
+The Fast Payments Flow requires all three core callbacks for proper payment processing.
 
-| Callback key  | Description                                                            |              | Params                              | Returns         |
-| ------------- | ---------------------------------------------------------------------- | ------------ | ----------------------------------- | --------------- |
-| `onReady`     | It is called when the brick finishes loading                           | **REQUIRED** | `void`                              | `void`          |
-| `onError`     | It is called when there is an error in the Brick                       | **REQUIRED** | `BrickError`                        | `void`          |
-| `onSubmit`    | It is called when the user clicks on the submit button                 | **REQUIRED** | `PaymentFormData`, `AdditionalData` | `Promise<void>` |
-| `onBinChange` | It is called when the user fills or update card's BIN (first 8 digits) | **OPTIONAL** | `bin`                               | `void`          |
+| Callback key  | Description                                                            |              | Params                                                     | Returns         |
+| ------------- | ---------------------------------------------------------------------- | ------------ | ---------------------------------------------------------- | --------------- |
+| `onReady`     | It is called when the brick finishes loading                           | **REQUIRED** | `void`                                                     | `void`          |
+| `onError`     | It is called when there is an error in the Brick                       | **REQUIRED** | `BrickError`                                               | `void`          |
+| `onSubmit`    | It is called when the user clicks on the submit button                 | **REQUIRED** | `FastPaymentFormData`, `FastPaymentAdditionalData \| null` | `Promise<void>` |
+| `onBinChange` | It is called when the user fills or update card's BIN (first 8 digits) | **OPTIONAL** | `bin`                                                      | `void`          |
 
-> **Note**: In the Supertoken Flow, `onSubmit` is **REQUIRED** because authenticated users expect immediate payment processing capabilities.
 
 ### Customization
 
-The Supertoken Flow supports limited customization options focused on visual appearance and installment configuration.
+The Fast Payments Flow supports limited customization options focused on visual appearance and installment configuration.
 
 | Customization key                | Type      | Description                                                                                     |              |
 | -------------------------------- | --------- | ----------------------------------------------------------------------------------------------- | ------------ |
@@ -128,46 +127,35 @@ The Supertoken Flow supports limited customization options focused on visual app
 
 ## Data Types
 
-### `PaymentFormData`
+### `FastPaymentFormData`
 
 ```ts
-{
-  selectedPaymentMethod: 'credit_card' | 'account_money';
-  formData: CardData | AccountMoneyData;
-}
+Transaction[]
 ```
 
-#### `CardData`
+The `FastPaymentFormData` is an array of `Transaction` objects that follows the same structure used by the [Mercado Pago Orders API](https://www.mercadopago.com/developers/en/reference/orders/online-payments/create/post). This data structure is designed to be used directly in the `transactions.payments` field when creating orders through the Orders API.
+
+#### `Transaction`
 
 ```ts
 {
-    'token': string,
-    'issuer_id': string,
-    'payment_method_id': string,
-    'transaction_amount': number,
-    'payment_method_option_id': string | null,
-    'processing_mode': string | null,
-    'installments': number,
-    'payer': {
-        'email': string,
-        'identification': {
-                'type': string,
-                'number': string
-        }
+    'amount': string,
+    'payment_method': {
+        'id': string,
+        'type': string,
+        'token': string,
+        'installments': number
     }
 }
 ```
 
-#### `AccountMoneyData`
+### `FastPaymentAdditionalData`
 
 ```ts
 {
-    'payment_method_id': string,
-    'transaction_amount': number,
-    'payer': {
-        'email': string
-    }
-}
+    'bin': string,
+    'lastFourDigits': string,
+} | null
 ```
 
 ### `BrickError`
@@ -188,8 +176,8 @@ The following table lists all possible error causes that can occur in the Paymen
 
 | Error Cause                           | Description                                                            |
 | ------------------------------------- | ---------------------------------------------------------------------- |
-| `invalid_supertoken`                  | The provided supertoken is invalid or expired                          |
-| `supertoken_is_undefined`             | The supertoken is undefined when it should have a value                |
+| `invalid_fast_payment_token`          | The provided fast payment token is invalid or expired                  |
+| `fast_payment_token_is_undefined`     | The fast payment token is undefined when it should have a value        |
 | `already_initialized`                 | The brick has already been initialized and cannot be initialized again |
 | `payment_brick_initialization_failed` | Failed to initialize the payment brick                                 |
 | `incorrect_initialization`            | The brick was initialized with incorrect or invalid parameters         |
@@ -237,17 +225,7 @@ The following table lists all possible error causes that can occur in the Paymen
 | ------------------------------------------ | ---------------------------------------------------------- |
 | `card_token_creation_failed`               | Failed to create a secure token for the card               |
 | `secure_fields_card_token_creation_failed` | Failed to create a secure token using PCI-compliant fields |
-
-### `AdditionalData`
-
-```ts
-{
-    'bin': string,
-    'lastFourDigits': string,
-    'cardholderName': string,
-    'paymentTypeId': string,
-}
-```
+| `decode_fast_payment_token_amount_failed`  | Failed to decode the amount from the fast payment token    |
 
 ---
 
@@ -358,8 +336,6 @@ The Brick Controller contains methods that allow the integrator to interact with
 | getFormData       | **METHOD** |
 | getAdditionalData | **METHOD** |
 
-> **Note**: The `update()` method is not available in Supertoken Flow as payment amounts and configurations are managed through the user's account context.
-
 ### `Brick Controller`.unmount()
 
 The `unmount` method removes the rendered Brick from the page.
@@ -382,7 +358,7 @@ None.
 
 #### Returns
 
-`PaymentFormData`
+`FastPaymentFormData`
 
 ### `Brick Controller`.getAdditionalData()
 
@@ -394,4 +370,34 @@ None.
 
 #### Returns
 
-`AdditionalData`
+`FastPaymentAdditionalData`
+
+## Integration with Orders API
+
+The Fast Payments Flow is designed to work seamlessly with the Mercado Pago Orders API. The `formData` returned in the `onSubmit` callback can be used directly as the `transactions.payments` array when creating an order.
+
+**Important**: The Orders API is a backend API that requires merchant credentials. Your frontend should send the payment data to your own server, which will then make the authenticated call to the Mercado Pago Orders API.
+
+### Example Integration
+
+```js
+onSubmit: async (formData, additionalData) => {
+  // Send payment data to your backend server
+  try {
+    const response = await fetch('/api/process-payment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ formData, additionalData }),
+    });
+
+    const result = await response.json();
+    // Handle payment processing result
+  } catch (error) {
+    // Handle error
+  }
+};
+```
+
+For complete Orders API documentation, see: [Create Order - Mercado Pago Developers](https://www.mercadopago.com/developers/en/reference/orders/online-payments/create/post)
