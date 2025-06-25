@@ -29,6 +29,8 @@ The Guest Flow is designed for users who are not logged into a Mercado Pago acco
 
 ### 🔐 [Fast Payments Flow](./payment-fast-payments.md)
 
+> To enable this functionality, please contact the offical *Mercado Pago* support via developer's website: www.mercadopago.com/developers
+
 **For authenticated users leveraging saved payment methods**
 
 The Fast Payments Flow provides a streamlined experience for users who are already logged into their Mercado Pago account, utilizing their saved payment methods and account information.

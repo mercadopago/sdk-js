@@ -1,5 +1,7 @@
 # Authenticator
 
+> To enable this functionality, please contact the offical *Mercado Pago* support via developer's website: www.mercadopago.com/developers
+
 The Authenticator provides a secure FastPayment authentication system using native device capabilities to streamline payment flows with saved payment methods.
 
 ## Initializing the Authenticator
