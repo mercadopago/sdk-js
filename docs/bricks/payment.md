@@ -29,7 +29,7 @@ The Guest Flow is designed for users who are not logged into a Mercado Pago acco
 
 ### 🔐 [Fast Payments Flow](./payment-fast-payments.md)
 
-> To enable this functionality, please contact the offical *Mercado Pago* support via developer's website: www.mercadopago.com/developers
+> To enable this flow, please contact the offical *Mercado Pago* support via developer's website: www.mercadopago.com/developers
 
 **For authenticated users leveraging saved payment methods**
 
