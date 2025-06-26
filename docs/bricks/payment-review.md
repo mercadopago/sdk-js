@@ -1,3 +1,11 @@
+# Payment Brick - Review Flow Documentation
+
+### This feature is temporarily exclusive for **MLM (México)** 🇲🇽 and **MLA (Argentina)** 🇦🇷
+
+The Payment Brick Review Flow extends the Guest Flow with additional review and confirmation steps, providing customers with a detailed overview of their purchase before completing the payment.
+
+---
+
 ## `BricksBuilder`.create(`brick`, `target`, `settings`)
 
 ### This feature is temporarily exclusive for **MLM (México)** 🇲🇽 and **MLA (Argentina)** 🇦🇷

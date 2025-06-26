@@ -37,9 +37,12 @@ const mp = new MercadoPago("PUBLIC_KEY", {
 | --------------------------------- | ---------- |
 | getIdentificationTypes            | **METHOD** |
 | getPaymentMethods                 | **METHOD** |
+| getAccountPaymentMethods          | **METHOD** |
 | getIssuers                        | **METHOD** |
 | getInstallments                   | **METHOD** |
+| getCardId                         | **METHOD** |
 | createCardToken                   | **METHOD** |
+| updatePseudotoken                 | **METHOD** |
 | cardForm                          | **MODULE** |
 | checkout                          | **MODULE** |
 | [fields](fields.md#fields-module) | **MODULE** |
@@ -157,6 +160,76 @@ const paymentMethods = await mp.getPaymentMethods({ bin: "41111111" });
 
 <br />
 
+### `mp instance`.getAccountPaymentMethods(`fastPaymentToken`)
+
+Returns payment methods associated with an account using a fast payment token.
+
+<br />
+
+#### Params:
+
+`fastPaymentToken` | _string_, **REQUIRED**
+| Option Key | Type | Description | |
+|-|-|-|-|
+| `fastPaymentToken` | `STRING` | Fast payment token obtained from the [Authenticator](#authenticator)'s `show()` method | **REQUIRED** |
+
+<br />
+
+#### Example:
+
+```javascript
+const accountPaymentMethods = await mp.getAccountPaymentMethods(fastPaymentToken);
+```
+
+#### Return: `PROMISE`
+
+```javascript
+{
+  data: [{
+    id: string,
+    name: string,
+    thumbnail: string,
+    token: string,
+    type: "credit_card" | "debit_card" | "account_money",
+    issuer: {
+      default: boolean,
+      id: string,
+      name: string,
+      bank: {
+        country: string,
+        name: string,
+      };
+    },
+    security_code_settings: {
+      length: number,
+      mode: string,
+    },
+    card: {
+      card_number: {
+        bin: string,
+        last_four_digits: string,
+        length: number,
+      };
+    },
+    installments: {
+      installment_amount: string,
+      installment_rate: number,
+      installment_rate_collector: string[],
+      installments: number,
+      max_allowed_amount: number,
+      min_allowed_amount: number,
+      total_amount: string,
+    };
+  }]
+}
+```
+
+<br />
+
+---
+
+<br />
+
 ### `mp instance`.getIssuers(`issuersParams`)
 
 Returns a issuers list
@@ -258,6 +331,42 @@ const installments = await mp.getInstallments({
 
 <br />
 
+### `mp instance`.getCardId(`fastPaymentToken`, `pseudotoken`)
+
+Returns card identification information using a fast payment token and pseudotoken.
+
+<br />
+
+#### Params:
+
+`fastPaymentToken, pseudotoken` | _string_, **REQUIRED**
+| Option Key | Type | Description | |
+|-|-|-|-|
+| `fastPaymentToken` | `STRING` | Fast payment token obtained from the [Authenticator](#authenticator)'s `show()` method | **REQUIRED** |
+| `pseudotoken` | `STRING` | Pseudotoken identifier | **REQUIRED** |
+
+<br />
+
+#### Example:
+
+```javascript
+const cardId = await mp.getCardId(fastPaymentToken, pseudotoken);
+```
+
+#### Return: `PROMISE`
+
+```javascript
+{
+  card_id: string
+}
+```
+
+<br />
+
+---
+
+<br />
+
 ### `mp instance`.createCardToken(`cardTokenParams`)
 
 Return a token card
@@ -308,3 +417,39 @@ const cardToken = await mp.createCardToken({
 ---
 
 <br />
+
+### `mp instance`.updatePseudotoken(`fastPaymentToken`, `pseudotoken`, `cardToken`)
+
+Updates pseudotoken information with card token data.
+
+<br />
+
+#### Params:
+
+`fastPaymentToken, pseudotoken, cardToken` | _string_, **REQUIRED**
+| Option Key | Type | Description | |
+|-|-|-|-|
+| `fastPaymentToken` | `STRING` | Fast payment token obtained from the [Authenticator](#authenticator)'s `show()` method | **REQUIRED** |
+| `pseudotoken` | `STRING` | Pseudotoken identifier | **REQUIRED** |
+| `cardToken` | `STRING` | Card token to associate | **REQUIRED** |
+
+<br />
+
+#### Example:
+
+```javascript
+await mp.updatePseudotoken(fastPaymentToken, pseudotoken, cardToken);
+```
+
+#### Return: `PROMISE`
+
+```javascript
+// Returns void - no response data
+```
+
+<br />
+
+---
+
+<br />
+

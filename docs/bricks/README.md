@@ -58,11 +58,11 @@ This methods creates and renders the brick on the screen.
 <br />
 Refer to the specific Brick API refence for parameters and methods specifications.
 
-|                                                   |
-| ------------------------------------------------- |
-| [`Payment`](./payment.md)                         |
-| [`Payment with review steps`](./paymentReview.md) |
-| [`Card Payment`](./card-payment.md)               |
-| [`Status Screen`](./status-screen.md)             |
-| [`Wallet`](./wallet.md)                           |
-| [`Brand`](./brand.md)                             |
+|                                                    |
+| -------------------------------------------------- |
+| [`Payment`](./payment.md)                          |
+| [`Payment with review steps`](./payment-review.md) |
+| [`Card Payment`](./card-payment.md)                |
+| [`Status Screen`](./status-screen.md)              |
+| [`Wallet`](./wallet.md)                            |
+| [`Brand`](./brand.md)                              |
