@@ -1,6 +1,6 @@
 # Authenticator
 
-> This functionality is disabled by default, to enable, please contact the offical *Mercado Pago* support via developer's website: www.mercadopago.com/developers
+> This functionality is disabled by default, to enable, please contact the offical _Mercado Pago_ support via developer's website: www.mercadopago.com/developers
 
 The Authenticator provides a secure FastPayment authentication system using native device capabilities to streamline payment flows with saved payment methods.
 
@@ -10,10 +10,10 @@ To initialize the authenticator you need to call the `.authenticator()` function
 
 `.authenticator(amount, payerEmail)`
 
-| Parameter     | Type     | Description                                                        |
-| ------------- | -------- | ------------------------------------------------------------------ |
-| `amount`      | _string_ | Payment amount to authenticate                                     |
-| `payerEmail`  | _string_ | Email address of the payer                                         |
+| Parameter    | Type     | Description                    |
+| ------------ | -------- | ------------------------------ |
+| `amount`     | _string_ | Payment amount to authenticate |
+| `payerEmail` | _string_ | Email address of the payer     |
 
 ## Authenticator
 
@@ -25,29 +25,26 @@ const authenticator = await mp.authenticator("100.00", "user@example.com");
 
 ### Parameters
 
-| Option name  | Type      | Attributes                | Description                       |              |
-| ------------ | --------- | ------------------------- | --------------------------------- | ------------ |
-| `amount`     | _string_  |                           | Payment amount to authenticate    | **REQUIRED** |
-| `payerEmail` | _string_  |                           | Email address of the payer        | **REQUIRED** |
+| Option name  | Type     | Attributes | Description                    |              |
+| ------------ | -------- | ---------- | ------------------------------ | ------------ |
+| `amount`     | _string_ |            | Payment amount to authenticate | **REQUIRED** |
+| `payerEmail` | _string_ |            | Email address of the payer     | **REQUIRED** |
 
 ## Show Authentication
 
 Once the authenticator is initialized, you can display the authentication interface to get the fast payment token.
 
 ```javascript
-const fastPaymentToken = await authenticator.show({
-  hideUserConfirmation: false,
-});
+const fastPaymentToken = await authenticator.show();
 ```
 
 > Returns: `Promise<string | null>`. Fast payment token if successful.
 
 ### Parameters
 
-| Option name            | Type      | Description                              |              |
-| ---------------------- | --------- | ---------------------------------------- | ------------ |
-| `settings`             | _object_  | Authentication settings                  | **OPTIONAL** |
-| `hideUserConfirmation` | _boolean_ | Whether to skip user confirmation step   | **OPTIONAL** |
+| Option name | Type     | Description             |              |
+| ----------- | -------- | ----------------------- | ------------ |
+| `settings`  | _object_ | Authentication settings | **OPTIONAL** |
 
 ### Additional methods
 
@@ -65,29 +62,31 @@ const application = authenticator.getApplication();
 ### Error Handling
 
 #### Authenticator Initialization Errors
+
 These errors can occur when creating the authenticator instance:
 
-| Error Code                   | Description                                        |
-| ---------------------------- | -------------------------------------------------- |
-| `SiteIdNotSupported`         | The site ID is not supported for authentication   |
-| `InvalidEmail`               | Invalid email address provided                     |
-| `InvalidAmount`              | Invalid amount value provided                      |
-| `PublicKeyNotSet`            | Public key not set before initialization          |
-| `ApiRequestFailed`           | Error while fetching user flows                   |
-| `AuthenticationNotSupported` | Authentication flow not supported for this user   |
+| Error Code                   | Description                                     |
+| ---------------------------- | ----------------------------------------------- |
+| `SiteIdNotSupported`         | The site ID is not supported for authentication |
+| `InvalidEmail`               | Invalid email address provided                  |
+| `InvalidAmount`              | Invalid amount value provided                   |
+| `PublicKeyNotSet`            | Public key not set before initialization        |
+| `ApiRequestFailed`           | Error while fetching user flows                 |
+| `AuthenticationNotSupported` | Authentication flow not supported for this user |
 
 #### Show Method Errors
+
 These errors can occur when calling the `show()` method:
 
-| Error Code                   | Description                                        |
-| ---------------------------- | -------------------------------------------------- |
-| `NotInitialized`             | Authenticator not properly initialized            |
-| `AlreadyShowing`             | Authentication UI already displayed               |
-| `NoBottomsheetConfirmation`  | User cancelled authentication                     |
-| `BottomsheetLoadingFailed`   | Error loading confirmation interface              |
-| `PRApiError`                 | Payment request API error                         |
-| `UnreachableApplication`     | Cannot reach the required application             |
-| `SecurityBlocked`            | Authentication blocked for security reasons       |
+| Error Code                  | Description                                 |
+| --------------------------- | ------------------------------------------- |
+| `NotInitialized`            | Authenticator not properly initialized      |
+| `AlreadyShowing`            | Authentication UI already displayed         |
+| `NoBottomsheetConfirmation` | User cancelled authentication               |
+| `BottomsheetLoadingFailed`  | Error loading confirmation interface        |
+| `PRApiError`                | Payment request API error                   |
+| `UnreachableApplication`    | Cannot reach the required application       |
+| `SecurityBlocked`           | Authentication blocked for security reasons |
 
 ### Integration examples
 
@@ -103,10 +102,10 @@ const initializeAuthentication = async () => {
   try {
     // Initialize authenticator
     const authenticator = await mp.authenticator('100.00', 'user@example.com');
-    
+
     // Show authentication
     const fastPaymentToken = await authenticator.show();
-    
+
     if (fastPaymentToken) {
       console.log('Authentication successful:', fastPaymentToken);
       // Use fastPaymentToken for payment processing
