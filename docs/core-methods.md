@@ -219,6 +219,7 @@ const accountPaymentMethods = await mp.getAccountPaymentMethods(fastPaymentToken
       max_allowed_amount: number,
       min_allowed_amount: number,
       total_amount: string,
+      labels: string[],
     };
   }]
 }
