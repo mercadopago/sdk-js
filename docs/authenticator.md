@@ -4,6 +4,8 @@
 
 The Authenticator provides a secure FastPayment authentication system using native device capabilities to streamline payment flows with saved payment methods.
 
+> For a complete integration example, please refer to the [Fast Payments Example](https://github.com/mercadopago/fastpayments_example).
+
 ## Initializing the Authenticator
 
 To initialize the authenticator you need to call the `.authenticator()` function from the SDK along with some parameters
@@ -42,9 +44,10 @@ const fastPaymentToken = await authenticator.show();
 
 ### Parameters
 
-| Option name | Type     | Description             |              |
-| ----------- | -------- | ----------------------- | ------------ |
-| `settings`  | _object_ | Authentication settings | **OPTIONAL** |
+| Option name            | Type     | Description                                                       |              |
+| ---------------------- | -------- | ----------------------------------------------------------------- | ------------ |
+| `settings`             | _object_ | Authentication settings                                           | **OPTIONAL** |
+| `confirmationLocation` | _string_ | Where the confirmation will be displayed. Options: `web` or `app` | **OPTIONAL** |
 
 ### Additional methods
 
@@ -65,28 +68,32 @@ const application = authenticator.getApplication();
 
 These errors can occur when creating the authenticator instance:
 
-| Error Code                   | Description                                     |
-| ---------------------------- | ----------------------------------------------- |
-| `SiteIdNotSupported`         | The site ID is not supported for authentication |
-| `InvalidEmail`               | Invalid email address provided                  |
-| `InvalidAmount`              | Invalid amount value provided                   |
-| `PublicKeyNotSet`            | Public key not set before initialization        |
-| `ApiRequestFailed`           | Error while fetching user flows                 |
-| `AuthenticationNotSupported` | Authentication flow not supported for this user |
+| Error Code                          | Description                                      |
+| ----------------------------------- | ------------------------------------------------ |
+| `NOT_SUPPORTED_SITE_ID`             | The site ID is not supported for authentication  |
+| `INVALID_EMAIL_ADDRESS`             | Invalid email address provided                   |
+| `INVALID_AMOUNT_VALUE`              | Invalid amount value provided                    |
+| `PUBLIC_KEY_NOT_SET`                | Public key not set before initialization         |
+| `API_REQUEST_FAILED`                | Error while fetching user flows                  |
+| `PAYMENT_REQUEST_NOT_SUPPORTED`     | Payment request flow not supported for this user |
+| `AUTHENTICATION_FLOW_NOT_SUPPORTED` | Authentication flow not supported for this user  |
+| `NO_APPLICATIONS_DETECTED`          | No required applications detected on the device  |
+| `APPLICATION_CHECK_ERROR`           | Error checking installed applications            |
 
 #### Show Method Errors
 
 These errors can occur when calling the `show()` method:
 
-| Error Code                  | Description                                 |
-| --------------------------- | ------------------------------------------- |
-| `NotInitialized`            | Authenticator not properly initialized      |
-| `AlreadyShowing`            | Authentication UI already displayed         |
-| `NoBottomsheetConfirmation` | User cancelled authentication               |
-| `BottomsheetLoadingFailed`  | Error loading confirmation interface        |
-| `PRApiError`                | Payment request API error                   |
-| `UnreachableApplication`    | Cannot reach the required application       |
-| `SecurityBlocked`           | Authentication blocked for security reasons |
+| Error Code                   | Description                                 |
+| ---------------------------- | ------------------------------------------- |
+| `NOT_INITIALIZED`            | Authenticator not properly initialized      |
+| `ALREADY_SHOWING`            | Authentication UI already displayed         |
+| `NO_USER_CONFIRMATION`       | User cancelled authentication               |
+| `BOTTOMSHEET_LOADING_FAILED` | Error loading confirmation interface        |
+| `BOTTOMSHEET_CLOSE_FAILED`   | Error closing confirmation interface        |
+| `PAYMENT_REQUEST_ERROR`      | Payment request API error                   |
+| `UNREACHABLE_APPLICATION`    | Cannot reach the required application       |
+| `SECURITY_BLOCKED`           | Authentication blocked for security reasons |
 
 ### Integration examples
 
