@@ -237,7 +237,6 @@ The `getAccountPaymentMethods` response includes different payment method types:
 | `account_money`   | User's Mercado Pago account balance            | None |
 | `digital_currency`| **Mercado Crédito (Credits)** - BNPL solution  |  None |
 
-**Note**: When `type` is `digital_currency`, it represents Mercado Crédito (Credits), which provides Buy Now Pay Later functionality with flexible installment options.
 
 <br />
 
@@ -538,16 +537,6 @@ if (updateResult) {
   console.log('Failed to update Credits contract');
 }
 ```
-
-#### Integration Notes:
-
-- **Purpose**: This method renders the legal text and terms for Mercado Crédito payments, ensuring compliance with financial regulations and providing transparency to users about the credit terms.
-
-- **Placement**: The Credits contract component should be displayed during the checkout process when the user selects Mercado Crédito as their payment method.
-
-- **Regulatory Compliance**: The component automatically displays all required legal information, including interest rates, fees, and total payment amounts according to local financial regulations.
-
-- **Real-time Updates**: Use the controller's `update()` method to refresh the displayed terms when users change their installment selection.
 
 #### Error Handling:
 

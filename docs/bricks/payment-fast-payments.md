@@ -240,19 +240,6 @@ The Fast Payments Flow supports multiple payment method types available in the u
 | `account_money`   | User's Mercado Pago account balance            | Direct payment from user's wallet        |
 | `digital_currency`| **Mercado Crédito (Credits)** - BNPL solution | Allows installment payments without cards |
 
-### Credits (Buy Now Pay Later)
-
-**Mercado Crédito** provides a Buy Now Pay Later (BNPL) solution that allows users to make purchases with flexible installment plans without requiring a traditional credit card.
-
-#### Credits Features:
-- **Flexible installments**: Users can choose from available installment options
-- **No card required**: Payment method independent of traditional cards
-- **Instant approval**: Quick credit evaluation during checkout
-- **Transparent pricing**: Clear display of rates and total costs
-
-#### Credits Integration:
-When a user has Credits available in their account, it will appear as a `digital_currency` payment method in the `getAccountPaymentMethods` response, allowing seamless integration with the Fast Payments Flow.
-
 ---
 
 ## Custom Texts
