@@ -1,5 +1,9 @@
 # Payment Brick - Fast Payments Flow Documentation
 
+> ### ⚠️ Note: This feature is currently available only to selected partners.
+>
+> Please contact your account manager to check your eligibility for early access.
+
 The Payment Brick Fast Payments Flow is designed for authenticated users who have existing payment methods saved in their Mercado Pago account. This flow provides a streamlined payment experience by leveraging the user's authentication token.
 
 ---
