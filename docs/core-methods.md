@@ -43,6 +43,7 @@ const mp = new MercadoPago("PUBLIC_KEY", {
 | getCardId                         | **METHOD** |
 | createCardToken                   | **METHOD** |
 | updatePseudotoken                 | **METHOD** |
+| renderCreditsContract             | **METHOD** |
 | cardForm                          | **MODULE** |
 | checkout                          | **MODULE** |
 | [fields](fields.md#fields-module) | **MODULE** |
@@ -190,7 +191,7 @@ const accountPaymentMethods = await mp.getAccountPaymentMethods(fastPaymentToken
     name: string,
     thumbnail: string,
     token: string,
-    type: "credit_card" | "debit_card" | "account_money",
+    type: "credit_card" | "debit_card" | "account_money" | "digital_currency",
     issuer: {
       default: boolean,
       id: string,
@@ -224,6 +225,18 @@ const accountPaymentMethods = await mp.getAccountPaymentMethods(fastPaymentToken
   }]
 }
 ```
+
+#### Payment Method Types
+
+The `getAccountPaymentMethods` response includes different payment method types:
+
+| Type              | Description                                    | Additional Fields Available |
+| ----------------- | ---------------------------------------------- | --------------------------- |
+| `credit_card`     | User's saved credit cards                      | `card`, `security_code_settings`, `installments` |
+| `debit_card`      | User's saved debit cards                       | `card`, `security_code_settings` |
+| `account_money`   | User's Mercado Pago account balance            | None |
+| `digital_currency`| **Mercado Crédito (Credits)** - BNPL solution  |  None |
+
 
 <br />
 
@@ -454,3 +467,87 @@ await mp.updatePseudotoken(fastPaymentToken, pseudotoken, cardToken);
 
 <br />
 
+### `mp instance`.renderCreditsContract(`containerId`, `options`)
+
+Renders a Credits legal text component that displays the terms and conditions for Mercado Crédito (Buy Now Pay Later) payments.
+
+<br />
+
+#### Params:
+
+`containerId` | _string_, **REQUIRED**
+
+The HTML element ID where the Credits contract component will be rendered.
+
+<br />
+
+`options` | _object_, **REQUIRED**
+
+| Option Key         | Type     | Description                                                                          |              |
+| ------------------ | -------- | ------------------------------------------------------------------------------------ | ------------ |
+| `fastPaymentToken` | `STRING` | Fast payment token obtained from the [Authenticator](#authenticator)'s `show()` method | **REQUIRED** |
+| `pseudotoken`      | `STRING` | Pseudotoken identifier for the Credits payment method                                | **REQUIRED** |
+| `pricingId`        | `STRING` | Pricing configuration identifier for the Credits contract                            | **REQUIRED** |
+| `customization`    | `object` | Visual customization options for the component                                       | **OPTIONAL** |
+
+#### Customization Options
+
+| Customization Key | Type     | Description                      |              |
+| ----------------- | -------- | -------------------------------- | ------------ |
+| `textColor`       | `string` | Color of the contract text       | **OPTIONAL** |
+| `textSize`        | `string` | Font size of the contract text   | **OPTIONAL** |
+| `linkColor`       | `string` | Color of links in the contract   | **OPTIONAL** |
+
+<br />
+
+#### Example:
+
+```javascript
+const creditsController = await mp.renderCreditsContract('credits_container', {
+  fastPaymentToken: '<USER_FAST_PAYMENT_TOKEN>',
+  pseudotoken: '<CREDITS_PSEUDOTOKEN>',
+  pricingId: '<PRICING_ID>',
+  customization: {
+    textColor: '#333333',
+    textSize: '14px',
+    linkColor: '#0070e0',
+  },
+});
+```
+
+#### Return: `PROMISE<CREDITS_CONTROLLER>`
+
+The method returns a Promise that resolves to a Credits Controller object with the following methods:
+
+| Method | Description                                                           | Params                               | Returns          |
+| ------ | --------------------------------------------------------------------- | ------------------------------------ | ---------------- |
+| `update` | Updates the Credits contract with new installment information       | `{ installments: string }`           | `Promise<boolean>` |
+
+#### Usage with Credits Controller:
+
+```javascript
+// Update the contract to show different installment options
+const updateResult = await creditsController.update({
+  installments: '12', // Number of installments as string
+});
+
+if (updateResult) {
+  console.log('Credits contract updated successfully');
+} else {
+  console.log('Failed to update Credits contract');
+}
+```
+
+#### Error Handling:
+
+The method may reject with the following error types:
+- `missing_container_id`: The specified container element was not found
+- `invalid_fast_payment_token`: The provided token is invalid or expired
+- `missing_pricing_id`: The pricing ID is required but not provided
+- `credits_contract_initialization_failed`: Failed to initialize the Credits contract component
+
+<br />
+
+---
+
+<br />

@@ -227,6 +227,21 @@ The following table lists all possible error causes that can occur in the Paymen
 
 ---
 
+## Payment Methods Support
+
+The Fast Payments Flow supports multiple payment method types available in the user's Mercado Pago account:
+
+### Supported Payment Types
+
+| Payment Type      | Description                                    | Integration Notes                        |
+| ----------------- | ---------------------------------------------- | ---------------------------------------- |
+| `credit_card`     | User's saved credit cards                      | May require CVV input for security       |
+| `debit_card`      | User's saved debit cards                       | May require CVV input for security       |
+| `account_money`   | User's Mercado Pago account balance            | Direct payment from user's wallet        |
+| `digital_currency`| **Mercado Crédito (Credits)** - BNPL solution | Allows installment payments without cards |
+
+---
+
 ## Custom Texts
 
 Accepted properties are:
