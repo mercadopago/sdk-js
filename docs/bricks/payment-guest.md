@@ -38,20 +38,20 @@ The `settings` object has properties to initialize and customize the brick being
 ## Usage Example
 
 ```js
-mp.bricks().create('payment', 'paymentBrick_container', {
+mp.bricks().create("payment", "paymentBrick_container", {
   initialization: {
     amount: 10000,
-    preferenceId: '<PREFERENCE_ID>',
+    preferenceId: "<PREFERENCE_ID>",
   },
   customization: {
     paymentMethods: {
-      creditCard: 'all',
-      debitCard: 'all',
-      prepaidCard: 'all',
-      ticket: 'all',
-      bankTransfer: 'all',
-      mercadoPago: 'all',
-      atm: 'all',
+      creditCard: "all",
+      debitCard: "all",
+      prepaidCard: "all",
+      ticket: "all",
+      bankTransfer: "all",
+      mercadoPago: "all",
+      atm: "all",
     },
   },
   callbacks: {
@@ -60,10 +60,10 @@ mp.bricks().create('payment', 'paymentBrick_container', {
     },
     onSubmit: ({ paymentMethod, formData }) => {
       return new Promise((resolve, reject) => {
-        fetch('/process_payment', {
-          method: 'POST',
+        fetch("/process_payment", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
         })
@@ -158,9 +158,8 @@ Customizations object is used to load Brick under different conditions.
 | `visual.hidePaymentButton`              | `boolean`            | Hides the payment button and disables the `onSubmit` callback.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | **OPTIONAL** |
 | `visual.hideFormTitle`                  | `boolean`            | Hides the form title row.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | **OPTIONAL** |
 | `visual.preserveSavedCardsOrder`        | `boolean`            | When `true`, the brick will present the cards maintaining the order established in the property `initialization.payer.cardsIds`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | **OPTIONAL** |
-| `visual.defaultPaymentOption`           | `object`             | Object that define a single payment method as default, so the form will load with this option already selected. Only one option is allowed. (Can contain one of the following properties `creditCardForm`, `debitCardForm`, `prepaidCardForm`, `savedCardForm`, `ticketForm`, `bankTransferForm`, `walletForm`, or `creditForm`)                                                                                                                                                                                                                                                                                                 | **OPTIONAL** |
+| `visual.defaultPaymentOption`           | `object`             | Object that define a single payment method as default, so the form will load with this option already selected. Only one option is allowed. (Can contain one of the following properties `creditCardForm`, `debitCardForm`, `savedCardForm`, `ticketForm`, `bankTransferForm`, `walletForm`, or `creditForm`)                                                                                                                                                                                                                                                                                                                    | **OPTIONAL** |
 | `defaultPaymentOption.creditCardForm`   | `boolean`            | When `true`, the form loads with credit card form selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | **OPTIONAL** |
-| `defaultPaymentOption.prepaidCardForm`  | `boolean`            | When `true`, the form loads with credit card form selected, since the form used is the same.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | **OPTIONAL** |
 | `defaultPaymentOption.debitCardForm`    | `boolean`            | When `true`, the form loads with debit card form selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | **OPTIONAL** |
 | `defaultPaymentOption.savedCardForm`    | `string`             | One of the `cardsIds` informed in the property `initialization.payer.cardsIds`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | **OPTIONAL** |
 | `defaultPaymentOption.ticketForm`       | `boolean`            | When `true`, the form loads with ticket selected ([check availability](#ticket-availability))                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | **OPTIONAL** |
@@ -297,7 +296,7 @@ null;
 
 ```ts
 {
-  type: 'non_critical' | 'critical';
+  type: "non_critical" | "critical";
   message: string;
   cause: ErrorCause;
 }
