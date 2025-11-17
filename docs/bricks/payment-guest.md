@@ -354,7 +354,6 @@ The following table lists all possible error causes that can occur in the Paymen
 | `get_config_assets_failed`            | Failed to load configuration assets required for the Brick                |
 | `get_identification_types_failed`     | Failed to retrieve available identification types for the country         |
 | `get_payment_data_failed`             | Failed to retrieve payment data                                           |
-| `get_smart_option_value_prop_failed`  | Failed to retrieve smart option value proposition                         |
 | `get_payment_methods_failed`          | Failed to retrieve the list of available payment methods                  |
 
 #### User interaction Errors
