@@ -192,7 +192,7 @@ Customizations object is used to load Brick under different conditions.
 
 | Customization key               | Type      | Description                                                                                                                                                                                                           |              |
 | ------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| `valueProp`¹                    | `string`  | Defines the value prop. Options available: `practicality`, `convenience_all`, `security_details`, `security_safety`, `convenience_credits`, `smart_option`, `payment_methods_logos`, `free_shipping` and `ml_shipping`. Default is `security_safety`. | **OPTIONAL** |
+| `valueProp`¹                    | `string`  | Defines the value prop. Options available: `practicality`, `convenience_all`, `security_details`, `security_safety`, `convenience_credits`, `payment_methods_logos`, `free_shipping` and `ml_shipping`. Default is `security_safety`. | **OPTIONAL** |
 | `theme`                         | `string`  | Defines the visual theme of the Brick. Options available: `default`, `black`. Default is `default`.                                                                                                                   | **OPTIONAL** |
 | `customStyle`                   | `object`  | Controls custom visual aspects of the brick. Some options vary depending on theme.                                                                                                                                    | **OPTIONAL** |
 | `customStyle.buttonHeight`      | `string`  | Defines the brick height. Default is `48px`. Min: `48px`. Max: free choice.                                                                                                                                           | **OPTIONAL** |
@@ -210,13 +210,13 @@ Customizations object is used to load Brick under different conditions.
 
 | Country                 | Value prop availability                                                                                                                  |
 | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| :argentina: `Argentina` | `practicality`, `convenience_all`, `security_details`, `security_safety`, `convenience_credits`, `smart_option`, `payment_methods_logos` |
-| :brazil: `Brazil`       | `practicality`, `convenience_all`, `security_details`, `security_safety`, `convenience_credits`, `smart_option`, `payment_methods_logos`, `free_shipping`, `ml_shipping` |
-| :mexico: `Mexico`       | `practicality`, `convenience_all`, `security_details`, `security_safety`, `convenience_credits`, `smart_option`, `payment_methods_logos`, `free_shipping`, `ml_shipping`  |
-| :colombia: `Colombia`   | `practicality`, `security_details`, `security_safety`, `smart_option`,`payment_methods_logos`                                            |
-| :uruguay: `Uruguay`     | `practicality`, `security_details`, `security_safety`, `smart_option`, `payment_methods_logos`                                           |
-| :chile: `Chile`         | `practicality`, `security_details`, `security_safety`, `smart_option`, `payment_methods_logos`                                           |
-| :peru: `Peru`           | `practicality`, `security_details`, `security_safety`, `smart_option`, `payment_methods_logos`                                           |
+| :argentina: `Argentina` | `practicality`, `convenience_all`, `security_details`, `security_safety`, `convenience_credits`, `payment_methods_logos` |
+| :brazil: `Brazil`       | `practicality`, `convenience_all`, `security_details`, `security_safety`, `convenience_credits`, `payment_methods_logos`, `free_shipping`, `ml_shipping` |
+| :mexico: `Mexico`       | `practicality`, `convenience_all`, `security_details`, `security_safety`, `convenience_credits`, `payment_methods_logos`, `free_shipping`, `ml_shipping`  |
+| :colombia: `Colombia`   | `practicality`, `security_details`, `security_safety`, `payment_methods_logos`                                           |
+| :uruguay: `Uruguay`     | `practicality`, `security_details`, `security_safety`, `payment_methods_logos`                                           |
+| :chile: `Chile`         | `practicality`, `security_details`, `security_safety`, `payment_methods_logos`                                           |
+| :peru: `Peru`           | `practicality`, `security_details`, `security_safety`, `payment_methods_logos`                                           |
 
 #### Value prop color availability
 
