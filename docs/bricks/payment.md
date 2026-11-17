@@ -29,21 +29,20 @@ The Guest Flow is designed for users who are not logged into a Mercado Pago acco
 
 ### 🔐 [Fast Payments Flow](./payment-fast-payments.md)
 
-> This flow is disabled by default, to enable, please contact the offical *Mercado Pago* support via developer's website: www.mercadopago.com/developers
+> This feature is currently available only to selected partners. To integrate it, contact your Mercado Pago account executive.
 
-**For authenticated users leveraging saved payment methods**
+**For eligible buyers paying with the methods already available in their Mercado Pago account**
 
-The Fast Payments Flow provides a streamlined experience for users who are already logged into their Mercado Pago account, utilizing their saved payment methods and account information.
+Fast Payments is turned on in the regular Payment Brick with `initialization.quickCheckout: ['fastPayment']`. Mercado Pago renders the buyer's saved cards and account money, according to eligibility, and authenticates the buyer.
 
 **Key Features:**
 
-- Streamlined checkout with saved payment methods
-- Automatic access to user's account money
-- Reduced form fields and faster completion
-- Enhanced security with authentication token
-- Limited but focused customization options
-- No dynamic updates (managed through account context)
-- Data structure compatible with Orders API
+- Saved cards and account money, filtered by the types you declare in `customization.paymentMethods` (`creditCard`, `debitCard`, `prepaidCard`, `bankTransfer`)
+- Fast Payments-only or mixed with the guest flow methods
+- The buyer confirms the payment with OTP on desktop web, or with Passkey or OTP on mobile web and, on Android, also in the Mercado Pago or Mercado Libre app
+- `formData` includes `fast_payment: true` when the selected method comes from Fast Payments
+- No amount updates with `update()` for eligible buyers
+- Payment processed by creating an order with the Orders API
 
 **Best for:** Returning customers, subscription payments, marketplace integrations with user accounts
 
@@ -85,11 +84,18 @@ mp.bricks().create('payment', 'container', {
   // ...
 });
 
-// Fast Payments Flow - fastPaymentToken provided
+// Fast Payments Flow - quickCheckout provided
 mp.bricks().create('payment', 'container', {
   initialization: {
-    fastPaymentToken: '<USER_FAST_PAYMENT_TOKEN>',
-    // ... other fast payments flow settings
+    amount: 10000,
+    quickCheckout: ['fastPayment'],
+    // ... other initialization data
+  },
+  customization: {
+    paymentMethods: {
+      creditCard: 'all',
+      bankTransfer: ['account_money'],
+    },
   },
   // ...
 });
@@ -120,14 +126,14 @@ mp.bricks().create('payment', 'container', {
 
 | Feature             | Guest Flow                   | Fast Payments Flow          | Review Flow 🇲🇽 🇦🇷            |
 | ------------------- | ---------------------------- | --------------------------- | ---------------------------- |
-| **Authentication**  | Not required                 | Required (fastPaymentToken) | Not required                 |
-| **Payment Methods** | Full configuration available | Uses saved payment methods  | Full configuration available |
+| **Authentication**  | Not required                 | In the Brick (OTP, Passkey or app) | Not required          |
+| **Payment Methods** | Full configuration available | Saved methods, filtered by declared types | Full configuration available |
 | **Form Complexity** | Complete payment information | Streamlined with saved data | Enhanced with review steps   |
-| **Customization**   | Extensive options            | Limited, focused options    | Extensive + review options   |
-| **Amount Updates**  | ✅ Dynamic with `update()`   | ❌ Managed by account       | ✅ Dynamic with `update()`   |
+| **Customization**   | Extensive options            | Guest Flow options + `quickCheckout` | Extensive + review options   |
+| **Amount Updates**  | ✅ Dynamic with `update()`   | ❌ Not for eligible buyers  | ✅ Dynamic with `update()`   |
 | **User Experience** | Comprehensive form           | Quick, familiar checkout    | Detailed review & confirm    |
-| **Data Format**     | Standard payment data        | Orders API compatible       | Standard payment data        |
-| **Availability**    | Global                       | Global                      | Mexico & Argentina only      |
+| **Data Format**     | Standard payment data        | `PaymentFormData` with `fast_payment: true` | Standard payment data        |
+| **Availability**    | Global                       | Selected partners           | Mexico & Argentina only      |
 | **Review Steps**    | ❌ Not available             | ❌ Not available            | ✅ Available                 |
 
 ---
@@ -137,7 +143,7 @@ mp.bricks().create('payment', 'container', {
 1. **Choose your flow** based on your user authentication state and requirements:
 
    - **Guest Flow**: For standard unauthenticated checkouts
-   - **Fast Payments Flow**: For authenticated users with saved payment methods
+   - **Fast Payments Flow**: For eligible buyers paying with the methods available in their Mercado Pago account
    - **Review Flow**: For enhanced checkout experience in Mexico and Argentina
 
 2. **Follow the detailed documentation** for your selected flow:
