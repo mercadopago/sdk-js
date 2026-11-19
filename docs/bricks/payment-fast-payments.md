@@ -2,419 +2,208 @@
 
 > ### ⚠️ Note: This feature is currently available only to selected partners.
 >
-> Please contact your account manager to check your eligibility for early access.
+> To integrate Fast Payments with Mercado Pago, contact your Mercado Pago account executive. Integrations for mobile applications are outside the scope of this flow.
 
-The Payment Brick Fast Payments Flow is designed for authenticated users who have existing payment methods saved in their Mercado Pago account. This flow provides a streamlined payment experience by leveraging the user's authentication token.
+With Fast Payments, eligible buyers pay with the methods already available in their Mercado Pago account (saved cards and account money, according to eligibility), without entering their payment data again.
+
+Fast Payments is turned on in the regular Payment Brick. Mercado Pago renders the available methods, authenticates the buyer, and delivers the payment data through the `onSubmit` callback. Your backend processes the payment by creating an order with the [Orders API](https://www.mercadopago.com/developers/en/reference/orders/online-payments/create/post).
+
+| Platform    | Supported browsers                                                      | How the buyer confirms the payment                                                                  |
+| ----------- | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Desktop web | Chrome, Firefox, Safari, and Microsoft Edge                             | OTP                                                                                                 |
+| Mobile web  | Android: Chrome, Firefox, and Microsoft Edge. iOS: Chrome and Safari    | Passkey or OTP and, on Android, also in the Mercado Pago or Mercado Libre app                       |
+
+> Note: Mercado Pago evaluates the eligibility and the authentication mechanism available for each session. Do not implement browser, version, or authentication technology detection in your frontend.
+
+> Note: Your frontend must not receive the full card number, CVV, or account credentials. Do not log `PaymentFormData`, tokens, emails, or payment payloads to the console or telemetry.
 
 ---
 
 ## `BricksBuilder`.create(`brick`, `target`, `settings`)
 
-### Parameters
-
-`brick` | _string_, **REQUIRED**
-
-Selected Brick. Possible values are: `payment`.
-
-<br />
-
-`target` | _string_, **REQUIRED**
-
-Id of the container that the brick will be rendered in. Can be any HTML element.
-
-<br />
-
-`settings` | _object_, **REQUIRED**
-
-The `settings` object has properties to initialize and customize the brick being created.
-
-| Setting key      | Type     | Description                                             |              |
-| ---------------- | -------- | ------------------------------------------------------- | ------------ |
-| `initialization` | `object` | Defines the initialization data for authenticated users | **REQUIRED** |
-| `callbacks`      | `object` | Defines the callback functions for fast payments flow   | **REQUIRED** |
-| `customization`  | `object` | Defines custom properties and visual configurations     | **OPTIONAL** |
-| `locale`         | `string` | Defines locale.                                         | **OPTIONAL** |
-
-### Returns: `Promise<BRICK CONTROLLER>`
+Fast Payments uses the same parameters as the [Guest Flow](./payment-guest.md#bricksbuildercreatebrick-target-settings). Only the Payment Brick (`'payment'`) supports it; other Bricks, such as the Wallet Brick, ignore `quickCheckout`.
 
 ---
 
 ## Usage Example
 
 ```js
-mp.bricks().create('payment', 'paymentBrick_container', {
+const mp = new MercadoPago('YOUR_PUBLIC_KEY');
+const bricks = mp.bricks();
+
+await bricks.create('payment', 'paymentBrick_container', {
   initialization: {
-    fastPaymentToken: '<USER_FAST_PAYMENT_TOKEN>',
+    amount: 100,
+    payer: { email: 'test@testuser.com' },
+    quickCheckout: ['fastPayment'],
   },
   customization: {
-    visual: {
-      hidePaymentButton: false,
-      style: {
-        theme: 'default',
-      },
+    paymentMethods: {
+      creditCard: 'all',
+      debitCard: 'all',
+      prepaidCard: 'all',
+      bankTransfer: ['account_money'],
     },
   },
   callbacks: {
     onReady: () => {
       // handle form ready
     },
-    onSubmit: (formData) => {
-      return new Promise((resolve, reject) => {
-        fetch('/process_payment', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ formData }),
-        })
-          .then((response) => response.json())
-          .then((response) => {
-            // get payment result
-            resolve();
-          })
-          .catch((error) => {
-            // get payment result error
-            reject();
-          });
+    onSubmit: async (paymentFormData) => {
+      const response = await fetch('/process_payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(paymentFormData),
       });
+
+      if (!response.ok) throw new Error('PAYMENT_PROCESSING_FAILED');
+      return response.json();
     },
     onError: (error) => {
-      // handle error
-    },
-    onBinChange: (bin) => {
-      // handle BIN change for card validation
+      // handle error, see "Error handling"
     },
   },
 });
 ```
 
+> Note: `/process_payment` belongs to your integration. Protect it with your session and CSRF controls, validate the request body on the server, and never expose your Access Token in the browser.
+
 ---
 
 ## Settings
 
+All the [Guest Flow settings](./payment-guest.md#settings) keep working. Fast Payments adds one initialization key and reuses the payment method type keys of `customization.paymentMethods`.
+
 ### Initialization
 
-For authenticated users, the initialization requires the fastPaymentToken and supports limited additional configuration.
+| Initialization key | Type       | Description                                                                                       |              |
+| ------------------ | ---------- | ------------------------------------------------------------------------------------------------- | ------------ |
+| `quickCheckout`    | `string[]` | Turns Fast Payments on. Must be a list containing `'fastPayment'`. See [Activation](#activation). | **REQUIRED** |
 
-| Initialization key | Type     | Description                                                                                                                          |              |
-| ------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------ |
-| `fastPaymentToken` | `string` | Authentication token for the logged-in user. This token provides access to the user's saved payment methods and account information. | **REQUIRED** |
-| `fingerprint`      | `string` | Device fingerprint for fraud prevention and security validation.                                                                     | **OPTIONAL** |
+### Activation
 
-### Callbacks
+- `quickCheckout` must be a list containing `'fastPayment'`, spelled exactly like that. Any other value, such as text, an empty list, an object, `null`, or a different spelling (`'FastPayment'`), keeps the Payment Brick in the guest flow and logs a warning to the console.
+- For now, `'fastPayment'` is the only accepted value. Other items in the list are ignored, with a console warning.
+- Without any payment method type key in `paymentMethods`, Fast Payments has no methods to display and the Payment Brick logs a warning to the console. See [Choosing the Fast Payments methods](#choosing-the-fast-payments-methods).
 
-The Fast Payments Flow requires all three core callbacks for proper payment processing.
+### Choosing the Fast Payments methods
 
-| Callback key  | Description                                                            |              | Params                                                     | Returns         |
-| ------------- | ---------------------------------------------------------------------- | ------------ | ---------------------------------------------------------- | --------------- |
-| `onReady`     | It is called when the brick finishes loading                           | **REQUIRED** | `void`                                                     | `void`          |
-| `onError`     | It is called when there is an error in the Brick                       | **REQUIRED** | `BrickError`                                               | `void`          |
-| `onSubmit`    | It is called when the user clicks on the submit button                 | **REQUIRED** | `FastPaymentFormData`, `FastPaymentAdditionalData \| null` | `Promise<void>` |
-| `onBinChange` | It is called when the user fills or update card's BIN (first 8 digits) | **OPTIONAL** | `bin`                                                      | `void`          |
+With Fast Payments on, only the types you declare in `customization.paymentMethods` are displayed (allow-list).
 
+| Customization key             | Accepted values                                                                                  | Effect on Fast Payments                                                                          |
+| ----------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `paymentMethods.creditCard`   | `'all'` or card brand identifiers (string or list), such as `'visa'` or `['visa', 'master']`     | Displays saved credit cards. With identifiers, only those of the listed brands.                  |
+| `paymentMethods.debitCard`    | `'all'` or card brand identifiers                                                                | Displays saved debit cards.                                                                      |
+| `paymentMethods.prepaidCard`  | `'all'` or card brand identifiers                                                                | Displays saved prepaid cards.                                                                    |
+| `paymentMethods.bankTransfer` | `'all'` or a list containing `'account_money'`                                                   | Displays account money. In Brazil, a list with only `['pix']` does not display account money.    |
 
-### Customization
+- Identifiers are not case-sensitive.
+- `'none'`, `''`, `[]`, and `null` mean that the type is not allowed.
+- If you do not declare any of these keys, or none of them enables a Fast Payments method, no Fast Payments method is displayed and the Payment Brick logs a warning to the console. For an eligible buyer, if the Brick has no guest flow method to display either, `onError` receives the `critical` cause `wallet_payment_methods_unavailable`; otherwise the buyer sees only the guest flow methods.
+- `excludedPaymentTypes` and `excludedPaymentMethods` do not apply to Fast Payments methods. Use the keys in the table above.
 
-The Fast Payments Flow supports limited customization options focused on visual appearance and installment configuration.
+### Fast Payments-only or mixed checkout
 
-| Customization key                | Type      | Description                                                                                     |              |
-| -------------------------------- | --------- | ----------------------------------------------------------------------------------------------- | ------------ |
-| `visual`                         | `object`  | Control the visual aspects of the brick. Contains `style`, `font`, `hidePaymentButton`          | **OPTIONAL** |
-| `visual.font`                    | `string`  | Defines the custom font URL. This only applies to the [PCI fields](../fields.md#fields-module). | **OPTIONAL** |
-| `visual.style`                   | `Style`   | Defines custom theme and CSS variables. [See Style section](#style)                             | **OPTIONAL** |
-| `visual.hidePaymentButton`       | `boolean` | Hides the payment button and disables the `onSubmit` callback.                                  | **OPTIONAL** |
-| `paymentMethods`                 | `object`  | Object that allows installment configuration. Contains `maxInstallments`, `minInstallments`     | **OPTIONAL** |
-| `paymentMethods.maxInstallments` | `number`  | Maximum number of installments to be offered to the user                                        | **OPTIONAL** |
-| `paymentMethods.minInstallments` | `number`  | Minimal number of installments to be offered to the user                                        | **OPTIONAL** |
+The payment method type keys also configure the guest flow methods. For an eligible buyer:
+
+| `paymentMethods`, with `quickCheckout` on | What the eligible buyer sees                                                                              |
+| ----------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `bankTransfer: ['account_money']`         | Only account money (Fast Payments-only checkout).                                                         |
+| `creditCard: 'all'`                       | Saved credit cards from Fast Payments and the form for a new card (mixed checkout).                       |
+| `bankTransfer: 'all'`                     | Account money from Fast Payments and the guest flow bank transfer methods, such as Pix in Brazil (mixed). |
+
+`account_money` exists only in Fast Payments and is never sent to the guest flow. A buyer who is not eligible sees only the guest flow methods.
+
+### Installments
+
+`paymentMethods.minInstallments` and `paymentMethods.maxInstallments` also apply to Fast Payments cards:
+
+- Only installments within the range are displayed. A card with no installment within the range is not displayed.
+- With `minInstallments` greater than or equal to 2, debit and prepaid cards (single payment only) are not displayed.
+- If `minInstallments` is greater than `maxInstallments`, the values are swapped and the Payment Brick logs a warning to the console.
+
+### Saved cards from Customers & Cards
+
+If you also send `initialization.payer.customerId` and `cardsIds`, a card the buyer has saved in both places is displayed only once, as Fast Payments. If your payment method declaration hides the Fast Payments card, the Customers & Cards card is still displayed. `defaultPaymentOption.savedCardForm` with the identifier of one of these cards opens the Fast Payments card.
+
+### Limitations with Fast Payments on
+
+These apply only to eligible buyers. For other buyers, the Payment Brick works as in the guest flow.
+
+- `update({ amount })` returns `false` and changes nothing, not even `shipping` or `items` sent in the same call. To use another amount, reload the Payment Brick.
+- `processingMode: 'gateway'` and `merchantAccountId` are ignored throughout the Payment Brick, which processes payments as `aggregator`.
+- When at least one Fast Payments method is displayed, the payment option that redirects to Mercado Pago (`wallet_purchase`) is not displayed, with or without `initialization.marketplace`, and `defaultPaymentOption.walletForm` does not open any option.
+- The Mercado Pago credits onboarding option (`onboarding_credits`) is still displayed. Fast Payments credit options are not available yet.
+
+### Deprecated activations
+
+> Note: `initialization.fastPaymentToken` is deprecated. The Payment Brick logs a console warning when it is present; turn Fast Payments on with `initialization.quickCheckout: ['fastPayment']` instead.
+>
+> Integrations that turn Fast Payments on with `customization.paymentMethods.fastPayment` or `wallet` keep working, with a console warning, but these keys are no longer documented. If `quickCheckout` is present, even empty or invalid, it decides alone and these keys are ignored.
 
 ---
 
-## Data Types
+## Callbacks
 
-### `FastPaymentFormData`
+The callbacks are the same as in the [Guest Flow](./payment-guest.md#callbacks).
 
-```ts
-Transaction[]
-```
+### `onSubmit`
 
-The `FastPaymentFormData` is an array of `Transaction` objects that follows the same structure used by the [Mercado Pago Orders API](https://www.mercadopago.com/developers/en/reference/orders/online-payments/create/post). This data structure is designed to be used directly in the `transactions.payments` field when creating orders through the Orders API.
+`onSubmit` receives a [`PaymentFormData`](./payment-guest.md#paymentformdata) object. Send it to your backend as the request body, unchanged and without an outer key such as `{ formData: paymentFormData }`. Your backend reads the payment fields from `formData`.
 
-#### `Transaction`
+When the selected method comes from Fast Payments (a card saved in the account or account money), `formData` includes `fast_payment: true`, available at `paymentFormData.formData.fast_payment`. For other methods, the key is not sent.
+
+#### `FastPaymentFormData`
 
 ```ts
 {
-    'amount': string,
-    'payment_method': {
-        'id': string,
-        'type': string,
-        'token': string,
-        'installments': number
-    }
+  token: string;
+  transaction_amount: number;
+  payment_method_id: string;
+  installments?: number; // cards only
+  payer: {
+    email: string;
+  };
+  fast_payment: true;
 }
 ```
 
-### `FastPaymentAdditionalData`
+When creating the order, send `payment_method_id` as `transactions.payments[].payment_method.id`, `token` unchanged as `payment_method.token`, and `installments` for cards only (omit it for account money). `payment_method.type` is the category of the selected method received in `PaymentFormData`, such as `credit_card`, `debit_card`, `prepaid_card`, or `account_money`. See [Create Order](https://www.mercadopago.com/developers/en/reference/orders/online-payments/create/post).
 
-```ts
-{
-    'bin': string,
-    'lastFourDigits': string,
-} | null
-```
+### Error handling
 
-### `BrickError`
+`onError` receives a `BrickError` (`type`, `cause`, `message`). The Fast Payments causes are:
 
-```ts
-{
-  type: 'non_critical' | 'critical';
-  message: string;
-  cause: ErrorCause;
-}
-```
+| `cause`                              | `type`         | When it occurs                                                                                    |
+| ------------------------------------ | -------------- | ------------------------------------------------------------------------------------------------- |
+| `wallet_not_available`               | `critical`     | The buyer is not eligible or the site is not supported.                                           |
+| `wallet_authentication_failed`       | `critical`     | Buyer authentication failed or was canceled.                                                      |
+| `wallet_payment_methods_failed`      | `critical`     | The buyer's saved methods could not be loaded.                                                    |
+| `wallet_payment_methods_unavailable` | `critical`     | None of the buyer's saved methods matches the declared methods or the installment range.          |
+| `wallet_authorize_payment_failed`    | `non_critical` | Payment authorization failed. `onSubmit` is not called and the buyer can try again.               |
 
-### `ErrorCause`
-
-The following table lists all possible error causes that can occur in the Payment Brick:
-
-#### Initialization Errors
-
-| Error Cause                           | Description                                                            |
-| ------------------------------------- | ---------------------------------------------------------------------- |
-| `invalid_fast_payment_token`          | The provided fast payment token is invalid or expired                  |
-| `fast_payment_token_is_undefined`     | The fast payment token is undefined when it should have a value        |
-| `already_initialized`                 | The brick has already been initialized and cannot be initialized again |
-| `payment_brick_initialization_failed` | Failed to initialize the payment brick                                 |
-| `incorrect_initialization`            | The brick was initialized with incorrect or invalid parameters         |
-| `container_not_found`                 | The specified container element was not found in the DOM               |
-| `missing_container_id`                | The container ID parameter is missing or empty                         |
-| `missing_locale_property`             | The required locale property is missing from configuration             |
-| `missing_payment_information`         | Essential payment information could not be obtained                    |
-| `missing_payment_type`                | The payment type is not specified or is invalid                        |
-| `missing_required_callbacks`          | Required callback functions are missing from the configuration         |
-| `missing_site_property`               | The required site property is missing from SDK configuration           |
-| `missing_texts`                       | Required text translations are missing for the current locale          |
-| `settings_empty`                      | The settings object is empty or null                                   |
-| `fields_setup_failed`                 | Failed to set up the secure form fields                                |
-| `fields_setup_failed_after_3_tries`   | Failed to set up secure form fields after 3 retry attempts             |
-| `invalid_sdk_instance`                | The SDK instance is invalid or not properly configured                 |
-| `translation_key_not_found`           | A required translation key was not found for the current locale        |
-| `validations_parameter_null`          | A validation parameter is null when it should have a value             |
-
-#### Data Retrieval Errors
-
-| Error Cause                          | Description                                                       |
-| ------------------------------------ | ----------------------------------------------------------------- |
-| `get_account_payment_methods_failed` | Failed to retrieve payment methods from the user's account        |
-| `account_payment_methods_empty`      | The user's account has no available payment methods               |
-| `account_money_empty`                | The user's account has insufficient funds                         |
-| `get_chunk_failed`                   | Failed to load a required code chunk or resource                  |
-| `get_config_assets_failed`           | Failed to load configuration assets required for the Brick        |
-| `get_identification_types_failed`    | Failed to retrieve available identification types for the country |
-| `get_payment_data_failed`            | Failed to retrieve payment data                                   |
-| `get_payment_methods_failed`         | Failed to retrieve the list of available payment methods          |
-
-#### User interaction Errors
-
-| Error Cause                                  | Description                                                          |
-| -------------------------------------------- | -------------------------------------------------------------------- |
-| `incomplete_fields`                          | Required form fields are incomplete or missing                       |
-| `no_installments_in_selected_range`          | No installment options available in the specified range              |
-| `submit_attempt_while_fetching_payment_info` | Attempted to submit while payment information is still being fetched |
-
-#### Payment Processing Errors
-
-| Error Cause                                | Description                                                |
-| ------------------------------------------ | ---------------------------------------------------------- |
-| `card_token_creation_failed`               | Failed to create a secure token for the card               |
-| `secure_fields_card_token_creation_failed` | Failed to create a secure token using PCI-compliant fields |
-| `decode_fast_payment_token_amount_failed`  | Failed to decode the amount from the fast payment token    |
-
----
-
-## Payment Methods Support
-
-The Fast Payments Flow supports multiple payment method types available in the user's Mercado Pago account:
-
-### Supported Payment Types
-
-| Payment Type      | Description                                    | Integration Notes                        |
-| ----------------- | ---------------------------------------------- | ---------------------------------------- |
-| `credit_card`     | User's saved credit cards                      | May require CVV input for security       |
-| `debit_card`      | User's saved debit cards                       | May require CVV input for security       |
-| `account_money`   | User's Mercado Pago account balance            | Direct payment from user's wallet        |
-| `digital_currency`| **Mercado Crédito (Credits)** - BNPL solution | Allows installment payments without cards |
-
----
-
-## Custom Texts
-
-Accepted properties are:
-
-| Property                               | Type     |
-| -------------------------------------- | -------- |
-| `formTitle`                            | `string` |
-| `cardNumber`                           | `object` |
-| `cardNumber.label`                     | `string` |
-| `cardNumber.placeholder`               | `string` |
-| `expirationDate`                       | `object` |
-| `expirationDate.label`                 | `string` |
-| `expirationDate.placeholder`           | `string` |
-| `securityCode`                         | `object` |
-| `securityCode.label`                   | `string` |
-| `securityCode.placeholder`             | `string` |
-| `cardholderName`                       | `object` |
-| `cardholderName.label`                 | `string` |
-| `cardholderName.placeholder`           | `string` |
-| `cardholderIdentification`             | `object` |
-| `cardholderIdentification.placeholder` | `string` |
-| `installmentsSectionTitle`             | `string` |
-| `selectInstallments`                   | `string` |
-| `selectIssuerBank`                     | `string` |
-| `emailSectionTitle`                    | `string` |
-| `email`                                | `object` |
-| `email.label`                          | `string` |
-| `email.placeholder`                    | `string` |
-| `formSubmit`                           | `string` |
-
----
-
-## Style
-
-Style is an object with keys for theme and custom CSS variables.
-
-| Style key         | Type     | Description                                                                      |              |
-| ----------------- | -------- | -------------------------------------------------------------------------------- | ------------ |
-| `theme`           | `string` | Defines theme for Brick. Possible values: `default`, `dark`, `flat`, `bootstrap` | **OPTIONAL** |
-| `customVariables` | `object` | Defines custom variables to be applied. [Possible values](#custom-variables)     | **OPTIONAL** |
-
-`style`
+`critical` causes reach `onError` only when the Payment Brick has no other method to display (Fast Payments-only checkout). In a mixed checkout, the Payment Brick displays only the guest flow methods and does not call `onError`. Each `critical` cause is reported only once; after it, unmount the Payment Brick and display your fallback checkout without automatic retries.
 
 ```js
-{
-    theme: 'dark',
-    customVariables: {
-        textPrimaryColor: 'blue'
-    }
-}
-```
+const isFastPaymentUnavailableError = (error) =>
+  error.type === 'critical' && error.cause.startsWith('wallet_');
 
-### Custom Variables
-
-Accepted properties are:
-
-| Property                     | Type     |
-| ---------------------------- | -------- |
-| `textPrimaryColor`           | `string` |
-| `textSecondaryColor`         | `string` |
-| `inputBackgroundColor`       | `string` |
-| `formBackgroundColor`        | `string` |
-| `baseColor`                  | `string` |
-| `baseColorFirstVariant`      | `string` |
-| `baseColorSecondVariant`     | `string` |
-| `secondaryColor`             | `string` |
-| `errorColor`                 | `string` |
-| `successColor`               | `string` |
-| `secondarySuccessColor`      | `string` |
-| `outlinePrimaryColor`        | `string` |
-| `outlineSecondaryColor`      | `string` |
-| `buttonTextColor`            | `string` |
-| `fontSizeExtraExtraSmall`    | `string` |
-| `fontSizeExtraSmall`         | `string` |
-| `fontSizeSmall`              | `string` |
-| `fontSizeMedium`             | `string` |
-| `fontSizeLarge`              | `string` |
-| `fontSizeExtraLarge`         | `string` |
-| `fontWeightNormal`           | `string` |
-| `fontWeightSemiBold`         | `string` |
-| `formInputsTextTransform`    | `string` |
-| `inputVerticalPadding`       | `string` |
-| `inputHorizontalPadding`     | `string` |
-| `inputFocusedBoxShadow`      | `string` |
-| `inputErrorFocusedBoxShadow` | `string` |
-| `inputBorderWidth`           | `string` |
-| `inputFocusedBorderWidth`    | `string` |
-| `borderRadiusSmall`          | `string` |
-| `borderRadiusMedium`         | `string` |
-| `borderRadiusLarge`          | `string` |
-| `borderRadiusFull`           | `string` |
-| `formPadding`                | `string` |
-
-> Note: All sizing properties accept values in: `px`, `rem`, `em`, and `%`
-
----
-
-## Brick Controller
-
-The Brick Controller contains methods that allow the integrator to interact with the rendered Brick.
-
-|                   |            |
-| ----------------- | ---------- |
-| unmount           | **METHOD** |
-| getFormData       | **METHOD** |
-| getAdditionalData | **METHOD** |
-
-### `Brick Controller`.unmount()
-
-The `unmount` method removes the rendered Brick from the page.
-
-#### Params
-
-None.
-
-#### Returns
-
-`void`
-
-### `Brick Controller`.getFormData()
-
-The `getFormData` method returns the data the user filled in the form (only works if the submit button is disabled).
-
-#### Params
-
-None.
-
-#### Returns
-
-`FastPaymentFormData`
-
-### `Brick Controller`.getAdditionalData()
-
-The `getAdditionalData` method returns additional data that may be useful to you (only works if the submit button is disabled).
-
-#### Params
-
-None.
-
-#### Returns
-
-`FastPaymentAdditionalData`
-
-## Integration with Orders API
-
-The Fast Payments Flow is designed to work seamlessly with the Mercado Pago Orders API. The `formData` returned in the `onSubmit` callback can be used directly as the `transactions.payments` array when creating an order.
-
-**Important**: The Orders API is a backend API that requires merchant credentials. Your frontend should send the payment data to your own server, which will then make the authenticated call to the Mercado Pago Orders API.
-
-### Example Integration
-
-```js
-onSubmit: async (formData, additionalData) => {
-  // Send payment data to your backend server
-  try {
-    const response = await fetch('/process_payment', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ formData, additionalData }),
-    });
-
-    const result = await response.json();
-    // Handle payment processing result
-  } catch (error) {
-    // Handle error
-  }
+const callbacks = {
+  onError: (error) => {
+    hideLoader();
+    if (!isFastPaymentUnavailableError(error)) return;
+    hideFastPayments();
+    showCheckoutFallback();
+  },
 };
 ```
 
-For complete Orders API documentation, see: [Create Order - Mercado Pago Developers](https://www.mercadopago.com/developers/en/reference/orders/online-payments/create/post)
+> Note: `hideLoader`, `hideFastPayments`, and `showCheckoutFallback` are illustrative functions that your integration must implement.
+
+For the other error causes, see the [Guest Flow `ErrorCause`](./payment-guest.md#errorcause).
+
+---
+
+## Integration with Orders API
+
+The Orders API is a backend API that requires your credentials. Your frontend sends `PaymentFormData` to your own server, which makes the authenticated `POST /v1/orders` call. For complete documentation, see [Create Order - Mercado Pago Developers](https://www.mercadopago.com/developers/en/reference/orders/online-payments/create/post).
